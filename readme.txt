@@ -1,4 +1,4 @@
-=== ag-custom-admin ===
+=== AG Custom Admin ===
 Contributors: argonius
 Donate link: http://wordpress.argonius.com/donate
 Tags: admin, customize, hide, change admin
@@ -27,7 +27,7 @@ Here is the list of options:
 	- Change login photo. Add custom photo
 	- Change text in login top bar
 	- Change Dashboard text
-	- Add Custom text on Dashboard page. Completely customizable Dashboard page using HTML tags
+	- Add Custom text on Dashboard page, or add custom HTML content.
 	- Custom text supports HTML tags. You can add custom links to your website
 	- Remove default header icon
 	- Remove Favorites menu from header
@@ -45,13 +45,13 @@ For more information about the plugin please see: http://wordpress.argonius.com/
 
 == Frequently Asked Questions ==
 
-= My text is not in place that I want it to be. How to fix it? =
-In that case use one of HTML tags to surround your text, e.g. <h1>My text</h1>, or other (h2,h3.. a, p, etc.)
+= My text is not in the right place. How to fix it? =
+It is possible that WordPress usualy wraps that text with some HTML tags. In that case use one of HTML tags to surround your text, e.g. &lt;h1&gt;My text&lt;/h1&gt;, or other (a, p, h2, h3..  etc.)
 
 == Screenshots ==
 
-1. screenshot-1.jpg
-2. screenshot-2.jpg
+1. Text in header or footer could be customized.
+2. Login page top bar could be changer or removed. Custom login photo could be added.
 
 == Changelog ==
 
