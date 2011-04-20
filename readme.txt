@@ -13,7 +13,9 @@ With this plugin You can hide or change unwanted items from admin and login page
 You can easily change header or footer text, remove unwanted options like Screen options, Help options
 or Favorites dropdown menu.
 
-Admin Bar Options
+Here is the list of options:
+
+	Admin Bar Options
 	- Hide admin bar completely
 	- Hide Privacy link (link next to heading in admin bar)
 	- Hide WordPress logo in admin bar
@@ -27,18 +29,18 @@ Admin Bar Options
 	- Change Log out text
 	- Log out link only
 
-Admin Footer Options
+	Admin Footer Options
 	- Hide footer completely
 	- Change footer text
 	- Change/remove footer version text
 
-Dasboard Page Options
+	Dasboard Page Options
 	- Hide Dashboard heading icon
 	- Change Dashboard heading text
 	- Add custom Dashboard content
 	- Hide Dashboard button from main menu
 
-Login Page Options
+	Login Page Options
 	- Hide Login top bar completely
 	- Change Login top bar text
 	- Change/remove Login header image
