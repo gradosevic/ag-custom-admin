@@ -215,6 +215,9 @@ class AGCA{
 			.underline_text{
 				text-decoration:underline;
 			}
+			.form-table th{
+				width:300px;
+			}
 		</style>
 	<?php 	
 	}
@@ -255,43 +258,43 @@ class AGCA{
 	function agca_admin_page() {
 		?>
 					<div class="wrap">
-			<h1>AG Custom Admin Options</h1>						
+			<h1>AG Custom Admin Settings</h1>						
 										<br />						
 			<form method="post" action="options.php">
 				<?php settings_fields( 'agca-options-group' ); ?>				
-				<table class="form-table">
+				<table class="form-table" width="500px">
 							<tr valign="center">
-								<th scope="row">
-									<h2>Header Options</h2>
+								<th scope="row" colspan="2">
+									<h2>Admin Bar Options</h2>
 								</th>						
 							</tr>
 							<br />
 							<tr valign="center">
-								<td scope="row">
-									<label for="agca_header"><p><strong>Hide header completely</strong></p></label>
+								<td >
+									<label for="agca_header"><p><strong>Hide admin bar completely</strong></p></label>
 								</td>
-								<td scope="row">					
+								<td>					
 									<input type="checkbox" name="agca_header" value="true" <?php if (get_option('agca_header')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr> 
 							<tr valign="center">
-								<th scope="row">
+								<th >
 									<br /><p class="underline_text">On left:</p>
 								</th>
 								<td>									
 								</td>
 							</tr>
 							<tr valign="center">
-								<th scope="row">
-									<label for="agca_privacy_options">Hide Privacy link</label>
+								<th >
+									<label for="agca_privacy_options">Hide Privacy link <br /> <em>(link next to heading in admin bar)</em></label>
 								</th>
 								<td>					
 									<input type="checkbox" name="agca_privacy_options" value="true" <?php if (get_option('agca_privacy_options')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr> 
 							<tr valign="center">
-								<th scope="row">
-									<label for="agca_header_logo">Hide header logo</label>
+								<th >
+									<label for="agca_header_logo">Hide WordPress logo in admin bar</label>
 								</th>
 								<td>					
 									<input type="checkbox" name="agca_header_logo" value="true" <?php if (get_option('agca_header_logo')==true) echo 'checked="checked" '; ?> />
@@ -299,16 +302,15 @@ class AGCA{
 							</tr> 
 							<tr valign="center">
 								<th scope="row">
-									<label for="agca_custom_site_heading">Custom site heading</label>
+									<label for="agca_custom_site_heading">Custom blog heading in admin bar</label>
 								</th>
 								<td>
-								<textarea rows="5" name="agca_custom_site_heading" cols="40"><?php echo htmlspecialchars(get_option('agca_custom_site_heading')); ?>									
-									</textarea><p><em><strong>Info: </strong>Use 'h1' and/or 'a' tag</em></p>
+								<textarea rows="5" name="agca_custom_site_heading" cols="40"><?php echo htmlspecialchars(get_option('agca_custom_site_heading')); ?></textarea><p><em><strong>Info: </strong>You can use HTML tags like 'h1' and/or 'a' tag</em></p>
 								</td>
 							</tr> 
 							<tr valign="center">
 								<th scope="row">
-									<label for="agca_update_bar">Hide WP update to latest version notification</label>
+									<label for="agca_update_bar">Hide WordPress update notification bar</label>
 								</th>
 								<td>					
 									<input type="checkbox" name="agca_update_bar" value="true" <?php if (get_option('agca_update_bar')==true) echo 'checked="checked" '; ?> />
@@ -316,7 +318,7 @@ class AGCA{
 							</tr> 
 							<tr valign="center">
 								<th scope="row">
-									<label for="agca_site_heading">Hide original site heading</label>
+									<label for="agca_site_heading">Hide default blog heading in admin bar</label>
 								</th>
 								<td>					
 									<input type="checkbox" name="agca_site_heading" value="true" <?php if (get_option('agca_site_heading')==true) echo 'checked="checked" '; ?> />
@@ -324,7 +326,7 @@ class AGCA{
 							</tr>
 							<tr valign="center">
 								<th scope="row">
-									<br /><p class="underline_text">On right</p>
+									<br /><p class="underline_text">On right:</p>
 								</th>
 								<td>									
 								</td>
@@ -375,8 +377,8 @@ class AGCA{
 							</tr> 
 
 							 <tr valign="center">
-								<th scope="row">
-									<br /><br /><br /><h2>Footer Options</h2>
+								<th scope="row" colspan="2">
+									<br /><br /><br /><h2>Admin Footer Options</h2>
 								</th>
 								<td>									
 								</td>
@@ -394,8 +396,7 @@ class AGCA{
 									<label for="agca_footer_left">Change footer text</label>
 								</th>
 								<td>
-									<textarea rows="5" name="agca_footer_left" cols="40"><?php echo htmlspecialchars(get_option('agca_footer_left')); ?>									
-									</textarea>
+									<textarea rows="5" name="agca_footer_left" cols="40"><?php echo htmlspecialchars(get_option('agca_footer_left')); ?></textarea>
 								</td>						
 							</tr> 
 							<tr valign="center">
@@ -410,20 +411,19 @@ class AGCA{
 									<label for="agca_footer_right">Change version text</label>
 								</th>
 								<td>
-									<textarea rows="5" name="agca_footer_right" cols="40"><?php echo htmlspecialchars(get_option('agca_footer_right')); ?>									
-									</textarea>
+									<textarea rows="5" name="agca_footer_right" cols="40"><?php echo htmlspecialchars(get_option('agca_footer_right')); ?></textarea>
 								</td>
 							</tr> 								
 							<tr valign="center">
 								<th scope="row" colspan="2">
-									<br /><br /><br /><h2>Dashboard Options</h2>
+									<br /><br /><br /><h2>Dashboard Page Options</h2>
 								</th>
 								<td>									
 								</td>
 							</tr>
 							<tr valign="center">
 								<th scope="row">
-									<label for="agca_dashboard_icon">Hide Dashboard icon</label>
+									<label for="agca_dashboard_icon">Hide Dashboard heading icon</label>
 								</th>
 								<td>					
 									<input type="checkbox" name="agca_dashboard_icon" value="true" <?php if (get_option('agca_dashboard_icon')==true) echo 'checked="checked" '; ?> />
@@ -431,22 +431,21 @@ class AGCA{
 							</tr>
 							<tr valign="center">
 								<th scope="row">
-									<label for="agca_dashboard_text">Change Dashboard text</label>
+									<label for="agca_dashboard_text">Change Dashboard heading text</label>
 								</th>
 								<td><input type="text" size="47" name="agca_dashboard_text" value="<?php echo get_option('agca_dashboard_text'); ?>" /></td>
 							</tr>
 							<tr valign="center">
 								<th scope="row">
-									<label for="agca_dashboard_text_paragraph">Add Dashboard paragraph text</label>
+									<label for="agca_dashboard_text_paragraph">Add custom Dashboard content<br> <em>(text or HTML content)</em></label>
 								</th>
 								<td>
-								<textarea rows="5" name="agca_dashboard_text_paragraph" cols="40"><?php echo htmlspecialchars(get_option('agca_dashboard_text_paragraph')); ?>									
-									</textarea>
+								<textarea rows="5" name="agca_dashboard_text_paragraph" cols="40"><?php echo htmlspecialchars(get_option('agca_dashboard_text_paragraph')); ?></textarea>
 								</td>
 							</tr>
 							<tr valign="center">
 								<th scope="row">
-									<label for="agca_menu_dashboard">Hide Dashboard from menu</label>
+									<label for="agca_menu_dashboard">Hide Dashboard button from main menu</label>
 								</th>
 								<td>					
 									<input type="checkbox" name="agca_menu_dashboard" value="true" <?php if (get_option('agca_menu_dashboard')==true) echo 'checked="checked" '; ?> />
@@ -476,8 +475,7 @@ class AGCA{
 									<label for="agca_login_banner_text">Change Login top bar text</label>
 								</th>
 								<td>
-									<textarea rows="5" name="agca_login_banner_text" cols="40"><?php echo htmlspecialchars(get_option('agca_login_banner_text')); ?>									
-									</textarea>&nbsp;<p><i>You should surround it with anchor tag &lt;a&gt;&lt;/a&gt;.</i></p>
+									<textarea rows="5" name="agca_login_banner_text" cols="40"><?php echo htmlspecialchars(get_option('agca_login_banner_text')); ?></textarea>&nbsp;<p><i>You should surround it with anchor tag &lt;a&gt;&lt;/a&gt;.</i></p>
 								</td>
 							</tr> 
 							<tr valign="center">
