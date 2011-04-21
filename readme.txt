@@ -10,7 +10,7 @@ Hide or change items in admin panel.
 
 == Description ==
 With this plugin You can hide or change unwanted items from admin and login page. 
-You can easily change header or footer text, remove unwanted options like Screen options, Help options
+For example, You can easily change header or footer text, remove unwanted options like Screen options, Help options
 or Favorites dropdown menu.
 
 Here is the list of options:
