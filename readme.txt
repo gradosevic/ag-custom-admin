@@ -6,7 +6,7 @@ Requires at least: 3.0
 Tested up to: 3.1.2
 Stable tag: 1.2
 
-Hide or change items in admin panel.
+Hide or change items in admin panel. Customize buttons from admin menu.
 
 == Description ==
 With this plugin You can hide or change unwanted items in admin and login pages. 
