@@ -1,0 +1,2 @@
+ADmin menu - add new button
+- When editing new button, if edit is clicked, and then remove is clicked, it is not possible to press any other edit button.
