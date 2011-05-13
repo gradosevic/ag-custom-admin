@@ -9,17 +9,23 @@ function booleanToChecked(bool){
 
 function hideShowSubmenus(index){
 	
-	var finish = false;	
+	var finish = false;
+	var	found = false;
 	jQuery('#ag_edit_adminmenu td').each(function(){	
 		if(jQuery('#ag_edit_adminmenu td').index(jQuery(this)) >= index && (finish == false)){			
 			if(jQuery(this).hasClass('ag_admin_menu_child')){
 				jQuery(this).parent().toggleClass('noclass');
+				found = true;
 			}
 			if((jQuery('#ag_edit_adminmenu td').index(jQuery(this)) > index) && jQuery(this).hasClass('ag_admin_menu_parent')){			
 				finish = true;
 			}
 		}
 	});
+	/*FOCUS*/
+	if(!jQuery('#ag_edit_adminmenu td').eq((index+2)).parent().hasClass('noclass') && (found == true)){
+		jQuery('#ag_edit_adminmenu td').eq((index+2)).find('a').trigger('focus');		
+	};	
 }
 
 /*
@@ -41,7 +47,10 @@ function prettyEditMenuPage(){
 		});
 		};
 	});
-	
+	jQuery('#ag_edit_adminmenu td > a').bind('click',function(){	
+		jQuery(this).parent().click();		
+		//jQuery(this).parent().focus();
+	});
 };
 
 function createEditMenuPage(checkboxes,textboxes){		
@@ -54,8 +63,10 @@ function createEditMenuPage(checkboxes,textboxes){
 		TBlength = 9999999;
 	}
 	
+	var topElement="";
 	jQuery('ul#adminmenu li').each(function(){  
 		if(!jQuery(this).hasClass("wp-menu-separator") && !jQuery(this).hasClass("wp-menu-separator-last") && !jQuery(this).hasClass("ag-custom-button") && (counter < TBlength )){	
+			
 			//if subelement
 			if(jQuery(this).parent().parent().hasClass('wp-submenu')){	
 				subElement = jQuery(this).find('a').text();
@@ -69,11 +80,11 @@ function createEditMenuPage(checkboxes,textboxes){
 					sub_item_text_value = textboxes[counter][1];
 					isHidden = checkboxes[counter][1];
 				}	
-				jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_child'><div style=\"float:left\">"+subElement+"</div><div style=\"float:right\"><input type=\"checkbox\" class=\""+subElement+"\" "+booleanToChecked(isHidden)+"  name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></div></td><td class='ag_admin_menu_child2' ><input type=\"text\" class=\""+subElement+"\" size=\"47\" value=\""+sub_item_text_value+"\" name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></td></tr>");
+				jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_child'><div style=\"float:left\"><a tabindex=\"-1\" href=\"javascript:void(0)\" style=\"font-weight:bold;\"title=\""+topElement+" submenu: "+subElement+"\"><span style=\"font-weight:normal\">submenu: </span>"+subElement+"</a></div><div style=\"float:right\"><input type=\"checkbox\" title=\"Remove "+topElement+" submenu: "+subElement+" from menu\" class=\""+subElement+"\" "+booleanToChecked(isHidden)+"  name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></div></td><td class='ag_admin_menu_child2' ><input type=\"text\" title=\"Rename submenu item "+subElement+" with this value\" class=\""+subElement+"\" size=\"47\" value=\""+sub_item_text_value+"\" name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></td></tr>");
 			}
 			//if top element
 			else{
-				var topElement = jQuery(this).children('a').clone().children().remove().end().text();		
+				topElement = jQuery(this).children('a').clone().children().remove().end().text();		
 				topElement = jQuery.trim(topElement);
 				var top_item_text_value;
 				var isHidden = "";
@@ -83,7 +94,7 @@ function createEditMenuPage(checkboxes,textboxes){
 					top_item_text_value = textboxes[counter][1];
 					isHidden = checkboxes[counter][1];
 				}	
-				jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_parent'><br />" + topElement +"<div style=\"float:right\"><input class=\""+jQuery(this).attr("id")+"\" type=\"checkbox\" "+booleanToChecked(isHidden)+" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></div></td><td class='ag_admin_menu_parent2' ><input type=\"text\" class=\""+jQuery(this).attr("id")+"\" size=\"47\" value=\""+top_item_text_value+"\" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></td></tr>");
+				jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_parent'><br /><a tabindex=\"0\" href=\"javascript:void(0)\" >" + topElement +"</a><div style=\"float:right\"><input title=\"Remove "+topElement+" from menu\" class=\""+jQuery(this).attr("id")+"\" type=\"checkbox\" "+booleanToChecked(isHidden)+" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></div></td><td class='ag_admin_menu_parent2' ><input title=\"Rename "+topElement+" with this value\" type=\"text\" class=\""+jQuery(this).attr("id")+"\" size=\"47\" value=\""+top_item_text_value+"\" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></td></tr>");
 			}			
 		counter++;
 		}		
@@ -96,17 +107,21 @@ function createEditMenuPage(checkboxes,textboxes){
 function showHideSection(text) {	
 	switch(text)
 	{
-		case 'Admin Bar': jQuery('#section_admin_bar').show();
+		case 'Admin Bar': jQuery('#section_admin_bar').show(); jQuery('#section_admin_bar .section_title').trigger('focus');							
 			break;
-		case 'Admin Footer': jQuery('#section_admin_footer').show();
+		case 'Admin Footer': jQuery('#section_admin_footer').show(); jQuery('#section_admin_footer .section_title').trigger('focus');
 			break;
-		case 'Dashboard Page': jQuery('#section_dashboard_page').show();
+		case 'Dashboard Page': jQuery('#section_dashboard_page').show(); jQuery('#section_dashboard_page .section_title').trigger('focus');
 			break;
-		case 'Login Page': jQuery('#section_login_page').show();
+		case 'Login Page': jQuery('#section_login_page').show(); jQuery('#section_login_page .section_title').trigger('focus');
 			break;
-		case 'Admin Menu': jQuery('#section_admin_menu').show();
+		case 'Admin Menu': jQuery('#section_admin_menu').show(); jQuery('#section_admin_menu .section_title').trigger('focus');
+			break; 
+		case 'Plugin Settings': jQuery('#section_agca_settings').show(); jQuery('#section_agca_settings .section_title').trigger('focus');
 			break;
-		default: jQuery('#section_admin_bar').show();
+		default: jQuery('#section_admin_bar').show(); jQuery('#section_admin_bar .section_title').trigger('focus');
+		
+		
 	}
 }
 
@@ -155,9 +170,8 @@ function reloadRemoveButtonEvents(){
 
 jQuery(document).ready(function(){	
 	/*Add click handler on main buttons*/
-	jQuery('#ag_main_menu li').bind('click',function(){
-		hideAllSections();
-		
+	jQuery('#ag_main_menu a, #ag_main_menu li').bind('click',function(){
+		hideAllSections();		
 		var text = jQuery(this).text();
 		jQuery(this).attr("class","selected");		
 		showHideSection(text);
@@ -200,6 +214,10 @@ jQuery(document).ready(function(){
 			  jQuery(this).attr('title', jQuery("#AGToolTipDiv").html());
 			});
 	  });
+	  
+	  /*SECTION FOCUS*/
+	  jQuery('.section_title').focus(function(){		
+	  });	 
 });
 
 /*CLICKING ON ITEMS HANDLING*/

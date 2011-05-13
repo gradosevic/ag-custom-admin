@@ -24,6 +24,10 @@
 	background-color:#A9F500;
 	cursor:pointer;
 }
+#ag_main_menu li a{
+	text-decoration:none;
+	color: green;
+}
 .ag_table_heading{
 	background-color:#A9F5A9;
 	display:block;
@@ -72,12 +76,16 @@ td.ag_admin_menu_parent:hover{
 }
 #ag_edit_adminmenu td.ag_admin_menu_child {
 	margin:0;
-	padding:30px;
+	padding:15px;
 	padding-top:0;
-	padding-bottom:0;	
+	padding-bottom:0;		
 }
 #ag_edit_adminmenu th h2{
 	color:#fff;
+}
+#ag_edit_adminmenu a{
+	text-decoration:none;
+	color:#444;
 }
 #adminmenu{
 	display:none;
