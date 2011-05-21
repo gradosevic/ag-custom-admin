@@ -117,7 +117,7 @@ function showHideSection(text) {
 			break;
 		case 'Admin Menu': jQuery('#section_admin_menu').show(); jQuery('#section_admin_menu .section_title').trigger('focus');
 			break; 
-		case 'Plugin Settings': jQuery('#section_agca_settings').show(); jQuery('#section_agca_settings .section_title').trigger('focus');
+		case 'Colorizer': jQuery('#section_ag_colorizer_settings').show(); jQuery('#section_ag_colorizer_settings .section_title').trigger('focus');
 			break;
 		default: jQuery('#section_admin_bar').show(); jQuery('#section_admin_bar .section_title').trigger('focus');
 		
@@ -294,6 +294,76 @@ jQuery(document).ready(function(){
 		if(element == 1){array="";}
 		jQuery('#ag_add_adminmenu_json').val(array);
 		
+		
+		/*Serialize colors*/
+		var array = "{";
+		var firstElement = true;
+		var topMarker = "";
+		jQuery('input.color_picker').each(function(){	
+				if(firstElement != true){
+					array += ", ";				
+				}			
+				array += "\"" + jQuery(this).attr('id') + "\" : ";
+				array += "\"" + jQuery(this).val() + "\"";
+				firstElement = false;			
+		});
+		array += "}";
+		jQuery('#ag_colorizer_json').val(array);
+		
 		return true;
 	});
 });
+
+/*C O L O R I Z E R*/
+function updateTargetColor(id, color){
+	switch(id)
+		{
+		case 'color_background':
+		  jQuery('html, .wp-dialog').css({'background-color':color});
+		  break;
+		case 'color_footer':
+			jQuery('#footer').css({'background':color});
+		  break;
+		 case 'color_header':
+			jQuery('#wphead').css({'background':color});
+		  break;
+		  case 'color_admin_menu_top_button_background':
+			jQuery('#adminmenu a.menu-top').css({'background':color});
+		  break;
+		   case 'color_admin_menu_submenu_background':
+		   jQuery("#adminmenu li.wp-has-current-submenu").removeClass("wp-has-current-submenu");			
+			jQuery('#adminmenu .wp-submenu a, #adminmenu li.wp-has-current-submenu .wp-submenu a').each(function(){
+				jQuery(this).css({'background':color});			
+			});
+		  break;
+		    case 'color_admin_menu_font':
+			jQuery('#adminmenu, #adminmenu a, #adminmenu p').css({'color':color});
+		  break;
+		   case 'color_admin_menu_submenu_background_over':
+			//jQuery('#adminmenu .wp-submenu a:hover').css({'background':color});
+		  break;
+		   case 'color_font_content':
+			jQuery('#wpbody-content, #wpbody-content label, #wpbody-content p,#wpbody-content .form-table th, #wpbody-content .form-wrap label').css({'color':color});
+		  break;
+		   case 'color_font_header':
+			jQuery('#wphead, #wphead a').css({'color':color});
+		  break;
+		   case 'color_font_footer':
+			jQuery('#footer, #footer a').css({'color':color});
+		  break;		 
+		default:	
+		}	
+}
+function updateColor(id,color){
+		jQuery("#"+id).css({'background-color':color});
+		jQuery("#"+id).val(color);
+		if(isDarker(color) == true){
+			jQuery("#"+id).css('color','#ffffff');
+		}else{
+			jQuery("#"+id).css('color','#000000');
+		}		
+		updateTargetColor(id,color);
+}
+/*First load apply colours from fields*/
+
+/*C O L O R I Z E R  E N D*/
