@@ -50,9 +50,10 @@ Here is the list of options:
 	- Rename menu and submenu items
 	- Remove menu and submenu items
 	- Add new buttons with custom links
+	- Remove icons from admin menu buttons
 	
 	Colorizer
-	- Change colors of elements in admin and login panel, footer, header, admin menu background and text colors
+	- Change background and text colors on admin and login page
 
 
 For more information about the plugin please see: http://wordpress.argonius.com/ag-custom-admin
