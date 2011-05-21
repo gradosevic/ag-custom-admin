@@ -4,9 +4,9 @@ Donate link: http://wordpress.argonius.com/donate
 Tags: admin, customize, hide, change admin
 Requires at least: 3.0
 Tested up to: 3.1.2
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 
-Hide or change items in admin panel. Customize buttons from admin menu.
+Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 
 == Description ==
 With this plugin You can hide or change unwanted items in admin and login pages. 
@@ -51,6 +51,9 @@ Here is the list of options:
 	- Rename menu and submenu items
 	- Remove menu and submenu items
 	- Add new buttons with custom links
+	
+	Colorizer
+	- Change colors of elements in admin and login panel, footer, header, admin menu background and text colors
 
 
 For more information about the plugin please see: http://wordpress.argonius.com/ag-custom-admin
@@ -71,8 +74,15 @@ It is possible that WordPress usually wraps that text with some HTML tags. In th
 1. Text in header or footer could be customized.
 2. Login page top bar could be changer or removed. Custom login photo could be added.
 3. Admin menu is completely customizable. You can rename or remove items in menu and submenu, or add brand new buttons with custom links.
+4. Add custom background and text colors in admin and login pages.
 
 == Changelog ==
+
+= 1.2.2 =
+* Added Colorizer for changing colors in admin and login panel
+* Added option for excluding admin from settings.
+* Fixed bug for slow computers: Default settings are visible few moments before applying custom settings.
+* Added option for removing icons from admin menu buttons
 
 = 1.2.1 =
 * Improved accessibility
@@ -103,6 +113,9 @@ It is possible that WordPress usually wraps that text with some HTML tags. In th
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.2.2 =
+Added demo Colorizer for adding custom colors in admin and login pages. Fixed bug for slow computers, default settings should not be visible before custom settings. Added support for excluding administrator from settings. Added option for removing icons from admin menu buttons.
 
 = 1.2.1 =
 This is minor upgrade from 1.2 to 1.2.1 version. Mostly it is based on optimization for screen readers and improving accessibility. You definitly need to upgrade this plugin if you have version older than 1.2.
