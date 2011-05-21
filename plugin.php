@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpress.org/extend/plugins/ag-custom-admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu.
 Author: Argonius
-Version: 1.2
+Version: 1.2.2
 Author URI: http://wordpress.argonius.com/ag-custom-admin
 
 	Copyright 2011. Argonius (email : info@argonius.com)
@@ -28,7 +28,7 @@ Author URI: http://wordpress.argonius.com/ag-custom-admin
 $agca = new AGCA();
 
 class AGCA{
-	
+	private $colorizer="";	
 	public function __construct()
 	{		
 				
@@ -42,6 +42,9 @@ class AGCA{
 		/*Styles*/
 	//	add_action('admin_menu', array(&$this,'agca_get_styles'));
 	//	add_action('login_head', array(&$this,'agca_get_styles'));
+	
+		/*Initialize properties*/
+		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 	}
 	// Add donate and support information
 	function jk_filter_plugin_links($links, $file)
@@ -58,6 +61,7 @@ class AGCA{
 		?>			
 			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/ag_style.css" />
 			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/ag_script.js"></script>	
+			
 		<?php
 	}
 	
@@ -68,7 +72,8 @@ class AGCA{
 			
 	}
 	
-	function agca_register_settings() {
+	function agca_register_settings() {	
+		register_setting( 'agca-options-group', 'agca_role_allbutadmin' );
 		register_setting( 'agca-options-group', 'agca_screen_options_menu' );
 		register_setting( 'agca-options-group', 'agca_help_menu' );
 		register_setting( 'agca-options-group', 'agca_logout' );
@@ -112,13 +117,17 @@ class AGCA{
 		register_setting( 'agca-options-group', 'agca_admin_menu_turnonoff' );	
 		register_setting( 'agca-options-group', 'agca_admin_menu_agca_button_only' );	
 		register_setting( 'agca-options-group', 'agca_admin_menu_separator_first' );	
-		register_setting( 'agca-options-group', 'agca_admin_menu_separator_second' );		
+		register_setting( 'agca-options-group', 'agca_admin_menu_separator_second' );	
+		register_setting( 'agca-options-group', 'agca_admin_menu_icons' );		
 		register_setting( 'agca-options-group', 'ag_edit_adminmenu_json' );
 		register_setting( 'agca-options-group', 'ag_add_adminmenu_json' );	
+		register_setting( 'agca-options-group', 'ag_colorizer_json' );	
+		register_setting( 'agca-options-group', 'agca_colorizer_turnonoff' );	
 		
 	}
 
-	function agca_deactivate() {
+	function agca_deactivate() {	
+		delete_option( 'agca_role_allbutadmin' );
 		delete_option( 'agca_screen_options_menu' );
 		delete_option(  'agca_help_menu' );
 		delete_option(  'agca_logout' );
@@ -163,9 +172,11 @@ class AGCA{
 		delete_option(  'agca_admin_menu_agca_button_only' );
 		delete_option(  'agca_admin_menu_separator_first' );
 		delete_option(  'agca_admin_menu_separator_second' );
+		delete_option(  'agca_admin_menu_icons' );
 		delete_option(  'ag_edit_adminmenu_json' );
-		delete_option(  'ag_add_adminmenu_json' );	
-	
+		delete_option(  'ag_add_adminmenu_json' );
+		delete_option(  'ag_colorizer_json' );	
+		delete_option(  'agca_colorizer_turnonoff' );
 	}   
 	function agca_create_menu() {
 	//create new top-level menu		
@@ -202,7 +213,12 @@ class AGCA{
 		$array ="";
 		$first = true;
 		//print_r($json);
-		if($type == "buttons"){
+		if($type == "colorizer"){
+			$elements = json_decode($arr[0],true);
+			if($elements !=""){
+				return $elements;
+			}
+		}else if($type == "buttons"){
 			$elements = json_decode($arr[0],true);
 			if($elements !=""){
 				foreach($elements as $k => $v){		
@@ -234,8 +250,6 @@ class AGCA{
 		return $array;			
 	}
 	
-
- 
 	function remove_dashboard_widget($widget,$side)	
 	{
 		//side can be 'normal' or 'side'
@@ -248,13 +262,35 @@ class AGCA{
 		$this->agca_get_includes();
 		
 		get_currentuserinfo() ;
-		global $user_level;		
-	?>		
-	      <script type="text/javascript">
-        /* <![CDATA[ */
-            jQuery(document).ready(function() {
-			
+		global $user_level;	
 
+	?>		
+		
+<script type="text/javascript">
+document.write('<style type="text/css">html{display:none;}</style>');
+  /* <![CDATA[ */
+jQuery(document).ready(function() {	
+				//get saved onfigurations	
+					<?php	$checkboxes = $this->jsonMenuArray(get_option('ag_edit_adminmenu_json'),'0');	?>
+					var checkboxes = <?php echo "[".$checkboxes."]"; ?>;
+
+					<?php	$textboxes = $this->jsonMenuArray(get_option('ag_edit_adminmenu_json'),'1');	?>
+					var textboxes = <?php echo "[".$textboxes."]"; ?>;
+					
+					<?php	$buttons = $this->jsonMenuArray(get_option('ag_add_adminmenu_json'),'buttons');	?>
+					var buttons = '<?php echo $buttons; ?>';	
+					
+					<?php	$buttonsJq = $this->jsonMenuArray(get_option('ag_add_adminmenu_json'),'buttonsJq');	?>
+					var buttonsJq = '<?php echo $buttonsJq; ?>';					
+					
+					createEditMenuPage(checkboxes,textboxes);
+			
+		<?php
+		//if admin, and option to hide settings for admin is set
+		if((get_option('agca_role_allbutadmin')==true) and  ($user_level > 9)){	
+		?>				
+		<?php } else{ ?>
+			
 					<?php if(get_option('agca_screen_options_menu')==true){ ?>
 							jQuery("#screen-options-link-wrap").css("display","none");
 					<?php } ?>	
@@ -394,24 +430,20 @@ class AGCA{
 					?>
 					
 					
-					<?php /*ADMIN MENU*/ ?>	
-
-					//saved user menu configuration	
-					<?php	$checkboxes = $this->jsonMenuArray(get_option('ag_edit_adminmenu_json'),'0');	?>
-					var checkboxes = <?php echo "[".$checkboxes."]"; ?>;
-
-					<?php	$textboxes = $this->jsonMenuArray(get_option('ag_edit_adminmenu_json'),'1');	?>
-					var textboxes = <?php echo "[".$textboxes."]"; ?>;
+					<?php /*ADMIN MENU*/ ?>							
+								
 					
-					<?php	$buttons = $this->jsonMenuArray(get_option('ag_add_adminmenu_json'),'buttons');	?>
-					var buttons = '<?php echo $buttons; ?>';	
-					
-					<?php	$buttonsJq = $this->jsonMenuArray(get_option('ag_add_adminmenu_json'),'buttonsJq');	?>
-					var buttonsJq = '<?php echo $buttonsJq; ?>';	
-				
-					
-					createEditMenuPage(checkboxes,textboxes);
-					
+							<?php if(get_option('agca_admin_menu_separator_first')==true){ ?>											
+								jQuery("li.wp-menu-separator").eq(0).css("display","none");
+							<?php } ?>
+							<?php if(get_option('agca_admin_menu_separator_second')==true){ ?>											
+								jQuery("li.wp-menu-separator").eq(1).css("display","none");
+							<?php } ?>	
+							<?php if(get_option('agca_admin_menu_icons') == true){ ?>											
+										jQuery(".wp-menu-image").each(function(){
+											jQuery(this).css("display","none");
+										});
+							<?php } ?>	
 					<?php if(get_option('agca_admin_menu_turnonoff') == 'on'){ ?>
 					
 					<?php /*If Turned on*/ ?>
@@ -427,13 +459,8 @@ class AGCA{
 										jQuery(this).addClass('noclass');
 									}
 								});
-							 <?php } ?>					
-							<?php if(get_option('agca_admin_menu_separator_first')==true){ ?>											
-								jQuery("li.wp-menu-separator").eq(0).css("display","none");
-							<?php } ?>
-							<?php if(get_option('agca_admin_menu_separator_second')==true){ ?>											
-								jQuery("li.wp-menu-separator").eq(1).css("display","none");
-							<?php } ?>							
+							 <?php } ?>				
+													
 							<?php /*EDIT MENU ITEMS*/?>
 							<?php if(get_option('ag_edit_adminmenu_json')!=""){ 											
 									
@@ -501,17 +528,34 @@ class AGCA{
 					<?php /*END If Turned on*/ ?>
 					<?php } else{ ?>
 							jQuery("#adminmenu").removeClass("noclass");
-					<?php } ?>
-					
+					<?php } ?>				
 					
 					
 					/*Add user buttons*/	
 					jQuery('#ag_add_adminmenu').append(buttonsJq);
-					reloadRemoveButtonEvents();	 
-										
-            });
-        /* ]]> */
-        </script>
+					reloadRemoveButtonEvents();					
+				
+					
+					<?php //COLORIZER ?>
+					<?php if(get_option('agca_colorizer_turnonoff') == 'on'){ ?>
+					<?php					
+						foreach($this->colorizer as $k => $v){
+							if(($k !="") and ($v !="")){							
+								?> updateTargetColor("<?php echo $k;?>","<?php echo $v;?>"); <?php
+							}
+						}
+					?>
+					jQuery('.color_picker').each(function(){		
+						updateColor(jQuery(this).attr('id'),jQuery(this).val())
+					});
+					jQuery('label,h1,h2,h3,h4,h5,h6,a,p,.form-table th,.form-wrap label').css('text-shadow','none');
+					
+					<?php } ?>
+					<?php //COLORIZER END ?>				
+<?php } //end of apply for any user except admin ?>							
+ });
+ /* ]]> */	
+</script>
 		<style type="text/css">
 			.underline_text{
 				text-decoration:underline;
@@ -520,6 +564,12 @@ class AGCA{
 				width:300px;
 			}
 		</style>
+<?php //unhide after everything is loaded ?>
+<script type="text/javascript">       
+            jQuery(document).ready(function() {
+				jQuery('html').show();
+			});
+</script>
 	<?php 	
 	}
 	
@@ -528,7 +578,9 @@ class AGCA{
 		$this->reloadScript();
 		$this->agca_get_includes();
 	?>	
+		
 	     <script type="text/javascript">
+		 document.write('<style type="text/css">html{display:none;}</style>');
         /* <![CDATA[ */
             jQuery(document).ready(function() {
 
@@ -550,7 +602,37 @@ class AGCA{
 							jQuery("#login h1 a").css("display","none");
 					<?php } ?>	
 									
-						jQuery("#login h1 a").attr("title","");		
+						jQuery("#login h1 a").attr("title","");	
+
+						
+					<?php //COLORIZER ?>
+					<?php if(get_option('agca_colorizer_turnonoff') == 'on'){ ?>
+						jQuery('label,h1,h2,h3,h4,h5,h6,a,p,.form-table th,.form-wrap label').css('text-shadow','none');
+					<?php					
+					
+							if($this->colorizer['color_background']!=""){							
+								?> 							
+								updateTargetColor("color_background","<?php echo $this->colorizer['color_background'];?>"); 								
+								<?php
+							}	
+							if($this->colorizer['color_header']!=""){							
+								?> 	
+								jQuery("#backtoblog").css("background","<?php echo $this->colorizer['color_header'];?>");														
+								<?php
+							}
+							if($this->colorizer['color_font_header']!=""){							
+								?> 					
+								jQuery("#backtoblog a,#backtoblog p").css("color","<?php echo $this->colorizer['color_font_header'];?>");															
+								<?php
+							}							
+					 } ?>
+					<?php //COLORIZER END ?>
+					
+					<?php //unhide after everything is loaded ?>     
+					jQuery(document).ready(function() {
+						jQuery('html').show();						
+					});
+					<?php //unhide after everything is loaded ?> 				
             });
         /* ]]> */
         </script>
@@ -558,26 +640,43 @@ class AGCA{
 	}
 	
 	function agca_admin_page() {
-		?>
-					<div class="wrap">
+		?>		
+		<?php //includes ?>
+			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/farbtastic.css" />
+			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/farbtastic.js"></script>	
+			
+			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/agca_farbtastic.css" />
+			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/agca_farbtastic.js"></script>	
+		<?php //includes ?>		
+		<div class="wrap">
 			<h1 style="color:green">AG Custom Admin Settings</h1>						
-										<br />					
+										<br />	
+			<form method="post" id="agca_form" action="options.php">
+				<?php settings_fields( 'agca-options-group' ); ?>
+			<table>
+				<tr valign="center" >
+								<th scope="row">
+									<label title="If checked, all users will be affected with these changes, except admin. Not checked = appy for all" for="agca_role_allbutadmin">Do not apply these settings for Admin&nbsp;&nbsp;</label>
+								</th>
+								<td><input title="If checked, all users will be affected with these changes, except admin. Not checked = appy for all" type="checkbox" name="agca_role_allbutadmin" value="true" <?php if (get_option('agca_role_allbutadmin')==true) echo 'checked="checked" '; echo get_option('agca_role_allbutadmin'); ?> />								
+								</td>
+				</tr> 
+			</table>
+			<br />
 			<ul id="ag_main_menu">
 				<li class="selected"><a href="#admin-bar-settings" title="Settings for admin bar" >Admin Bar</a></li>
 				<li class="normal"><a href="#admin-footer-settings" title="Settings for admin footer" >Admin Footer</a></li>
 				<li class="normal"><a href="#dashboad-page-settings" title="Settings for Dashboard page">Dashboard Page</a></li>
 				<li class="normal"><a href="#login-page-settings" title="Settings for Login page">Login Page</a></li>
 				<li class="normal" ><a href="#admin-menu-settings" title="Settings for main admin menu">Admin Menu</a></li>
-				<!--<li class="normal"><a href="#ag-custom-admin-plugin-setttings" title="Settings for AG Custom Admin plugin">Plugin Settings</a></li>-->
-				<li style="background:none;border:none;margin-top:-5px;margin-left:-15px"><a id="agca_donate_button" style="margin-left:8px" title="Do You like this plugin? You can support its future development by providing small donation" href="http://wordpress.argonius.com/donate"><img alt="Donate" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/btn_donate_LG.gif" /></a>
+				<li class="normal"><a href="#ag-colorizer-setttings" title="AG colorizer settings">Colorizer</a></li>
+				<li style="background:none;border:none;margin-top:-5px;margin-left:-20px"><a id="agca_donate_button" style="margin-left:8px" title="Do You like this plugin? You can support its future development by providing small donation" href="http://wordpress.argonius.com/donate"><img alt="Donate" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/btn_donate_LG.gif" /></a>
 				</li>
-			</ul>
-			<form method="post" id="agca_form" action="options.php">
-				<?php settings_fields( 'agca-options-group' ); ?>				
+			</ul>						
 				<div id="section_admin_bar" class="ag_section">
 				<h2 class="section_title" tabindex="-1">Admin Bar Settings Page</h2>
 				<br />
-					<p tabindex="0"><strong>Info: </strong>Roll over option labels for more information about option.</p>							
+					<p tabindex="0"><i><strong>Info: </strong>Roll over option labels for more information about option.</i></p>							
 				<br />
 				<table class="form-table" width="500px">							
 							<tr valign="center" class="ag_table_major_options" >
@@ -975,6 +1074,14 @@ class AGCA{
 								</td>
 							</tr> 
 							<tr valign="center">
+								<th scope="row">
+									<label title="Removes small icons on admin menu buttons" for="agca_admin_menu_icons">Remove menu icons</label>
+								</th>
+								<td>
+									<input title="Removes small icons on admin menu buttons" type="checkbox" name="agca_admin_menu_icons" value="true" <?php if (get_option('agca_admin_menu_icons')==true) echo 'checked="checked" '; ?> />
+								</td>
+							</tr> 
+							<tr valign="center">
 								<td colspan="2">
 										<div class="ag_table_heading"><h3 tabindex="0">Add New Menu Items</h3></div>
 								</td>
@@ -1000,22 +1107,110 @@ class AGCA{
 							</tr>
 							</table>
 						</div>
-						<!--<div id="section_agca_settings" style="display:none" class="ag_section">
-						<h2 class="section_title">AG Custom Admin Settings Page</h2>
+						<div id="section_ag_colorizer_settings" style="display:none" class="ag_section">
+						<h2 class="section_title">Colorizer Page</h2>
 						<br />
-						<p style="font-style:italic"><strong>Info: </strong>These settings are for 'AG Custom Admin' plugin customization.</p>					
+						<p><i><strong>Info: </strong>Change Admin panel colors (This is Colorizer demo with only few color options. More color options will be available in future realeases).</i></p>					
 						<br />
 						<table class="form-table" width="500px">	
 							<tr valign="center" class="ag_table_major_options">
-								<td><label for="agca_admin_menu_turnonoff">Turn OFF tooltips on mouseover, and put them as visible description near option</label></td>
-								<td><input label="Set tooltips visible on page, without using mouse - checkbox" type="checkbox"  id="aafasfsfdsf" name="asfdasfefe4" /></td>
+								<td><label for="agca_colorizer_turnonoff"><strong>Turn on/off Colorizer configuration</strong></label></td>
+								<td><strong><input type="radio" name="agca_colorizer_turnonoff" title="Turn ON Colorizer configuration" value="on" <?php if(get_option('agca_colorizer_turnonoff') == 'on') echo 'checked="checked" '; ?> /><span style="color:green">ON</span>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="agca_colorizer_turnonoff" title="Turn OFF Colorizer configuration" value="off" <?php if(get_option('agca_colorizer_turnonoff') != 'on') echo 'checked="checked"'; ?> /><span style="color:red">OFF</span></strong></td>
 							</tr>	
-							<tr valign="center" class="ag_table_major_options">
-								<td><label title="This is text at the bottom of plugin page, with short description of plugin and plugin developer" for="tdfyt">Hide AGCA plugin footer text</label></td>
-								<td><input label="Hide plugin's footer text description - checkbox" type="checkbox"  id="aafasfsfdsf" name="asfdasfefe4" /></td>
+							<tr valign="center">
+								<td colspan="2">
+										<div class="ag_table_heading"><h3 tabindex="0">Global Color Options</h3></div>
+								</td>
+								<td>									
+								</td>
 							</tr>
+							<tr valign="center">
+								<th><label title="Change admin background color" for="color_background">Background color:</label></th>
+								<td><input type="text" id="color_background" name="color_background" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_background']); ?>" />
+									<input type="button" alt="color_background" class="pick_color_button" value="Pick color" />
+									<input type="button" alt="color_background" class="pick_color_button_clear" value="Clear" />
+								</td>
+							</tr>
+							<tr valign="center">
+								<th><label title="Change footer color in admin panel" for="color_footer">Footer color:</label></th>
+								<td><input type="text" id="color_footer" name="color_footer" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_footer']); ?>" />
+									<input type="button" alt="color_footer" class="pick_color_button" value="Pick color" />
+									<input type="button" alt="color_footer" class="pick_color_button_clear" value="Clear" />
+								</td>
+							</tr>
+							<tr valign="center">
+								<th><label title="Change header color in admin panel" for="color_header">Header color:</label></th>
+								<td><input type="text" id="color_header" name="color_header" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_header']); ?>" />
+									<input type="button" alt="color_header" class="pick_color_button" value="Pick color" />
+									<input type="button" alt="color_header" class="pick_color_button_clear" value="Clear" />
+								</td>
+							</tr>
+							<tr valign="center">
+								<td colspan="2">
+										<div class="ag_table_heading"><h3 tabindex="0">Admin Menu Color Options</h3></div>
+								</td>
+								<td>									
+								</td>
+							</tr>
+							<tr valign="center">
+								<th><label title="Change background color in admin menu" for="color_admin_menu_top_button_background">Top button background color:</label></th>
+								<td><input type="text" id="color_admin_menu_top_button_background" name="color_admin_menu_top_button_background" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_top_button_background']); ?>" />
+									<input type="button" alt="color_admin_menu_top_button_background" class="pick_color_button" value="Pick color" />
+									<input type="button" alt="color_admin_menu_top_button_background" class="pick_color_button_clear" value="Clear" />
+								</td>
+							</tr>
+							<tr valign="center">
+								<th><label title="Change background submenu color in admin menu" for="color_admin_menu_submenu_background">Submenu button background color:</label></th>
+								<td><input type="text" id="color_admin_menu_submenu_background" name="color_admin_menu_submenu_background" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_submenu_background']); ?>" />
+									<input type="button" alt="color_admin_menu_submenu_background" class="pick_color_button" value="Pick color" />
+									<input type="button" alt="color_admin_menu_submenu_background" class="pick_color_button_clear" value="Clear" />
+								</td>
+							</tr>
+							<tr valign="center">
+								<th><label title="Change text color in admin menu" for="color_admin_menu_font">Text color:</label></th>
+								<td><input type="text" id="color_admin_menu_font" name="color_admin_menu_font" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_font']); ?>" />
+									<input type="button" alt="color_admin_menu_font" class="pick_color_button" value="Pick color" />
+									<input type="button" alt="color_admin_menu_font" class="pick_color_button_clear" value="Clear" />
+								</td>
+							</tr>
+							<!--<tr valign="center">
+								<th><label title="Change background submenu color on mouse over in admin menu" for="color_admin_menu_submenu_background_over">Submenu button background (Mouse over):</label></th>
+								<td><input type="text" id="color_admin_menu_submenu_background_over" name="color_admin_menu_submenu_background_over" class="color_picker" value="#123456" />
+									<input type="button" alt="color_admin_menu_submenu_background_over" class="pick_color_button" value="Pick color" />
+								</td>
+							</tr>-->
+							<tr valign="center">
+								<td colspan="2">
+										<div class="ag_table_heading"><h3 tabindex="0">Font Color Options</h3></div>
+								</td>
+								<td>									
+								</td>
+							</tr>
+							<tr valign="center">
+								<th><label title="Change color in content text" for="color_font_content">Content text color:</label></th>
+								<td><input type="text" id="color_font_content" name="color_font_content" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_font_content']); ?>" />
+									<input type="button" alt="color_font_content" class="pick_color_button" value="Pick color" />
+									<input type="button" alt="color_font_content" class="pick_color_button_clear" value="Clear" />
+								</td>
+							</tr>
+							<tr valign="center">
+								<th><label title="Change color in header text" for="color_font_header">Header text color:</label></th>
+								<td><input type="text" id="color_font_header" name="color_font_header" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_font_header']); ?>" />
+									<input type="button" alt="color_font_header" class="pick_color_button" value="Pick color" />
+									<input type="button" alt="color_font_header" class="pick_color_button_clear" value="Clear" />
+								</td>
+							</tr>
+							<tr valign="center">
+								<th><label title="Change color in fotter text" for="color_font_footer">Footer text color:</label></th>
+								<td><input type="text" id="color_font_footer" name="color_font_footer" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_font_footer']); ?>" />
+									<input type="button" alt="color_font_footer" class="pick_color_button" value="Pick color" />
+									<input type="button" alt="color_font_footer" class="pick_color_button_clear" value="Clear" />
+								</td>
+							</tr>							
 							</table>
-						</div>-->						
+							<input type="hidden" size="47" id="ag_colorizer_json" name="ag_colorizer_json" value="<?php echo htmlspecialchars(get_option('ag_colorizer_json')); ?>" />	
+							 <div id="picker"></div>			
+						</div>					
 				<br /><br /><br />
 				<p class="submit">
 				<input type="submit" title="Save changes button" class="button-primary" value="<?php _e('Save Changes') ?>" />
