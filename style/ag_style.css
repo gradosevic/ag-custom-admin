@@ -1,6 +1,9 @@
+body{
+	/*display:none;*/
+}
 #ag_main_menu {
 	display:block;
-	height:33px;
+	height:32px;
 	border-bottom:3px solid green;	
 }
 #ag_main_menu li{
