@@ -69,6 +69,9 @@ For more information about the plugin please see: http://wordpress.argonius.com/
 = My text is not in the right place. How to fix it? =
 It is possible that WordPress usually wraps that text with some HTML tags. In that case use one of HTML tags to surround your text, e.g. &lt;h1&gt;My text&lt;/h1&gt;, or other (a, p, h2, h3..  etc.)
 
+= Plugin does not work after upgrading to new version. =
+Try to clear browser's cache, and reload page.
+
 == Screenshots ==
 
 1. Text in header or footer could be customized.
