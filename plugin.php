@@ -670,7 +670,7 @@ jQuery(document).ready(function() {
 				<li class="normal"><a href="#login-page-settings" title="Settings for Login page">Login Page</a></li>
 				<li class="normal" ><a href="#admin-menu-settings" title="Settings for main admin menu">Admin Menu</a></li>
 				<li class="normal"><a href="#ag-colorizer-setttings" title="AG colorizer settings">Colorizer</a></li>
-				<li style="background:none;border:none;margin-top:-5px;margin-left:-20px"><a id="agca_donate_button" style="margin-left:8px" title="Do You like this plugin? You can support its future development by providing small donation" href="http://wordpress.argonius.com/donate"><img alt="Donate" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/btn_donate_LG.gif" /></a>
+				<li style="background:none;border:none;padding:0;"><a id="agca_donate_button" style="margin-left:8px" title="Do You like this plugin? You can support its future development by providing small donation" href="http://wordpress.argonius.com/donate"><img alt="Donate" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/btn_donate_LG.gif" /></a>
 				</li>
 			</ul>						
 				<div id="section_admin_bar" class="ag_section">
