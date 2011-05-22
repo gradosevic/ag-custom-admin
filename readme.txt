@@ -53,7 +53,7 @@ Here is the list of options:
 	- Remove icons from admin menu buttons
 	
 	Colorizer
-	- Change background and text colors on admin and login page
+	- Change background and text colors in admin and login page
 
 
 For more information about the plugin please see: http://wordpress.argonius.com/ag-custom-admin
@@ -71,6 +71,9 @@ It is possible that WordPress usually wraps that text with some HTML tags. In th
 
 = Plugin does not work after upgrading to new version. =
 Try to clear browser's cache, and reload page.
+
+= I see only blank page. What to do? =
+First, try to clear browser's cache. If this does not work, try to find javaScript error in browser's console and post it to plugin's support page. If you want to deactivate plugin, but you can't access admin panel, turn of JavaScript in your browser and than log in admin and deactivate plugin (This works only for administrator).
 
 == Screenshots ==
 
