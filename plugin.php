@@ -264,8 +264,17 @@ class AGCA{
 		get_currentuserinfo() ;
 		global $user_level;	
 
-	?>		
-		
+	?>	
+<?php
+	//in case that javaScript is disabled only admin can access admin menu
+	if($user_level <= 9){
+	?>
+		<style type="text/css">
+			#adminmenu{display:none;}
+		</style>
+	<?php
+	}
+?>	
 <script type="text/javascript">
 document.write('<style type="text/css">html{display:none;}</style>');
   /* <![CDATA[ */
