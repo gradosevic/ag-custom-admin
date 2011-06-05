@@ -4,7 +4,7 @@ Donate link: http://wordpress.argonius.com/donate
 Tags: admin, customize, hide, change admin
 Requires at least: 3.0
 Tested up to: 3.1.2
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 
 Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 
@@ -18,6 +18,7 @@ Here is the list of options:
 	- Hide admin bar completely
 	- Hide Privacy link (link next to heading in admin bar)
 	- Hide WordPress logo in admin bar
+	- Add custom logo image in admin bar
 	- Custom blog heading in admin bar
 	- Hide WordPress update notification bar
 	- Hide default blog heading in admin bar
@@ -75,6 +76,9 @@ Try to clear browser's cache, and reload page.
 = I see only blank page. What to do? =
 First, try to clear browser's cache. If this does not work, try to find javaScript error in browser's console and post it to plugin's support page. If you want to deactivate plugin, but you can't access admin panel, turn of JavaScript in your browser and than log in admin and deactivate plugin (This works only for administrator).
 
+= Admin menu buttons are changed in a wrong way =
+Please use 'Reset Settings' button on Admin Menu page to reset menu configuration to defaults. Remember that you should postpone admin menu configuration to the very end of admin page customization, because, any changes made from other plugins to admin menu (e.g adding new button of plugin that is activated, or removing that button when plugin is deactivated) could corrupt admin menu configuration.
+
 == Screenshots ==
 
 1. Text in header or footer could be customized.
@@ -83,6 +87,13 @@ First, try to clear browser's cache. If this does not work, try to find javaScri
 4. Add custom background and text colors in admin and login pages.
 
 == Changelog ==
+
+= 1.2.3 =
+* Added Colorizer options for changing widgets colours.
+* Added option for changing logo image in admin bar with custom image.
+* Fixed bug on add new post page: After clicking on buttons Add new image, Add new media pop-up window is blank.
+* Added info bar for displaying news and information about plugin.
+* Fixed few issues.
 
 = 1.2.2 =
 * Added Colorizer for changing colors in admin and login panel
@@ -119,6 +130,9 @@ First, try to clear browser's cache. If this does not work, try to find javaScri
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.2.3 =
+Fixed 'White screen of death' bug, and few other improvements. Added colorizer options for widgets. Added support for changing admin bar logo with custom image.
 
 = 1.2.2 =
 Added demo Colorizer for adding custom colors in admin and login pages. Fixed bug for slow computers, default settings should not be visible before custom settings. Added support for excluding administrator from settings. Added option for removing icons from admin menu buttons.

@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpress.org/extend/plugins/ag-custom-admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 Author: Argonius
-Version: 1.2.2
+Version: 1.2.3
 Author URI: http://wordpress.argonius.com/ag-custom-admin
 
 	Copyright 2011. Argonius (email : info@argonius.com)
@@ -85,6 +85,7 @@ class AGCA{
 		register_setting( 'agca-options-group', 'agca_footer' );
 		register_setting( 'agca-options-group', 'agca_privacy_options' );
 		register_setting( 'agca-options-group', 'agca_header_logo' );
+		register_setting( 'agca-options-group', 'agca_header_logo_custom' );
 		register_setting( 'agca-options-group', 'agca_site_heading' );
 		register_setting( 'agca-options-group', 'agca_custom_site_heading' );
 		register_setting( 'agca-options-group', 'agca_update_bar' );
@@ -139,6 +140,7 @@ class AGCA{
 		delete_option(  'agca_footer' );
 		delete_option(  'agca_privacy_options' );
 		delete_option(  'agca_header_logo' );
+		delete_option(  'agca_header_logo_custom' );
 		delete_option(  'agca_site_heading' );
 		delete_option(  'agca_custom_site_heading' );
 		delete_option(  'agca_update_bar' );
@@ -276,7 +278,7 @@ class AGCA{
 	}
 ?>	
 <script type="text/javascript">
-document.write('<style type="text/css">html{display:none;}</style>');
+document.write('<style type="text/css">html{visibility:hidden;}</style>');
   /* <![CDATA[ */
 jQuery(document).ready(function() {	
 				//get saved onfigurations	
@@ -316,6 +318,23 @@ jQuery(document).ready(function() {
 					<?php if(get_option('agca_header_logo')==true){ ?>
 							jQuery("#wphead #header-logo").css("display","none");
 					<?php } ?>
+					<?php if(get_option('agca_header_logo_custom')!=""){ ?>							
+							jQuery("#wphead img#header-logo").attr('src','');	
+							jQuery("#wphead img#header-logo").hide();
+							var img_url = '<?php echo get_option('agca_header_logo_custom'); ?>'
+							var img = jQuery("#wphead img#header-logo").attr('src', img_url).load(function() {
+								 if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {									
+								 } else {	
+									jQuery(this).removeAttr('width');
+									jQuery(this).removeAttr('height');								
+									jQuery("#wphead img#header-logo").attr('width',this.width);			
+									jQuery("#wphead img#header-logo").attr('height',this.height);	
+									jQuery("#wphead").css('height', (14 + this.height)+'px');
+									jQuery("#wphead img#header-logo").show();
+								 }
+							  });
+
+					<?php } ?>					
 					<?php if(get_option('agca_site_heading')==true){ ?>
 							jQuery("#wphead #site-heading").css("display","none");
 					<?php } ?>
@@ -347,7 +366,9 @@ jQuery(document).ready(function() {
 					<?php } ?>											
 					<?php if(get_option('agca_howdy')!=""){ ?>
 							var howdyText = jQuery("#user_info").html();
-							jQuery("#user_info").html("<p>"+"<?php echo get_option('agca_howdy'); ?>"+howdyText.substr(9));	
+							if(howdyText !=null){
+								jQuery("#user_info").html("<p>"+"<?php echo get_option('agca_howdy'); ?>"+howdyText.substr(9));
+							}								
 					<?php } ?>
 					<?php if(get_option('agca_logout')!=""){ ?>							
 							jQuery("#user_info a:eq(1)").text("<?php echo get_option('agca_logout'); ?>");
@@ -575,8 +596,9 @@ jQuery(document).ready(function() {
 		</style>
 <?php //unhide after everything is loaded ?>
 <script type="text/javascript">       
-            jQuery(document).ready(function() {
-				jQuery('html').show();
+            jQuery(document).ready(function() {	
+				jQuery('html').css('visibility','visible');		
+
 			});
 </script>
 	<?php 	
@@ -659,7 +681,7 @@ jQuery(document).ready(function() {
 		<?php //includes ?>		
 		<div class="wrap">
 			<h1 style="color:green">AG Custom Admin Settings</h1>						
-										<br />	
+										<div id="agca_news">&nbsp;</div><br />								
 			<form method="post" id="agca_form" action="options.php">
 				<?php settings_fields( 'agca-options-group' ); ?>
 			<table>
@@ -681,7 +703,8 @@ jQuery(document).ready(function() {
 				<li class="normal"><a href="#ag-colorizer-setttings" title="AG colorizer settings">Colorizer</a></li>
 				<li style="background:none;border:none;padding:0;"><a id="agca_donate_button" style="margin-left:8px" title="Do You like this plugin? You can support its future development by providing small donation" href="http://wordpress.argonius.com/donate"><img alt="Donate" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/btn_donate_LG.gif" /></a>
 				</li>
-			</ul>						
+				<li style="background:none;border:none;padding:0;padding-left:10px;margin-top:-7px"></li>		
+			</ul>					
 				<div id="section_admin_bar" class="ag_section">
 				<h2 class="section_title" tabindex="-1">Admin Bar Settings Page</h2>
 				<br />
@@ -716,6 +739,15 @@ jQuery(document).ready(function() {
 								</th>
 								<td>					
 									<input type="checkbox" title="This is link next to heading in admin bar" name="agca_privacy_options" value="true" <?php if (get_option('agca_privacy_options')==true) echo 'checked="checked" '; ?> />
+								</td>
+							</tr>
+							<tr valign="center">
+								<th >
+									<label title="Change default WordPress logo with custom image." for="agca_header_logo_custom">Change WordPress logo</label>
+								</th>
+								<td>
+									<input title="If this field is not empty, image from provided url will be visible in top bar" type="text" size="47" name="agca_header_logo_custom" value="<?php echo get_option('agca_header_logo_custom'); ?>" />																
+									&nbsp;<p><i>Put here link of new top bar photo</i>.</p>
 								</td>
 							</tr> 
 							<tr valign="center">
@@ -1215,7 +1247,28 @@ jQuery(document).ready(function() {
 									<input type="button" alt="color_font_footer" class="pick_color_button" value="Pick color" />
 									<input type="button" alt="color_font_footer" class="pick_color_button_clear" value="Clear" />
 								</td>
-							</tr>							
+							</tr>	
+							<tr valign="center">
+								<td colspan="2">
+										<div class="ag_table_heading"><h3 tabindex="0">Widgets Color Options</h3></div>
+								</td>
+								<td>									
+								</td>
+							</tr>
+							<tr valign="center">
+								<th><label title="Change color in header text" for="color_widget_bar">Title bar background color:</label></th>
+								<td><input type="text" id="color_widget_bar" name="color_widget_bar" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_widget_bar']); ?>" />
+									<input type="button" alt="color_widget_bar" class="pick_color_button" value="Pick color" />
+									<input type="button" alt="color_widget_bar" class="pick_color_button_clear" value="Clear" />
+								</td>
+							</tr>
+							<tr valign="center">
+								<th><label title="Change widget background color" for="color_widget_background">Background color:</label></th>
+								<td><input type="text" id="color_widget_background" name="color_widget_background" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_widget_background']); ?>" />
+									<input type="button" alt="color_widget_background" class="pick_color_button" value="Pick color" />
+									<input type="button" alt="color_widget_background" class="pick_color_button_clear" value="Clear" />
+								</td>
+							</tr>	
 							</table>
 							<input type="hidden" size="47" id="ag_colorizer_json" name="ag_colorizer_json" value="<?php echo htmlspecialchars(get_option('ag_colorizer_json')); ?>" />	
 							 <div id="picker"></div>			
@@ -1229,7 +1282,7 @@ jQuery(document).ready(function() {
 			</div>
 							<p tabindex="0"><i><strong>Info:</strong> You can use HTML tags in text areas, e.g. &lt;a href=&quot;http://www.mywebsite.com&quot;&gt;Visit Us&lt;/a&gt;</i></p>
 										<br />
-			<br /><br /><br /><p id="agca_footer_support_info">Wordpress 'AG Custom Admin' plugin by Argonius. If You have any questions, ideas for future development or if You found a bug or having any issues regarding this plugin, please visit my <a href="http://wordpress.argonius.com/ag-custom-admin">SUPPORT</a> page. <br />You can also participate in development of this plugin if You <a href="http://wordpress.argonius.com/donate">BUY ME a DRINK</a> to refresh my energy for programming. Thanks!<br /><br />Have a nice blogging!</p><br />
+			<br /><br /><br /><p id="agca_footer_support_info">WordPress 'AG Custom Admin' plugin by Argonius. If you have any questions, ideas for future development or if you found a bug or having any issues regarding this plugin, please visit plugin's <a href="http://wordpress.argonius.com/ag-custom-admin">SUPPORT</a> page. <br />You can also participate in development of this plugin if you <a href="http://wordpress.argonius.com/donate">BUY ME A DRINK</a> to refresh my energy for programming. Thanks!<br /><br />Have a nice blogging!</p><br />
 		<?php
 	}
 }

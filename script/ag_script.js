@@ -350,6 +350,12 @@ function updateTargetColor(id, color){
 		  break;
 		   case 'color_font_footer':
 			jQuery('#footer, #footer a').css({'color':color});
+		   break;
+			case 'color_widget_bar':
+			jQuery(".widget .widget-top, .postbox h3, .stuffbox h3").css({'background' : color, 'text-shadow' :'none'});
+		   break;
+			case 'color_widget_background':
+			jQuery(".widget, .postbox").css('background-color',color);			
 		  break;		 
 		default:	
 		}	
@@ -367,3 +373,65 @@ function updateColor(id,color){
 /*First load apply colours from fields*/
 
 /*C O L O R I Z E R  E N D*/
+
+/*A J A X*//*
+jQuery(document).ready(function(){	
+	jQuery.ajax({          
+		url: "http://wordpress.argonius.com/ag-custom-admin/news.php",           
+		type: "POST",       
+			cache: false,      
+			success: function (html) {             
+				//if data turned       
+				if (html==1) { 
+				  // jQuery('#agca_news').html(html);
+				alert(html+'3');
+				} else{   
+					alert('no');
+				}
+			}      
+	});
+});*/
+/*A J A X*/
+jQuery(document).ready(function(){		
+		jQuery(document).ready(function(){
+			var url="http://wordpress.argonius.com/agca/news.php/news?jsoncallback=?";
+			jQuery.getJSON(url,function(json){                                    
+				jQuery.each(json.posts,function(i,post){						
+						jQuery('#agca_news').append('<p><strong>Info: </strong>'+post.news+'</p>');
+				});
+				jQuery('#agca_news p').each(function(){						
+						jQuery(this).hide();
+				});
+
+			});
+		});
+		setInterval(function() {
+				if(jQuery('#agca_news p.news_online').size() == 0){
+					jQuery('#agca_news p:first').addClass('news_online');
+					jQuery('#agca_news p:first').show();
+				}else{
+					var changed = false;
+					var finish = false;
+					jQuery('#agca_news p').each(function(){
+						if(finish != true){
+							if(changed == true){						
+								jQuery(this).addClass('news_online');
+								jQuery(this).show();
+								finish = true;
+							}
+							else if(jQuery(this).hasClass('news_online')){
+								jQuery(this).hide();
+								jQuery(this).removeClass('news_online');
+								changed = true;								
+							};
+						}						
+					});
+					if(jQuery('#agca_news p.news_online').size() == 0){
+						jQuery('#agca_news p:first').addClass('news_online');
+						jQuery('#agca_news p:first').show();
+					}
+				}
+        }, 5000);
+
+});
+/*A J A X*/
