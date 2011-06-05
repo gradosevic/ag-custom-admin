@@ -89,7 +89,7 @@ Please use 'Reset Settings' button on Admin Menu page to reset menu configuratio
 == Changelog ==
 
 = 1.2.3 =
-* Added Colorizer options for changing widgets colours.
+* Added Colorizer options for changing widgets colors.
 * Added option for changing logo image in admin bar with custom image.
 * Fixed bug on add new post page: After clicking on buttons Add new image, Add new media pop-up window is blank.
 * Added info bar for displaying news and information about plugin.
