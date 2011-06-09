@@ -8,3 +8,7 @@ colorizer not updated colors in textbox colors if colorizer disabled
 add new custom button - clear textboxes after adding
 
 0 in admin menu, count of updates etc
+
+jQuery conflict add new name
+blank screen send error message
+multiple users support
