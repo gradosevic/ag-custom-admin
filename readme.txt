@@ -3,8 +3,8 @@ Contributors: argonius
 Donate link: http://wordpress.argonius.com/donate
 Tags: admin, customize, hide, change admin
 Requires at least: 3.0
-Tested up to: 3.1.2
-Stable tag: 1.2.3
+Tested up to: 3.2
+Stable tag: 1.2.4
 
 Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 
@@ -88,6 +88,16 @@ Please use 'Reset Settings' button on Admin Menu page to reset menu configuratio
 
 == Changelog ==
 
+= 1.2.4 =
+* Plugin is now fully compatible with WordPress version 3.2
+* Fixed update notification bar for lower WP versions
+* Login image can be now of any size.
+* Improved error management
+* Added options in 3.2 for changing background behind admin menu
+* Added option in 3.2 for removing "Your profile" from admin bar
+* Added invalid characters escaping when adding new custom buttons
+* Fixed few minor issues
+
 = 1.2.3 =
 * Added Colorizer options for changing widgets colors.
 * Added option for changing logo image in admin bar with custom image.
@@ -130,6 +140,9 @@ Please use 'Reset Settings' button on Admin Menu page to reset menu configuratio
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.2.4 =
+This plugin version is ready for WordPress release 3.2, and fully compatible with it. Added few new options, and improved plugin stability.
 
 = 1.2.3 =
 Fixed 'White screen of death' bug, and few other improvements. Added colorizer options for widgets. Added support for changing admin bar logo with custom image.

@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpress.org/extend/plugins/ag-custom-admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 Author: Argonius
-Version: 1.2.3
+Version: 1.2.4
 Author URI: http://wordpress.argonius.com/ag-custom-admin
 
 	Copyright 2011. Argonius (email : info@argonius.com)
@@ -23,21 +23,20 @@ Author URI: http://wordpress.argonius.com/ag-custom-admin
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
 $agca = new AGCA();
 
 class AGCA{
 	private $colorizer="";	
 	public function __construct()
-	{		
+	{			
+		
 				
 		add_filter('plugin_row_meta', array(&$this,'jk_filter_plugin_links'), 10, 2);
 		add_action('admin_init', array(&$this,'agca_register_settings'));
 		add_action('admin_head', array(&$this,'print_admin_css'));		
 		add_action('login_head', array(&$this,'print_login_head'));	
 		add_action('admin_menu', array(&$this,'agca_create_menu'));		
-		register_deactivation_hook(__FILE__, array(&$this,'agca_deactivate'));	
+		register_deactivation_hook(__FILE__, array(&$this,'agca_deactivate'));		
 		
 		/*Styles*/
 	//	add_action('admin_menu', array(&$this,'agca_get_styles'));
@@ -77,6 +76,7 @@ class AGCA{
 		register_setting( 'agca-options-group', 'agca_screen_options_menu' );
 		register_setting( 'agca-options-group', 'agca_help_menu' );
 		register_setting( 'agca-options-group', 'agca_logout' );
+		register_setting( 'agca-options-group', 'agca_remove_your_profile' );
 		register_setting( 'agca-options-group', 'agca_logout_only' );
 		register_setting( 'agca-options-group', 'agca_options_menu' );
 		register_setting( 'agca-options-group', 'agca_howdy' );
@@ -132,6 +132,7 @@ class AGCA{
 		delete_option( 'agca_screen_options_menu' );
 		delete_option(  'agca_help_menu' );
 		delete_option(  'agca_logout' );
+		delete_option(  'agca_remove_your_profile' );
 		delete_option(  'agca_logout_only' );
 		delete_option(  'agca_options_menu' );
 		delete_option(  'agca_howdy' );
@@ -258,13 +259,21 @@ class AGCA{
 		global $wp_meta_boxes;
 		remove_meta_box($widget, 'dashboard', $side); 
 	}
+	
+	function get_wp_version(){
+		global $wp_version;
+		$array = explode('-', $wp_version);		
+		$version = $array[0];		
+		return $version;
+	}
 
 	function print_admin_css()
 	{
 		$this->agca_get_includes();
 		
 		get_currentuserinfo() ;
-		global $user_level;	
+		global $user_level;
+		$wpversion = $this->get_wp_version();
 
 	?>	
 <?php
@@ -279,8 +288,12 @@ class AGCA{
 ?>	
 <script type="text/javascript">
 document.write('<style type="text/css">html{visibility:hidden;}</style>');
+var wpversion = "<?php echo $wpversion; ?>";
+
   /* <![CDATA[ */
 jQuery(document).ready(function() {	
+try
+  {
 				//get saved onfigurations	
 					<?php	$checkboxes = $this->jsonMenuArray(get_option('ag_edit_adminmenu_json'),'0');	?>
 					var checkboxes = <?php echo "[".$checkboxes."]"; ?>;
@@ -294,7 +307,11 @@ jQuery(document).ready(function() {
 					<?php	$buttonsJq = $this->jsonMenuArray(get_option('ag_add_adminmenu_json'),'buttonsJq');	?>
 					var buttonsJq = '<?php echo $buttonsJq; ?>';					
 					
-					createEditMenuPage(checkboxes,textboxes);
+					<?php if($wpversion >=3.2 ){ ?>
+						createEditMenuPageV32(checkboxes,textboxes);
+					<?php }else{ ?>
+						createEditMenuPage(checkboxes,textboxes);
+					<?php } ?>
 			
 		<?php
 		//if admin, and option to hide settings for admin is set
@@ -343,6 +360,7 @@ jQuery(document).ready(function() {
 					<?php } ?>	
 					<?php if(get_option('agca_update_bar')==true){ ?>
 							jQuery("#update-nag").css("display","none");
+							jQuery(".update-nag").css("display","none");							
 					<?php } ?>
 					<?php if(get_option('agca_header')==true){ ?>
 							jQuery("#wphead").css("display","none");
@@ -364,19 +382,52 @@ jQuery(document).ready(function() {
 					<?php if(get_option('agca_footer')==true){ ?>
 							jQuery("#footer").css("display","none");
 					<?php } ?>											
-					<?php if(get_option('agca_howdy')!=""){ ?>
-							var howdyText = jQuery("#user_info").html();
-							if(howdyText !=null){
-								jQuery("#user_info").html("<p>"+"<?php echo get_option('agca_howdy'); ?>"+howdyText.substr(9));
-							}								
+					<?php if(get_option('agca_howdy')!=""){ ?>					
+							<?php //code for wp version >= 3.2 ?>
+							<?php if($wpversion >= 3.2 ){ ?>
+									var alltext="";								
+									alltext="";
+									alltext = jQuery('#user_info div.hide-if-no-js').html();
+									alltext = alltext.replace('Howdy',"<?php echo get_option('agca_howdy'); ?>");									
+									jQuery("#user_info div.hide-if-no-js").html(alltext);
+									
+							<?php }else{ ?>
+							<?php //code for wp version < 3.2 ?>
+								var howdyText = jQuery("#user_info").html();
+								if(howdyText !=null){
+									jQuery("#user_info").html("<p>"+"<?php echo get_option('agca_howdy'); ?>"+howdyText.substr(9));
+								}			
+							<?php } ?>							
 					<?php } ?>
-					<?php if(get_option('agca_logout')!=""){ ?>							
-							jQuery("#user_info a:eq(1)").text("<?php echo get_option('agca_logout'); ?>");
+					<?php if(get_option('agca_logout')!=""){ ?>
+							<?php //code for wp version >= 3.2 ?>
+							<?php if($wpversion >= 3.2 ){ ?>
+								jQuery("#user_info #user_info_links a:eq(1)").text("<?php echo get_option('agca_logout'); ?>");
+							<?php }else{ ?>
+							<?php //code for wp version < 3.2 ?>
+								jQuery("#user_info a:eq(1)").text("<?php echo get_option('agca_logout'); ?>");
+							<?php } ?>
 					<?php } ?>
-					<?php if(get_option('agca_logout_only')==true){ ?>						
-							var logoutText = jQuery("#user_info a:nth-child(2)").text();
-							var logoutLink = jQuery("#user_info a:nth-child(2)").attr("href");						
-							jQuery("#user_info").html("<a href=\""+logoutLink+"\" title=\"Log Out\">"+logoutText+"</a>");
+					<?php if(get_option('agca_remove_your_profile')==true){ ?>						
+							<?php if($wpversion >= 3.2 ){ ?>
+								jQuery("#user_info #user_info_links li:eq(0)").remove();
+							<?php }?>
+					<?php } ?>						
+					<?php if(get_option('agca_logout_only')==true){ ?>	
+							<?php //code for wp version >= 3.2 ?>
+							<?php if($wpversion >= 3.2 ){ ?>							
+								var logoutText = jQuery("#user_info a:nth-child(2)").text();
+								<?php if(get_option('agca_logout')!=""){ ?>
+									logoutText = "<?php echo get_option('agca_logout'); ?>";
+								<?php } ?>
+								var logoutLink = jQuery("#user_info a:nth-child(2)").attr("href");						
+								jQuery("#user_info").html("<a href=\""+logoutLink+"\" title=\"Log Out\">"+logoutText+"</a>");
+							<?php }else{ ?>
+							<?php //code for wp version < 3.2 ?>
+								var logoutText = jQuery("#user_info a:nth-child(2)").text();
+								var logoutLink = jQuery("#user_info a:nth-child(2)").attr("href");						
+								jQuery("#user_info").html("<a href=\""+logoutLink+"\" title=\"Log Out\">"+logoutText+"</a>");
+							<?php } ?>
 					<?php } ?>	
 
 					
@@ -520,7 +571,7 @@ jQuery(document).ready(function() {
 															matchFound = true;		
 															//console.log(checkboxes[i][0]);															
 															jQuery(this).find('a').eq(1).html(textboxes[i][1]);
-															if(checkboxes[i][1] == "true"){
+															if((checkboxes[i][1] == "true") || (checkboxes[i][1] == "checked")){
 																jQuery(this).addClass('noclass');
 															}
 															
@@ -530,7 +581,7 @@ jQuery(document).ready(function() {
 																while((i<checkboxes.length) && (checkboxes[i][0].indexOf("<-TOP->") < 0)){															
 																	jQuery(selector).each(function(){ //loop through all submenus																	
 																		if(checkboxes[i][0] == jQuery(this).text()){
-																			if(checkboxes[i][1] == "true"){
+																			if((checkboxes[i][1] == "true") || (checkboxes[i][1] == "checked")){
 																				jQuery(this).addClass('noclass');
 																			}
 																			jQuery(this).find('a').text(textboxes[i][1]);																			
@@ -582,9 +633,12 @@ jQuery(document).ready(function() {
 					
 					<?php } ?>
 					<?php //COLORIZER END ?>				
-<?php } //end of apply for any user except admin ?>							
+<?php } //end of apply for any user except admin ?>		
+ }catch(err){
+	alert("ADMIN ERROR: " + err);
+ }				
  });
- /* ]]> */	
+ /* ]]> */
 </script>
 		<style type="text/css">
 			.underline_text{
@@ -607,14 +661,16 @@ jQuery(document).ready(function() {
 	function print_login_head(){
 		
 		$this->reloadScript();
-		$this->agca_get_includes();
+		$this->agca_get_includes();		
+		$wpversion = $this->get_wp_version();
 	?>	
 		
 	     <script type="text/javascript">
 		 document.write('<style type="text/css">html{display:none;}</style>');
+		 var wpversion = "<?php echo $wpversion; ?>";
         /* <![CDATA[ */
-            jQuery(document).ready(function() {
-
+            jQuery(document).ready(function() {			
+				try{
 					<?php if(get_option('agca_login_banner')==true){ ?>
 							jQuery("#backtoblog").css("display","none");
 					<?php } ?>	
@@ -623,7 +679,18 @@ jQuery(document).ready(function() {
 					<?php } ?>
 					<?php if(get_option('agca_login_photo_url')==true){ ?>						
 							var $url = "url(" + "<?php echo get_option('agca_login_photo_url'); ?>" + ")";
-							jQuery("#login h1 a").css("background-image",$url);							
+							jQuery("#login h1 a").css("background-image",$url);	
+							jQuery("#login h1 a").hide();
+							var image = new Image();
+							jQuery(image).attr('src',"<?php echo get_option('agca_login_photo_url'); ?>").load(function() {
+								var originalWidth = 326;
+								var widthDiff = this.width - originalWidth; 
+								jQuery("#login h1 a").height(this.height);
+								jQuery("#login h1 a").width(this.width);
+								jQuery("#login h1 a").css('margin-left',-(widthDiff/2)+"px");
+								jQuery("#login h1 a").show();
+								
+							});							
 					<?php } ?>
 					<?php if(get_option('agca_login_photo_href')==true){ ?>						
 							var $href = "<?php echo get_option('agca_login_photo_href'); ?>";
@@ -648,12 +715,14 @@ jQuery(document).ready(function() {
 							}	
 							if($this->colorizer['color_header']!=""){							
 								?> 	
-								jQuery("#backtoblog").css("background","<?php echo $this->colorizer['color_header'];?>");														
+								<?php if($wpversion < 3.2){ ?>
+									jQuery("#backtoblog").css("background","<?php echo $this->colorizer['color_header'];?>");
+								<?php } ?>
 								<?php
 							}
 							if($this->colorizer['color_font_header']!=""){							
-								?> 					
-								jQuery("#backtoblog a,#backtoblog p").css("color","<?php echo $this->colorizer['color_font_header'];?>");															
+								?> 										
+									jQuery("#backtoblog a,#backtoblog p").css("color","<?php echo $this->colorizer['color_font_header'];?>");									
 								<?php
 							}							
 					 } ?>
@@ -661,9 +730,13 @@ jQuery(document).ready(function() {
 					
 					<?php //unhide after everything is loaded ?>     
 					jQuery(document).ready(function() {
-						jQuery('html').show();						
+						jQuery('html').show();
+						jQuery('html').css("display","block");
 					});
-					<?php //unhide after everything is loaded ?> 				
+					<?php //unhide after everything is loaded ?> 	
+			 }catch(err){
+				alert("LOGIN ERROR: " + err);
+			 }	
             });
         /* ]]> */
         </script>
@@ -671,6 +744,8 @@ jQuery(document).ready(function() {
 	}
 	
 	function agca_admin_page() {
+	
+		$wpversion = $this->get_wp_version();
 		?>		
 		<?php //includes ?>
 			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/farbtastic.css" />
@@ -824,7 +899,17 @@ jQuery(document).ready(function() {
 									<label title="Put 'Exit', for example" for="agca_logout">Change Log out text</label>
 								</th>
 								<td><input title="Put 'Exit', for example" type="text" size="47" name="agca_logout" value="<?php echo get_option('agca_logout'); ?>" /></td>
+							</tr> 	
+							<?php if($wpversion >= 3.2){ ?>
+							<tr valign="center">
+								<th scope="row">
+									<label for="agca_remove_your_profile">Remove "Your profile" option from dropdown menu</label>
+								</th>
+								<td>					
+									<input type="checkbox" name="agca_remove_your_profile" value="true" <?php if (get_option('agca_remove_your_profile')==true) echo 'checked="checked" '; ?> />
+								</td>
 							</tr> 
+							<?php } ?>
 							<tr valign="center">
 								<th scope="row">
 									<label title="If selected, hides all elements in top right corner, except Log Out button" for="agca_logout_only">Log out only</label>
@@ -1008,15 +1093,15 @@ jQuery(document).ready(function() {
 						<div id="section_login_page" style="display:none" class="ag_section">
 						<h2 class="section_title" tabindex="-1">Login Page Settings</h2>
 							<br /><br />					
-							<table class="form-table" width="500px">						
+							<table class="form-table" width="500px">							
 							<tr valign="center" class="ag_table_major_options">
-								<td>
-									<label for="agca_login_banner"><strong>Hide Login top bar completely</strong></label>
-								</td>
-								<td>					
-									<input type="checkbox" name="agca_login_banner" title="Hide Login top bar completely" value="true" <?php if (get_option('agca_login_banner')==true) echo 'checked="checked" '; ?> />
-								</td>
-							</tr>
+									<td>
+										<label for="agca_login_banner"><strong><?php if($wpversion < 3.2){ ?>Hide Login top bar completely<?php }else{ ?>Hide back to blog block completely<?php } ?></strong></label>
+									</td>
+									<td>					
+										<input type="checkbox" name="agca_login_banner" title="<?php if($wpversion < 3.2){ ?>Hide Login top bar completely<?php }else{ ?>Hide back to blog block completely<?php } ?>" value="true" <?php if (get_option('agca_login_banner')==true) echo 'checked="checked" '; ?> />
+									</td>
+							</tr>						
 							<tr valign="center">
 								<td colspan="2">
 										<div class="ag_table_heading"><h3 tabindex="0">Login Page Options</h3></div>
@@ -1026,7 +1111,7 @@ jQuery(document).ready(function() {
 							</tr>
 							<tr valign="center">
 								<th scope="row">
-									<label title="Changes '<- Back to ...' text in top bar on Login page" for="agca_login_banner_text">Change Login top bar text</label>
+									<label title="Changes '<- Back to ...' text in top bar on Login page" for="agca_login_banner_text"><?php if($wpversion < 3.2){ ?>Change Login top bar text<?php }else{ ?>Change back to blog text<?php } ?></label>
 								</th>
 								<td>
 									<textarea title="Changes 'Back to ...' text in top bar on Login page" rows="5" name="agca_login_banner_text" cols="40"><?php echo htmlspecialchars(get_option('agca_login_banner_text')); ?></textarea>&nbsp;<p><i>You should surround it with anchor tag &lt;a&gt;&lt;/a&gt;.</i></p>
@@ -1038,7 +1123,7 @@ jQuery(document).ready(function() {
 								</th>
 								<td>
 									<input title="If this field is not empty, image from provided url will be visible on Login page" type="text" size="47" name="agca_login_photo_url" value="<?php echo get_option('agca_login_photo_url'); ?>" />																
-									&nbsp;<p><i>Put here link of new login photo (e.g http://www.photo.com/myphoto.jpg). Original photo dimensions are: 310px x 70px</i>.</p>
+									&nbsp;<p><i>Put here link of new login photo. Photo could be of any size and type</i>.</p>
 								</td>
 							</tr> 
 							<tr valign="center">
@@ -1214,6 +1299,22 @@ jQuery(document).ready(function() {
 									<input type="button" alt="color_admin_menu_font" class="pick_color_button_clear" value="Clear" />
 								</td>
 							</tr>
+							<?php if($wpversion >= 3.2) { ?>
+							<tr valign="center">
+								<th><label title="Change background color of element behind admin menu" for="color_admin_menu_behind_background">Wrapper background color:</label></th>
+								<td><input type="text" id="color_admin_menu_behind_background" name="color_admin_menu_behind_background" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_behind_background']); ?>" />
+									<input type="button" alt="color_admin_menu_behind_background" class="pick_color_button" value="Pick color" />
+									<input type="button" alt="color_admin_menu_behind_background" class="pick_color_button_clear" value="Clear" />
+								</td>
+							</tr>
+							<tr valign="center">
+								<th><label title="Change border color of element behind admin menu" for="color_admin_menu_behind_border">Wrapper border color:</label></th>
+								<td><input type="text" id="color_admin_menu_behind_border" name="color_admin_menu_behind_border" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_behind_border']); ?>" />
+									<input type="button" alt="color_admin_menu_behind_border" class="pick_color_button" value="Pick color" />
+									<input type="button" alt="color_admin_menu_behind_border" class="pick_color_button_clear" value="Clear" />
+								</td>
+							</tr>
+							<?php } ?>
 							<!--<tr valign="center">
 								<th><label title="Change background submenu color on mouse over in admin menu" for="color_admin_menu_submenu_background_over">Submenu button background (Mouse over):</label></th>
 								<td><input type="text" id="color_admin_menu_submenu_background_over" name="color_admin_menu_submenu_background_over" class="color_picker" value="#123456" />
