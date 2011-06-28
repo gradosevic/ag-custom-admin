@@ -335,21 +335,19 @@ try
 					<?php if(get_option('agca_header_logo')==true){ ?>
 							jQuery("#wphead #header-logo").css("display","none");
 					<?php } ?>
-					<?php if(get_option('agca_header_logo_custom')!=""){ ?>							
-							jQuery("#wphead img#header-logo").attr('src','');	
-							jQuery("#wphead img#header-logo").hide();
-							var img_url = '<?php echo get_option('agca_header_logo_custom'); ?>'
-							var img = jQuery("#wphead img#header-logo").attr('src', img_url).load(function() {
-								 if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {									
-								 } else {	
-									jQuery(this).removeAttr('width');
-									jQuery(this).removeAttr('height');								
-									jQuery("#wphead img#header-logo").attr('width',this.width);			
-									jQuery("#wphead img#header-logo").attr('height',this.height);	
-									jQuery("#wphead").css('height', (14 + this.height)+'px');
-									jQuery("#wphead img#header-logo").show();
-								 }
-							  });
+					<?php if(get_option('agca_header_logo_custom')!=""){ ?>								  
+							jQuery("#wphead img#header-logo").attr('src','');
+							jQuery("#wphead img#header-logo").hide(); 							
+							var img_url = '<?php echo get_option('agca_header_logo_custom'); ?>';							
+							advanced_url = img_url+ "?" + new Date().getTime();
+							image = jQuery("<img />").attr("src",advanced_url);								
+							jQuery(image).load(function() {	
+								jQuery("#wphead img#header-logo").attr('src', advanced_url);
+								jQuery("#wphead img#header-logo").attr('width',this.width);			
+								jQuery("#wphead img#header-logo").attr('height',this.height);	
+								jQuery("#wphead").css('height', (14 + this.height)+'px');
+								jQuery("#wphead img#header-logo").show();										
+							});	
 
 					<?php } ?>					
 					<?php if(get_option('agca_site_heading')==true){ ?>
@@ -635,7 +633,7 @@ try
 					<?php //COLORIZER END ?>				
 <?php } //end of apply for any user except admin ?>		
  }catch(err){
-	alert("ADMIN ERROR: " + err);
+	alert("ADMIN ERROR: " + err.name + " " + err.message);
  }				
  });
  /* ]]> */
@@ -677,20 +675,20 @@ try
 					<?php if(get_option('agca_login_banner_text')==true){ ?>
 							jQuery("#backtoblog").html('<?php echo get_option('agca_login_banner_text'); ?>');
 					<?php } ?>
-					<?php if(get_option('agca_login_photo_url')==true){ ?>						
-							var $url = "url(" + "<?php echo get_option('agca_login_photo_url'); ?>" + ")";
+					<?php if(get_option('agca_login_photo_url')==true){ ?>								
+							advanced_url = "<?php echo get_option('agca_login_photo_url'); ?>" + "?" + new Date().getTime();
+							var $url = "url(" + advanced_url + ")";
 							jQuery("#login h1 a").css("background-image",$url);	
 							jQuery("#login h1 a").hide();
-							var image = new Image();
-							jQuery(image).attr('src',"<?php echo get_option('agca_login_photo_url'); ?>").load(function() {
+							image = jQuery("<img />").attr("src",advanced_url);	
+							jQuery(image).load(function() {
 								var originalWidth = 326;
 								var widthDiff = this.width - originalWidth; 
 								jQuery("#login h1 a").height(this.height);
 								jQuery("#login h1 a").width(this.width);
 								jQuery("#login h1 a").css('margin-left',-(widthDiff/2)+"px");
 								jQuery("#login h1 a").show();
-								
-							});							
+							});												
 					<?php } ?>
 					<?php if(get_option('agca_login_photo_href')==true){ ?>						
 							var $href = "<?php echo get_option('agca_login_photo_href'); ?>";
@@ -734,8 +732,8 @@ try
 						jQuery('html').css("display","block");
 					});
 					<?php //unhide after everything is loaded ?> 	
-			 }catch(err){
-				alert("LOGIN ERROR: " + err);
+			 }catch(err){				
+				alert("LOGIN ERROR: " + err.name + " " + err.message);
 			 }	
             });
         /* ]]> */
