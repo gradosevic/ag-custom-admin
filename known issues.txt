@@ -37,3 +37,10 @@ login page-login top bar does not exist. if >3.2 change option text 'hide login 
 admin menu - does not work
 
 colorizer - widget background does not work
+
+
+
+version 1.2.5
+--------------
+fixed header load image in ie older versions
+added error messages in try catch block
