@@ -4,8 +4,6 @@ var editingButtonNow = false;
 function booleanToChecked(bool){
 	if(bool == 'true'){	
 		return 'checked="checked"';
-	}else if(bool == 'checked'){	
-		return 'checked="checked"';
 	}
 }
 
@@ -94,64 +92,12 @@ function createEditMenuPage(checkboxes,textboxes){
 					top_item_text_value = topElement;
 				}else{
 					top_item_text_value = textboxes[counter][1];
-					isHidden = checkboxes[counter][1];					
-				}	
-				jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_parent'><br /><a tabindex=\"0\" href=\"javascript:void(0)\" >" + topElement +"</a><div style=\"float:right\"><input title=\"Remove "+topElement+" from menu\" class=\""+jQuery(this).attr("id")+"\" type=\"checkbox\" "+booleanToChecked(isHidden)+" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></div></td><td class='ag_admin_menu_parent2' ><input title=\"Rename "+topElement+" with this value\" type=\"text\" class=\""+jQuery(this).attr("id")+"\" size=\"47\" value=\""+top_item_text_value+"\" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></td></tr>");
-			}			
-		counter++;
-		}		
-	});
-	 
-	//console.log(checkboxes.replace('<-TOP->','')+"|"+textboxes.replace('<-TOP->',''));	  
-	  prettyEditMenuPage();
-}
-
-function createEditMenuPageV32(checkboxes,textboxes){		
-	 /*Create menu page in AGCA settings*/	
-	
-	var counter = 0;
-	var TBlength = textboxes.length;
-	if(textboxes==""){
-		TBlength = 9999999;
-	}
-	
-	var topElement="";
-	jQuery('ul#adminmenu li').each(function(){  
-		if(!jQuery(this).hasClass("wp-menu-separator") && !jQuery(this).hasClass("wp-menu-separator-last") && !jQuery(this).hasClass("ag-custom-button") && (jQuery(this).attr('id') !="collapse-menu") && (counter < TBlength )){	
-			
-			//if subelement
-			if(jQuery(this).parent().parent().parent().hasClass('wp-submenu')){	
-				subElement = jQuery(this).find('a').text();
-				//console.log(jQuery(this));
-				//console.log(subElement);
-				var isHidden = "";
-				var sub_item_text_value;
-				if(textboxes ==""){	
-					sub_item_text_value = subElement;
-				}else{
-					sub_item_text_value = textboxes[counter][1];
-					isHidden = checkboxes[counter][1];					
-				}	
-				jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_child'><div style=\"float:left\"><a tabindex=\"-1\" href=\"javascript:void(0)\" style=\"font-weight:bold;\"title=\""+topElement+" submenu: "+subElement+"\"><span style=\"font-weight:normal\">submenu: </span>"+subElement+"</a></div><div style=\"float:right\"><input type=\"checkbox\" title=\"Remove "+topElement+" submenu: "+subElement+" from menu\" class=\""+subElement+"\" "+booleanToChecked(isHidden)+"  name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></div></td><td class='ag_admin_menu_child2' ><input type=\"text\" title=\"Rename submenu item "+subElement+" with this value\" class=\""+subElement+"\" size=\"47\" value=\""+sub_item_text_value+"\" name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></td></tr>");
-			}
-			//if top element
-			else{
-				topElement = jQuery(this).children('a').clone().children().remove().end().text();		
-				topElement = jQuery.trim(topElement);
-				var top_item_text_value;
-				var isHidden = "";
-				if(textboxes ==""){	
-					top_item_text_value = topElement;
-				}else{
-					top_item_text_value = textboxes[counter][1];
 					isHidden = checkboxes[counter][1];
 				}	
 				jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_parent'><br /><a tabindex=\"0\" href=\"javascript:void(0)\" >" + topElement +"</a><div style=\"float:right\"><input title=\"Remove "+topElement+" from menu\" class=\""+jQuery(this).attr("id")+"\" type=\"checkbox\" "+booleanToChecked(isHidden)+" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></div></td><td class='ag_admin_menu_parent2' ><input title=\"Rename "+topElement+" with this value\" type=\"text\" class=\""+jQuery(this).attr("id")+"\" size=\"47\" value=\""+top_item_text_value+"\" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></td></tr>");
 			}			
 		counter++;
-		}else if(jQuery(this).attr('id') =="collapse-menu"){
-			jQuery(this).remove();
-		}
+		}		
 	});
 	 
 	//console.log(checkboxes.replace('<-TOP->','')+"|"+textboxes.replace('<-TOP->',''));	  
@@ -205,8 +151,6 @@ function reloadRemoveButtonEvents(){
 			//alert(jQuery(this).parent().html());			
 			var name = jQuery('#ag_add_adminmenu_name_edit').val();
 			var url = jQuery('#ag_add_adminmenu_url_edit').val();
-			name = name.replace(/["']{1}/gi,"");
-			url = url.replace(/["']{1}/gi,"");	
 			jQuery('#temporary_button_edit').remove();
 			
 			var element = 0;
@@ -242,11 +186,7 @@ jQuery(document).ready(function(){
 	/*Add new menu item button - creates new HTMl button elements*/
 	jQuery('#ag_add_adminmenu_button').click(function(){	
 		var name = jQuery('#ag_add_adminmenu_name').val();
-		var url = jQuery('#ag_add_adminmenu_url').val();	
-		name = name.replace(/["']{1}/gi,"");
-		url = url.replace(/["']{1}/gi,"");		
-		jQuery('#ag_add_adminmenu_name').val("");
-		jQuery('#ag_add_adminmenu_url').val("");
+		var url = jQuery('#ag_add_adminmenu_url').val();
 		jQuery('#ag_add_adminmenu').append('<tr><td colspan="2"><button title="'+url+'" type="button">'+name+'</button>&nbsp;(<a style="cursor:pointer" class="button_edit">edit</a>)&nbsp;(<a style="cursor:pointer" class="button_remove">remove</a>)</td><td></td></tr>');
 		reloadRemoveButtonEvents();
 	});	
@@ -305,7 +245,7 @@ jQuery(document).ready(function(){
 				}
 				topMarker = "";
 				if(jQuery(this).parent().parent().hasClass('ag_admin_menu_parent')){
-					topMarker="<-TOP->"; 
+					topMarker="<-TOP->";
 				}
 				array += "\"" + topMarker + jQuery(this).attr('class') + "\" : ";
 				array += "\"" + jQuery(this).attr('checked') + "\"";
@@ -377,22 +317,15 @@ jQuery(document).ready(function(){
 /*C O L O R I Z E R*/
 function updateTargetColor(id, color){
 	switch(id)
-		{ 
-		case 'color_background':		
-			jQuery('html, .wp-dialog').css({'background-color':color});			
+		{
+		case 'color_background':
+		  jQuery('html, .wp-dialog').css({'background-color':color});
 		  break;
 		case 'color_footer':
 			jQuery('#footer').css({'background':color});
-			if(wpversion >= 3.2){
-				jQuery('#footer').css({'margin':'0','margin-left':'146px','padding':'15px'});
-			}
 		  break;
-		 case 'color_header':		 
+		 case 'color_header':
 			jQuery('#wphead').css({'background':color});
-			if(wpversion >= 3.2){
-				jQuery('#wphead').css({'margin':'0','margin-left':'-14px','padding-left':'15px'});
-				jQuery("#backtoblog").attr("style","");
-			}
 		  break;
 		  case 'color_admin_menu_top_button_background':
 			jQuery('#adminmenu a.menu-top').css({'background':color});
@@ -405,12 +338,6 @@ function updateTargetColor(id, color){
 		  break;
 		    case 'color_admin_menu_font':
 			jQuery('#adminmenu, #adminmenu a, #adminmenu p').css({'color':color});
-		  break;
-		     case 'color_admin_menu_behind_background':
-			jQuery('#adminmenuback, #adminmenuwrap').css({'background-color':color});
-		  break;
-		   case 'color_admin_menu_behind_border':
-			jQuery('#adminmenuback, #adminmenuwrap').css({'border-color':color});
 		  break;
 		   case 'color_admin_menu_submenu_background_over':
 			//jQuery('#adminmenu .wp-submenu a:hover').css({'background':color});
@@ -428,8 +355,7 @@ function updateTargetColor(id, color){
 			jQuery(".widget .widget-top, .postbox h3, .stuffbox h3").css({'background' : color, 'text-shadow' :'none'});
 		   break;
 			case 'color_widget_background':
-			jQuery(".widget, .postbox").css('background',color);			
-			//jQuery(".widget, #widget-list .widget-top, .postbox, .menu-item-settings").css('background',color); remove if <3.2 work
+			jQuery(".widget, .postbox").css('background-color',color);			
 		  break;		 
 		default:	
 		}	
