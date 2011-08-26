@@ -609,9 +609,6 @@ try
 							jQuery("#adminmenu").removeClass("noclass");
 					<?php } ?>				
 					
-					
-					/*Add user buttons*/	
-					jQuery('#ag_add_adminmenu').append(buttonsJq);
 					reloadRemoveButtonEvents();					
 				
 					
@@ -632,6 +629,9 @@ try
 					<?php } ?>
 					<?php //COLORIZER END ?>				
 <?php } //end of apply for any user except admin ?>		
+/*Add user buttons*/	
+jQuery('#ag_add_adminmenu').append(buttonsJq);
+
  }catch(err){
 	alert("AGCA ADMIN ERROR: " + err.name + " " + err.message);
  }				
