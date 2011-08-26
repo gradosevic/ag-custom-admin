@@ -66,7 +66,7 @@ class AGCA{
 	
 	function reloadScript(){
 			?>
-			<script type="text/javascript" src="<?php echo get_settings('home'); ?>/wp-includes/js/jquery/jquery.js"></script>	
+			<script type="text/javascript" src="<?php echo get_bloginfo('wpurl'); ?>/wp-includes/js/jquery/jquery.js"></script>	
 			<?php
 			
 	}
@@ -633,7 +633,7 @@ try
 					<?php //COLORIZER END ?>				
 <?php } //end of apply for any user except admin ?>		
  }catch(err){
-	alert("ADMIN ERROR: " + err.name + " " + err.message);
+	alert("AGCA ADMIN ERROR: " + err.name + " " + err.message);
  }				
  });
  /* ]]> */
@@ -733,7 +733,7 @@ try
 					});
 					<?php //unhide after everything is loaded ?> 	
 			 }catch(err){				
-				alert("LOGIN ERROR: " + err.name + " " + err.message);
+				alert("AGCA LOGIN ERROR: " + err.name + " " + err.message);
 			 }	
             });
         /* ]]> */
