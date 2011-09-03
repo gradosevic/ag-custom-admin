@@ -88,9 +88,6 @@ Please use 'Reset Settings' button on Admin Menu page to reset menu configuratio
 
 == Changelog ==
 
-= 1.2.5.1 =
-* Patched version 1.2.5 with bug fixes
-
 = 1.2.5 =
 * Plugin tested up to 3.2.1
 * Fixed some compatibility issues with other plugins
@@ -152,9 +149,6 @@ Please use 'Reset Settings' button on Admin Menu page to reset menu configuratio
 * Initial version
 
 == Upgrade Notice ==
-
-= 1.2.5.1 =
-Patched version 1.2.5 with bug fixes.
 
 = 1.2.5 =
 Improved compatibility with other plugins. Tested with Ozh' Admin Drop Down Menu and SexyBookmarks. Fixed screen freezing and white screen of death. Improved error handling and showing.
