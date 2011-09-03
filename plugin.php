@@ -700,6 +700,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 	     <script type="text/javascript">
 		 document.write('<style type="text/css">html{display:none;}</style>');
 		 var wpversion = "<?php echo $wpversion; ?>";		
+		 var agca_version = "1.2.5";		 
         /* <![CDATA[ */
             jQuery(document).ready(function() {			
 				try{ 
