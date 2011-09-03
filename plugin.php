@@ -785,7 +785,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/agca_farbtastic.js"></script>	
 		<?php //includes ?>		
 		<div class="wrap">
-			<h1 style="color:green">AG Custom Admin Settings <span style="font-size:15px;">(v1.2.4)</span></h1>						
+			<h1 style="color:green">AG Custom Admin Settings <span style="font-size:15px;">(v1.2.5)</span></h1>						
 										<div id="agca_news">&nbsp;</div><br />								
 			<form method="post" id="agca_form" action="options.php">
 				<?php settings_fields( 'agca-options-group' ); ?>
