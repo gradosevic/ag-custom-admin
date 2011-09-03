@@ -74,7 +74,7 @@ It is possible that WordPress usually wraps that text with some HTML tags. In th
 Try to clear browser's cache, and reload page.
 
 = I see only blank page. What to do? =
-First, try to clear browser's cache. If this does not work, try to find javaScript error in browser's console and post it to plugin's support page. If you want to deactivate plugin, but you can't access admin panel, turn off JavaScript in your browser and than log in admin and deactivate plugin (This works only for administrator).
+If you want to deactivate plugin, but you can't access admin panel, turn off JavaScript in your browser and than log in admin and deactivate plugin (This works only for administrator). Try also to clear browser's cache. If this does not work, try to find javaScript error in browser's console and post it to plugin's support page.
 
 = Admin menu buttons are changed in a wrong way =
 Please use 'Reset Settings' button on Admin Menu page to reset menu configuration to defaults. Remember that you should postpone admin menu configuration to the very end of admin page customization, because, any changes made from other plugins to admin menu (e.g adding new button of plugin that is activated, or removing that button when plugin is deactivated) could corrupt admin menu configuration.
@@ -87,6 +87,9 @@ Please use 'Reset Settings' button on Admin Menu page to reset menu configuratio
 4. Add custom background and text colors in admin and login pages.
 
 == Changelog ==
+
+= 1.2.5.1 =
+* Patched version 1.2.5 with bug fixes
 
 = 1.2.5 =
 * Plugin tested up to 3.2.1
@@ -149,6 +152,9 @@ Please use 'Reset Settings' button on Admin Menu page to reset menu configuratio
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.2.5.1 =
+Patched version 1.2.5 with bug fixes.
 
 = 1.2.5 =
 Improved compatibility with other plugins. Tested with Ozh' Admin Drop Down Menu and SexyBookmarks. Fixed screen freezing and white screen of death. Improved error handling and showing.
