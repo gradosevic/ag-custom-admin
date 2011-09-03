@@ -27,6 +27,7 @@ $agca = new AGCA();
 
 class AGCA{
 	private $colorizer="";	
+	private $active_plugin;
 	public function __construct()
 	{			
 		
@@ -42,8 +43,8 @@ class AGCA{
 	//	add_action('admin_menu', array(&$this,'agca_get_styles'));
 	//	add_action('login_head', array(&$this,'agca_get_styles'));
 	
-		/*Initialize properties*/
-		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
+		/*Initialize properties*/		
+		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');		
 	}
 	// Add donate and support information
 	function jk_filter_plugin_links($links, $file)
@@ -55,6 +56,18 @@ class AGCA{
 		$links[] = '<a href="http://wordpress.argonius.com/donate">' . __('Donate') . '</a>';
 		}
 		return $links;
+	}
+	function check_active_plugin(){
+		
+		$ozh = false;			
+			
+		if (is_plugin_active('ozh-admin-drop-down-menu/wp_ozh_adminmenu.php')) {		
+			$ozh = true;
+		}		
+		
+		$this->active_plugin = array(
+			"ozh" => $ozh
+		);
 	}
 	function agca_get_includes() {
 		?>			
@@ -289,13 +302,31 @@ class AGCA{
 <script type="text/javascript">
 document.write('<style type="text/css">html{visibility:hidden;}</style>');
 var wpversion = "<?php echo $wpversion; ?>";
+var agca_version = "1.2.5";
 var errors = false;
 
   /* <![CDATA[ */
 jQuery(document).ready(function() {	
 
 try
-  { 
+  {  
+				
+				<?php /*CHECK OTHER PLUGNS*/	
+					$this->check_active_plugin(); 
+					
+					if($this->active_plugin["ozh"]){
+						?> 
+							jQuery('ul#adminmenu').css('display','none'); 
+							jQuery('#footer-ozh-oam').css('display','none');	
+							jQuery('#ag_main_menu li').each(function(){
+								if(jQuery(this).text() == "Admin Menu"){
+									jQuery(this).hide();
+								}
+							});							
+						<?php
+					}
+				?>
+		
 
 				//get saved onfigurations	
 					<?php	$checkboxes = $this->jsonMenuArray(get_option('ag_edit_adminmenu_json'),'0');	?>
@@ -510,8 +541,8 @@ try
 						}else{
 							?>jQuery("#dashboard_secondary").css("display","block");<?php
 						}
-					?>
-					
+					?>				
+			
 					
 					<?php /*ADMIN MENU*/ ?>							
 								

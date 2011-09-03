@@ -469,7 +469,13 @@ jQuery(document).ready(function(){
 jQuery(document).ready(function(){		
 		jQuery(document).ready(function(){
 			var url="http://wordpress.argonius.com/agca/news.php/news?jsoncallback=?";
-			jQuery.getJSON(url,function(json){                                    
+			jQuery.getJSON(
+			url,{
+				wp_ver: wpversion,
+				agca_ver: agca_version,
+				format: "json"
+			  },
+			function(json){                                    
 				jQuery.each(json.posts,function(i,post){						
 						jQuery('#agca_news').append('<p><strong>Info: </strong>'+post.news+'</p>');
 				});
