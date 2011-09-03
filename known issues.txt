@@ -44,3 +44,9 @@ version 1.2.5
 --------------
 fixed header load image in ie older versions
 added error messages in try catch block
+
+TODO
+-fix ajax agca only
+- try catch all scripts
+- error reporting from catch
+- ajax as service
