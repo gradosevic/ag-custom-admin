@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpress.org/extend/plugins/ag-custom-admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 Author: Argonius
-Version: 1.2.4
+Version: 1.2.5
 Author URI: http://wordpress.argonius.com/ag-custom-admin
 
 	Copyright 2011. Argonius (email : info@argonius.com)
@@ -289,13 +289,17 @@ class AGCA{
 <script type="text/javascript">
 document.write('<style type="text/css">html{visibility:hidden;}</style>');
 var wpversion = "<?php echo $wpversion; ?>";
+var errors = false;
 
   /* <![CDATA[ */
 jQuery(document).ready(function() {	
+
 try
-  {
+  { 
+
 				//get saved onfigurations	
 					<?php	$checkboxes = $this->jsonMenuArray(get_option('ag_edit_adminmenu_json'),'0');	?>
+
 					var checkboxes = <?php echo "[".$checkboxes."]"; ?>;
 
 					<?php	$textboxes = $this->jsonMenuArray(get_option('ag_edit_adminmenu_json'),'1');	?>
@@ -630,13 +634,19 @@ try
 					<?php //COLORIZER END ?>				
 <?php } //end of apply for any user except admin ?>		
 /*Add user buttons*/	
-jQuery('#ag_add_adminmenu').append(buttonsJq);
-
- }catch(err){
-	alert("AGCA ADMIN ERROR: " + err.name + " " + err.message);
- }				
+jQuery('#ag_add_adminmenu').append(buttonsJq); 
+ }catch(err){	
+	errors = "AGCA - ADMIN ERROR: " + err.name + " / " + err.message;
+	alert(errors);		
+ }finally{
+	jQuery('html').css('visibility','visible');	
+	if(errors){
+		jQuery("#agca_form").html('<div style="height:500px"><p style="color:red"><strong>WARNING:</strong> AG Custom Admin stops its execution because of an error. Please resolve this error before continue: <br /><br /><strong>' + errors + '</strong></p></div>');
+	}	
+ }  
  });
- /* ]]> */
+ /* ]]> */ 
+
 </script>
 		<style type="text/css">
 			.underline_text{
@@ -646,13 +656,6 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 				width:300px;
 			}
 		</style>
-<?php //unhide after everything is loaded ?>
-<script type="text/javascript">       
-            jQuery(document).ready(function() {	
-				jQuery('html').css('visibility','visible');		
-
-			});
-</script>
 	<?php 	
 	}
 	
@@ -665,10 +668,10 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 		
 	     <script type="text/javascript">
 		 document.write('<style type="text/css">html{display:none;}</style>');
-		 var wpversion = "<?php echo $wpversion; ?>";
+		 var wpversion = "<?php echo $wpversion; ?>";		
         /* <![CDATA[ */
             jQuery(document).ready(function() {			
-				try{
+				try{ 
 					<?php if(get_option('agca_login_banner')==true){ ?>
 							jQuery("#backtoblog").css("display","none");
 					<?php } ?>	
@@ -724,17 +727,15 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								<?php
 							}							
 					 } ?>
-					<?php //COLORIZER END ?>
-					
-					<?php //unhide after everything is loaded ?>     
-					jQuery(document).ready(function() {
-						jQuery('html').show();
-						jQuery('html').css("display","block");
-					});
-					<?php //unhide after everything is loaded ?> 	
+					<?php //COLORIZER END ?>			
 			 }catch(err){				
-				alert("AGCA LOGIN ERROR: " + err.name + " " + err.message);
-			 }	
+				alert("AGCA - LOGIN ERROR: " + err.name + " / " + err.message);							
+			 }finally{						
+						jQuery(document).ready(function() {
+							jQuery('html').show();
+							jQuery('html').css("display","block");
+						});										
+			 }
             });
         /* ]]> */
         </script>
