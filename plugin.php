@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpress.org/extend/plugins/ag-custom-admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 Author: Argonius
-Version: 1.2.5
+Version: 1.2.5.1
 Author URI: http://wordpress.argonius.com/ag-custom-admin
 
 	Copyright 2011. Argonius (email : info@argonius.com)
@@ -28,6 +28,7 @@ $agca = new AGCA();
 class AGCA{
 	private $colorizer="";	
 	private $active_plugin;
+	private $agca_version = "1.2.5.1";
 	public function __construct()
 	{			
 		
@@ -302,7 +303,7 @@ class AGCA{
 <script type="text/javascript">
 document.write('<style type="text/css">html{visibility:hidden;}</style>');
 var wpversion = "<?php echo $wpversion; ?>";
-var agca_version = "1.2.5";
+var agca_version = "<?php echo $this->agca_version; ?>";
 var errors = false;
 
   /* <![CDATA[ */
@@ -644,7 +645,7 @@ try
 							jQuery("#adminmenu").removeClass("noclass");
 					<?php } ?>				
 					
-					reloadRemoveButtonEvents();					
+					reloadRemoveButtonEvents();				
 				
 					
 					<?php //COLORIZER ?>
@@ -700,7 +701,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 	     <script type="text/javascript">
 		 document.write('<style type="text/css">html{display:none;}</style>');
 		 var wpversion = "<?php echo $wpversion; ?>";		
-		 var agca_version = "1.2.5";		 
+		 var agca_version = "<?php echo $this->agca_version; ?>";		 
         /* <![CDATA[ */
             jQuery(document).ready(function() {			
 				try{ 
@@ -786,7 +787,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/agca_farbtastic.js"></script>	
 		<?php //includes ?>		
 		<div class="wrap">
-			<h1 style="color:green">AG Custom Admin Settings <span style="font-size:15px;">(v1.2.5)</span></h1>						
+			<h1 style="color:green">AG Custom Admin Settings <span style="font-size:15px;">(v<?php echo $this->agca_version; ?>)</span></h1>						
 										<div id="agca_news">&nbsp;</div><br />								
 			<form method="post" id="agca_form" action="options.php">
 				<?php settings_fields( 'agca-options-group' ); ?>
