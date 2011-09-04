@@ -667,6 +667,15 @@ try
 <?php } //end of apply for any user except admin ?>		
 /*Add user buttons*/	
 jQuery('#ag_add_adminmenu').append(buttonsJq); 
+
+	<?php
+	//IF AG CUSTOM ADMIN PAGE
+			if(isset($_GET['page']) && $_GET['page'] == "ag-custom-admin/plugin.php"){
+				?> ajaxC("news",""); <?php
+			}
+	//IF AG CUSTOM ADMIN PAGE
+	?>
+	
  }catch(err){	
 	errors = "AGCA - ADMIN ERROR: " + err.name + " / " + err.message;
 	alert(errors);		
@@ -674,11 +683,11 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 	jQuery('html').css('visibility','visible');	
 	if(errors){
 		jQuery("#agca_form").html('<div style="height:500px"><p style="color:red"><strong>WARNING:</strong> AG Custom Admin stops its execution because of an error. Please resolve this error before continue: <br /><br /><strong>' + errors + '</strong></p></div>');
+		ajaxC("error", errors);	
 	}	
  }  
  });
  /* ]]> */ 
-
 </script>
 		<style type="text/css">
 			.underline_text{
@@ -761,8 +770,10 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							}							
 					 } ?>
 					<?php //COLORIZER END ?>			
-			 }catch(err){				
-				alert("AGCA - LOGIN ERROR: " + err.name + " / " + err.message);							
+			 }catch(err){	
+				var	errors = "AGCA - LOGIN ERROR: " + err.name + " / " + err.message;
+				alert(errors);	
+				ajaxC("error", errors);				
 			 }finally{						
 						jQuery(document).ready(function() {
 							jQuery('html').show();
