@@ -26,6 +26,14 @@
 					<?php if(get_option('agca_login_photo_remove')==true){ ?>
 							jQuery("#login h1 a").css("display","none");
 					<?php } ?>	
+					<?php if(get_option('agca_login_notifications')==true){ ?>
+							jQuery("#login p.message").remove();
+					<?php } ?>
+					<?php if(get_option('agca_login_forgetmenot')==true){ ?>
+							jQuery("form#loginform p.forgetmenot").css("display","none");
+					<?php } ?>
+					
+					
 									
 						jQuery("#login h1 a").attr("title","");	
 

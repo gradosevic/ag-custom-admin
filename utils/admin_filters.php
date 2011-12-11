@@ -14,6 +14,21 @@
 					<?php if(get_option('agca_header_logo')==true){ ?>
 							jQuery("#wphead #header-logo").css("display","none");
 					<?php } ?>
+					<?php //if(get_option('agca_header_logo_custom')!=""){ ?>								  
+							/*jQuery("#wphead img#header-logo").attr('src','');
+							jQuery("#wphead img#header-logo").hide(); 		*/				
+													
+							/*advanced_url = img_url+ "?" + new Date().getTime();
+							image = jQuery("<img />").attr("src",advanced_url);								
+							jQuery(image).load(function() {	
+								jQuery("#wphead img#header-logo").attr('src', advanced_url);
+								jQuery("#wphead img#header-logo").attr('width',this.width);			
+								jQuery("#wphead img#header-logo").attr('height',this.height);	
+								jQuery("#wphead").css('height', (14 + this.height)+'px');
+								jQuery("#wphead img#header-logo").show();										
+							});	*/
+
+					<?php //} ?>			
 					<?php if(get_option('agca_header_logo_custom')!=""){ ?>								  
 							jQuery("#wphead img#header-logo").attr('src','');
 							jQuery("#wphead img#header-logo").hide(); 							
@@ -28,7 +43,7 @@
 								jQuery("#wphead img#header-logo").show();										
 							});	
 
-					<?php } ?>					
+					<?php } ?>	
 					<?php if(get_option('agca_site_heading')==true){ ?>
 							jQuery("#wphead #site-heading").css("display","none");
 					<?php } ?>
@@ -139,6 +154,9 @@
 					<?php } ?>
 					<?php if(get_option('agca_dashboard_text_paragraph')!=""){ ?>	
 							jQuery("#wpbody-content #dashboard-widgets-wrap").before('<br /><p style=\"text-indent:45px;\"><?php echo get_option('agca_dashboard_text_paragraph'); ?></p>');
+					<?php } ?>
+					<?php if(get_option('agca_dashboard_widget_width')==true){ ?>
+							jQuery(".postbox-container").css("width","100%");
 					<?php } ?>
 					
 					<?php /*Remove Dashboard widgets*/ ?>
@@ -290,17 +308,18 @@
 					
 					<?php //COLORIZER ?>
 					<?php if(get_option('agca_colorizer_turnonoff') == 'on'){ ?>
-					<?php					
-						foreach($this->colorizer as $k => $v){
-							if(($k !="") and ($v !="")){							
-								?> updateTargetColor("<?php echo $k;?>","<?php echo $v;?>"); <?php
-							}
-						}
-					?>
-					jQuery('.color_picker').each(function(){		
-						updateColor(jQuery(this).attr('id'),jQuery(this).val())
-					});
-					jQuery('label,h1,h2,h3,h4,h5,h6,a,p,.form-table th,.form-wrap label').css('text-shadow','none');
+							 jQuery("#adminmenu .wp-menu-arrow div").remove();
+							<?php					
+								foreach($this->colorizer as $k => $v){
+									if(($k !="") and ($v !="")){							
+										?> updateTargetColor("<?php echo $k;?>","<?php echo $v;?>"); <?php
+									}
+								}
+							?>
+							jQuery('.color_picker').each(function(){		
+								updateColor(jQuery(this).attr('id'),jQuery(this).val())
+							});
+							jQuery('label,h1,h2,h3,h4,h5,h6,a,p,.form-table th,.form-wrap label').css('text-shadow','none');
 					
 					<?php } ?>
 					<?php //COLORIZER END ?>

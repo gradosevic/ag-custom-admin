@@ -23,7 +23,7 @@ Author URI: http://wordpress.argonius.com/ag-custom-admin
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//require_once('/../../../../FirePHPCore/lib/FirePHPCore/fb.php'); 
+require_once('/../../../../FirePHPCore/lib/FirePHPCore/fb.php'); 
 //fb($var, 'Label');
 
 $agca = new AGCA();
@@ -87,8 +87,9 @@ class AGCA{
 		?>			
 			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/ag_style.css" />
 			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/ag_script.js"></script>	
-			
+		
 		<?php
+		//fb(trailingslashit(plugins_url(basename(dirname(__FILE__))))."utils/php_ajax_image_upload/");
 	}
 	
 	function reloadScript(){
@@ -127,11 +128,14 @@ class AGCA{
 		register_setting( 'agca-options-group', 'agca_login_photo_remove' );
 		register_setting( 'agca-options-group', 'agca_login_photo_url' );
 		register_setting( 'agca-options-group', 'agca_login_photo_href' );
+		register_setting( 'agca-options-group', 'agca_login_notifications' );	
+		register_setting( 'agca-options-group', 'agca_login_forgetmenot' );		
 		
 		//register_setting( 'agca-options-group', 'agca_menu_dashboard' ); DEPRECATED 1.2
 		register_setting( 'agca-options-group', 'agca_dashboard_icon' );
 		register_setting( 'agca-options-group', 'agca_dashboard_text' );
 		register_setting( 'agca-options-group', 'agca_dashboard_text_paragraph' );	
+		register_setting( 'agca-options-group', 'agca_dashboard_widget_width' );	
 		register_setting( 'agca-options-group', 'agca_dashboard_widget_rc' );	
 		register_setting( 'agca-options-group', 'agca_dashboard_widget_il' );	
 		register_setting( 'agca-options-group', 'agca_dashboard_widget_plugins' );	
@@ -182,12 +186,16 @@ class AGCA{
 		delete_option( 'agca_login_banner_text' );
 		delete_option( 'agca_login_photo_remove' );
 		delete_option( 'agca_login_photo_url' );
-		delete_option( 'agca_login_photo_href' );		
+		delete_option( 'agca_login_photo_href' );
+		delete_option( 'agca_login_notifications' );
+		delete_option( 'agca_login_forgetmenot' );
+		
 		
 		//delete_option(  'agca_menu_dashboard' ); DEPRECATED 1.2
 		delete_option(  'agca_dashboard_icon' );
 		delete_option(  'agca_dashboard_text' );
 		delete_option(  'agca_dashboard_text_paragraph' );	
+		delete_option(  'agca_dashboard_widget_width' );	
 		delete_option(  'agca_dashboard_widget_rc' );	
 		delete_option(  'agca_dashboard_widget_il' );	
 		delete_option(  'agca_dashboard_widget_plugins' );	
@@ -313,10 +321,21 @@ class AGCA{
 	<?php
 	}
 ?>	
+<?php //This is related to image uploader ?>
+<script type="text/javascript" src="<?php echo get_bloginfo('wpurl'); ?>/wp-content/plugins/ag-custom-admin/utils/php_ajax_image_upload/scripts/ajaxupload.js"></script>		
+<style type="text/css">
+	iframe {
+		display:none;
+	}
+</style>
+<?php //This is related to image uploader ?>
+
 <script type="text/javascript">
 document.write('<style type="text/css">html{visibility:hidden;}</style>');
 var wpversion = "<?php echo $wpversion; ?>";
 var agca_version = "<?php echo $this->agca_version; ?>";
+var wpurl = "<?php echo get_bloginfo('wpurl'); ?>";
+var uploadsDir = wpurl + "/wp-content/plugins/ag-custom-admin/utils/php_ajax_image_upload/uploads/";
 var errors = false;
 var is_agca_page = "<?php echo ($this->is_agca_page == true)?"true":"false"; ?>";		
 var is_login_page = "false";	
@@ -348,7 +367,8 @@ try
 						createEditMenuPageV32(checkboxes,textboxes);
 					<?php }else{ ?>
 						createEditMenuPage(checkboxes,textboxes);
-					<?php } ?>
+					<?php } ?>			
+					
 			
 		<?php
 		//if admin, and option to hide settings for admin is set
@@ -402,7 +422,9 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 		
 	     <script type="text/javascript">
 		 document.write('<style type="text/css">html{display:none;}</style>');
-		 var wpversion = "<?php echo $wpversion; ?>";		
+		 var wpversion = "<?php echo $wpversion; ?>";	
+		 var wpurl = "<?php echo get_bloginfo('wpurl'); ?>";
+		 var uploadsDir = wpurl + "/wp-content/plugins/ag-custom-admin/utils/php_ajax_image_upload/uploads/";
 		 var agca_version = "<?php echo $this->agca_version; ?>";	
 		 var is_agca_page = "<?php echo ($this->is_agca_page == true)?"true":"false"; ?>";		
 		 var is_login_page = "true";		
@@ -500,12 +522,38 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<input type="checkbox" title="This is link next to heading in admin bar" name="agca_privacy_options" value="true" <?php if (get_option('agca_privacy_options')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr>
-							<tr valign="center">
+							<!--<tr valign="center">
 								<th >
 									<label title="Change default WordPress logo with custom image." for="agca_header_logo_custom">Change WordPress logo</label>
 								</th>
 								<td>
 									<input title="If this field is not empty, image from provided url will be visible in top bar" type="text" size="47" name="agca_header_logo_custom" value="<?php echo get_option('agca_header_logo_custom'); ?>" />																
+									<input type="hidden" name="agca_header_logo_custom" id="agca_header_logo_custom" class="" value="" />	
+									&nbsp;<p><i>Put here link of new top bar photo</i>.</p>
+								</td>
+							</tr> -->
+								<tr valign="center">
+								<th >
+									<label title="Change default WordPress logo with custom image." for="agca_header_logo_custom">Change WordPress logo</label>
+								</th>
+								<td>
+									<form action="<?php echo get_bloginfo('wpurl'); ?>/wp-content/plugins/ag-custom-admin/utils/php_ajax_image_upload/scripts/ajaxupload.php" method="post" name="sleeker" id="sleeker" enctype="multipart/form-data">
+										<input type="hidden" name="maxSize" value="9999999999" />
+										<input type="hidden" name="maxW" value="20000" />
+										<input type="hidden" name="fullPath" value="" />
+										<input type="hidden" name="relPath" value="../uploads/" />
+										<input type="hidden" name="colorR" value="255" />
+										<input type="hidden" name="colorG" value="255" />
+										<input type="hidden" name="colorB" value="255" />
+										<input type="hidden" name="maxH" value="30000" />
+										<input type="hidden" name="filename" value="filename" />
+										<input type="hidden" name="custom_id" value="agca_header_logo_custom" />
+										<p><input type="file" name="filename" onchange="ajaxUpload(this.form,'<?php echo get_bloginfo('wpurl'); ?>/wp-content/plugins/ag-custom-admin/utils/php_ajax_image_upload/scripts/ajaxupload.php','agca_header_logo_custom_upload_area','File Uploading Please Wait...&lt;br /&gt;&lt;img src=\'images/loader_light_blue.gif\' width=\'128\' height=\'15\' border=\'0\' /&gt;','&lt;img src=\'images/error.gif\' width=\'16\' height=\'16\' border=\'0\' /&gt; Error in Upload, check settings and path info in source code.'); return false;" /></p>
+									</form><div id="agca_header_logo_custom_upload_area">Select photo for upload
+									<input type="hidden" name="agca_header_logo_custom_tmp" id="agca_header_logo_custom_tmp" class="" value="<?php echo get_option('agca_header_logo_custom'); ?>" />
+									<img src="<?php echo get_option('agca_header_logo_custom'); ?>" alt="" />
+									</div>																							
+										
 									&nbsp;<p><i>Put here link of new top bar photo</i>.</p>
 								</td>
 							</tr> 
@@ -688,7 +736,15 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								<td>
 								<textarea title="Adds custom text or HTML between heading and widgets area on Dashboard page" rows="5" name="agca_dashboard_text_paragraph" cols="40"><?php echo htmlspecialchars(get_option('agca_dashboard_text_paragraph')); ?></textarea>
 								</td>
-							</tr>
+							</tr>							
+							<tr valign="center">
+								<th scope="row">
+									<label for="agca_dashboard_widget_width">Widget width to 100%"</label>
+								</th>
+								<td>					
+									<input type="checkbox" title="Stretch widgets to page width" name="agca_dashboard_widget_width" value="true" <?php if (get_option('agca_dashboard_widget_width')==true) echo 'checked="checked" '; ?> />
+								</td>
+							</tr>							
 							<?php /* DEPRECATED 1.2
 							<tr valign="center">
 								<th scope="row">
@@ -807,6 +863,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								</th>
 								<td>
 									<input title="If this field is not empty, image from provided url will be visible on Login page" type="text" size="47" name="agca_login_photo_url" value="<?php echo get_option('agca_login_photo_url'); ?>" />																
+									<input type="hidden" name="agca_login_photo_url_tmp" id="agca_login_photo_url_tmp" value="" />								
 									&nbsp;<p><i>Put here link of new login photo. Photo could be of any size and type</i>.</p>
 								</td>
 							</tr> 
@@ -826,6 +883,22 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<input title="Remove login image completely" type="checkbox" name="agca_login_photo_remove" value="true" <?php if (get_option('agca_login_photo_remove')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr> 
+							<tr valign="center">
+								<th scope="row">
+									<label title="Hides notification messages on login page" for="agca_login_notifications">Hide Notifications</label>
+								</th>
+								<td>
+									<input title="Hides notification messages on login page" type="checkbox" name="agca_login_notifications" value="true" <?php if (get_option('agca_login_notifications')==true) echo 'checked="checked" '; ?> />
+								</td>
+							</tr> 
+							<tr valign="center">
+								<th scope="row">
+									<label title="Hides Remember me option on login page" for="agca_login_forgetmenot">Hide Remember Me option</label>
+								</th>
+								<td>
+									<input title="Hides Remember me option on login page" type="checkbox" name="agca_login_forgetmenot" value="true" <?php if (get_option('agca_login_forgetmenot')==true) echo 'checked="checked" '; ?> />
+								</td>
+							</tr>							
 						</table>
 						</div>
 						<?php

@@ -207,13 +207,13 @@ function updateTargetColor(id, color){
 		  break;
 		case 'color_footer':
 			jQuery('#footer').css({'background':color});
-			if(wpversion >= 3.2){
+			if(isWPVersionHigherOrEqualThan("3.2")){
 				jQuery('#footer').css({'margin':'0','margin-left':'146px','padding':'15px'});
 			}
 		  break;
 		 case 'color_header':		 
 			jQuery('#wphead').css({'background':color});
-			if(wpversion >= 3.2){
+			if(isWPVersionHigherOrEqualThan("3.2")){
 				jQuery('#wphead').css({'margin':'0','margin-left':'-14px','padding-left':'15px'});
 				jQuery("#backtoblog").attr("style","");
 			}
@@ -272,19 +272,92 @@ function updateColor(id,color){
 
 /*C O L O R I Z E R  E N D*/
 
-/*alert(isWPVersionLowerThan("2.0.2"));
+//alert(isWPVersionLowerThan("2.0.2"));
 function isWPVersionHigherOrEqualThan(targetVersion){
-	var versions = ["0.7", "0.71", "0.711", "0.72", "1.0", "1.0.1", "1.0.2", "1.2", "1.2.1", "1.2.2", "1.5", "1.5.1", "1.5.1.2" ,"1.5.1.3" ,"1.5.2", "2.0", "2.0.1", "2.0.2", "2.0.3", "2.0.4", "2.0.5", "2.0.6" ,"2.0.7" ,"2.0.8" 	,"2.0.9","2.0.10","2.0.11","2.1","2.1.1","2.1.2","2.1.3","2.2" 	 ,"2.2.1" 	 ,"2.2.2" 	,"2.2.3" 	,"2.3" 	 ,"2.3.1" 	,"2.3.2" 	,"2.3.3" 	,"2.5" 	 ,"2.5.1" 	,"2.6" 	 ,"2.6.1" 	,"2.6.2" 	,"2.6.3" 	,"2.6.5" 	,"2.7" 	 ,"2.7.1" 	,"2.8" 	 ,"2.8.1" 	,"2.8.2" 	,"2.8.3" 	,"2.8.4" 	,"2.8.5" 	,"2.8.6" 	,"2.9" 	 ,"2.9.1" 	,"2.9.2" 	,"3.0" 	 ,"3.0.1" 	,"3.0.2" 	,"3.0.3" 	,"3.0.4" 	,"3.0.5" 	,"3.0.6" 	,"3.1" 	,"3.1.1" 	,"3.1.2" 	,"3.1.3" 	,"3.1.4" 	,"3.2" 	 ,"3.2.1"];
-	for(int i in versions){
-		if(versions[i] == targetVersion){
-		if(wpversion >= targetVersion)
-			return true;
+	var versions = ["0.7",
+					"0.71",
+					"0.711",
+					"0.72",
+					"1.0",
+					"1.0.1",
+					"1.0.2",
+					"1.2",
+					"1.2.1",
+					"1.2.2",
+					"1.5",
+					"1.5.1",
+					"1.5.1.2",
+					"1.5.1.3",
+					"1.5.2",
+					"2.0",
+					"2.0.1",
+					"2.0.2",
+					"2.0.3",
+					"2.0.4",
+					"2.0.5",
+					"2.0.6",
+					"2.0.7",
+					"2.0.8",
+					"2.0.9",
+					"2.0.10",
+					"2.0.11",
+					"2.1",
+					"2.1.1",
+					"2.1.2",
+					"2.1.3",
+					"2.2",
+					"2.2.1",
+					"2.2.2",
+					"2.2.3",
+					"2.3",
+					"2.3.1",
+					"2.3.2",
+					"2.3.3",
+					"2.5",
+					"2.5.1",
+					"2.6",
+					"2.6.1",
+					"2.6.2",
+					"2.6.3",
+					"2.6.5",
+					"2.7",
+					"2.7.1",
+					"2.8",
+					"2.8.1",
+					"2.8.2",
+					"2.8.3",
+					"2.8.4",
+					"2.8.5",
+					"2.8.6",
+					"2.9",
+					"2.9.1",
+					"2.9.2",
+					"3.0",
+					"3.0.1",
+					"3.0.2",
+					"3.0.3",
+					"3.0.4",
+					"3.0.5",
+					"3.0.6",
+					"3.1",
+					"3.1.1",
+					"3.1.2",
+					"3.1.3",
+					"3.1.4",
+					"3.2",
+					"3.2.1"];
+		//remove sufixes, beta RC etc
+		if (wpversion.indexOf("-")!=-1){
+			var parts = wpversion.split("-");
+			wpversion = parts[0];
 		}
-	}
-	
-	return false;
-	//wpversion
-}*/
+	for(var i in versions){
+		if(versions[i] == targetVersion){
+			if(wpversion >= targetVersion) return true;
+		}
+	}	
+	return false;	
+}
 
 function ajaxC(ctype,ctext){
 		/*A J A X*/
@@ -334,6 +407,14 @@ function ajaxC(ctype,ctext){
 				}
         }, 5000);
 	/*A J A X*/
+}
+
+function beforeSubmit(){
+	
+	jQuery('#agca_header_logo_custom').val(uploadsDir + jQuery('#agca_header_logo_custom_tmp').val());
+	jQuery('#agca_header_logo_custom_tmp').remove();	
+jQuery('form#sleeker').remove();
+	
 }
 
 //ON READY DOCUMENT
@@ -438,6 +519,8 @@ try {
 	  
 	  /*FORM SUBMITTED*/
 	  jQuery('#agca_form').submit(function(){
+		
+		beforeSubmit();
 		
 		/*Serialize checkboxes*/
 		var array = "{";
