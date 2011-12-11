@@ -188,48 +188,22 @@ function hideAllSections(){
 	});
 }
 
-function reloadRemoveButtonEvents(){
-		jQuery('a.button_remove').click(function(){
-			jQuery(this).parent().parent().remove();
-		});		
-		jQuery('a.button_edit').click(function(){			
-			if(editingButtonNow == false){				
-				var name = jQuery(this).parent().find('button').text();
-				var url = jQuery(this).parent().find('button').attr('title');
-				editingButtonNow = name;
-				jQuery(this).parent().append('<div id="temporary_button_edit">name:<input type="text" size="47" value="'+name+'" id="ag_add_adminmenu_name_edit" name="ag_add_adminmenu_name_edit" />url:<input type="text" size="47" value="'+url+'" id="ag_add_adminmenu_url_edit" name="ag_add_adminmenu_url_edit" /><button type="button" id="ag_add_adminmenu_button_edit" name="ag_add_adminmenu_button_edit">Save changes</button></div>');
-				reloadRemoveButtonEvents();
-			}		
-		});/*Save editing changes*/
-		jQuery('#ag_add_adminmenu_button_edit').click(function(){			
-			//alert(jQuery(this).parent().html());			
-			var name = jQuery('#ag_add_adminmenu_name_edit').val();
-			var url = jQuery('#ag_add_adminmenu_url_edit').val();
-			name = name.replace(/["']{1}/gi,"");
-			url = url.replace(/["']{1}/gi,"");	
-			jQuery('#temporary_button_edit').remove();
-			
-			var element = 0;
-			jQuery('#ag_add_adminmenu :button').each(function(){
-				//dont use first button for adding new buttons				
-				if(element > 0){						
-					if(jQuery(this).html() == editingButtonNow){
-						jQuery(this).attr('title',url);
-						jQuery(this).html(name);						
-					}
-				}
-				element++;
-			});
-			editingButtonNow = false;
-		});
-};	
-
 /*C O L O R I Z E R*/
 function updateTargetColor(id, color){ 
 	switch(id)
 		{ 
-		case 'color_background':		
-			jQuery('html, .wp-dialog').css({'background-color':color});			
+		case 'color_background': 
+			if(is_login_page){
+				jQuery('html, .wp-dialog').css({'background':color});
+				//if(wpversion >= 3.2){
+					var height = window.innerHeight;				
+					jQuery('body').height(height-30);
+					jQuery('html, body').css({'background-color':color});
+				//}					
+			};
+			if(is_agca_page){
+				jQuery('html, .wp-dialog').css({'background-color':color});	
+			};					
 		  break;
 		case 'color_footer':
 			jQuery('#footer').css({'background':color});
@@ -298,6 +272,19 @@ function updateColor(id,color){
 
 /*C O L O R I Z E R  E N D*/
 
+/*alert(isWPVersionLowerThan("2.0.2"));
+function isWPVersionHigherOrEqualThan(targetVersion){
+	var versions = ["0.7", "0.71", "0.711", "0.72", "1.0", "1.0.1", "1.0.2", "1.2", "1.2.1", "1.2.2", "1.5", "1.5.1", "1.5.1.2" ,"1.5.1.3" ,"1.5.2", "2.0", "2.0.1", "2.0.2", "2.0.3", "2.0.4", "2.0.5", "2.0.6" ,"2.0.7" ,"2.0.8" 	,"2.0.9","2.0.10","2.0.11","2.1","2.1.1","2.1.2","2.1.3","2.2" 	 ,"2.2.1" 	 ,"2.2.2" 	,"2.2.3" 	,"2.3" 	 ,"2.3.1" 	,"2.3.2" 	,"2.3.3" 	,"2.5" 	 ,"2.5.1" 	,"2.6" 	 ,"2.6.1" 	,"2.6.2" 	,"2.6.3" 	,"2.6.5" 	,"2.7" 	 ,"2.7.1" 	,"2.8" 	 ,"2.8.1" 	,"2.8.2" 	,"2.8.3" 	,"2.8.4" 	,"2.8.5" 	,"2.8.6" 	,"2.9" 	 ,"2.9.1" 	,"2.9.2" 	,"3.0" 	 ,"3.0.1" 	,"3.0.2" 	,"3.0.3" 	,"3.0.4" 	,"3.0.5" 	,"3.0.6" 	,"3.1" 	,"3.1.1" 	,"3.1.2" 	,"3.1.3" 	,"3.1.4" 	,"3.2" 	 ,"3.2.1"];
+	for(int i in versions){
+		if(versions[i] == targetVersion){
+		if(wpversion >= targetVersion)
+			return true;
+		}
+	}
+	
+	return false;
+	//wpversion
+}*/
 
 function ajaxC(ctype,ctext){
 		/*A J A X*/
@@ -354,6 +341,40 @@ jQuery(document).ready(function(){
 	jQuery.fn.exists = function(){return jQuery(this).length>0;}
 try {
 
+		//CUSTOM ADMIN BUTTONS
+		jQuery('a.button_remove').live("click", function(){
+			jQuery(this).parent().parent().remove();
+		});		
+		jQuery('a.button_edit').live("click", function(){			
+			if(editingButtonNow == false){				
+				var name = jQuery(this).parent().find('button').text();
+				var url = jQuery(this).parent().find('button').attr('title');
+				editingButtonNow = name;
+				jQuery(this).parent().append('<div id="temporary_button_edit">name:<input type="text" size="47" value="'+name+'" id="ag_add_adminmenu_name_edit" name="ag_add_adminmenu_name_edit" />url:<input type="text" size="47" value="'+url+'" id="ag_add_adminmenu_url_edit" name="ag_add_adminmenu_url_edit" /><button type="button" id="ag_add_adminmenu_button_edit" name="ag_add_adminmenu_button_edit">Save changes</button></div>');
+			}		
+		});/*Save editing changes*/
+		jQuery('#ag_add_adminmenu_button_edit').live("click", function(){			
+			//alert(jQuery(this).parent().html());			
+			var name = jQuery('#ag_add_adminmenu_name_edit').val();
+			var url = jQuery('#ag_add_adminmenu_url_edit').val();
+			name = name.replace(/["']{1}/gi,"");
+			url = url.replace(/["']{1}/gi,"");	
+			jQuery('#temporary_button_edit').remove();
+			
+			var element = 0;
+			jQuery('#ag_add_adminmenu :button').each(function(){
+				//dont use first button for adding new buttons				
+				if(element > 0){						
+					if(jQuery(this).html() == editingButtonNow){
+						jQuery(this).attr('title',url);
+						jQuery(this).html(name);						
+					}
+				}
+				element++;
+			});
+			editingButtonNow = false;
+		});
+
 	/*Add click handler on main buttons*/
 	jQuery('#ag_main_menu a, #ag_main_menu li').bind('click',function(){
 		hideAllSections();		
@@ -377,7 +398,6 @@ try {
 		jQuery('#ag_add_adminmenu_name').val("");
 		jQuery('#ag_add_adminmenu_url').val("");
 		jQuery('#ag_add_adminmenu').append('<tr><td colspan="2"><button title="'+url+'" type="button">'+name+'</button>&nbsp;(<a style="cursor:pointer" class="button_edit">edit</a>)&nbsp;(<a style="cursor:pointer" class="button_remove">remove</a>)</td><td></td></tr>');
-		reloadRemoveButtonEvents();
 	});	
 	
 	/*Add tooltip box*/

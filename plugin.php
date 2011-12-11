@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpress.org/extend/plugins/ag-custom-admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 Author: Argonius
-Version: 1.2.5.1
+Version: 1.2.6
 Author URI: http://wordpress.argonius.com/ag-custom-admin
 
 	Copyright 2011. Argonius (email : info@argonius.com)
@@ -23,13 +23,16 @@ Author URI: http://wordpress.argonius.com/ag-custom-admin
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+//require_once('/../../../../FirePHPCore/lib/FirePHPCore/fb.php'); 
+//fb($var, 'Label');
+
 $agca = new AGCA();
 
 class AGCA{
 	private $colorizer="";	
 	private $active_plugin;
-	private $agca_version = "1.2.5.1";
-	private $is_agca_page = false;
+	private $agca_version = "1.2.6";
+	private $is_agca_page = false;	
 	public function __construct()
 	{			
 		
@@ -48,6 +51,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');	
 		$this->check_agca_page_active();
+		
 	}
 	// Add donate and support information
 	function jk_filter_plugin_links($links, $file)
@@ -62,10 +66,11 @@ class AGCA{
 	}
 	
 	function check_agca_page_active(){
-		if(isset($_GET['page']) && $_GET['page'] == "ag-custom-admin/plugin.php"){
+		if(isset($_GET['page']) && $_GET['page'] == "ag-custom-admin/plugin.php"){		
 			$this->is_agca_page = true;
 		}
-	}
+	}	
+
 	function check_active_plugin(){
 		
 		$ozh = false;			
@@ -313,6 +318,8 @@ document.write('<style type="text/css">html{visibility:hidden;}</style>');
 var wpversion = "<?php echo $wpversion; ?>";
 var agca_version = "<?php echo $this->agca_version; ?>";
 var errors = false;
+var is_agca_page = "<?php echo ($this->is_agca_page == true)?"true":"false"; ?>";		
+var is_login_page = "false";	
 
   /* <![CDATA[ */
 jQuery(document).ready(function() {	
@@ -390,12 +397,16 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 		$this->reloadScript();
 		$this->agca_get_includes();		
 		$wpversion = $this->get_wp_version();
+		
 	?>	
 		
 	     <script type="text/javascript">
 		 document.write('<style type="text/css">html{display:none;}</style>');
 		 var wpversion = "<?php echo $wpversion; ?>";		
-		 var agca_version = "<?php echo $this->agca_version; ?>";		 
+		 var agca_version = "<?php echo $this->agca_version; ?>";	
+		 var is_agca_page = "<?php echo ($this->is_agca_page == true)?"true":"false"; ?>";		
+		 var is_login_page = "true";		
+			
         /* <![CDATA[ */
             jQuery(document).ready(function() {			
 				try{ 
