@@ -50,3 +50,5 @@ TODO
 - try catch all scripts
 - error reporting from catch
 - ajax as service
+
+- add function to check for versions
