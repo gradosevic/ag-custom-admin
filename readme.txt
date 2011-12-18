@@ -4,7 +4,7 @@ Donate link: http://wordpress.argonius.com/donate
 Tags: admin, customize, hide, change admin
 Requires at least: 3.0
 Tested up to: 3.3
-Stable tag: 1.2.5.1
+Stable tag: 1.2.5.2
 
 Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 
@@ -88,6 +88,16 @@ Please use 'Reset Settings' button on Admin Menu page to reset menu configuratio
 
 == Changelog ==
 
+= 1.2.5.2 =
+* Fixed several issues with WP 3.3
+* Added options for hidding "comments" and "new" from admin bar
+* Support for custom admin bar images
+* Support for custom Log Out text
+* Hide everything except Log Out button works now
+* Removed few obsolete options
+* Removing "Edit My Profile"
+* Fixed bug when trying to edit custom buttons in admin menu
+
 = 1.2.5.1 =
 * Plugin tested up to 3.3
 * Fixed major issues with WP 3.3. version
@@ -154,6 +164,9 @@ Please use 'Reset Settings' button on Admin Menu page to reset menu configuratio
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.2.5.2 =
+Full compatibility with WP 3.3. Fixed several issues with this version. Removed obsolete options for old WP versions, added new options to fit 3.3 version. Update is highly recommonded for WP 3.3 users.
 
 = 1.2.5.1 =
 Plugin is ready for 3.3. WordPress version. Major issues with WP 3.3 are fixed. However, some options are not fully functional, yet. Recommended only for users with 3.3. WP version. Fixed bug with custom admin menu buttons.
