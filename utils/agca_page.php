@@ -1,3 +1,0 @@
-<?php
-		?> ajaxC("news",""); <?php
-?>

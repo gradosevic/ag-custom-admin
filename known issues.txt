@@ -24,6 +24,9 @@ wp_register_script(   'jquery'
 add_action('init', 'my_init_method');
 ?> 
 
+TODO
+-------
+fix typo ‘appy for all’ 
 
 
 
