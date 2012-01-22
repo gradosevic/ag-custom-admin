@@ -189,6 +189,39 @@ function hideAllSections(){
 }
 function reloadRemoveButtonEvents(){
 }
+function createTargetCombo(target,clas){
+
+	var combo = ""
+	
+	combo+= "<select";
+	if( clas != null){
+		combo+=" class=\"editTarget\" ";
+	}
+	combo+= ">";
+				combo+= "<option value=\"_blank\"";
+					if(target == "_blank"){
+						combo+= " selected ";
+					}
+				combo+= ">blank</option>";
+				combo+= "<option value=\"_self\"";
+					if(target == "_self"){
+						combo+= " selected ";
+					}
+				combo+= ">self</option>";
+				combo+= "<option value=\"_parent\"";
+					if(target == "_parent"){
+						combo+= " selected ";
+					}
+				combo+= ">parent</option>";
+				combo+= "<option value=\"_top\"";
+					if(target == "_top"){
+						combo+= " selected ";
+					}
+				combo+= ">top</option>";
+			combo+= "</select>";
+	return combo;
+}
+
 jQuery(document).ready(function(){	
 	jQuery('a.button_remove').live("click", function(){
 			jQuery(this).parent().parent().remove();
@@ -196,9 +229,11 @@ jQuery(document).ready(function(){
 		jQuery('a.button_edit').live("click", function(){			
 			if(editingButtonNow == false){				
 				var name = jQuery(this).parent().find('button').text();
-				var url = jQuery(this).parent().find('button').attr('title');
+				var url = jQuery(this).parent().find('button').attr('title');				
+				var target = jQuery(this).parent().find('button').attr('target');
+				//console.log(target);
 				editingButtonNow = name;
-				jQuery(this).parent().append('<div id="temporary_button_edit">name:<input type="text" size="47" value="'+name+'" id="ag_add_adminmenu_name_edit" name="ag_add_adminmenu_name_edit" />url:<input type="text" size="47" value="'+url+'" id="ag_add_adminmenu_url_edit" name="ag_add_adminmenu_url_edit" /><button type="button" id="ag_add_adminmenu_button_edit" name="ag_add_adminmenu_button_edit">Save changes</button></div>');
+				jQuery(this).parent().append('<div id="temporary_button_edit">name:<input type="text" size="47" value="'+name+'" id="ag_add_adminmenu_name_edit" name="ag_add_adminmenu_name_edit" />url:<input type="text" size="47" value="'+url+'" id="ag_add_adminmenu_url_edit" name="ag_add_adminmenu_url_edit" />' + createTargetCombo(target,"edit")+ '<button type="button" id="ag_add_adminmenu_button_edit" name="ag_add_adminmenu_button_edit">Save changes</button></div>');
 				reloadRemoveButtonEvents();
 			}		
 		});/*Save editing changes*/
@@ -206,6 +241,8 @@ jQuery(document).ready(function(){
 			//alert(jQuery(this).parent().html());			
 			var name = jQuery('#ag_add_adminmenu_name_edit').val();
 			var url = jQuery('#ag_add_adminmenu_url_edit').val();
+			var target = jQuery('select.editTarget').val();
+			//var target = jQuery(this).parent().find('button').attr('target');
 			name = name.replace(/["']{1}/gi,"");
 			url = url.replace(/["']{1}/gi,"");	
 			jQuery('#temporary_button_edit').remove();
@@ -216,6 +253,7 @@ jQuery(document).ready(function(){
 				if(element > 0){						
 					if(jQuery(this).html() == editingButtonNow){
 						jQuery(this).attr('title',url);
+						jQuery(this).attr('target',target);
 						jQuery(this).html(name);						
 					}
 				}
@@ -243,12 +281,14 @@ jQuery(document).ready(function(){
 	/*Add new menu item button - creates new HTMl button elements*/
 	jQuery('#ag_add_adminmenu_button').click(function(){	
 		var name = jQuery('#ag_add_adminmenu_name').val();
-		var url = jQuery('#ag_add_adminmenu_url').val();	
+		var url = jQuery('#ag_add_adminmenu_url').val();		
+		var target = jQuery('#ag_add_adminmenu_target').val();		
 		name = name.replace(/["']{1}/gi,"");
 		url = url.replace(/["']{1}/gi,"");		
 		jQuery('#ag_add_adminmenu_name').val("");
 		jQuery('#ag_add_adminmenu_url').val("");
-		jQuery('#ag_add_adminmenu').append('<tr><td colspan="2"><button title="'+url+'" type="button">'+name+'</button>&nbsp;(<a style="cursor:pointer" class="button_edit">edit</a>)&nbsp;(<a style="cursor:pointer" class="button_remove">remove</a>)</td><td></td></tr>');
+		jQuery('#ag_add_adminmenu_target').val("_none");
+		jQuery('#ag_add_adminmenu').append('<tr><td colspan="2"><button target="'+target+'" title="'+url+'" type="button">'+name+'</button>&nbsp;(<a style="cursor:pointer" class="button_edit">edit</a>)&nbsp;(<a style="cursor:pointer" class="button_remove">remove</a>)</td><td></td></tr>');
 		reloadRemoveButtonEvents();
 	});	
 	
@@ -277,8 +317,20 @@ jQuery(document).ready(function(){
 	  });
 	  
 	  /*SECTION FOCUS*/
-	  jQuery('.section_title').focus(function(){		
+	  jQuery('.section_title').focus(function(){			  
 	  });	 
+	  
+	  /*HIDE/SHOW New items click*/
+	  jQuery('input[name=agca_admin_bar_new_content]').bind("click",function(){				
+		var checked = jQuery(this).is(":checked");
+		if(!checked){
+			jQuery(".new_content_header_submenu").show("slide");
+		}else{
+			jQuery(".new_content_header_submenu").hide("slideDown");
+		}		
+	  });
+	  
+	  
 });
 
 /*CLICKING ON ITEMS HANDLING*/
@@ -346,15 +398,18 @@ jQuery(document).ready(function(){
 					if(element > 1){
 						array += ", ";				
 					}
-					array += "\"" + jQuery(this).html() + "\" : ";
-					array += "\"" + jQuery(this).attr('title') + "\"";					
+					array += "\"" + jQuery(this).html() + "\" : {";
+					array += " \"value\" : ";
+					array += "\"" + jQuery(this).attr('title') + "\"";
+					array += ", \"target\" : ";
+					array += "\"" + jQuery(this).attr('target') + "\"}";					
 				}
 				element++;
 		});
 		array += "}";	
 		if(element == 1){array="";}
 		jQuery('#ag_add_adminmenu_json').val(array);
-		
+		alert(66);
 		
 		/*Serialize colors*/
 		var array = "{";
@@ -516,3 +571,91 @@ jQuery(document).ready(function(){
 
 });
 /*A J A X*/
+
+function isWPHigherOrEqualThan(targetVersion){
+	var versions = ["0.7",
+					"0.71",
+					"0.711",
+					"0.72",
+					"1.0",
+					"1.0.1",
+					"1.0.2",
+					"1.2",
+					"1.2.1",
+					"1.2.2",
+					"1.5",
+					"1.5.1",
+					"1.5.1.2",
+					"1.5.1.3",
+					"1.5.2",
+					"2.0",
+					"2.0.1",
+					"2.0.2",
+					"2.0.3",
+					"2.0.4",
+					"2.0.5",
+					"2.0.6",
+					"2.0.7",
+					"2.0.8",
+					"2.0.9",
+					"2.0.10",
+					"2.0.11",
+					"2.1",
+					"2.1.1",
+					"2.1.2",
+					"2.1.3",
+					"2.2",
+					"2.2.1",
+					"2.2.2",
+					"2.2.3",
+					"2.3",
+					"2.3.1",
+					"2.3.2",
+					"2.3.3",
+					"2.5",
+					"2.5.1",
+					"2.6",
+					"2.6.1",
+					"2.6.2",
+					"2.6.3",
+					"2.6.5",
+					"2.7",
+					"2.7.1",
+					"2.8",
+					"2.8.1",
+					"2.8.2",
+					"2.8.3",
+					"2.8.4",
+					"2.8.5",
+					"2.8.6",
+					"2.9",
+					"2.9.1",
+					"2.9.2",
+					"3.0",
+					"3.0.1",
+					"3.0.2",
+					"3.0.3",
+					"3.0.4",
+					"3.0.5",
+					"3.0.6",
+					"3.1",
+					"3.1.1",
+					"3.1.2",
+					"3.1.3",
+					"3.1.4",
+					"3.2",
+					"3.2.1",
+					"3.3",
+					"3.3.1"];
+		//remove sufixes, beta RC etc
+		if (wpversion.indexOf("-")!=-1){
+			var parts = wpversion.split("-");
+			wpversion = parts[0];
+		}
+	for(var i in versions){
+		if(versions[i] == targetVersion){
+			if(wpversion >= targetVersion) return true;
+		}
+	}	
+	return false;	
+}

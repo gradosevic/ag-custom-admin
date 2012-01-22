@@ -27,7 +27,7 @@ add_action('init', 'my_init_method');
 TODO
 -------
 fix typo ‘appy for all’ 
-
+cache clear after upgrade
 
 
 VESION 3.2
@@ -43,8 +43,8 @@ colorizer - widget background does not work
 
 VESION 3.3.1
 --------------------
-- admin vs other users distinguish check. (menu removal for other users does not work)
-- "Page Settings Admin Bar" with my logo,The new WP Admin Bar appears, however, and shows the logo of WP and its sub-menu with links that refer to the Wordpress site
+//- admin vs other users distinguish check. (menu removal for other users does not work)
+//- "Page Settings Admin Bar" with my logo,The new WP Admin Bar appears, however, and shows the logo of WP and its sub-menu with links that refer to the Wordpress site
 -custom buttons arget box (new, parent, blank), 
 -wp-login customisation, give the option to change the background colour
 -change wp logo does not seem to change anything.
