@@ -1,0 +1,107 @@
+#ag_main_menu {
+	display:block;
+	height:32px;
+	border-bottom:3px solid green;	
+}
+#ag_main_menu li{
+	display:block;
+	background-color:#A9F5A9;
+	float:left;
+	color:#0B6138;
+	padding:15px;
+	padding-top:8px;
+	padding-bottom:8px;
+	font-weight:bold;
+	border-bottom:3px solid green;
+}
+#ag_main_menu li.selected{
+	border:3px solid green;
+	border-bottom:none ;
+	background-color:#F9F9F9;
+	cursor:default;
+}
+#ag_main_menu li.normal:hover{
+	background-color:#A9F500;
+	cursor:pointer;
+}
+#ag_main_menu li a{
+	text-decoration:none;
+	color: green;
+}
+.ag_table_heading{
+	background-color:#A9F5A9;
+	display:block;
+	height:20px;
+	padding:5px;
+	padding-top:0px;
+	padding-bottom:1px;
+	margin-top:50px;
+	border-bottom:1px solid green;	
+	margin-left:-10px;
+	margin-right:-10px;
+}
+.ag_table_major_options{
+	background-color:#ddd;
+	width:500px;
+}
+
+.ag_table_major_options td{	
+	padding:5px;
+	margin:0px;
+}
+
+div#AGToolTipDiv {
+  position: absolute;
+  top: 100px;
+  left: 200px;
+  height: 20px;
+  border: 1px solid #FFFF00;
+  background-color: #FFFFD4;
+  display: none;
+  padding: 3px;
+  padding-top: 7px;
+  padding-bottom: 5px;
+}
+td.ag_admin_menu_parent{
+	font-size:16px;
+	font-weight:bold;		
+}
+td.ag_admin_menu_parent:hover{
+	background-color:#ddd;	
+}
+#ag_edit_adminmenu tr{
+	margin:0;
+	padding:0;
+	background-color:#E8FAE8;	
+}
+#ag_edit_adminmenu td.ag_admin_menu_child {
+	margin:0;
+	padding:15px;
+	padding-top:0;
+	padding-bottom:0;		
+}
+#ag_edit_adminmenu th h2{
+	color:#fff;
+}
+#ag_edit_adminmenu a{
+	text-decoration:none;
+	color:#444;
+}
+.noclass{
+	display:none;
+}
+#agca_footer_support_info{
+	font-size:12px;
+	font-weight:bold;
+	color:#555;
+	border:1px solid green;
+	padding:20px;
+}
+#agca_news{
+	 height:50px;
+	 margin-top:-35px;
+	 color:green;
+}
+#agca_news a{
+	 color:green;
+}
