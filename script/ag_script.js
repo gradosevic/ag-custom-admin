@@ -408,8 +408,7 @@ jQuery(document).ready(function(){
 		});
 		array += "}";	
 		if(element == 1){array="";}
-		jQuery('#ag_add_adminmenu_json').val(array);
-		alert(66);
+		jQuery('#ag_add_adminmenu_json').val(array);		
 		
 		/*Serialize colors*/
 		var array = "{";

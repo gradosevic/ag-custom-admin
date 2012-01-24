@@ -142,6 +142,7 @@ class AGCA{
 		register_setting( 'agca-options-group', 'agca_admin_bar_new_content_user' );
 		register_setting( 'agca-options-group', 'agca_admin_bar_new_content_media' );		
 		register_setting( 'agca-options-group', 'agca_admin_bar_update_notifications' );	
+		register_setting( 'agca-options-group', 'agca_remove_top_bar_dropdowns' );			
 
 
 		/*Admin menu*/
@@ -210,6 +211,7 @@ class AGCA{
 		delete_option( 'agca_admin_bar_new_content_user' );
 		delete_option( 'agca_admin_bar_new_content_media' );
 		delete_option( 'agca_admin_bar_update_notifications' );
+		delete_option( 'agca_remove_top_bar_dropdowns' );
 
 		/*Admin menu*/
 		delete_option(  'agca_admin_menu_turnonoff' );
@@ -233,6 +235,8 @@ class AGCA{
 		$target =$arr["target"];;
 		if($name == 'AG Custom Admin'){
 			$class="agca_button_only";
+			$target = "_self";
+			$href = $arr;
 		}
 		$button ="";
 		$button .= '<li id="menu-'.$name.'" class="ag-custom-button menu-top menu-top-first '.$class.' menu-top-last">';
@@ -394,8 +398,10 @@ try
 		if((get_option('agca_role_allbutadmin')==true) and  ($user_level > 9)){	
 		?>				
 		<?php } else{ ?>
-					<?php //change anyway ?>
+					
 					if(isWPHigherOrEqualThan("3.3")){
+					<?php if(get_option('agca_remove_top_bar_dropdowns')==true){ ?>
+					
 						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-wp-logo").hover("visibility","hidden");
 						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-wp-logo a").attr("href","");
 						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-wp-logo a").attr("title","");
@@ -404,9 +410,10 @@ try
 
 						<?php if(get_option('agca_admin_bar_new_content')!=""){  ?> 
 							jQuery(".new_content_header_submenu").hide();
-						<?php } ?>
+						<?php } ?>					
 						
-					}					
+					<?php } ?>	
+					}	
 			
 					<?php if(get_option('agca_screen_options_menu')==true){ ?>
 							jQuery("#screen-options-link-wrap").css("display","none");
@@ -872,25 +879,40 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 					<?php //COLORIZER ?>
 					<?php if(get_option('agca_colorizer_turnonoff') == 'on'){ ?>
 						jQuery('label,h1,h2,h3,h4,h5,h6,a,p,.form-table th,.form-wrap label').css('text-shadow','none');
-					<?php					
-					
+						
+						if(isWPHigherOrEqualThan("3.3")){
+							jQuery("body.login").css("background","<?php echo $this->colorizer['color_background'];?>");
+						}else{
+						
+							<?php
 							if($this->colorizer['color_background']!=""){							
 								?> 							
-								updateTargetColor("color_background","<?php echo $this->colorizer['color_background'];?>"); 								
+								updateTargetColor("color_background","<?php echo $this->colorizer['color_background'];?>"); 		
+							
 								<?php
 							}	
 							if($this->colorizer['color_header']!=""){							
 								?> 	
 								<?php if($wpversion < 3.2){ ?>
 									jQuery("#backtoblog").css("background","<?php echo $this->colorizer['color_header'];?>");
+									
 								<?php } ?>
 								<?php
 							}
 							if($this->colorizer['color_font_header']!=""){							
 								?> 										
 									jQuery("#backtoblog a,#backtoblog p").css("color","<?php echo $this->colorizer['color_font_header'];?>");									
+									
 								<?php
-							}							
+							}
+						
+							?>						
+						}
+						
+							
+					<?php								
+											
+														
 					 } ?>
 					<?php //COLORIZER END ?>			
 			 }catch(err){				
@@ -1011,7 +1033,15 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							<?php if($wpversion>=3.3){?>							
 							<tr valign="center">
 								<th >
-									<label title="Removes comments block from admin bar" for="agca_admin_bar_comments">Hide admin bar comments</label>
+									<label title="Hides default WordPress top bar dropdown menus" for="agca_remove_top_bar_dropdowns">Hide WordPress top bar dropdown menus</label>
+								</th>
+								<td>					
+									<input title="Hides default WordPress top bar dropdown menus" type="checkbox" name="agca_remove_top_bar_dropdowns" value="true" <?php if (get_option('agca_remove_top_bar_dropdowns')==true) echo 'checked="checked" '; ?> />
+								</td>
+							</tr> 
+							<tr valign="center">
+								<th >
+									<label title="Removes comments block from admin bar" for="agca_admin_bar_comments">Hide admin bar "Comments"</label>
 								</th>
 								<td>					
 									<input title="Removes comments block from admin bar" type="checkbox" name="agca_admin_bar_comments" value="true" <?php if (get_option('agca_admin_bar_comments')==true) echo 'checked="checked" '; ?> />
@@ -1019,7 +1049,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</tr> 
 							<tr valign="center" style="margin-top:20px;">
 								<th >
-									<label title="Removes 'New' block with its contents from admin bar" for="agca_admin_bar_new_content">Hide admin bar new content</label>
+									<label title="Removes 'New' block with its contents from admin bar" for="agca_admin_bar_new_content">Hide admin bar "New" content</label>
 								</th>
 								<td>					
 									<input title="Removes 'New' block with its contents from admin bar" type="checkbox" name="agca_admin_bar_new_content" value="true" <?php if (get_option('agca_admin_bar_new_content')==true) echo 'checked="checked" '; ?> />
@@ -1027,7 +1057,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</tr> 	
 							<tr class="new_content_header_submenu" valign="center">
 								<th >
-									<label title="Removes 'Post' submenu from 'New' option from admin bar" for="agca_admin_bar_new_content_post">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hide New content -> Post submenu</label>
+									<label title="Removes 'Post' submenu from 'New' option from admin bar" for="agca_admin_bar_new_content_post">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hide "New" content -> Post submenu</label>
 								</th>
 								<td>					
 									<input title="Removes 'Post' submenu from 'New' option from admin bar" type="checkbox" name="agca_admin_bar_new_content_post" value="true" <?php if (get_option('agca_admin_bar_new_content_post')==true) echo 'checked="checked" '; ?> />
@@ -1035,7 +1065,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</tr> 
 							<tr  class="new_content_header_submenu" valign="center">
 								<th >
-									<label title="Removes 'Link' submenu from 'New' option from admin bar" for="agca_admin_bar_new_content_link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hide New content -> Link submenu</label>
+									<label title="Removes 'Link' submenu from 'New' option from admin bar" for="agca_admin_bar_new_content_link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hide "New" content -> Link submenu</label>
 								</th>
 								<td>					
 									<input title="Removes 'Link' submenu from 'New' option from admin bar" type="checkbox" name="agca_admin_bar_new_content_link" value="true" <?php if (get_option('agca_admin_bar_new_content_link')==true) echo 'checked="checked" '; ?> />
@@ -1043,7 +1073,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</tr> 
 							<tr class="new_content_header_submenu" valign="center">
 								<th >
-									<label title="Removes 'Page' submenu from 'New' option from admin bar" for="agca_admin_bar_new_content_page">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hide New content -> Page submenu</label>
+									<label title="Removes 'Page' submenu from 'New' option from admin bar" for="agca_admin_bar_new_content_page">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hide "New" content -> Page submenu</label>
 								</th>
 								<td>					
 									<input title="Removes 'Page' submenu from 'New' option from admin bar" type="checkbox" name="agca_admin_bar_new_content_page" value="true" <?php if (get_option('agca_admin_bar_new_content_page')==true) echo 'checked="checked" '; ?> />
@@ -1051,15 +1081,15 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</tr> 
 							<tr class="new_content_header_submenu" valign="center">
 								<th >
-									<label title="Removes 'Url' submenu from 'New' option from admin bar" for="agca_admin_bar_new_content_url">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hide New content -> Url submenu</label>
+									<label title="Removes 'User' submenu from 'New' option from admin bar" for="agca_admin_bar_new_content_user">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hide "New" content -> User submenu</label>
 								</th>
 								<td>					
-									<input title="Removes 'Url' submenu from 'New' option from admin bar" type="checkbox" name="agca_admin_bar_new_content_url" value="true" <?php if (get_option('agca_admin_bar_new_content_url')==true) echo 'checked="checked" '; ?> />
+									<input title="Removes 'User' submenu from 'New' option from admin bar" type="checkbox" name="agca_admin_bar_new_content_user" value="true" <?php if (get_option('agca_admin_bar_new_content_user')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr> 
 							<tr class="new_content_header_submenu" valign="center">
 								<th >
-									<label title="Removes 'Media' submenu from 'New' option from admin bar" for="agca_admin_bar_new_content_media">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hide New content -> Media submenu</label>
+									<label title="Removes 'Media' submenu from 'New' option from admin bar" for="agca_admin_bar_new_content_media">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hide "New" content -> Media submenu</label>
 								</th>
 								<td>					
 									<input title="Removes 'Media' submenu from 'New' option from admin bar" type="checkbox" name="agca_admin_bar_new_content_media" value="true" <?php if (get_option('agca_admin_bar_new_content_media')==true) echo 'checked="checked" '; ?> />
