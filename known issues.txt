@@ -66,3 +66,11 @@ TODO
 - ajax as service
 
 - add function to check for versions
+- add function to check for versions
+<<<<<<< .mine
+version 1.2.6
+-----------------------
+fix update notification
+.update-nag
+-login image remove generated number, caching on
+-profile page customization=======>>>>>>> .theirs
