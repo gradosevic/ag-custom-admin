@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpress.org/extend/plugins/ag-custom-admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 Author: Argonius
-Version: 1.2.5.3
+Version: 1.2.5.5
 Author URI: http://wordpress.argonius.com/ag-custom-admin
 
 	Copyright 2011. Argonius (email : info@argonius.com)
@@ -23,7 +23,7 @@ Author URI: http://wordpress.argonius.com/ag-custom-admin
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//require_once('/../../../../FirePHPCore/lib/FirePHPCore/fb.php'); 
+require_once('/../../../../FirePHPCore/lib/FirePHPCore/fb.php'); 
 //fb($var);
 
 $agca = new AGCA();
@@ -49,7 +49,7 @@ class AGCA{
 	
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
-		$this->agca_version = "1.2.5.3";
+		$this->agca_version = "1.2.5.5";
 	}
 	// Add donate and support information
 	function jk_filter_plugin_links($links, $file)
@@ -76,8 +76,8 @@ class AGCA{
 	}
 	function agca_get_includes() {
 		?>			
-			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/ag_style.css" />
-			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/ag_script.js"></script>	
+			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/ag_style.css?ver=<?php echo $this->agca_version; ?>" />
+			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>	
 			
 		<?php
 	}
