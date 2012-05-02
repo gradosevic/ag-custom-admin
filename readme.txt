@@ -3,7 +3,7 @@ Contributors: argonius
 Donate link: http://wordpress.argonius.com/donate
 Tags: admin, customize, hide, change admin
 Requires at least: 3.0
-Tested up to: 3.3.1
+Tested up to: 3.3.2
 Stable tag: 1.2.5.4
 
 Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
@@ -67,26 +67,43 @@ For more information about the plugin please see: http://wordpress.argonius.com/
 
 == Frequently Asked Questions ==
 
-= My text is not in the right place. How to fix it? =
-It is possible that WordPress usually wraps that text with some HTML tags. In that case use one of HTML tags to surround your text, e.g. &lt;h1&gt;My text&lt;/h1&gt;, or other (a, p, h2, h3..  etc.)
-
-= Plugin does not work after upgrading to new version. =
-Try to clear browser's cache, and reload page.
+= Plugin does not work after upgrading to new version. What should I do? =
+Try to clear browser's cache, and reload page. In extreme situations, you would need to remove plugin and to download and install fresh installation from WordPress repository.
 
 = I see only blank page. What to do? =
-If you want to deactivate plugin, but you can't access admin panel, turn off JavaScript in your browser and than log in admin and deactivate plugin (This works only for administrator). Try also to clear browser's cache. If this does not work, try to find javaScript error in browser's console and post it to plugin's support page.
+This is caused by JavaScript error thrown by AGCA or some other plugin. If you want to deactivate plugin, but you can't access admin panel, turn off JavaScript in your browser and than log in back and deactivate plugin (This works only for administrator). Try also to clear browser's cache. If this does not work, try to find javaScript error in browser's console and post it to plugin's support page.
 
-= Admin menu buttons are changed in a wrong way =
+= Something is wrong with Admin Menu buttons =
 Please use 'Reset Settings' button on Admin Menu page to reset menu configuration to defaults. Remember that you should postpone admin menu configuration to the very end of admin page customization, because, any changes made from other plugins to admin menu (e.g adding new button of plugin that is activated, or removing that button when plugin is deactivated) could corrupt admin menu configuration.
+
+= Some errors appear on my page =
+Go to browser's console and see if there are any errors. Try to locate them. If you can't fix error by yourself, post it back to plugin's support page.
+
+= Plugin does not work =
+Try clearing browser's cache. If that does not work, go to browser's console and see if there are any errors. Try to locate them. If you can't fix error by yourself, post it back to plugin's support page. When trying to locate the problem, the best way is to disable other plugins, because there could be a conflict with them. If there is a conflict with other plugin, it can be found by disabling one by one plugin, until the problem is solved.
+
 
 == Screenshots ==
 
-1. Text in header or footer could be customized.
-2. Login page top bar could be changer or removed. Custom login photo could be added.
-3. Admin menu is completely customizable. You can rename or remove items in menu and submenu, or add brand new buttons with custom links.
-4. Add custom background and text colors in admin and login pages.
+1. AG Custom Admin provides most of options for Admin Panel customization, and it's easy to use.
+2. Login page can be customized and styled with custom branding logo or image, rounded borders, background colors.
+3. Admin menu is completely customizable. You can rename or remove items from menu and submenu, or add brand new buttons with custom links.
+4. Default WP grey colors can be refreshed with any colors that you like! There are a lot of Colorizer option which can be use to style text, background, login, widgets, admin menu, top bar, footer and many more!
 
 == Changelog ==
+
+= 1.2.6 =
+* Fixed hidding top bar issue for site pages
+* Fixed issues with custom content on Dashboard page. Any custom HTML can be used now.
+* Custom CSS script support
+* Custom JAvaScript support
+* Exporting / importing AG Custom Admin customizations
+* Added custom branding field above the admin menu for adding custom brand images
+* Rounding admin menu popups and login page
+* Option for removing Welcome dashboard widget
+* New colorizer options for admin menu, top bar
+* New AGCA info area
+* Fixed caching issues on updates
 
 = 1.2.5.4 =
 * Fixed fatal error from version 1.2.5.3
@@ -175,6 +192,10 @@ Please use 'Reset Settings' button on Admin Menu page to reset menu configuratio
 * Initial version
 
 == Upgrade Notice ==
+
+
+= 1.2.6 =
+A lot of improvements in 1.2.6, fixed issues with top bar, caching on updates, better styles, etc.  and new features: export/import new colorizer options, better admin menu styles, custom css, custom js, admin bar on site pages etc.
 
 = 1.2.5.4 =
 Fixed fatal error from version 1.2.5.3
