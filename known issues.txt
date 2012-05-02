@@ -2,7 +2,7 @@ ADmin menu - add new button
 - When editing new button, if edit is clicked, and then remove is clicked, it is not possible to press any other edit button.
 
 hide update notification not working for 3.0 (class="update-nag")
-v
+
 colorizer not updated colors in textbox colors if colorizer disabled
 
 add new custom button - clear textboxes after adding
@@ -26,7 +26,7 @@ add_action('init', 'my_init_method');
 
 TODO
 -------
-fix typo ‘appy for all’ 
+fix typo ï¿½appy for allï¿½ 
 cache clear after upgrade
 
 
@@ -73,4 +73,10 @@ version 1.2.6
 fix update notification
 .update-nag
 -login image remove generated number, caching on
--profile page customization=======>>>>>>> .theirs
+-profile page customization=======
+
+
+version 1.2.5.5.
+-----------------------
+-added new versions to versions list
+-show/hide welcome dashboard option

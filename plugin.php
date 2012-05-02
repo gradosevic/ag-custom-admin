@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpress.org/extend/plugins/ag-custom-admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 Author: Argonius
-Version: 1.2.5.5
+Version: 1.2.6
 Author URI: http://wordpress.argonius.com/ag-custom-admin
 
 	Copyright 2011. Argonius (email : info@argonius.com)
@@ -23,8 +23,8 @@ Author URI: http://wordpress.argonius.com/ag-custom-admin
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-require_once('/../../../../FirePHPCore/lib/FirePHPCore/fb.php'); 
-//fb($var);
+//require_once('/../../../../../FirePHPCore/lib/FirePHPCore/fb.php'); 
+//fb($_POST);
 
 $agca = new AGCA();
 
@@ -32,6 +32,8 @@ class AGCA{
 	private $colorizer="";	
 	private $active_plugin;
 	private $agca_version;
+        private $custom_css = "";
+        private $custom_js = "";
 	public function __construct()
 	{	
 				
@@ -49,7 +51,8 @@ class AGCA{
 	
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
-		$this->agca_version = "1.2.5.5";
+                //fb($this->colorizer);
+		$this->agca_version = "1.2.6";
 	}
 	// Add donate and support information
 	function jk_filter_plugin_links($links, $file)
@@ -75,10 +78,25 @@ class AGCA{
 		);
 	}
 	function agca_get_includes() {
-		?>			
-			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/ag_style.css?ver=<?php echo $this->agca_version; ?>" />
-			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>	
-			
+            global $user_level;
+            ?>		
+                        <script type="text/javascript">
+                            <?php 
+                                //AGCA GLOBALS                            
+                                echo "var agca_global_plugin_url = '".trailingslashit(plugins_url(basename(dirname(__FILE__))))."';"; 
+                            ?>
+                        </script>
+			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/ag_style.css?ver=<?php echo $this->agca_version; ?>" />                       
+			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>	                        	
+                        
+                       <?php
+                        if(!((get_option('agca_role_allbutadmin')==true) and  ($user_level > 9))){	
+                            ?>
+                             <link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/mine.css?ver=<?php echo $this->agca_version; ?>" />
+                             <script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/mine.js?ver=<?php echo $this->agca_version; ?>"></script>
+                            <?php
+                        }
+                        ?>
 		<?php
 	}
 	
@@ -119,11 +137,14 @@ class AGCA{
 		register_setting( 'agca-options-group', 'agca_login_photo_remove' );
 		register_setting( 'agca-options-group', 'agca_login_photo_url' );
 		register_setting( 'agca-options-group', 'agca_login_photo_href' );
+                register_setting( 'agca-options-group', 'agca_login_round_box' );
+		register_setting( 'agca-options-group', 'agca_login_round_box_size' );
 		
 		//register_setting( 'agca-options-group', 'agca_menu_dashboard' ); DEPRECATED 1.2
 		register_setting( 'agca-options-group', 'agca_dashboard_icon' );
 		register_setting( 'agca-options-group', 'agca_dashboard_text' );
-		register_setting( 'agca-options-group', 'agca_dashboard_text_paragraph' );	
+		register_setting( 'agca-options-group', 'agca_dashboard_text_paragraph' );
+                register_setting( 'agca-options-group', 'agca_dashboard_widget_welcome' );
 		register_setting( 'agca-options-group', 'agca_dashboard_widget_rc' );	
 		register_setting( 'agca-options-group', 'agca_dashboard_widget_il' );	
 		register_setting( 'agca-options-group', 'agca_dashboard_widget_plugins' );	
@@ -150,12 +171,45 @@ class AGCA{
 		register_setting( 'agca-options-group', 'agca_admin_menu_agca_button_only' );	
 		register_setting( 'agca-options-group', 'agca_admin_menu_separator_first' );	
 		register_setting( 'agca-options-group', 'agca_admin_menu_separator_second' );	
-		register_setting( 'agca-options-group', 'agca_admin_menu_icons' );		
+		register_setting( 'agca-options-group', 'agca_admin_menu_icons' );	
+                register_setting( 'agca-options-group', 'agca_admin_menu_arrow' );
+                register_setting( 'agca-options-group', 'agca_admin_menu_submenu_round' );	
+                register_setting( 'agca-options-group', 'agca_admin_menu_submenu_round_size' );
+                register_setting( 'agca-options-group', 'agca_admin_menu_brand' );
 		register_setting( 'agca-options-group', 'ag_edit_adminmenu_json' );
 		register_setting( 'agca-options-group', 'ag_add_adminmenu_json' );	
 		register_setting( 'agca-options-group', 'ag_colorizer_json' );	
-		register_setting( 'agca-options-group', 'agca_colorizer_turnonoff' );	
-		
+		register_setting( 'agca-options-group', 'agca_colorizer_turnonoff' );                
+                
+                 $this->createCustomJSFile();
+                 $this->createCustomCSSFile();
+                
+                if(!empty($_POST)){
+                 // fb($_POST);
+                    if(isset($_POST['_agca_import_settings']) && $_POST['_agca_import_settings']=="true"){                            
+                            if(isset($_FILES) && isset($_FILES['settings_import_file']) ){
+                                if($_FILES["settings_import_file"]["error"] > 0){                                      
+                                }else{                                     
+                                    $file = $_FILES['settings_import_file'];
+                                    if($this->startsWith($file['name'],'AGCA_Settings')){  
+                                        if (file_exists($file['tmp_name'])) {
+                                            $fh = fopen($file['tmp_name'], 'r');
+                                            $theData = "";
+                                            if(filesize($file['tmp_name']) > 0){
+                                                $theData = fread($fh,filesize($file['tmp_name']));
+                                            }  
+                                            fclose($fh);                                          
+                                            $this->importSettings($theData); 
+                                        }                                         
+                                    }
+                                }                                
+                            }
+                    }else if(isset($_POST['_agca_export_settings']) && $_POST['_agca_export_settings']=="true"){
+                            $this->exportSettings();  
+                    }else{
+                       
+                    }    
+                }
 	}
 
 	function agca_deactivate() {	
@@ -187,12 +241,15 @@ class AGCA{
 		delete_option( 'agca_login_banner_text' );
 		delete_option( 'agca_login_photo_remove' );
 		delete_option( 'agca_login_photo_url' );
-		delete_option( 'agca_login_photo_href' );		
+		delete_option( 'agca_login_photo_href' );
+                delete_option( 'agca_login_round_box' );
+		delete_option( 'agca_login_round_box_size' );
 		
 		//delete_option(  'agca_menu_dashboard' ); DEPRECATED 1.2
 		delete_option(  'agca_dashboard_icon' );
 		delete_option(  'agca_dashboard_text' );
-		delete_option(  'agca_dashboard_text_paragraph' );	
+		delete_option(  'agca_dashboard_text_paragraph' );
+                delete_option(  'agca_dashboard_widget_welcome' );
 		delete_option(  'agca_dashboard_widget_rc' );	
 		delete_option(  'agca_dashboard_widget_il' );	
 		delete_option(  'agca_dashboard_widget_plugins' );	
@@ -219,11 +276,181 @@ class AGCA{
 		delete_option(  'agca_admin_menu_separator_first' );
 		delete_option(  'agca_admin_menu_separator_second' );
 		delete_option(  'agca_admin_menu_icons' );
+                delete_option(  'agca_admin_menu_arrow' );
+                delete_option(  'agca_admin_menu_submenu_round' );
+                delete_option(  'agca_admin_menu_submenu_round_size' );
+                delete_option(  'agca_admin_menu_brand' );
 		delete_option(  'ag_edit_adminmenu_json' );
 		delete_option(  'ag_add_adminmenu_json' );
 		delete_option(  'ag_colorizer_json' );	
 		delete_option(  'agca_colorizer_turnonoff' );
-	}   
+	}  
+        
+        function getOptions(){
+            return Array(
+                'agca_role_allbutadmin',
+                'agca_screen_options_menu',
+                'agca_help_menu',
+                'agca_logout',
+                'agca_remove_your_profile',
+                'agca_logout_only',
+                'agca_options_menu',
+                'agca_howdy',
+                'agca_header',
+                'agca_header_show_logout',
+                'agca_footer',
+                'agca_privacy_options',
+                'agca_header_logo',
+                'agca_header_logo_custom',
+                'agca_wp_logo_custom',
+                'agca_site_heading',
+                'agca_custom_site_heading',
+                'agca_update_bar',
+                'agca_footer_left',
+                'agca_footer_left_hide',
+                'agca_footer_right',
+                'agca_footer_right_hide',
+                'agca_login_banner',
+                'agca_login_banner_text',
+                'agca_login_photo_remove',
+                'agca_login_photo_url',
+                'agca_login_photo_href',
+                'agca_login_round_box',
+                'agca_login_round_box_size',
+                'agca_dashboard_icon',
+                'agca_dashboard_text',
+                'agca_dashboard_text_paragraph',
+                'agca_dashboard_widget_welcome',
+                'agca_dashboard_widget_rc',
+                'agca_dashboard_widget_il',
+                'agca_dashboard_widget_plugins',
+                'agca_dashboard_widget_qp',
+                'agca_dashboard_widget_rn',
+                'agca_dashboard_widget_rd',
+                'agca_dashboard_widget_primary',
+                'agca_dashboard_widget_secondary',
+                'agca_admin_bar_comments',
+                'agca_admin_bar_new_content',
+                'agca_admin_bar_new_content_post',
+                'agca_admin_bar_new_content_link',
+                'agca_admin_bar_new_content_page',
+                'agca_admin_bar_new_content_user',
+                'agca_admin_bar_new_content_media',
+                'agca_admin_bar_update_notifications',
+                'agca_remove_top_bar_dropdowns',
+                'agca_admin_menu_turnonoff',
+                'agca_admin_menu_agca_button_only',
+                'agca_admin_menu_separator_first',
+                'agca_admin_menu_separator_second',
+                'agca_admin_menu_icons',
+                'agca_admin_menu_arrow',
+                'agca_admin_menu_submenu_round',
+                'agca_admin_menu_submenu_round_size',
+                'agca_admin_menu_brand',
+                'ag_edit_adminmenu_json',
+                'ag_add_adminmenu_json',
+                'ag_colorizer_json',
+                'agca_colorizer_turnonof',
+            ); 
+        }      
+        
+        function createCustomCSSFile(){
+                $customScriptName =dirname(__FILE__)."/style/mine.css";         
+		if (file_exists($customScriptName)) {                 
+                    $fh = fopen($customScriptName, 'r');
+                    $theData = "";
+                    if(filesize($customScriptName) > 0){
+                        $theData = fread($fh,filesize($customScriptName));
+                    }                    
+                    fclose($fh);
+                    $this->custom_css = $theData;
+                } else {
+                    $customScript = fopen($customScriptName, 'w');                   
+                    fclose($customScript);
+                }
+        }
+        
+        function importSettings($settings){
+            $exploaded = explode("|^|^|", $settings);
+           // $str = "EEE: ";
+            
+            $savedOptions = array();
+            
+            foreach ($exploaded as $setting){
+               
+                $key = current(explode(':', $setting));
+                $value = substr($setting, strlen($key)+1);                
+                $cleanedValue = str_replace('|^|^|','',$value);                
+                $savedOptions[$key] = $cleanedValue;        
+            } 
+            
+           // print_r($savedOptions);
+            
+            $optionNames = $this->getOptions();
+            
+            foreach ($optionNames as $optionName){
+                $optionValue = "";              
+                $optionValue = $savedOptions[$optionName];
+                
+                if($optionName == "ag_edit_adminmenu_json" || $optionName == "ag_add_adminmenu_json" ||$optionName == "ag_colorizer_json"){
+                    $optionValue = str_replace("\\\"", "\"", $optionValue);
+                    $optionValue = str_replace("\\\'", "\'", $optionValue);
+                }else{
+                    
+                }     
+                update_option($optionName, $optionValue);                
+                $str.="/".$optionName."/".$optionValue."\n";
+            } 
+           // fb($savedOptions);
+            $this->custom_css = $savedOptions['agca_script_css'];
+            $this->custom_js = $savedOptions['agca_script_js'];           
+           //echo $str;
+        }
+        
+        function exportSettings(){
+            $str = "";
+
+            foreach ($_POST as $key => $value) {
+                if ($this->startsWith($key,'ag')||$this->startsWith($key,'color')) {
+                    $str .=$key. ":".$value."|^|^|";
+                 }                
+            }
+          
+             $filename = 'AGCA_Settings_'.date("Y-M-d_H-i-s").'.agca';             
+             header("Cache-Control: public");
+             header("Content-Description: File Transfer");            
+             header("Content-Disposition: attachment; filename=$filename");
+             header("Content-Type: text/plain; "); 
+             header("Content-Transfer-Encoding: binary");
+             echo $str;
+             die();
+        }       
+        
+        function startsWith($haystack, $needle)
+        {
+            $length = strlen($needle);
+            return (substr($haystack, 0, $length) === $needle);
+        }
+        
+        function createCustomJSFile(){        
+                $customScriptName =dirname(__FILE__)."/script/mine.js";         
+                
+		if (file_exists($customScriptName)) {   
+                    $fh = fopen($customScriptName, 'r');
+                    $theData = "";
+                    if(filesize($customScriptName) > 0){
+                        $theData = fread($fh,filesize($customScriptName));
+                    }  
+                    fclose($fh);
+                    $this->custom_js = $theData;
+                } else {
+                    $customScript = fopen($customScriptName, 'w');
+                    $stringData = "jQuery(document).ready(function(){\n\n});";
+                    fwrite($customScript, $stringData);
+                    fclose($customScript);
+                }
+        }
+                
 	function agca_create_menu() {
 	//create new top-level menu		
 		add_management_page( 'AG Custom Admin', 'AG Custom Admin', 'administrator', __FILE__, array(&$this,'agca_admin_page') );
@@ -239,12 +466,9 @@ class AGCA{
 			$href = $arr;
 		}
 		$button ="";
-		$button .= '<li id="menu-'.$name.'" class="ag-custom-button menu-top menu-top-first '.$class.' menu-top-last">';
-			/*<div class="wp-menu-image">
-				<a href="edit-comments.php"><br></a>
-			</div>*/
+		$button .= '<li id="menu-'.$name.'" class="ag-custom-button menu-top menu-top-first '.$class.' menu-top-last">';			
 			$button .= '<div class="wp-menu-toggle" style="display: none;"><br></div>';
-			$button .=  '<a tabindex="1" target="'.$target.'" class="menu-top menu-top-last" href="'.$href.'">'.$name.'<a>';
+			$button .=  '<a tabindex="1" target="'.$target.'" class="menu-top menu-top-last" href="'.$href.'">'.$name.'</a>';
 		$button .=  '</li>';
 		
 		return $button;		
@@ -316,12 +540,246 @@ class AGCA{
 	
 	function print_page()
 	{
+            $wpversion = $this->get_wp_version();
 		?><style type="text/css">
-		#wpadminbar{
-			display:none;
-		}
-		</style><?php
+		
+		</style>
+                 <script type="text/javascript">       
+                 </script>
+                <script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>	
+                <script type="text/javascript">       
+                     <?php echo "var agca_global_plugin_url = '".trailingslashit(plugins_url(basename(dirname(__FILE__))))."';"; ?>
+                    var wpversion = "<?php echo $wpversion; ?>";
+                    var agca_version = "<?php echo $this->agca_version; ?>";
+                    var jQueryScriptOutputted = false;
+                    function initJQuery() {
+
+                        //if the jQuery object isn't available
+                        if (typeof(jQuery) == 'undefined') {
+
+
+                            if (! jQueryScriptOutputted) {
+                                //only output the script once..
+                                jQueryScriptOutputted = true;
+
+                                //output the script (load it from google api)
+                                document.write("<scr" + "ipt type=\"text/javascript\" src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js\"></scr" + "ipt>");
+                            }
+                            setTimeout("initJQuery()", 50);
+                        } else {
+
+                            $(function() {  
+                                try
+                                { 
+                                    <?php  $this->print_admin_bar_scripts(); ?>
+                                }catch(ex){}
+                            });                             
+                        }
+                    }
+                    initJQuery();                  
+                </script>
+                  
+                    <?php
+               
 	}
+        
+        function print_admin_bar_scripts(){
+            ?>
+            if(isWPHigherOrEqualThan("3.3")){ 
+                <?php if(get_option('agca_remove_top_bar_dropdowns')==true){ ?>
+                   	
+                        
+                        //remove on site page
+                         jQuery("#wpadminbar #wp-admin-bar-root-default > #wp-admin-bar-wp-logo .ab-sub-wrapper").hide();
+                         jQuery("#wpadminbar #wp-admin-bar-root-default > #wp-admin-bar-site-name .ab-sub-wrapper").hide();
+                     
+                        
+                         var abitemSelector = "#wpadminbar .ab-top-menu > li.menupop > .ab-item";
+                         var originalBkg = jQuery(abitemSelector).css('background');
+                         var originalColor = jQuery(abitemSelector).css('color');
+                       jQuery(abitemSelector).mouseover(function(){
+                            jQuery(this).css({'background':'#222222','color':'#fafafa'});
+                       }).mouseout(function(){
+                              jQuery(this).css({'background':originalBkg,'color':originalColor});
+                       });                       
+
+                        <?php if(get_option('agca_admin_bar_new_content')!=""){  ?> 
+                                jQuery(".new_content_header_submenu").hide();
+                        <?php } ?>					
+
+                <?php } ?>	
+                }
+                
+                if(isWPHigherOrEqualThan("3.3")){
+                        <?php if(get_option('agca_admin_bar_comments')!=""){  ?>
+                                jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-comments").css("display","none");
+                        <?php } ?>
+                        <?php if(get_option('agca_admin_bar_new_content')!=""){  ?> 
+                                jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content").css("display","none");								
+                        <?php } ?>
+                        <?php if(get_option('agca_admin_bar_new_content_post')!=""){  ?>
+                                jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-post").css("display","none");
+                        <?php } ?>
+                        <?php if(get_option('agca_admin_bar_new_content_link')!=""){  ?>
+                                jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-link").css("display","none");
+                        <?php } ?>
+                        <?php if(get_option('agca_admin_bar_new_content_page')!=""){  ?>
+                                jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-page").css("display","none");
+                        <?php } ?>
+                        <?php if(get_option('agca_admin_bar_new_content_user')!=""){  ?>
+                                jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-user").css("display","none");
+                        <?php } ?>
+                        <?php if(get_option('agca_admin_bar_new_content_media')!=""){  ?>
+                                jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-media").css("display","none");
+                        <?php } ?>								
+                        <?php if(get_option('agca_admin_bar_update_notifications')!=""){  ?>
+                                jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-updates").css("display","none");
+                        <?php } ?>
+                }
+                
+                
+                <?php if(get_option('agca_header_logo')==true){ ?>
+                                jQuery("#wphead #header-logo").css("display","none");							
+                                jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-wp-logo").css("display","none");
+
+                <?php } ?>
+                <?php if(get_option('agca_header_logo_custom')!=""){ ?>	
+
+
+                                if(isWPHigherOrEqualThan("3.3")){
+                                        var img_url = '<?php echo get_option('agca_header_logo_custom'); ?>';							
+
+                                        advanced_url = img_url;
+                                        image = jQuery("<img />").attr("src",advanced_url);								
+                                        jQuery(image).load(function() {										
+                                                jQuery("#wpbody-content").prepend(image);
+                                        });
+                                }else{
+                                        jQuery("#wphead img#header-logo").attr('src','');
+                                        jQuery("#wphead img#header-logo").hide(); 							
+                                        var img_url = '<?php echo get_option('agca_header_logo_custom'); ?>';							
+                                        advanced_url = img_url+ "?" + new Date().getTime();
+                                        image = jQuery("<img />").attr("src",advanced_url);								
+                                        jQuery(image).load(function() {	
+                                                jQuery("#wphead img#header-logo").attr('src', advanced_url);
+                                                jQuery("#wphead img#header-logo").attr('width',this.width);			
+                                                jQuery("#wphead img#header-logo").attr('height',this.height);	
+                                                jQuery("#wphead").css('height', (14 + this.height)+'px');
+                                                jQuery("#wphead img#header-logo").show();										
+                                        });
+                                }					
+
+                <?php } ?>	
+                <?php if(get_option('agca_wp_logo_custom')!=""){ ?>						
+                                if(isWPHigherOrEqualThan("3.3")){
+                                        jQuery("li#wp-admin-bar-wp-logo a.ab-item span.ab-icon").css("background-image","url('<?php echo get_option('agca_wp_logo_custom'); ?>')");
+                                        jQuery("li#wp-admin-bar-wp-logo a.ab-item span.ab-icon").css("background-position","0");
+                                }
+                <?php }?>					
+                <?php if(get_option('agca_site_heading')==true){ ?>
+                                jQuery("#wphead #site-heading").css("display","none");
+                <?php } ?>
+                <?php if(get_option('agca_custom_site_heading')!=""){ ?>	
+                                jQuery("#wphead #site-heading").after('<h1><?php echo get_option('agca_custom_site_heading'); ?></h1>');
+                                //3.3FIX
+                                if(isWPHigherOrEqualThan("3.3")){
+                                        jQuery("#wp-admin-bar-site-name a:first").html('<?php echo get_option('agca_custom_site_heading'); ?>');
+                                }
+                <?php } ?>	
+                                
+                <?php if(get_option('agca_header')==true){ ?>
+
+                                //3.3FIX
+                                if(isWPHigherOrEqualThan("3.3")){
+                                        jQuery("#wpadminbar").css("display","none");							
+                                }else{
+                                        jQuery("#wphead").css("display","none");
+                                }
+
+                <?php } ?>	
+                <?php if((get_option('agca_header')==true)&&(get_option('agca_header_show_logout')==true)){ ?>									
+
+                                if(isWPHigherOrEqualThan("3.3")){	
+                                jQuery("#wpbody-content").prepend('<a href="../wp-login.php?action=logout" tabindex="10" style="float:right;margin-right:20px" class="ab-item">Log Out</a>');								
+                                }else{
+                                        var clon ="";
+                                        jQuery("div#user_info a").each(function(){
+                                                if(jQuery(this).text() =="Log Out"){
+                                                        clon = jQuery(this).clone();
+                                                }								
+                                        });
+                                        if(clon !=""){
+                                                jQuery(clon).attr('style','float:right;padding:15px');	
+                                                jQuery(clon).html('<?php echo ((get_option('agca_logout')=="")?"Log Out":get_option('agca_logout')); ?>');	
+                                        }													
+                                        jQuery("#wphead").after(clon);
+                                }
+
+                <?php } ?>
+                <?php if(get_option('agca_howdy')!=""){ ?>
+                                    if(isWPHigherOrEqualThan("3.3")){	
+                                                    var alltext="";								
+                                                    alltext="";
+                                                    alltext = jQuery('li#wp-admin-bar-my-account').html();
+                                                    alltext = alltext.replace('Howdy',"<?php echo get_option('agca_howdy'); ?>");									
+                                                    jQuery("li#wp-admin-bar-my-account").html(alltext);
+                                    }else if(isWPHigherOrEqualThan("3.2")){
+                                                    var alltext="";								
+                                                    alltext="";
+                                                    alltext = jQuery('#user_info div.hide-if-no-js').html();
+                                                    alltext = alltext.replace('Howdy',"<?php echo get_option('agca_howdy'); ?>");									
+                                                    jQuery("#user_info div.hide-if-no-js").html(alltext);
+                                    }else{
+                                                    var howdyText = jQuery("#user_info").html();
+                                                    if(howdyText !=null){
+                                                    jQuery("#user_info").html("<p>"+"<?php echo get_option('agca_howdy'); ?>"+howdyText.substr(9));
+                                            }
+                                    }												
+                    <?php } ?>
+                    <?php if(get_option('agca_logout')!=""){ ?>						
+                                    if(isWPHigherOrEqualThan("3.3")){
+                                            jQuery("ul#wp-admin-bar-user-actions li#wp-admin-bar-logout a").text("<?php echo get_option('agca_logout'); ?>");
+                                    }else if(isWPHigherOrEqualThan("3.2")){
+                                            jQuery("#user_info #user_info_links a:eq(1)").text("<?php echo get_option('agca_logout'); ?>");
+                                    }else{
+                                            jQuery("#user_info a:eq(1)").text("<?php echo get_option('agca_logout'); ?>");
+                                    }
+
+                    <?php } ?>
+                    <?php if(get_option('agca_remove_your_profile')==true){ ?>	
+                                    if(isWPHigherOrEqualThan("3.3")){
+                                            jQuery("ul#wp-admin-bar-user-actions li#wp-admin-bar-edit-profile").css("visibility","hidden");
+                                            jQuery("ul#wp-admin-bar-user-actions li#wp-admin-bar-edit-profile").css("height","10px");
+                                            jQuery('#wpadminbar #wp-admin-bar-top-secondary > #wp-admin-bar-my-account > a').attr('href','#');
+                                            jQuery('#wpadminbar #wp-admin-bar-top-secondary #wp-admin-bar-user-info > a').attr('href','#');
+                                            jQuery('#wpadminbar #wp-admin-bar-top-secondary #wp-admin-bar-edit-profile > a').attr('href','#');
+                                            
+                                    }else if(isWPHigherOrEqualThan("3.2")){
+                                            jQuery("#user_info #user_info_links li:eq(0)").remove();
+                                    }					
+                    <?php } ?>						
+                    <?php if(get_option('agca_logout_only')==true){ ?>	
+                                    if(isWPHigherOrEqualThan("3.3")){
+                                            var logout_content = jQuery("li#wp-admin-bar-logout").html();
+                                            jQuery("ul#wp-admin-bar-top-secondary").html('<li id="wp-admin-bar-logout">'+ logout_content +'</li>');
+                                    }else if(isWPHigherOrEqualThan("3.2")){
+                                            var logoutText = jQuery("#user_info a:nth-child(2)").text();
+                                            <?php if(get_option('agca_logout')!=""){ ?>
+                                                    logoutText = "<?php echo get_option('agca_logout'); ?>";
+                                            <?php } ?>
+                                            var logoutLink = jQuery("#user_info a:nth-child(2)").attr("href");						
+                                            jQuery("#user_info").html("<a href=\""+logoutLink+"\" title=\"Log Out\">"+logoutText+"</a>");
+                                    }else{
+                                            var logoutText = jQuery("#user_info a:nth-child(2)").text();
+                                            var logoutLink = jQuery("#user_info a:nth-child(2)").attr("href");						
+                                            jQuery("#user_info").html("<a href=\""+logoutLink+"\" title=\"Log Out\">"+logoutText+"</a>");
+                                    }						
+                    <?php } ?>
+                
+                <?php
+                
+                
+        }
 
 	function print_admin_css()
 	{
@@ -347,7 +805,13 @@ document.write('<style type="text/css">html{visibility:hidden;}</style>');
 var wpversion = "<?php echo $wpversion; ?>";
 var agca_version = "<?php echo $this->agca_version; ?>";
 var errors = false;
+var isSettingsImport = false;
 
+<?php
+if(isset($_POST['_agca_import_settings']) && $_POST['_agca_import_settings']=='true'){
+    echo 'isSettingsImport = true;';
+}
+?>    
   /* <![CDATA[ */
 jQuery(document).ready(function() {	
 
@@ -398,22 +862,15 @@ try
 		if((get_option('agca_role_allbutadmin')==true) and  ($user_level > 9)){	
 		?>				
 		<?php } else{ ?>
-					
-					if(isWPHigherOrEqualThan("3.3")){
-					<?php if(get_option('agca_remove_top_bar_dropdowns')==true){ ?>
-					
-						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-wp-logo").hover("visibility","hidden");
-						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-wp-logo a").attr("href","");
-						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-wp-logo a").attr("title","");
+                                        <?php if(get_option('agca_admin_menu_brand')!=""){ ?>	
+                                             jQuery("#adminmenu").before('<div id="sidebar_adminmenu_logo"><img width="145" src="<?php echo get_option('agca_admin_menu_brand'); ?>" /></div>');
+                                        <?php } ?>                            
+					<?php if(get_option('agca_admin_menu_submenu_round')==true){ ?>
+							jQuery("#adminmenu div.wp-submenu").css("border-radius","<?php echo get_option('agca_admin_menu_submenu_round_size'); ?>px");
+					<?php } ?>
+                                            
+                                        <?php $this->print_admin_bar_scripts(); ?>
 						
-						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-site-name").hover("visibility","hidden");		
-
-						<?php if(get_option('agca_admin_bar_new_content')!=""){  ?> 
-							jQuery(".new_content_header_submenu").hide();
-						<?php } ?>					
-						
-					<?php } ?>	
-					}	
 			
 					<?php if(get_option('agca_screen_options_menu')==true){ ?>
 							jQuery("#screen-options-link-wrap").css("display","none");
@@ -428,173 +885,27 @@ try
 					<?php if(get_option('agca_privacy_options')==true){ ?>
 							jQuery("#privacy-on-link").css("display","none");
 					<?php } ?>	
-					<?php if(get_option('agca_header_logo')==true){ ?>
-							jQuery("#wphead #header-logo").css("display","none");							
-							jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-wp-logo").css("display","none");
-							
-					<?php } ?>
-					<?php if(get_option('agca_header_logo_custom')!=""){ ?>	
 					
-							
-							if(isWPHigherOrEqualThan("3.3")){
-								var img_url = '<?php echo get_option('agca_header_logo_custom'); ?>';							
-								
-								advanced_url = img_url;
-								image = jQuery("<img />").attr("src",advanced_url);								
-								jQuery(image).load(function() {										
-									jQuery("#wpbody-content").prepend(image);
-								});
-							}else{
-								jQuery("#wphead img#header-logo").attr('src','');
-								jQuery("#wphead img#header-logo").hide(); 							
-								var img_url = '<?php echo get_option('agca_header_logo_custom'); ?>';							
-								advanced_url = img_url+ "?" + new Date().getTime();
-								image = jQuery("<img />").attr("src",advanced_url);								
-								jQuery(image).load(function() {	
-									jQuery("#wphead img#header-logo").attr('src', advanced_url);
-									jQuery("#wphead img#header-logo").attr('width',this.width);			
-									jQuery("#wphead img#header-logo").attr('height',this.height);	
-									jQuery("#wphead").css('height', (14 + this.height)+'px');
-									jQuery("#wphead img#header-logo").show();										
-								});
-							}					
-
-					<?php } ?>	
-					<?php if(get_option('agca_wp_logo_custom')!=""){ ?>						
-							if(isWPHigherOrEqualThan("3.3")){
-								jQuery("li#wp-admin-bar-wp-logo a.ab-item span.ab-icon").css("background-image","url('<?php echo get_option('agca_wp_logo_custom'); ?>')");
-								jQuery("li#wp-admin-bar-wp-logo a.ab-item span.ab-icon").css("background-position","0");
-							}
-					<?php }?>					
-					<?php if(get_option('agca_site_heading')==true){ ?>
-							jQuery("#wphead #site-heading").css("display","none");
-					<?php } ?>
-					<?php if(get_option('agca_custom_site_heading')!=""){ ?>	
-							jQuery("#wphead #site-heading").after('<h1><?php echo get_option('agca_custom_site_heading'); ?></h1>');
-							//3.3FIX
-							if(isWPHigherOrEqualThan("3.3")){
-								jQuery("#wp-admin-bar-site-name a:first").html('<?php echo get_option('agca_custom_site_heading'); ?>');
-							}
-					<?php } ?>	
 					
-						if(isWPHigherOrEqualThan("3.3")){
-							<?php if(get_option('agca_admin_bar_comments')!=""){  ?>
-								jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-comments").css("display","none");
-							<?php } ?>
-							<?php if(get_option('agca_admin_bar_new_content')!=""){  ?> 
-								jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content").css("display","none");								
-							<?php } ?>
-							<?php if(get_option('agca_admin_bar_new_content_post')!=""){  ?>
-								jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-post").css("display","none");
-							<?php } ?>
-							<?php if(get_option('agca_admin_bar_new_content_link')!=""){  ?>
-								jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-link").css("display","none");
-							<?php } ?>
-							<?php if(get_option('agca_admin_bar_new_content_page')!=""){  ?>
-								jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-page").css("display","none");
-							<?php } ?>
-							<?php if(get_option('agca_admin_bar_new_content_user')!=""){  ?>
-								jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-user").css("display","none");
-							<?php } ?>
-							<?php if(get_option('agca_admin_bar_new_content_media')!=""){  ?>
-								jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-media").css("display","none");
-							<?php } ?>								
-							<?php if(get_option('agca_admin_bar_update_notifications')!=""){  ?>
-								jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-updates").css("display","none");
-							<?php } ?>
-						}
+						
 					
-					<?php if(get_option('agca_update_bar')==true){ ?>
-							jQuery("#update-nag").css("display","none");
-							jQuery(".update-nag").css("display","none");							
+					<?php if(get_option('agca_update_bar')==true){ ?>							
+                                                        <?php
+                                                        if ( ! function_exists( 'c2c_no_update_nag' ) ) :
+                                                        function c2c_no_update_nag() {
+                                                            remove_action( 'admin_notices', 'update_nag', 3 );
+                                                        }
+                                                        endif;
+                                                        add_action( 'admin_init', 'c2c_no_update_nag' );
+                                                        ?>
+                                                        jQuery("#update-nag").css("display","none");
+							jQuery(".update-nag").css("display","none");
 					<?php } ?>
-					<?php if(get_option('agca_header')==true){ ?>
-												
-							//3.3FIX
-							if(isWPHigherOrEqualThan("3.3")){
-								jQuery("#wpadminbar").css("display","none");							
-							}else{
-								jQuery("#wphead").css("display","none");
-							}
-							
-					<?php } ?>	
-					<?php if((get_option('agca_header')==true)&&(get_option('agca_header_show_logout')==true)){ ?>									
-									
-							if(isWPHigherOrEqualThan("3.3")){	
-							jQuery("#wpbody-content").prepend('<a href="../wp-login.php?action=logout" tabindex="10" style="float:right;margin-right:20px" class="ab-item">Log Out</a>');								
-							}else{
-								var clon ="";
-								jQuery("div#user_info a").each(function(){
-									if(jQuery(this).text() =="Log Out"){
-										clon = jQuery(this).clone();
-									}								
-								});
-								if(clon !=""){
-									jQuery(clon).attr('style','float:right;padding:15px');	
-									jQuery(clon).html('<?php echo ((get_option('agca_logout')=="")?"Log Out":get_option('agca_logout')); ?>');	
-								}													
-								jQuery("#wphead").after(clon);
-							}
-							
-					<?php } ?>	
+						
 					<?php if(get_option('agca_footer')==true){ ?>
 							jQuery("#footer").css("display","none");
-					<?php } ?>											
-					<?php if(get_option('agca_howdy')!=""){ ?>
-							if(isWPHigherOrEqualThan("3.3")){	
-									var alltext="";								
-									alltext="";
-									alltext = jQuery('li#wp-admin-bar-my-account').html();
-									alltext = alltext.replace('Howdy',"<?php echo get_option('agca_howdy'); ?>");									
-									jQuery("li#wp-admin-bar-my-account").html(alltext);
-							}else if(isWPHigherOrEqualThan("3.2")){
-									var alltext="";								
-									alltext="";
-									alltext = jQuery('#user_info div.hide-if-no-js').html();
-									alltext = alltext.replace('Howdy',"<?php echo get_option('agca_howdy'); ?>");									
-									jQuery("#user_info div.hide-if-no-js").html(alltext);
-							}else{
-									var howdyText = jQuery("#user_info").html();
-									if(howdyText !=null){
-									jQuery("#user_info").html("<p>"+"<?php echo get_option('agca_howdy'); ?>"+howdyText.substr(9));
-								}
-							}												
-					<?php } ?>
-					<?php if(get_option('agca_logout')!=""){ ?>						
-							if(isWPHigherOrEqualThan("3.3")){
-								jQuery("ul#wp-admin-bar-user-actions li#wp-admin-bar-logout a").text("<?php echo get_option('agca_logout'); ?>");
-							}else if(isWPHigherOrEqualThan("3.2")){
-								jQuery("#user_info #user_info_links a:eq(1)").text("<?php echo get_option('agca_logout'); ?>");
-							}else{
-								jQuery("#user_info a:eq(1)").text("<?php echo get_option('agca_logout'); ?>");
-							}
+					<?php } ?>					
 						
-					<?php } ?>
-					<?php if(get_option('agca_remove_your_profile')==true){ ?>	
-							if(isWPHigherOrEqualThan("3.3")){
-								jQuery("ul#wp-admin-bar-user-actions li#wp-admin-bar-edit-profile").css("visibility","hidden");
-								jQuery("ul#wp-admin-bar-user-actions li#wp-admin-bar-edit-profile").css("height","10px");
-							}else if(isWPHigherOrEqualThan("3.2")){
-								jQuery("#user_info #user_info_links li:eq(0)").remove();
-							}					
-					<?php } ?>						
-					<?php if(get_option('agca_logout_only')==true){ ?>	
-							if(isWPHigherOrEqualThan("3.3")){
-								var logout_content = jQuery("li#wp-admin-bar-logout").html();
-								jQuery("ul#wp-admin-bar-top-secondary").html('<li id="wp-admin-bar-logout">'+ logout_content +'</li>');
-							}else if(isWPHigherOrEqualThan("3.2")){
-								var logoutText = jQuery("#user_info a:nth-child(2)").text();
-								<?php if(get_option('agca_logout')!=""){ ?>
-									logoutText = "<?php echo get_option('agca_logout'); ?>";
-								<?php } ?>
-								var logoutLink = jQuery("#user_info a:nth-child(2)").attr("href");						
-								jQuery("#user_info").html("<a href=\""+logoutLink+"\" title=\"Log Out\">"+logoutText+"</a>");
-							}else{
-								var logoutText = jQuery("#user_info a:nth-child(2)").text();
-								var logoutLink = jQuery("#user_info a:nth-child(2)").attr("href");						
-								jQuery("#user_info").html("<a href=\""+logoutLink+"\" title=\"Log Out\">"+logoutText+"</a>");
-							}						
-					<?php } ?>	
 
 					
 					<?php if(get_option('agca_footer_left')!=""){ ?>												
@@ -627,13 +938,19 @@ try
 							jQuery("#dashboard-widgets-wrap").parent().find("h2").text("<?php echo get_option('agca_dashboard_text'); ?>");
 					<?php } ?>
 					<?php if(get_option('agca_dashboard_text_paragraph')!=""){ ?>	
-							jQuery("#wpbody-content #dashboard-widgets-wrap").before('<br /><p style=\"text-indent:45px;\"><?php echo get_option('agca_dashboard_text_paragraph'); ?></p>');
+                                                        jQuery("#wpbody-content #dashboard-widgets-wrap").before('<div id="agca_custom_dashboard_content"></div>');
+                                                       
+							jQuery("#agca_custom_dashboard_content").html('<br /><p ttt style=\"text-indent:45px;\"><?php echo preg_replace('/(\r\n|\r|\n)/', '\n', addslashes(get_option('agca_dashboard_text_paragraph'))); ?></p>');
 					<?php } ?>
 					
 					<?php /*Remove Dashboard widgets*/ ?>
 					<?php			
 
- 
+                                                if(get_option('agca_dashboard_widget_welcome')==true){
+							?>jQuery("#welcome-panel").css("display","none");<?php
+						}else{
+							?>jQuery("#welcome-panel").css("display","block");<?php
+						}
 						if(get_option('agca_dashboard_widget_rc')==true){
 							$this->remove_dashboard_widget('dashboard_recent_comments','normal');
 						}else{
@@ -692,7 +1009,11 @@ try
 										jQuery(".wp-menu-image").each(function(){
 											jQuery(this).css("display","none");
 										});
-							<?php } ?>	
+							<?php } ?>
+                                                        <?php if(get_option('agca_admin_menu_arrow') == true){ ?>											
+								jQuery("#adminmenu .wp-menu-arrow").css("visibility","hidden");
+										
+							<?php } ?>
 					<?php if(get_option('agca_admin_menu_turnonoff') == 'on'){ ?>
 					
 					<?php /*If Turned on*/ ?>
@@ -795,12 +1116,15 @@ try
 						updateColor(jQuery(this).attr('id'),jQuery(this).val())
 					});
 					jQuery('label,h1,h2,h3,h4,h5,h6,a,p,.form-table th,.form-wrap label').css('text-shadow','none');
+                                        jQuery('#adminmenu li.wp-menu-open').css('border','none');
+                                        jQuery('#adminmenu li.wp-menu-open .wp-submenu').css({'border':'none','margin':'0px','border-radius':'0px'});                                       
 					
 					<?php } ?>
 					<?php //COLORIZER END ?>				
 <?php } //end of apply for any user except admin ?>		
 /*Add user buttons*/	
-jQuery('#ag_add_adminmenu').append(buttonsJq); 					
+jQuery('#ag_add_adminmenu').append(buttonsJq); 	
+                               
  }catch(err){	
 	errors = "AGCA - ADMIN ERROR: " + err.name + " / " + err.message;
 	alert(errors);		
@@ -840,10 +1164,17 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 	     <script type="text/javascript">
 		 document.write('<style type="text/css">html{display:none;}</style>');
 		 var agca_version = "<?php echo $this->agca_version; ?>";
-		 var wpversion = "<?php echo $wpversion; ?>";		
+		 var wpversion = "<?php echo $wpversion; ?>";	
+                 var isSettingsImport = false;
         /* <![CDATA[ */
             jQuery(document).ready(function() {			
 				try{ 
+                                        <?php if(get_option('agca_login_round_box')==true){ ?>
+							jQuery("form#loginform").css("border-radius","<?php echo get_option('agca_login_round_box_size'); ?>px");
+                                                        jQuery("#login h1 a").css("border-radius","<?php echo get_option('agca_login_round_box_size'); ?>px");
+                                                        jQuery("#login h1 a").css("margin-bottom",'10px');
+                                                        jQuery("#login h1 a").css("padding-bottom",'0');
+					<?php } ?>
 					<?php if(get_option('agca_login_banner')==true){ ?>
 							jQuery("#backtoblog").css("display","none");
 					<?php } ?>	
@@ -851,9 +1182,9 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							jQuery("#backtoblog").html('<?php echo get_option('agca_login_banner_text'); ?>');
 					<?php } ?>
 					<?php if(get_option('agca_login_photo_url')==true){ ?>								
-							advanced_url = "<?php echo get_option('agca_login_photo_url'); ?>" + "?" + new Date().getTime();
+							advanced_url = "<?php echo get_option('agca_login_photo_url'); ?>";
 							var $url = "url(" + advanced_url + ")";
-							jQuery("#login h1 a").css("background-image",$url);	
+							jQuery("#login h1 a").css("background",$url);	
 							jQuery("#login h1 a").hide();
 							image = jQuery("<img />").attr("src",advanced_url);	
 							jQuery(image).load(function() {
@@ -917,11 +1248,11 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 					<?php //COLORIZER END ?>			
 			 }catch(err){				
 				alert("AGCA - LOGIN ERROR: " + err.name + " / " + err.message);							
-			 }finally{						
-						jQuery(document).ready(function() {
-							jQuery('html').show();
-							jQuery('html').css("display","block");
-						});										
+			 }finally{				
+						
+				jQuery('html').show();
+				jQuery('html').css("display","block");
+																
 			 }
             });
         /* ]]> */
@@ -938,7 +1269,10 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/farbtastic.js"></script>	
 			
 			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/agca_farbtastic.css" />
-			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/agca_farbtastic.js"></script>	
+			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/agca_farbtastic.js"></script>
+                        <script type="text/javascript">
+                            var isAGCAPage = true;
+                        </script>
 		<?php //includes ?>		
 		<div class="wrap">
 			<h1 style="color:green">AG Custom Admin Settings <span style="font-size:15px;">(v<?php echo $this->agca_version; ?>)</span></h1>						
@@ -962,10 +1296,17 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 				<li class="normal"><a href="#login-page-settings" title="Settings for Login page">Login Page</a></li>
 				<li class="normal" ><a href="#admin-menu-settings" title="Settings for main admin menu">Admin Menu</a></li>
 				<li class="normal"><a href="#ag-colorizer-setttings" title="AG colorizer settings">Colorizer</a></li>
-				<li style="background:none;border:none;padding:0;"><a id="agca_donate_button" style="margin-left:8px" title="Do You like this plugin? You can support its future development by providing small donation" href="http://wordpress.argonius.com/donate"><img alt="Donate" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/btn_donate_LG.gif" /></a>
+                                <li class="normal"><a href="#ag-advanced" title="My custom scripts">Advanced</a></li>
+				<li style="background:none;border:none;padding:0;"><a id="agca_donate_button" style="margin-left:8px" title="Like this plugin? You can support its future development by giving a donation by your wish " href="http://wordpress.argonius.com/donate"><img alt="Donate" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/btn_donate_LG.gif" /></a>
 				</li>
 				<li style="background:none;border:none;padding:0;padding-left:10px;margin-top:-7px"></li>		
-			</ul>					
+			</ul>
+                        <div id="agca_advertising">
+                            <ul>    
+                                <li style="min-height:105px;display: block"></li>
+                            </ul>
+                        </div>
+                        <div style="clear:both"></div>
 				<div id="section_admin_bar" class="ag_section">
 				<h2 class="section_title" tabindex="-1">Admin Bar Settings Page</h2>
 				<br />
@@ -1009,7 +1350,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<label title="Change default WordPress logo with custom image." for="agca_wp_logo_custom">Change WordPress logo</label>
 								</th>
 								<td>
-									<input title="If this field is not empty, image from provided url will be visible in top bar" type="text" size="47" name="agca_wp_logo_custom" value="<?php echo get_option('agca_wp_logo_custom'); ?>" />																
+									<input id="agca_wp_logo_custom" title="If this field is not empty, image from provided url will be visible in top bar" type="text" size="47" name="agca_wp_logo_custom" value="<?php echo get_option('agca_wp_logo_custom'); ?>" /><input type="button"  onClick="jQuery('#agca_wp_logo_custom').val('');" value="Clear" />
 									&nbsp;<p><i>Put here an URL of the new top bar image (20 x 20px)</i>.</p>
 								</td>
 							</tr> 
@@ -1018,7 +1359,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<label title="Add custom image on the top of admin content." for="agca_header_logo_custom">Custom header image</label>
 								</th>
 								<td>
-									<input title="If this field is not empty, image from provided url will be visible in header" type="text" size="47" name="agca_header_logo_custom" value="<?php echo get_option('agca_header_logo_custom'); ?>" />																
+									<input title="If this field is not empty, image from provided url will be visible in header" type="text" size="47" id="agca_header_logo_custom" name="agca_header_logo_custom" value="<?php echo get_option('agca_header_logo_custom'); ?>" /><input type="button"  onClick="jQuery('#agca_header_logo_custom').val('');" value="Clear" />																
 									&nbsp;<p><i>Add custom header image</i>.</p>
 								</td>
 							</tr> 
@@ -1306,6 +1647,14 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							<p tabindex="0"><i><strong>Info:</strong> These settings override settings in Screen options on Dashboard page.</i></p>							
 							</td>
 							</tr>
+                                                        <tr valign="center">
+								<th scope="row">
+									<label for="agca_dashboard_widget_welcome">Hide "Welcome" WordPress Message</label>
+								</th>
+								<td>					
+									<input type="checkbox" name="agca_dashboard_widget_welcome" value="true" <?php if (get_option('agca_dashboard_widget_welcome')==true) echo 'checked="checked" '; ?> />
+								</td>
+							</tr>	
 							<tr valign="center">
 								<th scope="row">
 									<label for="agca_dashboard_widget_rc">Hide "Recent Comments"</label>
@@ -1404,8 +1753,8 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<label title="If this field is not empty, image from provided url will be visible on Login page" for="agca_login_photo_url">Change Login header image</label>
 								</th>
 								<td>
-									<input title="If this field is not empty, image from provided url will be visible on Login page" type="text" size="47" name="agca_login_photo_url" value="<?php echo get_option('agca_login_photo_url'); ?>" />																
-									&nbsp;<p><i>Put here link of new login photo. Photo could be of any size and type</i>.</p>
+									<input title="If this field is not empty, image from provided url will be visible on Login page" type="text" size="47" id="agca_login_photo_url" name="agca_login_photo_url" value="<?php echo get_option('agca_login_photo_url'); ?>" /><input type="button"  onClick="jQuery('#agca_login_photo_url').val('');" value="Clear" />																
+									&nbsp;<p><i>Put here link of new login image. Image can be of any size and type</i>.</p>
 								</td>
 							</tr> 
 							<tr valign="center">
@@ -1413,7 +1762,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<label title="Put here custom link to a web location, that will be triggered on image click" for="agca_login_photo_href">Change hyperlink on Login image</label>
 								</th>
 								<td>
-									<input title="Put here custom link to a web location, that will be triggered on image click" type="text" size="47" name="agca_login_photo_href" value="<?php echo get_option('agca_login_photo_href'); ?>" />								
+									<input title="Put here custom link to a web location, that will be triggered on image click" type="text" size="47" id="agca_login_photo_href"  name="agca_login_photo_href" value="<?php echo get_option('agca_login_photo_href'); ?>" /><input type="button"  onClick="jQuery('#agca_login_photo_href').val('');" value="Clear" />								
 								</td>
 							</tr> 
 							<tr valign="center">
@@ -1424,6 +1773,26 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<input title="Remove login image completely" type="checkbox" name="agca_login_photo_remove" value="true" <?php if (get_option('agca_login_photo_remove')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr> 
+                                                        <tr valign="center">
+								<th scope="row">
+									<label title="Rounds box on login page" for="agca_login_round_box">Round box corners</label>
+								</th>
+								<td>
+									<input title="Rounds box on login page" type="checkbox" name="agca_login_round_box" value="true" <?php if (get_option('agca_login_round_box')==true) echo 'checked="checked" '; ?> />
+								</td>
+							</tr> 
+                                                         <?php 
+                                                         $roundboxzizestyle = "style='display:none'";
+                                                         if (get_option('agca_login_round_box')=='true') $roundboxzizestyle = '';
+                                                         ?>
+                                                        <tr valign="center" id="agca_login_round_box_size_block" <?php echo $roundboxzizestyle; ?> >
+								<th scope="row">
+									<label title="Size of rounded box curve" for="agca_login_round_box_size">Round box corners - size</label>
+								</th>
+								<td>
+									<input class="validateNumber" limit="3" title="Size of rounded box curve" type="text" name="agca_login_round_box_size"  type="text" size="3" value="<?php echo get_option('agca_login_round_box_size'); ?>" />&nbsp;(px)	
+								</td>
+							</tr> 
 						</table>
 						</div>
 						<?php
@@ -1432,7 +1801,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 						<div id="section_admin_menu" style="display:none" class="ag_section">
 						<h2 class="section_title" tabindex="-1">Admin Menu Settings Page</h2>
 						<br />
-						<p style="font-style:italic" tabindex="0"><strong>Important: </strong>Please Turn off menu configuration before activating or disabling other plugins (or making any other changes to main menu). Use "Reset Settings" button to restore default values if anything went wrong.</p>					
+						<p style="font-style:italic" tabindex="0"><strong>Important: </strong>Please Turn off menu configuration before activating or disabling other plugins (or making any other changes to main menu). Use "Reset Settings" button to restore default values if anything goes wrong.</p>					
 						<br />
 							<table class="form-table" width="500px">	
 							<tr valign="center" class="ag_table_major_options">
@@ -1467,18 +1836,18 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</tr>
 							<tr valign="center">
 								<th scope="row">
-									<label title="This is arrow like separator between Dashboard and Posts button (by default)" for="agca_admin_menu_separator_first">Remove first items separator</label>
+									<label title="This is blank space between Dashboard and Posts button (by default)" for="agca_admin_menu_separator_first">Remove first items separator</label>
 								</th>
 								<td>
-									<input title="This is arrow like separator between Dashboard and Posts button (by default)" type="checkbox" name="agca_admin_menu_separator_first" value="true" <?php if (get_option('agca_admin_menu_separator_first')==true) echo 'checked="checked" '; ?> />
+									<input title="This is blank space separator between Dashboard and Posts button (by default)" type="checkbox" name="agca_admin_menu_separator_first" value="true" <?php if (get_option('agca_admin_menu_separator_first')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr> 
 							<tr valign="center">
 								<th scope="row">
-									<label title="This is arrow like separator between Comments and Appearance button (by default)" for="agca_admin_menu_separator_second">Remove second items separator</label>
+									<label title="This is blank space  separator between Comments and Appearance button (by default)" for="agca_admin_menu_separator_second">Remove second items separator</label>
 								</th>
 								<td>
-									<input title="This is arrow like separator between Comments and Appearance button (by default)" type="checkbox" name="agca_admin_menu_separator_second" value="true" <?php if (get_option('agca_admin_menu_separator_second')==true) echo 'checked="checked" '; ?> />
+									<input title="This is blank space  separator between Comments and Appearance button (by default)" type="checkbox" name="agca_admin_menu_separator_second" value="true" <?php if (get_option('agca_admin_menu_separator_second')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr> 
 							<tr valign="center">
@@ -1487,6 +1856,43 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								</th>
 								<td>
 									<input title="Removes small icons on admin menu buttons" type="checkbox" name="agca_admin_menu_icons" value="true" <?php if (get_option('agca_admin_menu_icons')==true) echo 'checked="checked" '; ?> />
+								</td>
+							</tr> 
+                                                        <tr valign="center">
+								<th scope="row">
+									<label title="Removes small arrow that appears on button hover" for="agca_admin_menu_arrow">Remove submenu arrow</label>
+								</th>
+								<td>
+									<input title="Removes small arrow that appears on button hover" type="checkbox" name="agca_admin_menu_arrow" value="true" <?php if (get_option('agca_admin_menu_arrow')==true) echo 'checked="checked" '; ?> />
+								</td>
+							</tr> 
+                                                        <tr valign="center">
+								<th scope="row">
+									<label title="Rounds submenu pop-up box" for="agca_admin_menu_submenu_round">Round submenu pop-up box</label><p><i>(Use it in combination with Colorizer)</i></p>
+								</th>
+								<td>
+									<input title="Rounds submenu pop-up box" type="checkbox" name="agca_admin_menu_submenu_round" value="true" <?php if (get_option('agca_admin_menu_submenu_round')==true) echo 'checked="checked" '; ?> />
+								</td>
+							</tr> 
+                                                         <?php 
+                                                         $roundsubmenuzizestyle = "style='display:none'";
+                                                         if (get_option('agca_admin_menu_submenu_round')=='true') $roundsubmenuzizestyle = '';
+                                                         ?>
+                                                        <tr valign="center" id="agca_admin_menu_submenu_round_block" <?php echo $roundsubmenuzizestyle; ?> >
+								<th scope="row">
+									<label title="Size of rounded box curve" for="agca_admin_menu_submenu_round_size">Round submenu pop-up box - size</label>
+								</th>
+								<td>
+									<input class="validateNumber" limit="3" title="Size of rounded box curve" type="text" name="agca_admin_menu_submenu_round_size"  type="text" size="3" value="<?php echo get_option('agca_admin_menu_submenu_round_size'); ?>" />&nbsp;(px)	
+								</td>
+							</tr> 
+                                                        <tr valign="center">
+								<th scope="row">
+									<label title="Adds custom logo above the admin menu" for="agca_admin_menu_brand">Add custom branding logo above the admin menu</label>
+								</th>
+								<td>
+									<input title="Adds custom logo above the admin menu" type="text" size="47" name="agca_admin_menu_brand" value="<?php echo get_option('agca_admin_menu_brand'); ?>" />																
+									&nbsp;<p><i>Put here URL of custom branding logo image. Image can be of any size and type</i>.</p>
 								</td>
 							</tr> 
 							<tr valign="center">
@@ -1523,9 +1929,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 						</div>
 						<div id="section_ag_colorizer_settings" style="display:none" class="ag_section">
 						<h2 class="section_title">Colorizer Page</h2>
-						<br />
-						<p><i><strong>Info: </strong>Change Admin panel colors (This is Colorizer demo with only few color options. More color options will be available in future realeases).</i></p>					
-						<br />
+						<br />						
 						<table class="form-table" width="500px">	
 							<tr valign="center" class="ag_table_major_options">
 								<td><label for="agca_colorizer_turnonoff"><strong>Turn on/off Colorizer configuration</strong></label></td>
@@ -1539,7 +1943,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								</td>
 							</tr>
 							<tr valign="center">
-								<th><label title="Change admin background color" for="color_background">Background color:</label></th>
+								<th><label title="Change admin page background color" for="color_background">Background color:</label></th>
 								<td><input type="text" id="color_background" name="color_background" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_background']); ?>" />
 									<input type="button" alt="color_background" class="pick_color_button" value="Pick color" />
 									<input type="button" alt="color_background" class="pick_color_button_clear" value="Clear" />
@@ -1553,7 +1957,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								</td>
 							</tr>
 							<tr valign="center">
-								<th><label title="Change header color in admin panel" for="color_header">Header color:</label></th>
+								<th><label title="Change admin bar (on top) color in admin panel" for="color_header">Admin bar color:</label></th>
 								<td><input type="text" id="color_header" name="color_header" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_header']); ?>" />
 									<input type="button" alt="color_header" class="pick_color_button" value="Pick color" />
 									<input type="button" alt="color_header" class="pick_color_button_clear" value="Clear" />
@@ -1567,26 +1971,68 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								</td>
 							</tr>
 							<tr valign="center">
-								<th><label title="Change background color in admin menu" for="color_admin_menu_top_button_background">Top button background color:</label></th>
+								<th><label title="Change button background color" for="color_admin_menu_top_button_background">Button background color:</label></th>
 								<td><input type="text" id="color_admin_menu_top_button_background" name="color_admin_menu_top_button_background" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_top_button_background']); ?>" />
 									<input type="button" alt="color_admin_menu_top_button_background" class="pick_color_button" value="Pick color" />
 									<input type="button" alt="color_admin_menu_top_button_background" class="pick_color_button_clear" value="Clear" />
 								</td>
 							</tr>
-							<tr valign="center">
-								<th><label title="Change background submenu color in admin menu" for="color_admin_menu_submenu_background">Submenu button background color:</label></th>
-								<td><input type="text" id="color_admin_menu_submenu_background" name="color_admin_menu_submenu_background" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_submenu_background']); ?>" />
-									<input type="button" alt="color_admin_menu_submenu_background" class="pick_color_button" value="Pick color" />
-									<input type="button" alt="color_admin_menu_submenu_background" class="pick_color_button_clear" value="Clear" />
-								</td>
-							</tr>
-							<tr valign="center">
-								<th><label title="Change text color in admin menu" for="color_admin_menu_font">Text color:</label></th>
+                                                         <tr valign="center">
+								<th><label title="Change button text color" for="color_admin_menu_font">Button text color:</label></th>
 								<td><input type="text" id="color_admin_menu_font" name="color_admin_menu_font" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_font']); ?>" />
 									<input type="button" alt="color_admin_menu_font" class="pick_color_button" value="Pick color" />
 									<input type="button" alt="color_admin_menu_font" class="pick_color_button_clear" value="Clear" />
 								</td>
 							</tr>
+                                                        <tr valign="center">
+								<th><label title="Change button background color for current button" for="color_admin_menu_top_button_current_background">Button current background color:</label></th>
+								<td><input type="text" id="color_admin_menu_top_button_current_background" name="color_admin_menu_top_button_current_background" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_top_button_current_background']); ?>" />
+									<input type="button" alt="color_admin_menu_top_button_current_background" class="pick_color_button" value="Pick color" />
+									<input type="button" alt="color_admin_menu_top_button_current_background" class="pick_color_button_clear" value="Clear" />
+								</td>
+							</tr>
+                                                        <tr valign="center">
+								<th><label title="Change button background color on mouseover" for="color_admin_menu_top_button_hover_background">Button hover background color:</label></th>
+								<td><input type="text" id="color_admin_menu_top_button_hover_background" name="color_admin_menu_top_button_hover_background" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_top_button_hover_background']); ?>" />
+									<input type="button" alt="color_admin_menu_top_button_hover_background" class="pick_color_button" value="Pick color" />
+									<input type="button" alt="color_admin_menu_top_button_hover_background" class="pick_color_button_clear" value="Clear" />
+								</td>
+							</tr>
+                                                        <tr valign="center">
+								<th><label title="Change button top border color" for="color_admin_menu_submenu_border_top">Button border top color:</label></th>
+								<td><input type="text" id="color_admin_menu_submenu_border_top" name="color_admin_menu_submenu_border_top" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_submenu_border_top']); ?>" />
+									<input type="button" alt="color_admin_menu_submenu_border_top" class="pick_color_button" value="Pick color" />
+									<input type="button" alt="color_admin_menu_submenu_border_top" class="pick_color_button_clear" value="Clear" />
+								</td>
+							</tr>
+							<tr valign="center">
+								<th><label title="Change button bottom border color" for="color_admin_menu_submenu_border_bottom">Button border bottom color:</label></th>
+								<td><input type="text" id="color_admin_menu_submenu_border_bottom" name="color_admin_menu_submenu_border_bottom" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_submenu_border_bottom']); ?>" />
+									<input type="button" alt="color_admin_menu_submenu_border_bottom" class="pick_color_button" value="Pick color" />
+									<input type="button" alt="color_admin_menu_submenu_border_bottom" class="pick_color_button_clear" value="Clear" />
+								</td>
+                                                        </tr>    
+							<tr valign="center">
+								<th><label title="Change submenu item background color" for="color_admin_menu_submenu_background">Submenu button background color:</label></th>
+								<td><input type="text" id="color_admin_menu_submenu_background" name="color_admin_menu_submenu_background" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_submenu_background']); ?>" />
+									<input type="button" alt="color_admin_menu_submenu_background" class="pick_color_button" value="Pick color" />
+									<input type="button" alt="color_admin_menu_submenu_background" class="pick_color_button_clear" value="Clear" />
+								</td>
+							</tr>         
+                                                        <tr valign="center">
+								<th><label title="Change submenu item background color on mouseover" for="color_admin_menu_submenu_background_hover">Submenu button hover background color:</label></th>
+								<td><input type="text" id="color_admin_menu_submenu_background_hover" name="color_admin_menu_submenu_background_hover" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_submenu_background_hover']); ?>" />
+									<input type="button" alt="color_admin_menu_submenu_background_hover" class="pick_color_button" value="Pick color" />
+									<input type="button" alt="color_admin_menu_submenu_background_hover" class="pick_color_button_clear" value="Clear" />
+								</td>
+							</tr>  
+                                                         <tr valign="center">
+								<th><label title="Change submenu item text color" for="color_admin_submenu_font">Submenu text color:</label></th>
+								<td><input type="text" id="color_admin_submenu_font" name="color_admin_submenu_font" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_submenu_font']); ?>" />
+									<input type="button" alt="color_admin_submenu_font" class="pick_color_button" value="Pick color" />
+									<input type="button" alt="color_admin_submenu_font" class="pick_color_button_clear" value="Clear" />
+								</td>
+							</tr>                                                       
 							<?php if($wpversion >= 3.2) { ?>
 							<tr valign="center">
 								<th><label title="Change background color of element behind admin menu" for="color_admin_menu_behind_background">Wrapper background color:</label></th>
@@ -1624,7 +2070,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								</td>
 							</tr>
 							<tr valign="center">
-								<th><label title="Change color in header text" for="color_font_header">Header text color:</label></th>
+								<th><label title="Change color of admin bar text" for="color_font_header">Admin bar text color:</label></th>
 								<td><input type="text" id="color_font_header" name="color_font_header" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_font_header']); ?>" />
 									<input type="button" alt="color_font_header" class="pick_color_button" value="Pick color" />
 									<input type="button" alt="color_font_header" class="pick_color_button_clear" value="Clear" />
@@ -1661,17 +2107,59 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</table>
 							<input type="hidden" size="47" id="ag_colorizer_json" name="ag_colorizer_json" value="<?php echo htmlspecialchars(get_option('ag_colorizer_json')); ?>" />	
 							 <div id="picker"></div>			
-						</div>					
+						</div>
+                                                <div id="section_advanced" style="display:none" class="ag_section">
+                                                                        <h2 class="section_title" tabindex="-1">Advanced</h2>
+                                                                        <br />
+                                                                        <p><i><strong>Info: </strong>These options will override existing customizations.</i></p>					
+                                                                        <br />
+                                                                                <br /><br />					
+                                                                                <table class="form-table" width="500px">
+                                                                                    <tr valign="center">
+                                                                                            <th scope="row">
+                                                                                                    <label title="Add custom CSS script to override existing styles" for="agca_script_css">Custom CSS Script</em></label>
+                                                                                            </th>
+                                                                                            <td>
+                                                                                            <textarea style="width:100%;height:200px" title="Add custom CSS script to override existing styles" rows="5" id="agca_script_css"  name="agca_script_css" cols="40"><?php echo htmlspecialchars($this->custom_css); ?></textarea>
+                                                                                            </td>
+                                                                                    </tr>	
+                                                                                    <tr valign="center">
+                                                                                            <th scope="row">
+                                                                                                    <label title="Add additional custom JavaScript" for="agca_script_js">Custom JavaScript</label>
+                                                                                            </th>
+                                                                                            <td>
+                                                                                            <textarea style="width:100%;height:200px" title="Add additional custom JavaScript" rows="5" name="agca_script_js"  id="agca_script_js" cols="40"><?php echo $this->custom_js; ?></textarea>
+                                                                                            </td>
+                                                                                    </tr>
+                                                                                     <tr valign="center">
+                                                                                            <th scope="row">
+                                                                                                    <label title="Export/import settings" for="agca_export_import">Export / import settings</label>
+                                                                                            </th>
+                                                                                            <td id="import_file_area">
+                                                                                                <input type="button" name="agca_export_settings" value="Export Settings" onclick="exportSettings();"/></br>
+                                                                                                <input type="file" id="settings_import_file" name="settings_import_file" style="display: none"/>       
+                                                                                                    <input type="hidden" id="_agca_import_settings" name="_agca_import_settings" value="false" /> 
+                                                                                                    <input type="hidden" id="_agca_export_settings" name="_agca_export_settings" value="false" /> 
+                                                                                               <input type="button" name="agca_import_settings" value="Import Settings" onclick="importSettings();"/>
+                                                                                            </td>                                                                                        
+                                                                                         
+                                                                                                 
+                                                                                            
+                                                                                       
+                                                                                    </tr>
+                                                                                    
+                                                                                </table>
+                                                </div>
 				<br /><br /><br />
 				<p class="submit">
-				<input type="submit" title="Save changes button" class="button-primary" value="<?php _e('Save Changes') ?>" />
-				</p>
-
+				<input type="button" id="save_plugin_settings" title="Save changes button" class="button-primary" value="<?php _e('Save Changes') ?>" onClick="savePluginSettings()" />
+				</p>        
+                                
 			</form>
 			</div>
-							<p tabindex="0"><i><strong>Info:</strong> You can use HTML tags in text areas, e.g. &lt;a href=&quot;http://www.mywebsite.com&quot;&gt;Visit Us&lt;/a&gt;</i></p>
+							
 										<br />
-			<br /><br /><br /><p id="agca_footer_support_info">WordPress 'AG Custom Admin' plugin by Argonius. If you have any questions, ideas for future development or if you found a bug or having any issues regarding this plugin, please visit plugin's <a href="http://wordpress.argonius.com/ag-custom-admin">SUPPORT</a> page. <br />You can also participate in development of this plugin if you <a href="http://wordpress.argonius.com/donate">BUY ME A DRINK</a> to refresh my energy for programming. Thanks!<br /><br />Have a nice blogging!</p><br />
+			<br /><br /><br /><p id="agca_footer_support_info">WordPress 'AG Custom Admin' plugin by Argonius. If you have any questions, ideas for future development or if you found a bug or having any issues regarding this plugin, please visit plugin's <a href="http://wordpress.argonius.com/ag-custom-admin">SUPPORT</a> page. <br />You can also support development of this plugin if you <a href="http://wordpress.argonius.com/donate">Make a donation</a>. Thanks!<br /><br />I want to thank specially mr. <a href="http://www.alvisenicoletti.com/">Alvise Nicoletti</a> for his support in creating new features in 1.2.6.<br /><br />Have a nice blogging!</p><br />
 		<?php
 	}
 }

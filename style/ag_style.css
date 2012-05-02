@@ -106,3 +106,32 @@ td.ag_admin_menu_parent:hover{
 #agca_news a{
 	 color:green;
 }
+#agca_advertising{
+    display:block;
+    width:100%;
+    height: 100px;
+    /*background-color: #cccccc;*/   
+    padding: 0;
+    margin: 0;
+}
+#agca_advertising ul{
+    padding: 0;
+    margin: 0;
+    padding-right:5px;
+}
+#agca_advertising > ul > li{
+    float:left;
+    margin-right: 6px;
+    cursor: pointer;
+}
+#agca_form{
+    min-width: 835px;/*used for agca menu lineup*/
+}
+.ag-custom-button{
+    
+   /* margin-bottom:-4px !important;*/
+}
+#sidebar_adminmenu_logo{ 
+    margin-bottom: -33px;
+    min-height: 28px;
+}
