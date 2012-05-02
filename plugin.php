@@ -445,7 +445,7 @@ class AGCA{
                     $this->custom_js = $theData;
                 } else {
                     $customScript = fopen($customScriptName, 'w');
-                    $stringData = "jQuery(document).ready(function(){\n\n});";
+                    $stringData = " ";
                     fwrite($customScript, $stringData);
                     fclose($customScript);
                 }
@@ -685,16 +685,11 @@ class AGCA{
                                 if(isWPHigherOrEqualThan("3.3")){
                                         jQuery("#wp-admin-bar-site-name a:first").html('<?php echo get_option('agca_custom_site_heading'); ?>');
                                 }
-                <?php } ?>	
-                                
+                <?php } ?>	                           
                 <?php if(get_option('agca_header')==true){ ?>
-
-                                //3.3FIX
-                                if(isWPHigherOrEqualThan("3.3")){
-                                        jQuery("#wpadminbar").css("display","none");							
-                                }else{
+                                        jQuery("#wpadminbar").css("display","none");	
+                                        jQuery("body.admin-bar").css("padding-top","0");
                                         jQuery("#wphead").css("display","none");
-                                }
 
                 <?php } ?>	
                 <?php if((get_option('agca_header')==true)&&(get_option('agca_header_show_logout')==true)){ ?>									
@@ -862,8 +857,13 @@ try
 		if((get_option('agca_role_allbutadmin')==true) and  ($user_level > 9)){	
 		?>				
 		<?php } else{ ?>
-                                        <?php if(get_option('agca_admin_menu_brand')!=""){ ?>	
-                                             jQuery("#adminmenu").before('<div id="sidebar_adminmenu_logo"><img width="145" src="<?php echo get_option('agca_admin_menu_brand'); ?>" /></div>');
+                                        <?php if(get_option('agca_admin_menu_brand')!=""){ ?>
+                                             additionalStyles = "";
+                                             if(isWPHigherOrEqualThan("3.4")){
+                                                 additionalStyles = ' style="margin-bottom:-4px" ';
+                                             }
+                                             jQuery("#adminmenu").before('<div '+additionalStyles+' id="sidebar_adminmenu_logo"><img width="145" src="<?php echo get_option('agca_admin_menu_brand'); ?>" /></div>');
+                                             
                                         <?php } ?>                            
 					<?php if(get_option('agca_admin_menu_submenu_round')==true){ ?>
 							jQuery("#adminmenu div.wp-submenu").css("border-radius","<?php echo get_option('agca_admin_menu_submenu_round_size'); ?>px");
@@ -1374,10 +1374,10 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							<?php if($wpversion>=3.3){?>							
 							<tr valign="center">
 								<th >
-									<label title="Hides default WordPress top bar dropdown menus" for="agca_remove_top_bar_dropdowns">Hide WordPress top bar dropdown menus</label>
+									<label title="Hides default WordPress top bar dropdown menus on WordPress logo and Heading" for="agca_remove_top_bar_dropdowns">Hide WordPress top bar dropdown menus</label>
 								</th>
 								<td>					
-									<input title="Hides default WordPress top bar dropdown menus" type="checkbox" name="agca_remove_top_bar_dropdowns" value="true" <?php if (get_option('agca_remove_top_bar_dropdowns')==true) echo 'checked="checked" '; ?> />
+									<input title="Hides default WordPress top bar dropdown menus on WordPress logo and Heading" type="checkbox" name="agca_remove_top_bar_dropdowns" value="true" <?php if (get_option('agca_remove_top_bar_dropdowns')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr> 
 							<tr valign="center">

@@ -301,12 +301,14 @@ function savePluginSettings(){
     jQuery('#agca_form').submit();
 }
 
-jQuery(document).ready(function(){               
-    if(isSettingsImport){
-        saveCustomScripts();
-    //jQuery('#agca_form').submit();
-    // alert('Settings imported successfuly!');
-    }
+jQuery(document).ready(function(){  
+    if(typeof isSettingsImport !== 'undefined'){
+         if(isSettingsImport){
+            saveCustomScripts();
+        //jQuery('#agca_form').submit();
+        // alert('Settings imported successfuly!');
+        }
+    }   
     jQuery('a.button_remove').live("click", function(){
         jQuery(this).parent().parent().remove();
     });		
