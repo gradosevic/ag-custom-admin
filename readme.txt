@@ -101,6 +101,7 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 * Removed About WordPress message on top bar logo(on mouseover)
 * Using %BLOG% variable as hyperlink on login page image
 * Few other fixes on WordPress top bar
+* Fixed color bug on admin menu hover()
 
 = 1.2.6 =
 * Fixed hidding top bar issue for site pages
