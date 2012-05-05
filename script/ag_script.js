@@ -588,17 +588,15 @@ function updateTargetColor(id, color){
             if(color == "")break;
             var selector = '#adminmenu a.menu-top';  
             var originalBackground = jQuery(selector).css('background-color'); 
-            
+
             //if first is selected, use second
-             if((jQuery(selector).hasClass('current') || jQuery(selector).hasClass('wp-has-current-submenu'))){                 
-                 var originalBackground = jQuery('#adminmenu a.menu-top:eq(1)').css('background-color'); 
-             }            
-                       
+             if((jQuery(selector+":eq(0)").hasClass('current') || jQuery(selector+":eq(0)").hasClass('wp-has-current-submenu'))){                 
+                 originalBackground = jQuery('#adminmenu a.menu-top:eq(1)').css('background-color');              
+             }         
             jQuery(selector).mouseover(function(){                
                         if(!(jQuery(this).hasClass('current') || jQuery(this).hasClass('wp-has-current-submenu'))){ 
-                            jQuery(this).css({'background':color});                
-                        }
-            
+                            jQuery(this).css({'background':color});                             
+                        }            
             }).mouseout(function(){
                 if(!(jQuery(this).hasClass('current') || jQuery(this).hasClass('wp-has-current-submenu'))){ 
                     jQuery(this).css('background',originalBackground);                
