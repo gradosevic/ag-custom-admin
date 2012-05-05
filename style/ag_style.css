@@ -135,3 +135,17 @@ td.ag_admin_menu_parent:hover{
     margin-bottom: -33px;
     min-height: 28px;
 }
+
+.agcaMenuEditorPlusMinus .plus{ 
+   padding-right: 4px; 
+}
+.agcaMenuEditorPlusMinus .minus{ 
+    padding-right: 9px;
+    display: none;
+}
+
+.agcaMenuEditorPlusMinus{    
+    cursor: default;
+    width:10px;
+}
+

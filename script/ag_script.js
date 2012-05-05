@@ -1,6 +1,5 @@
 var afterFormClickCreateJson = true;
 var editingButtonNow = false;
-var savedCustomScripts = false;
 var agca_ajax_url = agca_global_plugin_url + "ajax.php";
 function booleanToChecked(bool){
     if(bool == 'true'){	
@@ -15,13 +14,17 @@ function hideShowSubmenus(index){
     var finish = false;
     var	found = false;
     jQuery('#ag_edit_adminmenu td').each(function(){	
-        if(jQuery('#ag_edit_adminmenu td').index(jQuery(this)) >= index && (finish == false)){			
+        if(jQuery('#ag_edit_adminmenu td').index(jQuery(this)) >= index && (finish == false)){	
+         //  jQuery(this).find('.agcaMenuEditorPlusMinus').show();
+         var caller = jQuery('#ag_edit_adminmenu td:eq(' + index + ')');
+         jQuery(caller).find('.agcaMenuEditorPlusMinus .minus').toggle();
+         jQuery(caller).find('.agcaMenuEditorPlusMinus .plus').toggle();
             if(jQuery(this).hasClass('ag_admin_menu_child')){
                 jQuery(this).parent().toggleClass('noclass');
                 found = true;
             }
             if((jQuery('#ag_edit_adminmenu td').index(jQuery(this)) > index) && jQuery(this).hasClass('ag_admin_menu_parent')){			
-                finish = true;
+                finish = true;                 
             }
         }
     });
@@ -97,7 +100,7 @@ function createEditMenuPage(checkboxes,textboxes){
                     top_item_text_value = textboxes[counter][1];
                     isHidden = checkboxes[counter][1];					
                 }	
-                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_parent'><br /><a tabindex=\"0\" href=\"javascript:void(0)\" >" + topElement +"</a><div style=\"float:right\"><input title=\"Remove "+topElement+" from menu\" class=\""+jQuery(this).attr("id")+"\" type=\"checkbox\" "+booleanToChecked(isHidden)+" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></div></td><td class='ag_admin_menu_parent2' ><input title=\"Rename "+topElement+" with this value\" type=\"text\" class=\""+jQuery(this).attr("id")+"\" size=\"47\" value=\""+top_item_text_value+"\" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></td></tr>");
+                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_parent'><br /><span class=\"agcaMenuEditorPlusMinus\"><span class=\"plus\">+</span><span class=\"minus\">-</span></span><a tabindex=\"0\" href=\"javascript:void(0)\" >" + topElement +"</a><div style=\"float:right\"><input title=\"Remove "+topElement+" from menu\" class=\""+jQuery(this).attr("id")+"\" type=\"checkbox\" "+booleanToChecked(isHidden)+" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></div></td><td class='ag_admin_menu_parent2' ><input title=\"Rename "+topElement+" with this value\" type=\"text\" class=\""+jQuery(this).attr("id")+"\" size=\"47\" value=\""+top_item_text_value+"\" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></td></tr>");
             }			
             counter++;
         }		
@@ -105,6 +108,8 @@ function createEditMenuPage(checkboxes,textboxes){
 	 
     //console.log(checkboxes.replace('<-TOP->','')+"|"+textboxes.replace('<-TOP->',''));	  
     prettyEditMenuPage();
+    
+  
 }
 
 function createEditMenuPageV32(checkboxes,textboxes){		
@@ -147,7 +152,7 @@ function createEditMenuPageV32(checkboxes,textboxes){
                     top_item_text_value = textboxes[counter][1];
                     isHidden = checkboxes[counter][1];
                 }	
-                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_parent'><br /><a tabindex=\"0\" href=\"javascript:void(0)\" >" + topElement +"</a><div style=\"float:right\"><input title=\"Remove "+topElement+" from menu\" class=\""+jQuery(this).attr("id")+"\" type=\"checkbox\" "+booleanToChecked(isHidden)+" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></div></td><td class='ag_admin_menu_parent2' ><input title=\"Rename "+topElement+" with this value\" type=\"text\" class=\""+jQuery(this).attr("id")+"\" size=\"47\" value=\""+top_item_text_value+"\" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></td></tr>");
+                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_parent'><br /><span class=\"agcaMenuEditorPlusMinus\"><span class=\"plus\">+</span><span class=\"minus\">-</span></span><a tabindex=\"0\" href=\"javascript:void(0)\" >" + topElement +"</a><div style=\"float:right\"><input title=\"Remove "+topElement+" from menu\" class=\""+jQuery(this).attr("id")+"\" type=\"checkbox\" "+booleanToChecked(isHidden)+" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></div></td><td class='ag_admin_menu_parent2' ><input title=\"Rename "+topElement+" with this value\" type=\"text\" class=\""+jQuery(this).attr("id")+"\" size=\"47\" value=\""+top_item_text_value+"\" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></td></tr>");
             }			
             counter++;
         }else if(jQuery(this).attr('id') =="collapse-menu"){
@@ -157,6 +162,24 @@ function createEditMenuPageV32(checkboxes,textboxes){
 	 
     //console.log(checkboxes.replace('<-TOP->','')+"|"+textboxes.replace('<-TOP->',''));	  
     prettyEditMenuPage();
+    
+    var parent = null;
+    var subs = 0;
+    jQuery('#ag_edit_adminmenu tr').each(function(){
+        if(jQuery(this).find('td').hasClass('ag_admin_menu_parent')){
+            //jQuery(this).css('color','#ffffff');
+            if(parent != null){
+                if(subs == 0){
+                    jQuery(parent).find('.agcaMenuEditorPlusMinus').html('<span>&nbsp;&nbsp;&nbsp;</span>');
+                }
+            }
+            subs = 0;
+            parent = jQuery(this);
+        }else{
+            subs++;
+        }        
+      
+    });
 }
 
 function showHideSection(text) {	
@@ -194,39 +217,6 @@ function showHideSection(text) {
             jQuery('#section_admin_bar').show();
             jQuery('#section_admin_bar .section_title').trigger('focus');		
     }
-}
-
-function saveCustomScripts(){
-    var cssValue = jQuery('#agca_script_css').val();
-    if(cssValue == "")cssValue = " ";
-    jQuery.ajax({          
-        url: agca_ajax_url, 
-        data: {
-            data: cssValue, 
-            action: "savecss"
-        },
-        type: "POST",       
-        cache: false,      
-        success: function (html) {            
-            var jsValue = jQuery('#agca_script_js').val();
-            if(jsValue == "")jsValue = " ";
-            jQuery.ajax({          
-                url: agca_ajax_url, 
-                data: {
-                    data: jsValue, 
-                    action: "savejs"
-                },
-                type: "POST",       
-                cache: false,      
-                success: function (html) {             
-                    savedCustomScripts = true;
-                    jQuery('#agca_form').submit();
-                }      
-            });
-                                
-        }      
-    });
-      
 }
 
 function hideAllSections(){
@@ -301,14 +291,7 @@ function savePluginSettings(){
     jQuery('#agca_form').submit();
 }
 
-jQuery(document).ready(function(){  
-    if(typeof isSettingsImport !== 'undefined'){
-         if(isSettingsImport){
-            saveCustomScripts();
-        //jQuery('#agca_form').submit();
-        // alert('Settings imported successfuly!');
-        }
-    }   
+jQuery(document).ready(function(){     
     jQuery('a.button_remove').live("click", function(){
         jQuery(this).parent().parent().remove();
     });		
@@ -459,14 +442,9 @@ jQuery(document).ready(function(){
 
 /*FORM SUBMITTED*/
 jQuery(document).ready(function(){
-    jQuery('#agca_form').submit(function(){		
-        if(!savedCustomScripts){
-            saveCustomScripts();
-            return false;
-        }else{                          
-            processData();
-            return true;
-        }          
+    jQuery('#agca_form').submit(function(){	
+        processData();
+        return true;                
     });
 });
 

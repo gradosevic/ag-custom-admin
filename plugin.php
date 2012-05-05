@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpress.org/extend/plugins/ag-custom-admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 Author: Argonius
-Version: 1.2.6
+Version: 1.2.6.1
 Author URI: http://wordpress.argonius.com/ag-custom-admin
 
 	Copyright 2011. Argonius (email : info@argonius.com)
@@ -31,9 +31,7 @@ $agca = new AGCA();
 class AGCA{
 	private $colorizer="";	
 	private $active_plugin;
-	private $agca_version;
-        private $custom_css = "";
-        private $custom_js = "";
+	private $agca_version;    
 	public function __construct()
 	{	
 				
@@ -43,16 +41,14 @@ class AGCA{
 		add_action('wp_head', array(&$this,'print_page'));	 		
 		add_action('login_head', array(&$this,'print_login_head'));	
 		add_action('admin_menu', array(&$this,'agca_create_menu'));		
-		register_deactivation_hook(__FILE__, array(&$this,'agca_deactivate'));		
+		register_deactivation_hook(__FILE__, array(&$this,'agca_deactivate'));	
 		
-		/*Styles*/
-	//	add_action('admin_menu', array(&$this,'agca_get_styles'));
-	//	add_action('login_head', array(&$this,'agca_get_styles'));
+	
 	
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
                 //fb($this->colorizer);
-		$this->agca_version = "1.2.6";
+		$this->agca_version = "1.2.6.1";
 	}
 	// Add donate and support information
 	function jk_filter_plugin_links($links, $file)
@@ -92,8 +88,16 @@ class AGCA{
                        <?php
                         if(!((get_option('agca_role_allbutadmin')==true) and  ($user_level > 9))){	
                             ?>
-                             <link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/mine.css?ver=<?php echo $this->agca_version; ?>" />
-                             <script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/mine.js?ver=<?php echo $this->agca_version; ?>"></script>
+                             <style type="text/css">
+                                 <?php
+                                    echo get_option('agca_custom_css'); 
+                                 ?>
+                             </style>
+                             <script type="text/javascript">
+                                 <?php
+                                    echo get_option('agca_custom_js'); 
+                                 ?>
+                             </script>
                             <?php
                         }
                         ?>
@@ -138,9 +142,8 @@ class AGCA{
 		register_setting( 'agca-options-group', 'agca_login_photo_url' );
 		register_setting( 'agca-options-group', 'agca_login_photo_href' );
                 register_setting( 'agca-options-group', 'agca_login_round_box' );
-		register_setting( 'agca-options-group', 'agca_login_round_box_size' );
+		register_setting( 'agca-options-group', 'agca_login_round_box_size' );		
 		
-		//register_setting( 'agca-options-group', 'agca_menu_dashboard' ); DEPRECATED 1.2
 		register_setting( 'agca-options-group', 'agca_dashboard_icon' );
 		register_setting( 'agca-options-group', 'agca_dashboard_text' );
 		register_setting( 'agca-options-group', 'agca_dashboard_text_paragraph' );
@@ -181,8 +184,9 @@ class AGCA{
 		register_setting( 'agca-options-group', 'ag_colorizer_json' );	
 		register_setting( 'agca-options-group', 'agca_colorizer_turnonoff' );                
                 
-                 $this->createCustomJSFile();
-                 $this->createCustomCSSFile();
+                register_setting( 'agca-options-group', 'agca_custom_js' );
+                register_setting( 'agca-options-group', 'agca_custom_css' );                
+             
                 
                 if(!empty($_POST)){
                  // fb($_POST);
@@ -243,9 +247,8 @@ class AGCA{
 		delete_option( 'agca_login_photo_url' );
 		delete_option( 'agca_login_photo_href' );
                 delete_option( 'agca_login_round_box' );
-		delete_option( 'agca_login_round_box_size' );
-		
-		//delete_option(  'agca_menu_dashboard' ); DEPRECATED 1.2
+		delete_option( 'agca_login_round_box_size' );		
+	
 		delete_option(  'agca_dashboard_icon' );
 		delete_option(  'agca_dashboard_text' );
 		delete_option(  'agca_dashboard_text_paragraph' );
@@ -284,6 +287,9 @@ class AGCA{
 		delete_option(  'ag_add_adminmenu_json' );
 		delete_option(  'ag_colorizer_json' );	
 		delete_option(  'agca_colorizer_turnonoff' );
+                
+                delete_option( 'agca_custom_js' );
+                delete_option( 'agca_custom_css' );
 	}  
         
         function getOptions(){
@@ -351,24 +357,10 @@ class AGCA{
                 'ag_add_adminmenu_json',
                 'ag_colorizer_json',
                 'agca_colorizer_turnonof',
+                'agca_custom_js',
+                'agca_custom_css',
             ); 
-        }      
-        
-        function createCustomCSSFile(){
-                $customScriptName =dirname(__FILE__)."/style/mine.css";         
-		if (file_exists($customScriptName)) {                 
-                    $fh = fopen($customScriptName, 'r');
-                    $theData = "";
-                    if(filesize($customScriptName) > 0){
-                        $theData = fread($fh,filesize($customScriptName));
-                    }                    
-                    fclose($fh);
-                    $this->custom_css = $theData;
-                } else {
-                    $customScript = fopen($customScriptName, 'w');                   
-                    fclose($customScript);
-                }
-        }
+        }  
         
         function importSettings($settings){
             $exploaded = explode("|^|^|", $settings);
@@ -394,16 +386,22 @@ class AGCA{
                 
                 if($optionName == "ag_edit_adminmenu_json" || $optionName == "ag_add_adminmenu_json" ||$optionName == "ag_colorizer_json"){
                     $optionValue = str_replace("\\\"", "\"", $optionValue);
-                    $optionValue = str_replace("\\\'", "\'", $optionValue);
+                    $optionValue = str_replace("\\\'", "\'", $optionValue);                   
+                }else if($optionName == "agca_custom_js" || $optionName == "agca_custom_css"){
+                    //fb($optionValue);
+                    $optionValue = htmlspecialchars_decode($optionValue);
+                    $optionValue = str_replace("\'", '"', $optionValue);
+                    $optionValue = str_replace('\"', "'", $optionValue);
+                    //fb($optionValue);
                 }else{
                     
-                }     
+                }  
                 update_option($optionName, $optionValue);                
                 $str.="/".$optionName."/".$optionValue."\n";
             } 
            // fb($savedOptions);
-            $this->custom_css = $savedOptions['agca_script_css'];
-            $this->custom_js = $savedOptions['agca_script_js'];           
+            //$this->custom_css = $savedOptions['agca_script_css'];
+           // $this->custom_js = $savedOptions['agca_script_js'];           
            //echo $str;
         }
         
@@ -432,24 +430,7 @@ class AGCA{
             return (substr($haystack, 0, $length) === $needle);
         }
         
-        function createCustomJSFile(){        
-                $customScriptName =dirname(__FILE__)."/script/mine.js";         
-                
-		if (file_exists($customScriptName)) {   
-                    $fh = fopen($customScriptName, 'r');
-                    $theData = "";
-                    if(filesize($customScriptName) > 0){
-                        $theData = fread($fh,filesize($customScriptName));
-                    }  
-                    fclose($fh);
-                    $this->custom_js = $theData;
-                } else {
-                    $customScript = fopen($customScriptName, 'w');
-                    $stringData = " ";
-                    fwrite($customScript, $stringData);
-                    fclose($customScript);
-                }
-        }
+ 
                 
 	function agca_create_menu() {
 	//create new top-level menu		
@@ -544,30 +525,21 @@ class AGCA{
 		?><style type="text/css">
 		
 		</style>
-                 <script type="text/javascript">       
-                 </script>
-                <script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>	
-                <script type="text/javascript">       
-                     <?php echo "var agca_global_plugin_url = '".trailingslashit(plugins_url(basename(dirname(__FILE__))))."';"; ?>
+                 <script type="text/javascript">      
                     var wpversion = "<?php echo $wpversion; ?>";
                     var agca_version = "<?php echo $this->agca_version; ?>";
                     var jQueryScriptOutputted = false;
                     function initJQuery() {
-
                         //if the jQuery object isn't available
                         if (typeof(jQuery) == 'undefined') {
-
-
                             if (! jQueryScriptOutputted) {
                                 //only output the script once..
                                 jQueryScriptOutputted = true;
-
                                 //output the script (load it from google api)
                                 document.write("<scr" + "ipt type=\"text/javascript\" src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js\"></scr" + "ipt>");
                             }
                             setTimeout("initJQuery()", 50);
                         } else {
-
                             $(function() {  
                                 try
                                 { 
@@ -578,6 +550,11 @@ class AGCA{
                     }
                     initJQuery();                  
                 </script>
+                 <script type="text/javascript"> 
+                     <?php echo "var agca_global_plugin_url = '".trailingslashit(plugins_url(basename(dirname(__FILE__))))."';"; ?>
+                 </script>
+                <script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>	
+               
                   
                     <?php
                
@@ -592,6 +569,8 @@ class AGCA{
                         //remove on site page
                          jQuery("#wpadminbar #wp-admin-bar-root-default > #wp-admin-bar-wp-logo .ab-sub-wrapper").hide();
                          jQuery("#wpadminbar #wp-admin-bar-root-default > #wp-admin-bar-site-name .ab-sub-wrapper").hide();
+                         
+                         jQuery("#wpadminbar #wp-admin-bar-root-default > #wp-admin-bar-wp-logo .ab-item").attr('title','');
                      
                         
                          var abitemSelector = "#wpadminbar .ab-top-menu > li.menupop > .ab-item";
@@ -671,9 +650,13 @@ class AGCA{
 
                 <?php } ?>	
                 <?php if(get_option('agca_wp_logo_custom')!=""){ ?>						
-                                if(isWPHigherOrEqualThan("3.3")){
-                                        jQuery("li#wp-admin-bar-wp-logo a.ab-item span.ab-icon").css("background-image","url('<?php echo get_option('agca_wp_logo_custom'); ?>')");
-                                        jQuery("li#wp-admin-bar-wp-logo a.ab-item span.ab-icon").css("background-position","0");
+                                if(isWPHigherOrEqualThan("3.3")){                                       
+                                         jQuery("li#wp-admin-bar-wp-logo a.ab-item span.ab-icon").html("<img style=\"height:28px;margin-top:-4px\" src=\"<?php echo get_option('agca_wp_logo_custom'); ?>\" />");
+                                         jQuery("li#wp-admin-bar-wp-logo a.ab-item span.ab-icon").css('background-image','none');
+                                         jQuery("li#wp-admin-bar-wp-logo a.ab-item span.ab-icon").css('width','auto');  
+                                         jQuery("li#wp-admin-bar-wp-logo a.ab-item").attr('href',"<?php echo get_bloginfo('wpurl'); ?>");
+                                       
+                                         jQuery("#wpadminbar #wp-admin-bar-root-default > #wp-admin-bar-wp-logo .ab-item").attr('title','');
                                 }
                 <?php }?>					
                 <?php if(get_option('agca_site_heading')==true){ ?>
@@ -716,15 +699,20 @@ class AGCA{
                                                     var alltext="";								
                                                     alltext="";
                                                     alltext = jQuery('li#wp-admin-bar-my-account').html();
-                                                    alltext = alltext.replace('Howdy',"<?php echo get_option('agca_howdy'); ?>");									
+                                                    if(alltext!=null){
+                                                        alltext = alltext.replace('Howdy',"<?php echo get_option('agca_howdy'); ?>");								
+                                                    }    
                                                     jQuery("li#wp-admin-bar-my-account").html(alltext);
-                                    }else if(isWPHigherOrEqualThan("3.2")){
+                                    }else if(isWPHigherOrEqualThan("3.2")){	
                                                     var alltext="";								
                                                     alltext="";
                                                     alltext = jQuery('#user_info div.hide-if-no-js').html();
-                                                    alltext = alltext.replace('Howdy',"<?php echo get_option('agca_howdy'); ?>");									
+                                                    if(alltext!=null){
+                                                        alltext = alltext.replace('Howdy',"<?php echo get_option('agca_howdy'); ?>");									
+                                                    }
                                                     jQuery("#user_info div.hide-if-no-js").html(alltext);
-                                    }else{
+                                                    
+                                    }else{	
                                                     var howdyText = jQuery("#user_info").html();
                                                     if(howdyText !=null){
                                                     jQuery("#user_info").html("<p>"+"<?php echo get_option('agca_howdy'); ?>"+howdyText.substr(9));
@@ -1198,6 +1186,9 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 					<?php } ?>
 					<?php if(get_option('agca_login_photo_href')==true){ ?>						
 							var $href = "<?php echo get_option('agca_login_photo_href'); ?>";
+                                                        if($href == "%BLOG%"){
+                                                            $href = "<?php echo get_bloginfo('wpurl'); ?>";
+                                                        }
 							jQuery("#login h1 a").attr("href",$href);							
 					<?php } ?>
 					<?php if(get_option('agca_login_photo_remove')==true){ ?>
@@ -1351,7 +1342,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								</th>
 								<td>
 									<input id="agca_wp_logo_custom" title="If this field is not empty, image from provided url will be visible in top bar" type="text" size="47" name="agca_wp_logo_custom" value="<?php echo get_option('agca_wp_logo_custom'); ?>" /><input type="button"  onClick="jQuery('#agca_wp_logo_custom').val('');" value="Clear" />
-									&nbsp;<p><i>Put here an URL of the new top bar image (20 x 20px)</i>.</p>
+									&nbsp;<p><i>Put here an URL of the new top bar image ( maximum height = 28px)</i>.</p>
 								</td>
 							</tr> 
 							<tr valign="center">
@@ -1451,7 +1442,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<label title="Adds custom text in admin top bar. Default Wordpress heading stays intact." for="agca_custom_site_heading">Custom blog heading</label>
 								</th>
 								<td>
-								<textarea title="Adds custom text in admin top bar. Default Wordpress heading stays intact." rows="5" name="agca_custom_site_heading" cols="40"><?php echo htmlspecialchars(get_option('agca_custom_site_heading')); ?></textarea><p><em><strong>Info: </strong>You can use HTML tags like 'h1' and/or 'a' tag</em></p>
+								<textarea title="Adds custom text in admin top bar." rows="5" name="agca_custom_site_heading" cols="40"><?php echo htmlspecialchars(get_option('agca_custom_site_heading')); ?></textarea><p><em><strong>Info: </strong>You can use HTML tags like 'h1' and/or 'a' tag</em></p>
 								</td>
 							</tr> 
 							<tr valign="center">
@@ -1762,7 +1753,8 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<label title="Put here custom link to a web location, that will be triggered on image click" for="agca_login_photo_href">Change hyperlink on Login image</label>
 								</th>
 								<td>
-									<input title="Put here custom link to a web location, that will be triggered on image click" type="text" size="47" id="agca_login_photo_href"  name="agca_login_photo_href" value="<?php echo get_option('agca_login_photo_href'); ?>" /><input type="button"  onClick="jQuery('#agca_login_photo_href').val('');" value="Clear" />								
+									<input title="Put here custom link to a web location, that will be triggered on image click" type="text" size="47" id="agca_login_photo_href"  name="agca_login_photo_href" value="<?php echo get_option('agca_login_photo_href'); ?>" /><input type="button"  onClick="jQuery('#agca_login_photo_href').val('');" value="Clear" />
+                                                                        &nbsp;<p><i>For blog URL use %BLOG%</i></p>
 								</td>
 							</tr> 
 							<tr valign="center">
@@ -2120,15 +2112,15 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
                                                                                                     <label title="Add custom CSS script to override existing styles" for="agca_script_css">Custom CSS Script</em></label>
                                                                                             </th>
                                                                                             <td>
-                                                                                            <textarea style="width:100%;height:200px" title="Add custom CSS script to override existing styles" rows="5" id="agca_script_css"  name="agca_script_css" cols="40"><?php echo htmlspecialchars($this->custom_css); ?></textarea>
+                                                                                            <textarea style="width:100%;height:200px" title="Add custom CSS script to override existing styles" rows="5" id="agca_custom_css"  name="agca_custom_css" cols="40"><?php echo htmlspecialchars(get_option('agca_custom_css')); ?></textarea>
                                                                                             </td>
                                                                                     </tr>	
                                                                                     <tr valign="center">
                                                                                             <th scope="row">
-                                                                                                    <label title="Add additional custom JavaScript" for="agca_script_js">Custom JavaScript</label>
+                                                                                                    <label title="Add additional custom JavaScript" for="agca_custom_js">Custom JavaScript</label>
                                                                                             </th>
                                                                                             <td>
-                                                                                            <textarea style="width:100%;height:200px" title="Add additional custom JavaScript" rows="5" name="agca_script_js"  id="agca_script_js" cols="40"><?php echo $this->custom_js; ?></textarea>
+                                                                                            <textarea style="width:100%;height:200px" title="Add additional custom JavaScript" rows="5" name="agca_custom_js"  id="agca_custom_js" cols="40"><?php echo htmlspecialchars(get_option('agca_custom_js')); ?></textarea>
                                                                                             </td>
                                                                                     </tr>
                                                                                      <tr valign="center">
@@ -2159,7 +2151,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 			</div>
 							
 										<br />
-			<br /><br /><br /><p id="agca_footer_support_info">WordPress 'AG Custom Admin' plugin by Argonius. If you have any questions, ideas for future development or if you found a bug or having any issues regarding this plugin, please visit plugin's <a href="http://wordpress.argonius.com/ag-custom-admin">SUPPORT</a> page. <br />You can also support development of this plugin if you <a href="http://wordpress.argonius.com/donate">Make a donation</a>. Thanks!<br /><br />I want to thank specially mr. <a href="http://www.alvisenicoletti.com/">Alvise Nicoletti</a> for his support in creating new features in 1.2.6.<br /><br />Have a nice blogging!</p><br />
+			<br /><br /><br /><p id="agca_footer_support_info">WordPress 'AG Custom Admin' plugin by Argonius. If you have any questions, ideas for future development or if you found a bug or having any issues regarding this plugin, please visit plugin's <a href="http://wordpress.argonius.com/ag-custom-admin">SUPPORT</a> page. <br />You can also support development of this plugin if you <a href="http://wordpress.argonius.com/donate">Make a donation</a>. Thanks!<br /><br />I want to thank specially mr. <a href="http://www.elan42.com/">Alvise Nicoletti</a> for his support in creating new features in 1.2.6.<br /><br />Have a nice blogging!</p><br />
 		<?php
 	}
 }
