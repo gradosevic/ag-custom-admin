@@ -399,9 +399,24 @@ class AGCA{
                 update_option($optionName, $optionValue);                
                 $str.="/".$optionName."/".$optionValue."\n";
             } 
+            
+            //Migration from 1.2.6. to 1.2.5.1 - remove in later versions
+            //agca_script_css
+            //
            // fb($savedOptions);
-            //$this->custom_css = $savedOptions['agca_script_css'];
-           // $this->custom_js = $savedOptions['agca_script_js'];           
+           if($savedOptions['agca_script_css'] != null){
+                    $optionValue = "";  
+                    $optionValue = str_replace("\'", '"', $savedOptions['agca_script_css']);            
+                    $optionValue = str_replace('\"', "'", $optionValue);
+                     update_option('agca_custom_css', $optionValue);
+           }
+           if($savedOptions['agca_script_js'] != null){
+                    $optionValue = "";  
+                    $optionValue = str_replace("\'", '"', $savedOptions['agca_script_js']);            
+                    $optionValue = str_replace('\"', "'", $optionValue);
+                     update_option('agca_custom_js', $optionValue);
+           }            
+                     
            //echo $str;
         }
         
