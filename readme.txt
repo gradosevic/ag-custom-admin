@@ -92,6 +92,16 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 
 == Changelog ==
 
+= 1.2.6.1 =
+* Bug fixes
+* Added +/- indicators to admin menu editor
+* Custom top bar logo can be of any width. Height is expanded to 28px
+* Saving custom scripts to database instead of saving to files
+* Fixed error message on wordpress thickbox window
+* Removed About WordPress message on top bar logo(on mouseover)
+* Using %BLOG% variable as hyperlink on login page image
+* Few other fixes on WordPress top bar
+
 = 1.2.6 =
 * Fixed hidding top bar issue for site pages
 * Fixed issues with custom content on Dashboard page. Any custom HTML can be used now.
@@ -193,6 +203,8 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 
 == Upgrade Notice ==
 
+= 1.2.6.1 =
+Fixing bugs from 1.2.6 version
 
 = 1.2.6 =
 A lot of improvements in 1.2.6, fixed issues with top bar, caching on updates, better styles, etc.  and new features: export/import new colorizer options, better admin menu styles, custom css, custom js, admin bar on site pages etc.
