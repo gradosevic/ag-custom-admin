@@ -573,7 +573,7 @@ class AGCA{
                             }
                             setTimeout("initJQuery()", 50);
                         } else {
-                            $(function() {  
+                            jQuery(function() {  
                                 try
                                 { 
                                     <?php  $this->print_admin_bar_scripts(); ?>
