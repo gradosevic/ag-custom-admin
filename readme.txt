@@ -3,8 +3,8 @@ Contributors: argonius
 Donate link: http://wordpress.argonius.com/donate
 Tags: admin, customize, hide, change admin
 Requires at least: 3.0
-Tested up to: 3.3.2
-Stable tag: 1.2.5.4
+Tested up to: 3.4
+Stable tag: 1.2.6.2
 
 Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 
@@ -16,12 +16,16 @@ Here is the list of options:
 
 	Admin Bar Options
 	- Hide admin bar completely
-	- Hide Privacy link (link next to heading in admin bar)
-	- Hide WordPress logo in admin bar
-	- Add custom logo image in admin bar
-	- Custom blog heading in admin bar
+	- Change admin bar logo and link
+	- Hide admin bar WordPress logo
+	- Add custom admin bar logo
+	- Hide admin bar dropdown menus
+	- Hide "New" dropdown items
+	- Hide comments from admin bar
+	- Hide updates from admin bar
 	- Hide WordPress update notification bar
 	- Hide default blog heading in admin bar
+	- Change admin bar heading text
 	- Hide Screen Options menu
 	- Hide Help menu
 	- Hide Favorite Actions
@@ -41,20 +45,32 @@ Here is the list of options:
 	- Hide dashboard widgets
 
 	Login Page Options
-	- Hide Login top bar completely
-	- Change Login top bar text
-	- Change/remove Login header image
-	- Change hyperlink on Login image
-	- Hide Login header image
+	- Hide back to blog completely
+	- Change login image	
+	- Change hyperlink on login image
+	- Hide login image
+	- Round corners on login boxes
 	
 	Admin Menu Options
 	- Rename menu and submenu items
 	- Remove menu and submenu items
 	- Add new buttons with custom links
 	- Remove icons from admin menu buttons
+	- Remove spaces between admin menu buttons
+	- Remove admin menu arrow on rollower
+	- Round admin submenu popups	
+	- Add custom branding image above the admin menu
+	- Add custom link to branding image
 	
 	Colorizer
-	- Change background and text colors in admin and login page
+	- Change background and text colors on admin and login page	
+	- Change admin menu colors
+	- Change widget colors
+	
+	Advanced
+	- Add custom CSS
+	- Add custom JavaScript
+	- Export/import customization settings
 
 
 For more information about the plugin please see: http://wordpress.argonius.com/ag-custom-admin
@@ -91,6 +107,11 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 4. Default WP grey colors can be refreshed with any colors that you like! There are a lot of Colorizer option which can be use to style text, background, login, widgets, admin menu, top bar, footer and many more!
 
 == Changelog ==
+
+= 1.2.6.2 =
+* Added custom brand logo url
+* Added %BLOG% variables for custom urls
+* Option for removing custom admin menu settings in export
 
 = 1.2.6.1 =
 * Bug fixes
@@ -203,6 +224,9 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.2.6.2 =
+ Ready for WordPress 3.4. A lot of improvements in 1.2.6 series, fixed issues with top bar, caching on updates, better styles...  and new features: export/import new colorizer options, better admin menu styles, custom css, custom js, admin bar on site pages.. Fixed bugs since 1.2.6 version. Wrapped up 1.2.6 series release.
 
 = 1.2.6.1 =
 Fixing bugs from 1.2.6 version
