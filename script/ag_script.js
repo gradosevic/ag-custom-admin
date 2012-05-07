@@ -263,10 +263,20 @@ function createTargetCombo(target,clas){
 }
 
 function exportSettings(){
-    jQuery('#agca_form').attr('action','tools.php?page=ag-custom-admin/plugin.php');
-    jQuery('#agca_form #_agca_import_settings').val("false");
-    jQuery('#agca_form #_agca_export_settings').val("true");
-    jQuery('#agca_form').submit();
+    if(jQuery('#export_settings_additional').css("display") == "none"){
+        jQuery('#export_settings_additional').show("slide");
+    }else{
+        jQuery('#agca_form').attr('action','tools.php?page=ag-custom-admin/plugin.php');
+        jQuery('#agca_form #_agca_import_settings').val("false");
+        jQuery('#agca_form #_agca_export_settings').val("true");
+        
+        
+        jQuery('#ag_add_adminmenu_json').val('');
+        jQuery('#ag_edit_adminmenu_json').val('');
+        
+        
+        jQuery('#agca_form').submit();
+    }    
 }
 
 function importSettings(){

@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpress.org/extend/plugins/ag-custom-admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 Author: Argonius
-Version: 1.2.6.1
+Version: 1.2.6.2
 Author URI: http://wordpress.argonius.com/ag-custom-admin
 
 	Copyright 2011. Argonius (email : info@argonius.com)
@@ -48,7 +48,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
                 //fb($this->colorizer);
-		$this->agca_version = "1.2.6.1";
+		$this->agca_version = "1.2.6.2";
 	}
 	// Add donate and support information
 	function jk_filter_plugin_links($links, $file)
@@ -126,7 +126,9 @@ class AGCA{
 		register_setting( 'agca-options-group', 'agca_privacy_options' );
 		register_setting( 'agca-options-group', 'agca_header_logo' );
 		register_setting( 'agca-options-group', 'agca_header_logo_custom' );
-		register_setting( 'agca-options-group', 'agca_wp_logo_custom' );		
+		register_setting( 'agca-options-group', 'agca_wp_logo_custom' );
+                register_setting( 'agca-options-group', 'agca_wp_logo_custom_link' );
+                
 		register_setting( 'agca-options-group', 'agca_site_heading' );
 		register_setting( 'agca-options-group', 'agca_custom_site_heading' );
 		register_setting( 'agca-options-group', 'agca_update_bar' );
@@ -179,6 +181,7 @@ class AGCA{
                 register_setting( 'agca-options-group', 'agca_admin_menu_submenu_round' );	
                 register_setting( 'agca-options-group', 'agca_admin_menu_submenu_round_size' );
                 register_setting( 'agca-options-group', 'agca_admin_menu_brand' );
+                register_setting( 'agca-options-group', 'agca_admin_menu_brand_link' );                
 		register_setting( 'agca-options-group', 'ag_edit_adminmenu_json' );
 		register_setting( 'agca-options-group', 'ag_add_adminmenu_json' );	
 		register_setting( 'agca-options-group', 'ag_colorizer_json' );	
@@ -232,6 +235,7 @@ class AGCA{
 		delete_option(  'agca_header_logo' );
 		delete_option(  'agca_header_logo_custom' );
 		delete_option(  'agca_wp_logo_custom' );	
+                delete_option(  'agca_wp_logo_custom_link' );
 		delete_option(  'agca_site_heading' );
 		delete_option(  'agca_custom_site_heading' );
 		delete_option(  'agca_update_bar' );
@@ -283,6 +287,7 @@ class AGCA{
                 delete_option(  'agca_admin_menu_submenu_round' );
                 delete_option(  'agca_admin_menu_submenu_round_size' );
                 delete_option(  'agca_admin_menu_brand' );
+                delete_option(  'agca_admin_menu_brand_link' );                
 		delete_option(  'ag_edit_adminmenu_json' );
 		delete_option(  'ag_add_adminmenu_json' );
 		delete_option(  'ag_colorizer_json' );	
@@ -309,6 +314,7 @@ class AGCA{
                 'agca_header_logo',
                 'agca_header_logo_custom',
                 'agca_wp_logo_custom',
+                'agca_wp_logo_custom_link',
                 'agca_site_heading',
                 'agca_custom_site_heading',
                 'agca_update_bar',
@@ -353,6 +359,7 @@ class AGCA{
                 'agca_admin_menu_submenu_round',
                 'agca_admin_menu_submenu_round_size',
                 'agca_admin_menu_brand',
+                'agca_admin_menu_brand_link',            
                 'ag_edit_adminmenu_json',
                 'ag_add_adminmenu_json',
                 'ag_colorizer_json',
@@ -422,11 +429,22 @@ class AGCA{
         
         function exportSettings(){
             $str = "";
+            
+            $include_menu_settings = false;
+            if(isset($_POST['export_settings_include_admin_menu'])){               
+                if($_POST['export_settings_include_admin_menu'] == 'on'){
+                    $include_menu_settings = true;
+                }
+            }
 
             foreach ($_POST as $key => $value) {
                 if ($this->startsWith($key,'ag')||$this->startsWith($key,'color')) {
-                    $str .=$key. ":".$value."|^|^|";
-                 }                
+                    if($this->startsWith($key,'ag_edit_adminmenu')){
+                        if($include_menu_settings) $str .=$key. ":".$value."|^|^|";
+                    }else{
+                        $str .=$key. ":".$value."|^|^|";
+                    }
+                 }               
             }
           
              $filename = 'AGCA_Settings_'.date("Y-M-d_H-i-s").'.agca';             
@@ -673,7 +691,14 @@ class AGCA{
                                        
                                          jQuery("#wpadminbar #wp-admin-bar-root-default > #wp-admin-bar-wp-logo .ab-item").attr('title','');
                                 }
-                <?php }?>					
+                <?php }?>
+                <?php if(get_option('agca_wp_logo_custom_link')!=""){ ?>						
+                                if(isWPHigherOrEqualThan("3.3")){       
+                                         var href = "<?php echo get_option('agca_wp_logo_custom_link'); ?>";                                                        
+                                         href = href.replace("%BLOG%", "<?php echo get_bloginfo('wpurl'); ?>");
+                                         jQuery("li#wp-admin-bar-wp-logo a.ab-item").attr('href',href);                                        
+                                }
+                <?php }?>
                 <?php if(get_option('agca_site_heading')==true){ ?>
                                 jQuery("#wphead #site-heading").css("display","none");
                 <?php } ?>
@@ -867,7 +892,21 @@ try
                                              }
                                              jQuery("#adminmenu").before('<div '+additionalStyles+' id="sidebar_adminmenu_logo"><img width="145" src="<?php echo get_option('agca_admin_menu_brand'); ?>" /></div>');
                                              
-                                        <?php } ?>                            
+                                        <?php } ?> 
+                                         <?php if(get_option('agca_admin_menu_brand_link')!=""){ ?>					
+                                                      
+                                                    var href = "<?php echo get_option('agca_admin_menu_brand_link'); ?>";                                                        
+                                                    href = href.replace("%BLOG%", "<?php echo get_bloginfo('wpurl'); ?>");
+
+                                                    jQuery("#sidebar_adminmenu_logo").attr('onclick','window.open(\"'+ href+ '\");');                                         
+                                                    jQuery("#sidebar_adminmenu_logo").attr('title',href); 
+                                               
+                                            <?php }else{ ?>
+                                                     href = "<?php echo get_bloginfo('wpurl'); ?>";
+                                                     jQuery("#sidebar_adminmenu_logo").attr('onclick','window.open(\"'+ href+ '\");');                                        
+                                                     jQuery("#sidebar_adminmenu_logo").attr('title',href);
+                                        <?php } ?>
+                                       
 					<?php if(get_option('agca_admin_menu_submenu_round')==true){ ?>
 							jQuery("#adminmenu div.wp-submenu").css("border-radius","<?php echo get_option('agca_admin_menu_submenu_round_size'); ?>px");
 					<?php } ?>
@@ -1200,10 +1239,9 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							});												
 					<?php } ?>
 					<?php if(get_option('agca_login_photo_href')==true){ ?>						
-							var $href = "<?php echo get_option('agca_login_photo_href'); ?>";
-                                                        if($href == "%BLOG%"){
-                                                            $href = "<?php echo get_bloginfo('wpurl'); ?>";
-                                                        }
+							var $href = "<?php echo get_option('agca_login_photo_href'); ?>";                                                        
+                                                        $href = $href.replace("%BLOG%", "<?php echo get_bloginfo('wpurl'); ?>");                                                            
+                                                        
 							jQuery("#login h1 a").attr("href",$href);							
 					<?php } ?>
 					<?php if(get_option('agca_login_photo_remove')==true){ ?>
@@ -1353,11 +1391,20 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							<?php } ?>
 							<tr valign="center">
 								<th >
-									<label title="Change default WordPress logo with custom image." for="agca_wp_logo_custom">Change WordPress logo</label>
+									<label title="Change default WordPress logo with custom image." for="agca_wp_logo_custom">Change admin bar logo</label>
 								</th>
 								<td>
 									<input id="agca_wp_logo_custom" title="If this field is not empty, image from provided url will be visible in top bar" type="text" size="47" name="agca_wp_logo_custom" value="<?php echo get_option('agca_wp_logo_custom'); ?>" /><input type="button"  onClick="jQuery('#agca_wp_logo_custom').val('');" value="Clear" />
 									&nbsp;<p><i>Put here an URL of the new top bar image ( maximum height = 28px)</i>.</p>
+								</td>
+							</tr> 
+                                                        <tr valign="center">
+								<th>
+									<label title="Change admin bar logo link." for="agca_wp_logo_custom">Change admin bar logo link</label>
+								</th>
+								<td>
+									<input id="agca_wp_logo_custom_link" type="text" size="47" name="agca_wp_logo_custom_link" value="<?php echo get_option('agca_wp_logo_custom_link'); ?>" /><input type="button"  onClick="jQuery('#agca_wp_logo_custom_link').val('');" value="Clear" />
+									&nbsp;<p><i>Put here a link for admin bar logo (Use %BLOG% for blog URL)</i>.</p>
 								</td>
 							</tr> 
 							<tr valign="center">
@@ -1902,6 +1949,15 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									&nbsp;<p><i>Put here URL of custom branding logo image. Image can be of any size and type</i>.</p>
 								</td>
 							</tr> 
+                                                        <tr valign="center">
+								<th>
+									<label title="Change branding logo link." for="agca_admin_menu_brand_link">Change branding logo link.</label>
+								</th>
+								<td>
+									<input id="agca_admin_menu_brand_link" type="text" size="47" name="agca_admin_menu_brand_link" value="<?php echo get_option('agca_admin_menu_brand_link'); ?>" /><input type="button"  onClick="jQuery('#agca_admin_menu_brand_link').val('');" value="Clear" />
+									&nbsp;<p><i>Put here a link for branding logo (Use %BLOG% for blog URL)</i>.</p>
+								</td>
+							</tr> 
 							<tr valign="center">
 								<td colspan="2">
 										<div class="ag_table_heading"><h3 tabindex="0">Add New Menu Items</h3></div>
@@ -2143,6 +2199,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
                                                                                                     <label title="Export/import settings" for="agca_export_import">Export / import settings</label>
                                                                                             </th>
                                                                                             <td id="import_file_area">
+                                                                                                <div id="export_settings_additional"  style="display: none" ><input type="checkbox" id="export_settings_include_admin_menu" name="export_settings_include_admin_menu" />&nbsp;<label title="Includes 'Admin Menu' configuration in exported settings.</br>Include admin menu settings only if your admin menu looks the same on multiple sites.</br>If configurations are different, imported menu settings could be wrong. In that case, use 'Reset Settings' button from 'Admin Menu' section.</br>(Custom buttons and menu configuration will be included anyway)">Include Admin Menu(?)</label></div> 
                                                                                                 <input type="button" name="agca_export_settings" value="Export Settings" onclick="exportSettings();"/></br>
                                                                                                 <input type="file" id="settings_import_file" name="settings_import_file" style="display: none"/>       
                                                                                                     <input type="hidden" id="_agca_import_settings" name="_agca_import_settings" value="false" /> 
