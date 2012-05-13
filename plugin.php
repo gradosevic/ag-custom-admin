@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpress.org/extend/plugins/ag-custom-admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 Author: Argonius
-Version: 1.2.6.2
+Version: 1.2.6.3
 Author URI: http://wordpress.argonius.com/ag-custom-admin
 
 	Copyright 2011. Argonius (email : info@argonius.com)
@@ -32,6 +32,8 @@ class AGCA{
 	private $colorizer="";	
 	private $active_plugin;
 	private $agca_version;    
+        private $context = "";
+        private $saveAfterImport = false;
 	public function __construct()
 	{	
 				
@@ -48,7 +50,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
                 //fb($this->colorizer);
-		$this->agca_version = "1.2.6.2";
+		$this->agca_version = "1.2.6.3";
 	}
 	// Add donate and support information
 	function jk_filter_plugin_links($links, $file)
@@ -366,6 +368,7 @@ class AGCA{
                 'agca_colorizer_turnonof',
                 'agca_custom_js',
                 'agca_custom_css',
+                'agca_colorizer_turnonoff',
             ); 
         }  
         
@@ -425,6 +428,9 @@ class AGCA{
            }            
                      
            //echo $str;
+           
+           //save imported settings
+           $this->saveAfterImport = true;         
         }
         
         function exportSettings(){
@@ -554,10 +560,21 @@ class AGCA{
 	
 	function print_page()
 	{
+            $this->context = "page";
             $wpversion = $this->get_wp_version();
-		?><style type="text/css">
-		
-		</style>
+		?>
+                         <style type="text/css">
+                            #wpadminbar{
+                                display: none;                       
+                            }                          
+                        </style>
+                 <?php if(get_option('agca_header')==true){ ?>
+                        <script type="text/javascript">
+                            window.setTimeout(function(){document.getElementsByTagName('html')[0].setAttribute('style',"margin-top:0px !important");},50);                            
+                        </script>
+                       
+                 <?php } ?>
+                 
                  <script type="text/javascript">      
                     var wpversion = "<?php echo $wpversion; ?>";
                     var agca_version = "<?php echo $this->agca_version; ?>";
@@ -576,6 +593,10 @@ class AGCA{
                             jQuery(function() {  
                                 try
                                 { 
+                                    <?php if(get_option('agca_header')!=true){ ?>
+                                                jQuery('#wpadminbar').show();
+                                    <?php } ?>
+                                    
                                     <?php  $this->print_admin_bar_scripts(); ?>
                                 }catch(ex){}
                             });                             
@@ -696,6 +717,13 @@ class AGCA{
                                 if(isWPHigherOrEqualThan("3.3")){       
                                          var href = "<?php echo get_option('agca_wp_logo_custom_link'); ?>";                                                        
                                          href = href.replace("%BLOG%", "<?php echo get_bloginfo('wpurl'); ?>");
+                                         if(href == "%SWITCH%"){                                         
+                                            href = "<?php echo get_bloginfo('wpurl'); ?>";
+                                            <?php if($this->context == "page"){
+                                                ?>href+="/wp-admin";<?php    
+                                            }
+                                            ?>
+                                         }
                                          jQuery("li#wp-admin-bar-wp-logo a.ab-item").attr('href',href);                                        
                                 }
                 <?php }?>
@@ -712,7 +740,7 @@ class AGCA{
                 <?php if(get_option('agca_header')==true){ ?>
                                         jQuery("#wpadminbar").css("display","none");	
                                         jQuery("body.admin-bar").css("padding-top","0");
-                                        jQuery("#wphead").css("display","none");
+                                        jQuery("#wphead").css("display","none");                                     
 
                 <?php } ?>	
                 <?php if((get_option('agca_header')==true)&&(get_option('agca_header_show_logout')==true)){ ?>									
@@ -738,9 +766,11 @@ class AGCA{
                                     if(isWPHigherOrEqualThan("3.3")){	
                                                     var alltext="";								
                                                     alltext="";
+                                                    jQuery('li#wp-admin-bar-my-account').css('cursor','default');
                                                     alltext = jQuery('li#wp-admin-bar-my-account').html();
-                                                    if(alltext!=null){
-                                                        alltext = alltext.replace('Howdy',"<?php echo get_option('agca_howdy'); ?>");								
+                                                    if(alltext!=null){                                                        								
+                                                        var parts = alltext.split(',');	
+                                                        alltext = "<?php echo get_option('agca_howdy'); ?>" + ", " + parts[1];
                                                     }    
                                                     jQuery("li#wp-admin-bar-my-account").html(alltext);
                                     }else if(isWPHigherOrEqualThan("3.2")){	
@@ -748,7 +778,8 @@ class AGCA{
                                                     alltext="";
                                                     alltext = jQuery('#user_info div.hide-if-no-js').html();
                                                     if(alltext!=null){
-                                                        alltext = alltext.replace('Howdy',"<?php echo get_option('agca_howdy'); ?>");									
+                                                        var parts = alltext.split(',');	
+                                                        alltext = "<?php echo get_option('agca_howdy'); ?>" + ", " + parts[1];									
                                                     }
                                                     jQuery("#user_info div.hide-if-no-js").html(alltext);
                                                     
@@ -807,7 +838,7 @@ class AGCA{
 	function print_admin_css()
 	{
 		$this->agca_get_includes();
-		
+		$this->context = "admin";
 		get_currentuserinfo() ;
 		global $user_level;
 		$wpversion = $this->get_wp_version();
@@ -1176,7 +1207,16 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 		jQuery("#agca_form").html('<div style="height:500px"><p style="color:red"><strong>WARNING:</strong> AG Custom Admin stops its execution because of an error. Please resolve this error before continue: <br /><br /><strong>' + errors + '</strong></p></div>');
 	}	
  }  
+ <?php
+ if($this->saveAfterImport == true){
+     ?>savePluginSettings();<?php
+ }
+ ?>
+ 
  });
+ 
+
+                      
  /* ]]> */ 
 
 </script>
@@ -1197,7 +1237,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 	}
 	
 	function print_login_head(){
-		
+		$this->context = "login";
 		$this->reloadScript();
 		$this->agca_get_includes();		
 		$wpversion = $this->get_wp_version();
@@ -1400,11 +1440,11 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</tr> 
                                                         <tr valign="center">
 								<th>
-									<label title="Change admin bar logo link." for="agca_wp_logo_custom">Change admin bar logo link</label>
+                                                                    <label title="Change admin bar logo link.</br></br>Use:</br><strong>%BLOG%</strong> - for blog URL</br><strong>%SWITCH%</strong> - to switch betweent admin and site area" for="agca_wp_logo_custom">Change admin bar logo link</label>
 								</th>
 								<td>
 									<input id="agca_wp_logo_custom_link" type="text" size="47" name="agca_wp_logo_custom_link" value="<?php echo get_option('agca_wp_logo_custom_link'); ?>" /><input type="button"  onClick="jQuery('#agca_wp_logo_custom_link').val('');" value="Clear" />
-									&nbsp;<p><i>Put here a link for admin bar logo (Use %BLOG% for blog URL)</i>.</p>
+									&nbsp;<p><i>Put here a link for admin bar logo </i>.</p>
 								</td>
 							</tr> 
 							<tr valign="center">
@@ -1951,11 +1991,11 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</tr> 
                                                         <tr valign="center">
 								<th>
-									<label title="Change branding logo link." for="agca_admin_menu_brand_link">Change branding logo link.</label>
+									<label title="Change branding logo link.</br></br>Use:</br><strong>%BLOG%</strong> - for blog URL" for="agca_admin_menu_brand_link">Change branding logo link.</label>
 								</th>
 								<td>
 									<input id="agca_admin_menu_brand_link" type="text" size="47" name="agca_admin_menu_brand_link" value="<?php echo get_option('agca_admin_menu_brand_link'); ?>" /><input type="button"  onClick="jQuery('#agca_admin_menu_brand_link').val('');" value="Clear" />
-									&nbsp;<p><i>Put here a link for branding logo (Use %BLOG% for blog URL)</i>.</p>
+									&nbsp;<p><i>Put here a link for branding logo</i>.</p>
 								</td>
 							</tr> 
 							<tr valign="center">

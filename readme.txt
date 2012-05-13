@@ -4,7 +4,7 @@ Donate link: http://wordpress.argonius.com/donate
 Tags: admin, customize, hide, change admin
 Requires at least: 3.0
 Tested up to: 3.4
-Stable tag: 1.2.6.2
+Stable tag: 1.2.6.3
 
 Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 
@@ -107,6 +107,13 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 4. Default WP grey colors can be refreshed with any colors that you like! There are a lot of Colorizer option which can be use to style text, background, login, widgets, admin menu, top bar, footer and many more!
 
 == Changelog ==
+
+= 1.2.6.3 =
+* Included colorizer ON/OFF option to exported settings
+* Automaticaly saving settings after importing
+* Fixed issue with admin bar on site pages
+* Added option for switching between admin and site pages(on wp logo, top left corner on admin bar)
+* Fixed custom Howdy text for other languanges than English.
 
 = 1.2.6.2 =
 * Added custom brand logo url
@@ -224,6 +231,9 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.2.6.3 =
+Fixed several bugs: Admin bar issues, not saving settings after import, changing Howdy text in other languages, colorizer ON/OFF option in settings export.
 
 = 1.2.6.2 =
  Ready for WordPress 3.4. A lot of improvements in 1.2.6 series, fixed issues with top bar, caching on updates, better styles...  and new features: export/import new colorizer options, better admin menu styles, custom css, custom js, admin bar on site pages.. Fixed bugs since 1.2.6 version. Wrapped up 1.2.6 series release.
