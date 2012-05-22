@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpress.org/extend/plugins/ag-custom-admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 Author: Argonius
-Version: 1.2.6.3
+Version: 1.2.6.4
 Author URI: http://wordpress.argonius.com/ag-custom-admin
 
 	Copyright 2011. Argonius (email : info@argonius.com)
@@ -50,7 +50,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
                 //fb($this->colorizer);
-		$this->agca_version = "1.2.6.3";
+		$this->agca_version = "1.2.6.4";
 	}
 	// Add donate and support information
 	function jk_filter_plugin_links($links, $file)
@@ -222,81 +222,7 @@ class AGCA{
 	}
 
 	function agca_deactivate() {	
-		delete_option( 'agca_role_allbutadmin' );
-		delete_option( 'agca_screen_options_menu' );
-		delete_option(  'agca_help_menu' );
-		delete_option(  'agca_logout' );
-		delete_option(  'agca_remove_your_profile' );
-		delete_option(  'agca_logout_only' );
-		delete_option(  'agca_options_menu' );
-		delete_option(  'agca_howdy' );
-		delete_option(  'agca_header' );
-		delete_option(  'agca_header_show_logout' );
-		delete_option(  'agca_footer' );
-		delete_option(  'agca_privacy_options' );
-		delete_option(  'agca_header_logo' );
-		delete_option(  'agca_header_logo_custom' );
-		delete_option(  'agca_wp_logo_custom' );	
-                delete_option(  'agca_wp_logo_custom_link' );
-		delete_option(  'agca_site_heading' );
-		delete_option(  'agca_custom_site_heading' );
-		delete_option(  'agca_update_bar' );
 		
-		delete_option(  'agca_footer_left' );
-		delete_option(  'agca_footer_left_hide' );
-		delete_option(  'agca_footer_right' );
-		delete_option(  'agca_footer_right_hide' );
-		
-		delete_option( 'agca_login_banner' );
-		delete_option( 'agca_login_banner_text' );
-		delete_option( 'agca_login_photo_remove' );
-		delete_option( 'agca_login_photo_url' );
-		delete_option( 'agca_login_photo_href' );
-                delete_option( 'agca_login_round_box' );
-		delete_option( 'agca_login_round_box_size' );		
-	
-		delete_option(  'agca_dashboard_icon' );
-		delete_option(  'agca_dashboard_text' );
-		delete_option(  'agca_dashboard_text_paragraph' );
-                delete_option(  'agca_dashboard_widget_welcome' );
-		delete_option(  'agca_dashboard_widget_rc' );	
-		delete_option(  'agca_dashboard_widget_il' );	
-		delete_option(  'agca_dashboard_widget_plugins' );	
-		delete_option(  'agca_dashboard_widget_qp' );	
-		delete_option(  'agca_dashboard_widget_rn' );	
-		delete_option(  'agca_dashboard_widget_rd' );	
-		delete_option(  'agca_dashboard_widget_primary' );	
-		delete_option(  'agca_dashboard_widget_secondary' );
-		
-		//WP3.3
-		delete_option( 'agca_admin_bar_comments' );
-		delete_option( 'agca_admin_bar_new_content' );
-		delete_option( 'agca_admin_bar_new_content_post' );
-		delete_option( 'agca_admin_bar_new_content_link' );
-		delete_option( 'agca_admin_bar_new_content_page' );
-		delete_option( 'agca_admin_bar_new_content_user' );
-		delete_option( 'agca_admin_bar_new_content_media' );
-		delete_option( 'agca_admin_bar_update_notifications' );
-		delete_option( 'agca_remove_top_bar_dropdowns' );
-
-		/*Admin menu*/
-		delete_option(  'agca_admin_menu_turnonoff' );
-		delete_option(  'agca_admin_menu_agca_button_only' );
-		delete_option(  'agca_admin_menu_separator_first' );
-		delete_option(  'agca_admin_menu_separator_second' );
-		delete_option(  'agca_admin_menu_icons' );
-                delete_option(  'agca_admin_menu_arrow' );
-                delete_option(  'agca_admin_menu_submenu_round' );
-                delete_option(  'agca_admin_menu_submenu_round_size' );
-                delete_option(  'agca_admin_menu_brand' );
-                delete_option(  'agca_admin_menu_brand_link' );                
-		delete_option(  'ag_edit_adminmenu_json' );
-		delete_option(  'ag_add_adminmenu_json' );
-		delete_option(  'ag_colorizer_json' );	
-		delete_option(  'agca_colorizer_turnonoff' );
-                
-                delete_option( 'agca_custom_js' );
-                delete_option( 'agca_custom_css' );
 	}  
         
         function getOptions(){
@@ -579,6 +505,7 @@ class AGCA{
                     var wpversion = "<?php echo $wpversion; ?>";
                     var agca_version = "<?php echo $this->agca_version; ?>";
                     var jQueryScriptOutputted = false;
+                    var agca_context = "page";
                     function initJQuery() {
                         //if the jQuery object isn't available
                         if (typeof(jQuery) == 'undefined') {
@@ -860,6 +787,7 @@ var wpversion = "<?php echo $wpversion; ?>";
 var agca_version = "<?php echo $this->agca_version; ?>";
 var errors = false;
 var isSettingsImport = false;
+var agca_context = "admin";
 
 <?php
 if(isset($_POST['_agca_import_settings']) && $_POST['_agca_import_settings']=='true'){
@@ -1248,6 +1176,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 		 var agca_version = "<?php echo $this->agca_version; ?>";
 		 var wpversion = "<?php echo $wpversion; ?>";	
                  var isSettingsImport = false;
+                 var agca_context = "login";
         /* <![CDATA[ */
             jQuery(document).ready(function() {			
 				try{ 
@@ -1266,7 +1195,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 					<?php if(get_option('agca_login_photo_url')==true){ ?>								
 							advanced_url = "<?php echo get_option('agca_login_photo_url'); ?>";
 							var $url = "url(" + advanced_url + ")";
-							jQuery("#login h1 a").css("background",$url);	
+							jQuery("#login h1 a").css("background",$url+' no-repeat');	
 							jQuery("#login h1 a").hide();
 							image = jQuery("<img />").attr("src",advanced_url);	
 							jQuery(image).load(function() {
