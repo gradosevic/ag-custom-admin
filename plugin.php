@@ -1331,10 +1331,17 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<label tabindex="0" title="Hide admin bar with all elements in top of admin page" for="agca_header"><strong>Hide admin bar completely</strong></label>
 								</td>
 								<td>					
-									<input type="checkbox" title="Hide admin bar with all elements in top of admin page" name="agca_header" value="true" <?php if (get_option('agca_header')==true) echo 'checked="checked" '; ?> />
+                                                                    <input id="agca_header" type="checkbox" onchange="if(jQuery('#agca_header').is(':checked')){jQuery('#agca_header_show_logout_content').show('slide');}else{jQuery('#agca_header_show_logout_content').hide('slide');};" title="Hide admin bar with all elements in top of admin page" name="agca_header" value="true" <?php if (get_option('agca_header')==true) echo 'checked="checked" '; ?> />
 								</td>
-							</tr> 
-							<tr valign="center" class="ag_table_major_options" >
+							</tr>
+                                                        
+                                                        <?php 
+                                                        $agca_header_show_logout_style= "style='display:none'";
+                                                        if (get_option('agca_header')==true){
+                                                                $agca_header_show_logout_style="";
+                                                        }
+                                                        ?>
+							<tr valign="center" class="ag_table_major_options" id="agca_header_show_logout_content" <?php echo $agca_header_show_logout_style;  ?> >
 								<td>
 									<label tabindex="0" title='Check this if you want to show Log Out button in top right corner of admin page' for="agca_header_show_logout"><strong>(but show Log Out button)</strong></label>
 								</td>
@@ -1845,7 +1852,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							<tr>
 								<td colspan="2">
 								Reset to default values
-											<button type="button" id="ag_edit_adminmenu_reset_button" title="Reset menu settings to default values" name="ag_edit_adminmenu_reset_button">Reset Settings</button><br />
+											<input type="button" id="ag_edit_adminmenu_reset_button" title="Reset menu settings to default values" name="ag_edit_adminmenu_reset_button" value="Reset Settings" /><br />
 											<p tabindex="0"><em>(click on menu link to show/hide its submenus below it)</em></p>
 									<table id="ag_edit_adminmenu">									
 										<tr style="background-color:#999;">
@@ -1948,7 +1955,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 													<option value="_parent">parent</option>													
 													<option value="_top">top</option>
 												</select>
-												<button type="button" id="ag_add_adminmenu_button" title="Add new item button" name="ag_add_adminmenu_button">Add new item</button>	
+												<input type="button" id="ag_add_adminmenu_button" title="Add new item button" name="ag_add_adminmenu_button" value="Add new item" />	
 											</td><td></td>	
 										</tr>
 									</table>

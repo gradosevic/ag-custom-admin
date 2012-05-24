@@ -312,7 +312,7 @@ jQuery(document).ready(function(){
             var target = jQuery(this).parent().find('button').attr('target');
             //console.log(target);
             editingButtonNow = name;
-            jQuery(this).parent().append('<div id="temporary_button_edit">name:<input type="text" size="47" value="'+name+'" id="ag_add_adminmenu_name_edit" name="ag_add_adminmenu_name_edit" />url:<input type="text" size="47" value="'+url+'" id="ag_add_adminmenu_url_edit" name="ag_add_adminmenu_url_edit" />' + createTargetCombo(target,"edit")+ '<button type="button" id="ag_add_adminmenu_button_edit" name="ag_add_adminmenu_button_edit">Save changes</button></div>');
+            jQuery(this).parent().append('<div id="temporary_button_edit">name:<input type="text" size="47" value="'+name+'" id="ag_add_adminmenu_name_edit" name="ag_add_adminmenu_name_edit" />url:<input type="text" size="47" value="'+url+'" id="ag_add_adminmenu_url_edit" name="ag_add_adminmenu_url_edit" />' + createTargetCombo(target,"edit")+ '<input type="button" id="ag_add_adminmenu_button_edit" name="ag_add_adminmenu_button_edit" value="Save changes" /></div>');
             reloadRemoveButtonEvents();
         }		
     });/*Save editing changes*/
