@@ -4,7 +4,7 @@ Donate link: http://wordpress.argonius.com/donate
 Tags: admin, customize, hide, change admin
 Requires at least: 3.0
 Tested up to: 3.4
-Stable tag: 1.2.6.3
+Stable tag: 1.2.6.4
 
 Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 
@@ -107,6 +107,13 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 4. Default WP grey colors can be refreshed with any colors that you like! There are a lot of Colorizer option which can be use to style text, background, login, widgets, admin menu, top bar, footer and many more!
 
 == Changelog ==
+
+= 1.2.6.4 =
+* Removing plugin options on plugin uninstall instead of on plugin deactivation
+* Refreshed some button styles
+* "But show logout button" option auto-hiding
+* Fixed repeat login image bug
+* Fixed bug on loading news
 
 = 1.2.6.3 =
 * Included colorizer ON/OFF option to exported settings
@@ -231,6 +238,9 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.2.6.4 =
+Bug fixes. Removing plugin's option on uninstall, not on deactivation.
 
 = 1.2.6.3 =
 Fixed several bugs: Admin bar issues, not saving settings after import, changing Howdy text in other languages, colorizer ON/OFF option in settings export.
