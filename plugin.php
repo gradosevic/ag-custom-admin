@@ -1166,7 +1166,9 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 	
 	function print_login_head(){
 		$this->context = "login";
-		$this->reloadScript();
+		if( !wp_script_is('jquery')) {
+			$this->reloadScript();
+		}
 		$this->agca_get_includes();		
 		$wpversion = $this->get_wp_version();
 	?>	
