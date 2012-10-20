@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpress.org/extend/plugins/ag-custom-admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 Author: Argonius
-Version: 1.2.6.4
+Version: 1.2.6.5
 Author URI: http://wordpress.argonius.com/ag-custom-admin
 
 	Copyright 2011. Argonius (email : info@argonius.com)
@@ -32,6 +32,7 @@ class AGCA{
 	private $colorizer="";	
 	private $active_plugin;
 	private $agca_version;    
+	private $admin_capabilities;    	
         private $context = "";
         private $saveAfterImport = false;
 	public function __construct()
@@ -39,10 +40,10 @@ class AGCA{
 				
 		add_filter('plugin_row_meta', array(&$this,'jk_filter_plugin_links'), 10, 2);
 		add_action('admin_init', array(&$this,'agca_register_settings'));
-		add_action('admin_head', array(&$this,'print_admin_css'));	
-		add_action('wp_head', array(&$this,'print_page'));	 		
+		add_action('admin_head', array(&$this,'print_admin_css'));		
 		add_action('login_head', array(&$this,'print_login_head'));	
 		add_action('admin_menu', array(&$this,'agca_create_menu'));		
+		add_action('wp_head', array(&$this,'print_page'));			
 		register_deactivation_hook(__FILE__, array(&$this,'agca_deactivate'));	
 		
 	
@@ -50,7 +51,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
                 //fb($this->colorizer);
-		$this->agca_version = "1.2.6.4";
+		$this->agca_version = "1.2.6.5";
 	}
 	// Add donate and support information
 	function jk_filter_plugin_links($links, $file)
@@ -75,8 +76,7 @@ class AGCA{
 			"ozh" => $ozh
 		);
 	}
-	function agca_get_includes() {
-            global $user_level;
+	function agca_get_includes() {            
             ?>		
                         <script type="text/javascript">
                             <?php 
@@ -88,7 +88,7 @@ class AGCA{
 			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>	                        	
                         
                        <?php
-                        if(!((get_option('agca_role_allbutadmin')==true) and  ($user_level > 9))){	
+                        if(!((get_option('agca_role_allbutadmin')==true) and  (current_user_can($this->admin_capability())))){	
                             ?>
                              <style type="text/css">
                                  <?php
@@ -109,8 +109,7 @@ class AGCA{
 	function reloadScript(){
 			?>
 			<script type="text/javascript" src="<?php echo get_bloginfo('wpurl'); ?>/wp-includes/js/jquery/jquery.js"></script>	
-			<?php
-			
+			<?php			
 	}
 	
 	function agca_register_settings() {	
@@ -170,7 +169,14 @@ class AGCA{
 		register_setting( 'agca-options-group', 'agca_admin_bar_new_content_user' );
 		register_setting( 'agca-options-group', 'agca_admin_bar_new_content_media' );		
 		register_setting( 'agca-options-group', 'agca_admin_bar_update_notifications' );	
-		register_setting( 'agca-options-group', 'agca_remove_top_bar_dropdowns' );			
+		register_setting( 'agca-options-group', 'agca_remove_top_bar_dropdowns' );	
+		register_setting( 'agca-options-group', 'agca_admin_bar_frontend' );	
+		register_setting( 'agca-options-group', 'agca_admin_bar_frontend_hide' );
+		register_setting( 'agca-options-group', 'agca_login_register_remove' );
+		register_setting( 'agca-options-group', 'agca_login_register_href' );
+		register_setting( 'agca-options-group', 'agca_login_lostpassword_remove' );
+		register_setting( 'agca-options-group', 'agca_admin_capability' );		
+		
 
 
 		/*Admin menu*/
@@ -179,6 +185,7 @@ class AGCA{
 		register_setting( 'agca-options-group', 'agca_admin_menu_separator_first' );	
 		register_setting( 'agca-options-group', 'agca_admin_menu_separator_second' );	
 		register_setting( 'agca-options-group', 'agca_admin_menu_icons' );	
+		register_setting( 'agca-options-group', 'agca_admin_menu_collapse_button' );
                 register_setting( 'agca-options-group', 'agca_admin_menu_arrow' );
                 register_setting( 'agca-options-group', 'agca_admin_menu_submenu_round' );	
                 register_setting( 'agca-options-group', 'agca_admin_menu_submenu_round_size' );
@@ -223,11 +230,16 @@ class AGCA{
 
 	function agca_deactivate() {	
 		
-	}  
-        
+	}          
         function getOptions(){
             return Array(
                 'agca_role_allbutadmin',
+				'agca_admin_bar_frontend',
+				'agca_admin_bar_frontend_hide',
+				'agca_login_register_remove',
+				'agca_login_register_href',
+				'agca_login_lostpassword_remove',
+				'agca_admin_capability',
                 'agca_screen_options_menu',
                 'agca_help_menu',
                 'agca_logout',
@@ -287,7 +299,8 @@ class AGCA{
                 'agca_admin_menu_submenu_round',
                 'agca_admin_menu_submenu_round_size',
                 'agca_admin_menu_brand',
-                'agca_admin_menu_brand_link',            
+                'agca_admin_menu_brand_link',     
+				'agca_admin_menu_collapse_button',
                 'ag_edit_adminmenu_json',
                 'ag_add_adminmenu_json',
                 'ag_colorizer_json',
@@ -486,10 +499,10 @@ class AGCA{
 	
 	function print_page()
 	{
-            $this->context = "page";
-            $wpversion = $this->get_wp_version();
-		?>
-                         <style type="text/css">
+	if(get_option('agca_admin_bar_frontend_hide')==true){
+		add_filter( 'show_admin_bar', '__return_false' );
+	?>
+		  <style type="text/css">
                             #wpadminbar{
                                 display: none;                       
                             }                          
@@ -499,7 +512,14 @@ class AGCA{
                             window.setTimeout(function(){document.getElementsByTagName('html')[0].setAttribute('style',"margin-top:0px !important");},50);                            
                         </script>
                        
-                 <?php } ?>
+                 <?php } 
+	}
+		if(get_option('agca_admin_bar_frontend')!=true){ 				 		
+		
+            $this->context = "page";
+            $wpversion = $this->get_wp_version();
+		?>
+                       
                  
                  <script type="text/javascript">      
                     var wpversion = "<?php echo $wpversion; ?>";
@@ -534,10 +554,30 @@ class AGCA{
                  <script type="text/javascript"> 
                      <?php echo "var agca_global_plugin_url = '".trailingslashit(plugins_url(basename(dirname(__FILE__))))."';"; ?>
                  </script>
-                <script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>	
-               
-                  
+                <script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>
+				<script type="text/javascript"> 
+				jQuery(document).ready(function(){				
+                <?php if(get_option('agca_colorizer_turnonoff') == 'on' && (get_option('agca_admin_bar_frontend_hide')!=true)){				
+						foreach($this->colorizer as $k => $v){
+							if(($k !="") and ($v !="")){	
+								if(
+									$k == "color_header" ||
+									$k == "color_font_header"
+								){
+									?> updateTargetColor("<?php echo $k;?>","<?php echo $v;?>"); <?php
+								}
+								
+							}
+						}
+					?>					
+					
+					<?php
+					}
+					 ?>
+				});	
+                </script>  
                     <?php
+		}
                
 	}
         
@@ -664,10 +704,12 @@ class AGCA{
                                         jQuery("#wp-admin-bar-site-name a:first").html('<?php echo get_option('agca_custom_site_heading'); ?>');
                                 }
                 <?php } ?>	                           
-                <?php if(get_option('agca_header')==true){ ?>
+                <?php if(get_option('agca_header')==true && $this->context =='admin'){ 										
+										?>
                                         jQuery("#wpadminbar").css("display","none");	
                                         jQuery("body.admin-bar").css("padding-top","0");
-                                        jQuery("#wphead").css("display","none");                                     
+                                        jQuery("#wphead").css("display","none");  
+										jQuery('html.wp-toolbar').css("padding-top","0");									
 
                 <?php } ?>	
                 <?php if((get_option('agca_header')==true)&&(get_option('agca_header_show_logout')==true)){ ?>									
@@ -761,19 +803,69 @@ class AGCA{
                 
                 
         }
+		
+	function updateAllColors(){
+			
+			?> 
+			function updateAllColors(){
+			<?php
+						 foreach($this->colorizer as $k => $v){
+							if(($k !="") and ($v !="")){							
+								?> updateTargetColor("<?php echo $k;?>","<?php echo $v;?>"); <?php
+							}
+						}
+						?>
+						jQuery('.color_picker').each(function(){		
+						updateColor(jQuery(this).attr('id'),jQuery(this).val())
+					});
+					jQuery('label,h1,h2,h3,h4,h5,h6,a,p,.form-table th,.form-wrap label').css('text-shadow','none');
+                                        jQuery('#adminmenu li.wp-menu-open').css('border','none');
+                                        jQuery('#adminmenu li.wp-menu-open .wp-submenu').css({'border':'none','margin':'0px','border-radius':'0px'}); 
+			}<?php
+ 
+	}
+	function admin_capabilities(){
+		global $wp_roles;
+		$capabs = $wp_roles->roles['administrator']['capabilities'];
+		$capabilitySelector = "";
+		
+		$selectedValue = get_option('agca_admin_capability');		
+		if($selectedValue == ""){
+			$selectedValue = "edit_dashboard";
+		}
+		
+		foreach($capabs as $k=>$v){	
+				$selected = "";
+				if($selectedValue == $k){
+					$selected = " selected=\"selected\" ";
+				}
+				$capabilitySelector .="<option val=\"$k\" $selected >".$k."</option>\n";
+		}
+		
+		$this->admin_capabilities  = "<select id=\"agca_admin_capability\"  name=\"agca_admin_capability\" val=\"upload_files\">".$capabilitySelector."</select>";
+	}
+	
+	function admin_capability(){
+		$selectedValue = get_option('agca_admin_capability');		
+		if($selectedValue == ""){
+			$selectedValue = "edit_dashboard";
+		}
+		return $selectedValue;
+	}
 
 	function print_admin_css()
 	{
 		$this->agca_get_includes();
+		$this->admin_capabilities();
 		$this->context = "admin";
-		get_currentuserinfo() ;
-		global $user_level;
-		$wpversion = $this->get_wp_version();
-
+		get_currentuserinfo() ;		
+		$wpversion = $this->get_wp_version();	
+		
+		
 	?>	
 <?php
 	//in case that javaScript is disabled only admin can access admin menu
-	if($user_level <= 9){
+	if(!current_user_can($this->admin_capability())){
 	?>
 		<style type="text/css">
 			#adminmenu{display:none;}
@@ -839,9 +931,9 @@ try
 					<?php } ?>
 			
 		<?php
-		//if admin, and option to hide settings for admin is set
-		//fb($user_level);
-		if((get_option('agca_role_allbutadmin')==true) and  ($user_level > 9)){	
+		//if admin, and option to hide settings for admin is set	
+		
+		if((get_option('agca_role_allbutadmin')==true) and current_user_can($this->admin_capability())){	
 		?>				
 		<?php } else{ ?>
                                         <?php if(get_option('agca_admin_menu_brand')!=""){ ?>
@@ -1020,7 +1112,7 @@ try
 					<?php /*If Turned on*/ ?>
 					
 					<?php /*Only admin see button*/
-							if ($user_level > 9){ ?>								
+							if (current_user_can($this->admin_capability())){ ?>								
 								jQuery('#adminmenu').append('<?php echo $this->agca_create_admin_button('AG Custom Admin','tools.php?page=ag-custom-admin/plugin.php'); ?>');
 							<?php } ?>
 							
@@ -1093,7 +1185,7 @@ try
 							
 							
 							/*Add user buttons*/					
-							jQuery('#adminmenu').append(buttons);							
+							jQuery('#adminmenu').append(buttons);						
 							
 							
 					<?php /*END If Turned on*/ ?>
@@ -1101,30 +1193,22 @@ try
 							jQuery("#adminmenu").removeClass("noclass");
 					<?php } ?>				
 					
-					reloadRemoveButtonEvents();					
+					reloadRemoveButtonEvents();
+
+					<?php if(get_option('agca_admin_menu_collapse_button') != true){ ?>
+						//add collapse menu button
+						jQuery('#adminmenu').append('<li class="hide-if-no-js" onclick="window.setTimeout(function(){updateAllColors();},10);" id="collapse-menu"><div id="collapse-button"><div></div></div><span>Collapse menu</span></li>');					
+					<?php } ?>				
+					
 				
 					
 					<?php //COLORIZER ?>
-					<?php if(get_option('agca_colorizer_turnonoff') == 'on'){ ?>
-					<?php					
-						foreach($this->colorizer as $k => $v){
-							if(($k !="") and ($v !="")){							
-								?> updateTargetColor("<?php echo $k;?>","<?php echo $v;?>"); <?php
-							}
-						}
-					?>
-					jQuery('.color_picker').each(function(){		
-						updateColor(jQuery(this).attr('id'),jQuery(this).val())
-					});
-					jQuery('label,h1,h2,h3,h4,h5,h6,a,p,.form-table th,.form-wrap label').css('text-shadow','none');
-                                        jQuery('#adminmenu li.wp-menu-open').css('border','none');
-                                        jQuery('#adminmenu li.wp-menu-open .wp-submenu').css({'border':'none','margin':'0px','border-radius':'0px'});                                       
-					
-					<?php } ?>
+					updateAllColors();
 					<?php //COLORIZER END ?>				
 <?php } //end of apply for any user except admin ?>		
 /*Add user buttons*/	
 jQuery('#ag_add_adminmenu').append(buttonsJq); 	
+
                                
  }catch(err){	
 	errors = "AGCA - ADMIN ERROR: " + err.name + " / " + err.message;
@@ -1143,6 +1227,9 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
  
  });
  
+ <?php if(get_option('agca_colorizer_turnonoff') == 'on'){
+	$this->updateAllColors();
+  } ?>
 
                       
  /* ]]> */ 
@@ -1205,6 +1292,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								var widthDiff = this.width - originalWidth; 
 								jQuery("#login h1 a").height(this.height);
 								jQuery("#login h1 a").width(this.width);
+								jQuery("#login h1 a").css("background-size",this.width+"px "+this.height+"px");								
 								jQuery("#login h1 a").css('margin-left',-(widthDiff/2)+"px");
 								jQuery("#login h1 a").show();
 							});												
@@ -1220,6 +1308,34 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 					<?php } ?>	
 									
 						jQuery("#login h1 a").attr("title","");	
+						
+				    <?php if(get_option('agca_login_register_remove')==true){ ?>
+							jQuery('p#nav').html(jQuery('p#nav').html().replace('|',''));							
+							jQuery('p#nav a').each(function(){
+								if(jQuery(this).attr('href').indexOf('register') != -1){
+									jQuery(this).remove();
+								}
+							});							
+							
+					<?php } ?>						
+					<?php if(get_option('agca_login_register_href')!=""){ ?>							
+							jQuery('p#nav a').each(function(){
+								if(jQuery(this).attr('href').indexOf('register') != -1){
+									jQuery(this).attr('href','<?php echo get_option('agca_login_register_href'); ?>');
+								}
+							});							
+							
+					<?php } ?>	
+					
+					<?php if(get_option('agca_login_lostpassword_remove')==true){ ?>
+							jQuery('p#nav').html(jQuery('p#nav').html().replace('|',''));						
+							jQuery('p#nav a').each(function(){
+								if(jQuery(this).attr('href').indexOf('lostpassword') != -1){
+									jQuery(this).remove();
+								}
+							});							
+							
+					<?php } ?>	
 
 						
 					<?php //COLORIZER ?>
@@ -1367,6 +1483,22 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								</td>
 							</tr>
 							<?php } ?>
+							<tr valign="center" >
+								<td>
+									<label tabindex="0" title="Removes admin bar customizations (AGCA scripts) on front end." for="agca_admin_bar_frontend">Remove admin bar customizations on site pages</label>
+								</td>
+								<td>					
+                                                                    <input id="agca_admin_bar_frontend" type="checkbox" title="Removes admin bar customizations (AGCA scripts) on front end." name="agca_admin_bar_frontend" value="true" <?php if (get_option('agca_admin_bar_frontend')==true) echo 'checked="checked" '; ?> />
+								</td>
+							</tr>
+							<tr valign="center" >
+								<td>
+									<label tabindex="0" title="Removes admin bar on front end." for="agca_admin_bar_frontend_hide">Remove admin bar on site pages</label>
+								</td>
+								<td>					
+                                                                    <input id="agca_admin_bar_frontend_hide" type="checkbox" title="Removes admin bar on front end." name="agca_admin_bar_frontend_hide" value="true" <?php if (get_option('agca_admin_bar_frontend_hide')==true) echo 'checked="checked" '; ?> />
+								</td>
+							</tr>
 							<tr valign="center">
 								<th >
 									<label title="Change default WordPress logo with custom image." for="agca_wp_logo_custom">Change admin bar logo</label>
@@ -1825,6 +1957,34 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<input class="validateNumber" limit="3" title="Size of rounded box curve" type="text" name="agca_login_round_box_size"  type="text" size="3" value="<?php echo get_option('agca_login_round_box_size'); ?>" />&nbsp;(px)	
 								</td>
 							</tr> 
+							<tr valign="center">
+								<th scope="row">
+									<label title="Remove register link on login page" for="agca_login_register_remove">Remove register link</label>
+								</th>
+								<td>
+									<input title="Remove register link on login page" type="checkbox" name="agca_login_register_remove" value="true" <?php if (get_option('agca_login_register_remove')==true) echo 'checked="checked" '; ?> />
+								</td>
+							</tr>
+														<?php 
+                                                         $agca_login_register_href_visibility = "style='display:none'";
+                                                         if (get_option('agca_login_register_remove')!='true') $agca_login_register_href_visibility = '';
+                                                         ?>
+							<tr valign="center" id="agca_login_register_href_block" <?php echo $agca_login_register_href_visibility; ?> >
+								<th scope="row">
+									<label title="Change register link on login page to point to your custom registration page." for="agca_login_register_href">Change register hyperlink</label>
+								</th>
+								<td>
+									<input title="Change register link on login page to point to your custom registration page." type="text" size="47" id="agca_login_register_href"  name="agca_login_register_href" value="<?php echo get_option('agca_login_register_href'); ?>" /><input type="button"  onClick="jQuery('#agca_login_register_href').val('');" value="Clear" />                                                                        
+								</td>
+							</tr> 
+							<tr valign="center">
+								<th scope="row">
+									<label title="Removes lost password link on login page" for="agca_login_lostpassword_remove">Remove lost password link</label>
+								</th>
+								<td>
+									<input title="Removes lost password link on login page" type="checkbox" name="agca_login_lostpassword_remove" value="true" <?php if (get_option('agca_login_lostpassword_remove')==true) echo 'checked="checked" '; ?> />
+								</td>
+							</tr>
 						</table>
 						</div>
 						<?php
@@ -1833,7 +1993,8 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 						<div id="section_admin_menu" style="display:none" class="ag_section">
 						<h2 class="section_title" tabindex="-1">Admin Menu Settings Page</h2>
 						<br />
-						<p style="font-style:italic" tabindex="0"><strong>Important: </strong>Please Turn off menu configuration before activating or disabling other plugins (or making any other changes to main menu). Use "Reset Settings" button to restore default values if anything goes wrong.</p>					
+						<p style="font-style:italic" tabindex="0"><strong>Important: </strong>Please Turn off menu configuration before activating or disabling other plugins (or making any other changes to main menu). Use <strong>Reset Settings</strong> button to restore default values if anything goes wrong.</p>					
+						<p style="font-style:italic" tabindex="0"><strong></strong>If you found that admin menu items are misaligned or not correct, press <strong>Reset Settings</strong> button. This happens if admin menu is changed by other plugins, or after activating / deactivating other plugings. Avoid such changes after you apply admin menu customizations.</p>
 						<br />
 							<table class="form-table" width="500px">	
 							<tr valign="center" class="ag_table_major_options">
@@ -1896,6 +2057,14 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								</th>
 								<td>
 									<input title="Removes small arrow that appears on button hover" type="checkbox" name="agca_admin_menu_arrow" value="true" <?php if (get_option('agca_admin_menu_arrow')==true) echo 'checked="checked" '; ?> />
+								</td>
+							</tr> 
+							<tr valign="center">
+								<th scope="row">
+									<label title="Removes collapse button at the end of admin menu" for="agca_admin_menu_collapse_button">Remove "Collapse menu" button</label>
+								</th>
+								<td>
+									<input title="Removes collapse button at the end of admin menu" type="checkbox" name="agca_admin_menu_collapse_button" value="true" <?php if (get_option('agca_admin_menu_collapse_button')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr> 
                                                         <tr valign="center">
@@ -2151,11 +2320,26 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 						</div>
                                                 <div id="section_advanced" style="display:none" class="ag_section">
                                                                         <h2 class="section_title" tabindex="-1">Advanced</h2>
-                                                                        <br />
-                                                                        <p><i><strong>Info: </strong>These options will override existing customizations.</i></p>					
-                                                                        <br />
+                                                                        
                                                                                 <br /><br />					
                                                                                 <table class="form-table" width="500px">
+																				
+																					<tr valign="center">
+																						<th scope="row">
+																							<label title="Choose which capability will be used to distinct admin user from other users.</br>If customizations are not applied for admin users, this setting will be used to define admin users." for="agca_admin_capability">Distinct admin from other users by capability:</label>
+																						</th>
+																						<td><?php echo $this->admin_capabilities; ?><i>(<strong>edit_dashboard</strong> is selected by default)</i>																							
+																						</td>
+																						<td>
+																						</td>
+																					</tr> 
+																					<tr valign="center">
+																					<td colspan="2">
+																						<br />
+																						<p><i><strong>Info: </strong>These options will override existing customizations.</i></p>					
+																						<br />
+																					</td><td></td>
+																					</tr>
                                                                                     <tr valign="center">
                                                                                             <th scope="row">
                                                                                                     <label title="Add custom CSS script to override existing styles" for="agca_script_css">Custom CSS Script</em></label>

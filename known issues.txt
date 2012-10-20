@@ -1,33 +1,4 @@
 ADmin menu - add new button
-- When editing new button, if edit is clicked, and then remove is clicked, it is not possible to press any other edit button.
-
-hide update notification not working for 3.0 (class="update-nag")
-
-colorizer not updated colors in textbox colors if colorizer disabled
-
-add new custom button - clear textboxes after adding
-
-0 in admin menu, count of updates etc
-
-jQuery conflict add new name
-blank screen send error message
-multiple users support
-
-//posible solution for jQuery conflict, check if jquery object exists first
-<?php
-function my_init_method() {
-wp_deregister_script( 'jquery' );
-wp_register_script(   'jquery'
-    , 'http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js');
-}    
- 
-add_action('init', 'my_init_method');
-?> 
-
-TODO
--------
-fix typo �appy for all� 
-cache clear after upgrade
 
 
 VESION 3.2
@@ -80,3 +51,26 @@ version 1.2.5.5.
 -----------------------
 -added new versions to versions list
 -show/hide welcome dashboard option
+
+version 1.2.6.5
+------------------------------------
+Changes:
+- using capabilities instead of user levels
+- define who is admin with choosing capability (Advanced tab)
+- added option to hide admin bar on front end only
+- added option to remove all AGCA customizations on front end
+- added option to remove register button on login page
+- added option to change hyperlink on register button on login page
+- added option to remove "Lost Password" link on login page
+- added support for collapse button on customized admin menu
+- option to show/hide collapse button on admin menu
+- added styles for collapsed menu
+- added WP filter to remove admin bar on front page
+- appling admin bar colors on front page
+- fixed blank space in admin panel when admin bar is removed
+- fixed some bugs in colorizer, better updating of input box colors, trigering colors on input box change, improved realtime color updating
+- adding jquery script on login page only if it is not already loaded
+- fixed background-size issue on login page image in chrome and some other browsers
+- updated important message on admin menu tab
+
+

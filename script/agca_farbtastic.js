@@ -35,12 +35,14 @@
 		jQuery('#picker').css("left",e.pageX-100);
 		jQuery('#picker').css("top",e.pageY-100);
 		jQuery('#picker').show();
+		
 	});
     jQuery('.color_picker').click(function(){	
-		jQuery('#picker').farbtastic('#'+jQuery(this).attr('id'));		
+		jQuery('#picker').farbtastic('#'+jQuery(this).attr('id'));	
 	});
 	 jQuery('.color_picker').bind('keydown',function(){		
 		 updateColor(jQuery(this).attr('id'),jQuery(this).val())
+		 updateAllColors();
 	});
 	jQuery('#picker').mouseleave(function(){
 		jQuery(this).hide();
@@ -48,13 +50,19 @@
 	jQuery('#picker').hide();
 	jQuery('.pick_color_button_clear').click(function(){	
 		jQuery('#'+jQuery(this).attr('alt')).val("");
+		jQuery('#'+jQuery(this).attr('alt')).attr("style","");
 	});	
   });
   
   jQuery(document).ready(function() {
 	jQuery('#picker').farbtastic(function(color){	
 	if(document.activeElement.id !=""){	
-		updateColor(document.activeElement.id,color);	
+		updateColor(document.activeElement.id,color);
+			updateAllColors();
 	}	   
+	});
+	jQuery(".color_picker").bind('keydown',function(){
+		updateColor(jQuery(this).attr('id'),jQuery(this).val());	
+		updateAllColors();
 	});
   });

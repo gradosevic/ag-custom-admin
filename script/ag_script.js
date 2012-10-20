@@ -435,6 +435,16 @@ jQuery(document).ready(function(){
             jQuery("#agca_admin_menu_submenu_round_block").hide("slideDown");
         }		
     });
+	
+	 /*HIDE/SHOW size hyperllink on register link on login page*/
+    jQuery('input[name=agca_login_register_remove]').bind("click",function(){				
+        var checked = jQuery(this).is(":checked");
+        if(!checked){
+            jQuery("#agca_login_register_href_block").show("slide");
+        }else{
+            jQuery("#agca_login_register_href_block").hide("slideDown");
+        }		
+    });
 	  
 	  
 });
@@ -585,23 +595,33 @@ function updateTargetColor(id, color){
             jQuery('#adminmenu a.menu-top').css({
                 'background':color
             });
+			jQuery('#adminmenu li.menu-top').css({
+                'background':color
+            });
             break;
         case 'color_admin_menu_top_button_current_background':
             jQuery('#adminmenu li.menu-top.wp-menu-open a.menu-top').css({
                 'background':color
+				
             });
             jQuery('#adminmenu li.menu-top.current a.menu-top').css({
+                'background':color
+            });
+			jQuery('body.folded #adminmenu li.menu-top.wp-menu-open').css({
                 'background':color
             });
             break;
         case 'color_admin_menu_top_button_hover_background':
             if(color == "")break;
             var selector = '#adminmenu a.menu-top';  
+			if(jQuery('body').hasClass('folded')){
+				selector = '#adminmenu li.menu-top';  
+			}
             var originalBackground = jQuery(selector).css('background-color'); 
 
             //if first is selected, use second
              if((jQuery(selector+":eq(0)").hasClass('current') || jQuery(selector+":eq(0)").hasClass('wp-has-current-submenu'))){                 
-                 originalBackground = jQuery('#adminmenu a.menu-top:eq(1)').css('background-color');              
+                 originalBackground = jQuery(selector+':eq(1)').css('background-color');              
              }         
             jQuery(selector).mouseover(function(){                
                         if(!(jQuery(this).hasClass('current') || jQuery(this).hasClass('wp-has-current-submenu'))){ 
@@ -612,7 +632,9 @@ function updateTargetColor(id, color){
                     jQuery(this).css('background',originalBackground);                
                 }                
             }); 
-
+			
+			//for folded menu
+	
            
             break;
         case 'color_admin_menu_submenu_background':
@@ -634,10 +656,18 @@ function updateTargetColor(id, color){
             jQuery('#adminmenu .wp-submenu li a').css('color',color);	
             break;
         case 'color_admin_menu_submenu_border_top':		  
-            jQuery('#adminmenu > li > a').css('border-top-color',color);	
+			if(jQuery('body').hasClass('folded')){
+				jQuery('#adminmenu li.menu-top').css('border-top-color',color);	
+			}else{
+				jQuery('#adminmenu > li > a').css('border-top-color',color);	
+			}
             break;
         case 'color_admin_menu_submenu_border_bottom':
-            jQuery('#adminmenu > li > a').css('border-bottom-color',color);
+			if(jQuery('body').hasClass('folded')){
+				jQuery('#adminmenu li.menu-top').css('border-bottom-color',color);
+			}else{
+				jQuery('#adminmenu > li > a').css('border-bottom-color',color);
+			}            
             break;                  
         case 'color_admin_menu_font':
             jQuery('#adminmenu, #adminmenu a, #adminmenu p').css({
@@ -692,7 +722,7 @@ function updateTargetColor(id, color){
             //jQuery(".widget, #widget-list .widget-top, .postbox, .menu-item-settings").css('background',color); remove if <3.2 work
             break;		 
         default:	
-    }	
+    }		
 }
 function updateColor(id,color){
     jQuery("#"+id).css({
