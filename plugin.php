@@ -2326,7 +2326,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 																				
 																					<tr valign="center">
 																						<th scope="row">
-																							<label title="Choose which capability will be used to distinct admin user from other users.</br>If customizations are not applied for admin users, this setting will be used to define admin users." for="agca_admin_capability">Distinct admin from other users by capability:</label>
+																							<label title="Choose which capability will be used to distinct admin user from other users.</br>If customizations are not applied for admin users, this setting will be used to define admin users." for="agca_admin_capability">Distinguish admin from other users by capability:</label>
 																						</th>
 																						<td><?php echo $this->admin_capabilities; ?><i>(<strong>edit_dashboard</strong> is selected by default)</i>																							
 																						</td>
