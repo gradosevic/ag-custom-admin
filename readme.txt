@@ -3,7 +3,7 @@ Contributors: argonius
 Donate link: http://wordpress.argonius.com/donate
 Tags: admin, customize, hide, change admin
 Requires at least: 3.0
-Tested up to: 3.4
+Tested up to: 3.4.2
 Stable tag: 1.2.6.4
 
 Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
@@ -16,6 +16,7 @@ Here is the list of options:
 
 	Admin Bar Options
 	- Hide admin bar completely
+	- Hide admin bar on front end
 	- Change admin bar logo and link
 	- Hide admin bar WordPress logo
 	- Add custom admin bar logo
@@ -50,6 +51,8 @@ Here is the list of options:
 	- Change hyperlink on login image
 	- Hide login image
 	- Round corners on login boxes
+	- Hide register and lost password links
+	- Change hyperlink on register button
 	
 	Admin Menu Options
 	- Rename menu and submenu items
@@ -107,6 +110,25 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 4. Default WP grey colors can be refreshed with any colors that you like! There are a lot of Colorizer option which can be use to style text, background, login, widgets, admin menu, top bar, footer and many more!
 
 == Changelog ==
+
+= 1.2.6.5 =
+* using capabilities instead of user levels
+* define who is admin with choosing capability (Advanced tab)
+* added option to hide admin bar on front end only
+* added option to remove all AGCA customizations on front end
+* added option to remove register button on login page
+* added option to change hyperlink on register button on login page
+* added option to remove "Lost Password" link on login page
+* added support for collapse button on customized admin menu
+* option to show/hide collapse button on admin menu
+* added styles for collapsed menu
+* added WP filter to remove admin bar on front page
+* appling admin bar colors on front page
+* fixed blank space in admin panel when admin bar is removed
+* fixed some bugs in colorizer, better updating of input box colors, trigering colors on input box change, improved realtime color updating
+* adding jquery script on login page only if it is not already loaded
+* fixed background-size issue on login page image in chrome and some other browsers
+* updated important message on admin menu tab
 
 = 1.2.6.4 =
 * Removing plugin options on plugin uninstall instead of on plugin deactivation
@@ -238,6 +260,9 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.2.6.5 =
+New features and bug fixes. Improved colorizer, fixed admin bar issues, using capabilities to define admin users, added new options for login page, options to remove AGCA scripts on front-end. Using collapsed menus.
 
 = 1.2.6.4 =
 Bug fixes. Removing plugin's option on uninstall, not on deactivation.
