@@ -4,7 +4,7 @@ Donate link: http://wordpress.argonius.com/donate
 Tags: admin, customize, hide, change admin
 Requires at least: 3.0
 Tested up to: 3.4.2
-Stable tag: 1.2.6.4
+Stable tag: 1.2.6.5
 
 Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 
