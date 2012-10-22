@@ -1229,7 +1229,9 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
  
  <?php if(get_option('agca_colorizer_turnonoff') == 'on'){
 	$this->updateAllColors();
-  } ?>
+  }else{
+	?>function updateAllColors(){}; <?php
+	}  ?>
 
                       
  /* ]]> */ 
