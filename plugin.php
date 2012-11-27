@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpress.org/extend/plugins/ag-custom-admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 Author: Argonius
-Version: 1.2.6.5
+Version: 1.2.7
 Author URI: http://wordpress.argonius.com/ag-custom-admin
 
 	Copyright 2011. Argonius (email : info@argonius.com)
@@ -51,7 +51,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
                 //fb($this->colorizer);
-		$this->agca_version = "1.2.6.5";
+		$this->agca_version = "1.2.7";
 	}
 	// Add donate and support information
 	function jk_filter_plugin_links($links, $file)
@@ -417,6 +417,7 @@ class AGCA{
 	
 	function agca_create_admin_button($name,$arr) {
 		$class="";
+                $wpversion = $this->get_wp_version();
 		$href = $arr["value"];
 		$target =$arr["target"];;
 		if($name == 'AG Custom Admin'){
@@ -424,11 +425,20 @@ class AGCA{
 			$target = "_self";
 			$href = $arr;
 		}
-		$button ="";
-		$button .= '<li id="menu-'.$name.'" class="ag-custom-button menu-top menu-top-first '.$class.' menu-top-last">';			
+                $button ="";
+                
+                if($wpversion >=3.5 ){
+                        $button .= '<li id="menu-'.$name.'" class="ag-custom-button wp-not-current-submenu menu-top">';
+                        $button .= '<a target="'.$target.'" class="wp-has-submenu wp-not-current-submenu menu-top" href="'.$href.'">';                                
+                        $button .= '<div style="padding-left:5px;" class="wp-menu-name">'.$name.'</div>';
+                        $button .= '</a>';
+                        $button .= '</li>';
+                }else{
+                        $button .= '<li id="menu-'.$name.'" class="ag-custom-button menu-top menu-top-first '.$class.' menu-top-last">';			
 			$button .= '<div class="wp-menu-toggle" style="display: none;"><br></div>';
 			$button .=  '<a tabindex="1" target="'.$target.'" class="menu-top menu-top-last" href="'.$href.'">'.$name.'</a>';
-		$button .=  '</li>';
+		        $button .=  '</li>';                    
+                }
 		
 		return $button;		
 	}	
@@ -923,12 +933,15 @@ try
 					<?php	$buttonsJq = $this->jsonMenuArray(get_option('ag_add_adminmenu_json'),'buttonsJq');	?>
 					var buttonsJq = '<?php echo $buttonsJq; ?>';				
 					
-					
-					<?php if($wpversion >=3.2 ){ ?>
+					<?php if($wpversion >=3.5 ){ ?>
+						createEditMenuPageV35(checkboxes,textboxes);
+					<?php }else if($wpversion >=3.2 ){ ?>
 						createEditMenuPageV32(checkboxes,textboxes);
 					<?php }else{ ?>
 						createEditMenuPage(checkboxes,textboxes);
 					<?php } ?>
+                                            //console.log(checkboxes);
+                                           // console.log(textboxes);
 			
 		<?php
 		//if admin, and option to hide settings for admin is set	
@@ -1151,8 +1164,15 @@ try
 													if(checkboxes[i][0].indexOf("<-TOP->") >=0){ //if it is top item													
 														if(checkboxes[i][0].indexOf(topmenuitem) >0){//if found match in menu, with top item in array															
 															matchFound = true;		
-															//console.log(checkboxes[i][0]);															
-															jQuery(this).find('a').eq(1).html(textboxes[i][1]);
+															//console.log(checkboxes[i][0]);
+                                                                                                                        //console.log(jQuery(this).find('.wp-menu-name').text());															
+															
+                                                                                                                        <?php if($wpversion >=3.5 ){ ?>
+                                                                                                                            jQuery(this).find('.wp-menu-name').html(textboxes[i][1]);
+                                                                                                                        <?php }else{ ?>
+                                                                                                                            jQuery(this).find('a').eq(1).html(textboxes[i][1]);
+                                                                                                                        <?php } ?>
+                                                                                                                        
 															if((checkboxes[i][1] == "true") || (checkboxes[i][1] == "checked")){
 																jQuery(this).addClass('noclass');
 															}
@@ -1161,8 +1181,20 @@ try
 															var selector = '#' + topmenuitem + ' ul li';
 															//console.log(i+" "+checkboxes);													
 																while((i<checkboxes.length) && (checkboxes[i][0].indexOf("<-TOP->") < 0)){															
-																	jQuery(selector).each(function(){ //loop through all submenus																	
-																		if(checkboxes[i][0] == jQuery(this).text()){
+																	jQuery(selector).each(function(){ //loop through all submenus	
+                                                                                                                                            var currentItemText = "";                                                                                                                                           
+                                                                                                                                            
+                                                                                                                                             <?php if($wpversion >=3.5 ){ ?>
+                                                                                                                                                currentItemText = jQuery(this).clone();
+                                                                                                                                                jQuery(currentItemText).find("span").remove();
+                                                                                                                                                currentItemText = currentItemText.text();
+                                                                                                                                            <?php }else{ ?>
+                                                                                                                                                currentItemText = jQuery(this).text();
+                                                                                                                                            <?php } ?>
+
+                                                                                                                                             //console.log("*"+checkboxes[i][0]+":"+withoutNumber+"*");
+																		if(checkboxes[i][0] == currentItemText){
+                                                                                                                                                   
 																			if((checkboxes[i][1] == "true") || (checkboxes[i][1] == "checked")){
 																				jQuery(this).addClass('noclass');
 																			}
@@ -2387,7 +2419,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 			</div>
 							
 										<br />
-			<br /><br /><br /><p id="agca_footer_support_info">WordPress 'AG Custom Admin' plugin by Argonius. If you have any questions, ideas for future development or if you found a bug or having any issues regarding this plugin, please visit plugin's <a href="http://wordpress.argonius.com/ag-custom-admin">SUPPORT</a> page. <br />You can also support development of this plugin if you <a href="http://wordpress.argonius.com/donate">Make a donation</a>. Thanks!<br /><br />I want to thank specially mr. <a href="http://www.elan42.com/">Alvise Nicoletti</a> for his support in creating new features in 1.2.6.<br /><br />Have a nice blogging!</p><br />
+			<br /><br /><br /><p id="agca_footer_support_info">WordPress 'AG Custom Admin' plugin by Argonius. If you have any questions, ideas for future development or if you found a bug or having any issues regarding this plugin, please visit plugin's <a href="http://wordpress.argonius.com/ag-custom-admin">SUPPORT</a> page. <br />You can also support development of this plugin if you <a href="http://wordpress.argonius.com/donate">Make a donation</a>. Thanks!<br /><br />Have a nice blogging!</p><br />
 		<?php
 	}
 }
