@@ -155,7 +155,40 @@ td.ag_admin_menu_parent:hover{
     margin-top:3px;
     width: 148px;
 }
-input.agca_button, #ag_add_adminmenu button{
+/*#agca_form input.agca_button,#agca_form #ag_add_adminmenu button{
     padding: 3px 10px;
     background-color:#ffffff;
+}    */
+#agca_form input[type=button],button{
+    background-color:#275928;
+    color: #ffffff;
+}
+#agca_form input[type=button]:hover{
+    background-color:#e8fae5;
+    color:green;
+    cursor:pointer;
+}
+#agca_form input[type=text]{
+    height:28px;
+    width:400px; 
+}
+#agca_form input.color_picker{   
+    width:65px; 
+}
+#agca_form input[type=text]:hover{
+    background-color: #efffef;
+}
+#agca_form textarea{
+    width:400px;    
+}
+#agca_form textarea:hover{
+    background-color: #efffef;    
+}
+
+#agca_form #ag_edit_adminmenu input[type=text]:hover{
+    background-color: #444444;
+    color:#ffffff;
+}
+#agca_form #ag_add_adminmenu input[type=text]{
+    width:300px;
 }

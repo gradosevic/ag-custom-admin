@@ -740,7 +740,17 @@ class AGCA{
 
                 <?php } ?>
                 <?php if(get_option('agca_howdy')!=""){ ?>
-                                    if(isWPHigherOrEqualThan("3.3")){	
+                                    if(isWPHigherOrEqualThan("3.5")){	
+                                                    var alltext="";								
+                                                    alltext="";
+                                                    jQuery('li#wp-admin-bar-my-account').css('cursor','default');
+                                                    alltext = jQuery('li#wp-admin-bar-my-account').html();
+                                                    if(alltext!=null){                                                        								
+                                                        var parts = alltext.split(',');	
+                                                        alltext = "<?php echo get_option('agca_howdy'); ?>" + ", " + parts[1];
+                                                    }    
+                                                    jQuery("li#wp-admin-bar-my-account").html("<a href=\"#\">"+alltext+"</a>");
+                                    }else if(isWPHigherOrEqualThan("3.3")){	
                                                     var alltext="";								
                                                     alltext="";
                                                     jQuery('li#wp-admin-bar-my-account').css('cursor','default');
@@ -765,7 +775,14 @@ class AGCA{
                                                     if(howdyText !=null){
                                                     jQuery("#user_info").html("<p>"+"<?php echo get_option('agca_howdy'); ?>"+howdyText.substr(9));
                                             }
-                                    }												
+                                    }
+                                    if(isWPHigherOrEqualThan("3.5")){
+                                        //jQuery("#wp-admin-bar-my-account").css("padding-left","10px");
+                                        //jQuery("#wp-admin-bar-my-account").css("padding-right","10px");
+                                        //jQuery("#wp-admin-bar-my-account img").css({"margin-left":"5px","margin-bottom":"-4px"});
+                                        
+                                    }
+                                    
                     <?php } ?>
                     <?php if(get_option('agca_logout')!=""){ ?>						
                                     if(isWPHigherOrEqualThan("3.3")){
@@ -2419,7 +2436,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 			</div>
 							
 										<br />
-			<br /><br /><br /><p id="agca_footer_support_info">WordPress 'AG Custom Admin' plugin by Argonius. If you have any questions, ideas for future development or if you found a bug or having any issues regarding this plugin, please visit plugin's <a href="http://wordpress.argonius.com/ag-custom-admin">SUPPORT</a> page. <br />You can also support development of this plugin if you <a href="http://wordpress.argonius.com/donate">Make a donation</a>. Thanks!<br /><br />Have a nice blogging!</p><br />
+			<br /><br /><br /><p id="agca_footer_support_info">WordPress 'AG Custom Admin' plugin by Argonius. If you have any questions, ideas for future development or if you found a bug or having any issues regarding this plugin, please visit plugin's <a href="http://agca.argonius.com/ag-custom-admin/">SUPPORT</a> page. <br /><br />You can also support development of this plugin if you <a href="http://wordpress.argonius.com/donate">Make a donation</a>. Thanks!<br /><br />Have a nice blogging!</p><br />
 		<?php
 	}
 }
