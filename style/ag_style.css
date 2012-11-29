@@ -108,7 +108,7 @@ td.ag_admin_menu_parent:hover{
 }
 #agca_advertising{
     display:block;
-    width:100%;
+    width:900px;
     height: 100px;
     /*background-color: #cccccc;*/   
     padding: 0;
@@ -154,4 +154,8 @@ td.ag_admin_menu_parent:hover{
     float: left;
     margin-top:3px;
     width: 148px;
+}
+input.agca_button, #ag_add_adminmenu button{
+    padding: 3px 10px;
+    background-color:#ffffff;
 }

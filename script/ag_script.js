@@ -641,19 +641,13 @@ function updateTargetColor(id, color){
             jQuery('html, .wp-dialog').css({
                 'background-color':color
             });	           	
-            break;
-        case 'color_footer':
-            jQuery('#footer').css({
-                'background':color
-            });
-            if(wpversion >= 3.2){
-                jQuery('#footer').css({
-                    'margin':'0',
-                    'margin-left':'146px',
-                    'padding':'15px'
-                });
-            }
-            break;
+            break; 
+        case 'login_color_background':		
+            jQuery('body.login').css({
+                'background-color':color
+            });	           	
+            break;             
+            
         case 'color_header':		 
             jQuery('#wphead').css({
                 'background':color
@@ -726,7 +720,8 @@ function updateTargetColor(id, color){
                     'background':color
                 });			
             });
-            jQuery('#adminmenu .wp-submenu').css({'background':color,'margin-left':'5px','padding':'0px'});
+            jQuery('#adminmenu .wp-submenu').css({'background':color,'margin-left':'0',"padding-top":roundedSidberSize+"px","padding-bottom":roundedSidberSize+"px"});
+            jQuery('#adminmenu .wp-has-current-submenu .wp-submenu').css("padding","0");
             //jQuery('#adminmenu .wp-submenu').css('border','3px solid red');
             jQuery('#adminmenu .wp-submenu ul').css({'background':'none'});
             jQuery('#adminmenu .wp-submenu ul').css('border','none');
@@ -788,7 +783,7 @@ function updateTargetColor(id, color){
             });
             break;
         case 'color_font_footer':
-            jQuery('#footer, #footer a').css({
+            jQuery('#wpfooter, #wpfooter a').css({
                 'color':color
             });
             break;
