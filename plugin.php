@@ -1483,7 +1483,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 				<li class="normal" ><a href="#admin-menu-settings" title="Settings for main admin menu">Admin Menu</a></li>
 				<li class="normal"><a href="#ag-colorizer-setttings" title="AG colorizer settings">Colorizer</a></li>
                                 <li class="normal"><a href="#ag-advanced" title="My custom scripts">Advanced</a></li>
-				<li style="background:none;border:none;padding:0;"><a id="agca_donate_button" style="margin-left:8px" title="Like this plugin? You can support its future development by giving a donation by your wish " href="http://wordpress.argonius.com/donate"><img alt="Donate" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/btn_donate_LG.gif" /></a>
+				<li style="background:none;border:none;padding:0;"><a id="agca_donate_button" target="_blank" style="margin-left:8px" title="Like this plugin? You can support its future development by giving a donation by your wish " href="http://wordpress.argonius.com/donate"><img alt="Donate" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/btn_donate_LG.gif" /></a>
 				</li>                                
 				<li style="background:none;border:none;padding:0;padding-left:10px;margin-top:-7px"></li>		
 			</ul>
@@ -1522,6 +1522,22 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<input type="checkbox" title='Check this if you want to show Log Out button in top right corner of admin page' name="agca_header_show_logout" value="true" <?php if ((get_option('agca_header')==true) && (get_option('agca_header_show_logout')==true)) echo 'checked="checked" '; ?> />
 								</td>
 							</tr> 
+                                                        <tr valign="center" >
+								<td>
+									<label tabindex="0" title="Removes admin bar customizations (AGCA scripts) on front end." for="agca_admin_bar_frontend">Remove admin bar customizations on site pages</label>
+								</td>
+								<td>					
+                                                                    <input style="margin-left:-5px" id="agca_admin_bar_frontend" type="checkbox" title="Removes admin bar customizations (AGCA scripts) on front end." name="agca_admin_bar_frontend" value="true" <?php if (get_option('agca_admin_bar_frontend')==true) echo 'checked="checked" '; ?> />
+								</td>
+							</tr>
+							<tr valign="center" >
+								<td>
+									<label tabindex="0" title="Removes admin bar on front end." for="agca_admin_bar_frontend_hide">Remove admin bar on site pages</label>
+								</td>
+								<td>					
+                                                                    <input style="margin-left:-5px" id="agca_admin_bar_frontend_hide" type="checkbox" title="Removes admin bar on front end." name="agca_admin_bar_frontend_hide" value="true" <?php if (get_option('agca_admin_bar_frontend_hide')==true) echo 'checked="checked" '; ?> />
+								</td>
+							</tr>
 							<tr valign="center">								
 								<td colspan="2">
 									<div class="ag_table_heading"><h3 tabindex="0">Elements on Left</h3></div>
@@ -1537,23 +1553,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<input type="checkbox" title="This is link next to heading in admin bar" name="agca_privacy_options" value="true" <?php if (get_option('agca_privacy_options')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr>
-							<?php } ?>
-							<tr valign="center" >
-								<td>
-									<label tabindex="0" title="Removes admin bar customizations (AGCA scripts) on front end." for="agca_admin_bar_frontend">Remove admin bar customizations on site pages</label>
-								</td>
-								<td>					
-                                                                    <input id="agca_admin_bar_frontend" type="checkbox" title="Removes admin bar customizations (AGCA scripts) on front end." name="agca_admin_bar_frontend" value="true" <?php if (get_option('agca_admin_bar_frontend')==true) echo 'checked="checked" '; ?> />
-								</td>
-							</tr>
-							<tr valign="center" >
-								<td>
-									<label tabindex="0" title="Removes admin bar on front end." for="agca_admin_bar_frontend_hide">Remove admin bar on site pages</label>
-								</td>
-								<td>					
-                                                                    <input id="agca_admin_bar_frontend_hide" type="checkbox" title="Removes admin bar on front end." name="agca_admin_bar_frontend_hide" value="true" <?php if (get_option('agca_admin_bar_frontend_hide')==true) echo 'checked="checked" '; ?> />
-								</td>
-							</tr>
+							<?php } ?>							
 							<tr valign="center">
 								<th >
 									<label title="Change default WordPress logo with custom image." for="agca_wp_logo_custom">Change admin bar logo</label>
@@ -2440,7 +2440,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 			</div>
 							
 										<br />
-			<br /><br /><br /><p id="agca_footer_support_info">WordPress 'AG Custom Admin' plugin by Argonius. If you have any questions, ideas for future development or if you found a bug or having any issues regarding this plugin, please visit plugin's <a href="http://agca.argonius.com/ag-custom-admin/">SUPPORT</a> page. <br /><br />You can also support development of this plugin if you <a href="http://wordpress.argonius.com/donate">Make a donation</a>. Thanks!<br /><br />Have a nice blogging!</p><br />
+			<br /><br /><br /><p id="agca_footer_support_info">WordPress 'AG Custom Admin' plugin by Argonius. If you have any questions, ideas for future development or if you found a bug or having any issues regarding this plugin, please visit plugin's <a target="_blank" href="http://agca.argonius.com/ag-custom-admin/">SUPPORT</a> page. <br /><br />You can also support development of this plugin if you <a target="_blank" href="http://wordpress.argonius.com/donate">Make a donation</a>. Thanks!<br /><br />Have a nice blogging!</p><br />
 		<?php
 	}
 }
