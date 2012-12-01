@@ -27,7 +27,7 @@ Author URI: http://wordpress.argonius.com/ag-custom-admin
 //fb($_POST);
 
 $agca = new AGCA();
-
+ 
 class AGCA{
 	private $colorizer="";	
 	private $active_plugin;
@@ -36,16 +36,17 @@ class AGCA{
         private $context = "";
         private $saveAfterImport = false;
 	public function __construct()
-	{	
-				
+	{           
+            
+                $this->reloadScript();
+            
 		add_filter('plugin_row_meta', array(&$this,'jk_filter_plugin_links'), 10, 2);
 		add_action('admin_init', array(&$this,'agca_register_settings'));
 		add_action('admin_head', array(&$this,'print_admin_css'));		
 		add_action('login_head', array(&$this,'print_login_head'));	
 		add_action('admin_menu', array(&$this,'agca_create_menu'));		
 		add_action('wp_head', array(&$this,'print_page'));			
-		register_deactivation_hook(__FILE__, array(&$this,'agca_deactivate'));	
-		
+		register_deactivation_hook(__FILE__, array(&$this,'agca_deactivate'));			
 	
 	
 		/*Initialize properties*/		
@@ -107,7 +108,9 @@ class AGCA{
 	}
 	
 	function reloadScript(){
-             wp_enqueue_script('jquery');             
+            if(in_array($GLOBALS['pagenow'], array('wp-login.php', 'wp-register.php')) || WP_ADMIN == 1){              
+                wp_enqueue_script('jquery');              
+            }             
 	}
 	
 	function agca_register_settings() {	
@@ -1305,8 +1308,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 	}
 	
 	function print_login_head(){
-		$this->context = "login";
-		$this->reloadScript();		
+		$this->context = "login";				
 		$this->agca_get_includes();		
 		$wpversion = $this->get_wp_version();
 	?>	
@@ -1462,14 +1464,16 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 			<form method="post" id="agca_form" action="options.php">
 				<?php settings_fields( 'agca-options-group' ); ?>
 			<table>
-				<tr valign="center" >
+				<tr valign="left" >
 								<th scope="row">
 									<label title="If checked, all users will be affected with these changes, except admin. Not checked = apply for all" for="agca_role_allbutadmin">Do not apply these settings for Admin&nbsp;&nbsp;</label>
 								</th>
 								<td><input title="If checked, all users will be affected with these changes, except admin. Not checked = apply for all" type="checkbox" name="agca_role_allbutadmin" value="true" <?php if (get_option('agca_role_allbutadmin')==true) echo 'checked="checked" '; echo get_option('agca_role_allbutadmin'); ?> />								
 								</td>
-				</tr> 
-			</table>
+				</tr>                                
+			</table>                        
+                        <div style="float:right;width:152px;margin-left: 100px;margin-top: -25px;"><strong><span style="font-size:12px" >Your feedback:</span></strong> <a class="feedback positive" target="_blank" title="POSITIVE FEEDBACK: I like this plugin!" href="http://agca.argonius.com/ag-custom-admin/feedback/ag-custom-admin-positive-feedback?comments=hidden" style="padding:5px;"><img  style="" width="15" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/thumbup.png" /></a>  <a class="feedback" target="_blank" title="NEGATIVE FEEDBACK: I don't like this plugin." style="padding:5px;" href="http://agca.argonius.com/ag-custom-admin/feedback/ag-custom-admin-negative-feedback?comments=hidden"><img width="15" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/thumbdown.png" /></a></div>
+                                    
 			<br />
 			<ul id="ag_main_menu">
 				<li class="selected"><a href="#admin-bar-settings" title="Settings for admin bar" >Admin Bar</a></li>
@@ -1480,7 +1484,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 				<li class="normal"><a href="#ag-colorizer-setttings" title="AG colorizer settings">Colorizer</a></li>
                                 <li class="normal"><a href="#ag-advanced" title="My custom scripts">Advanced</a></li>
 				<li style="background:none;border:none;padding:0;"><a id="agca_donate_button" style="margin-left:8px" title="Like this plugin? You can support its future development by giving a donation by your wish " href="http://wordpress.argonius.com/donate"><img alt="Donate" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/btn_donate_LG.gif" /></a>
-				</li>
+				</li>                                
 				<li style="background:none;border:none;padding:0;padding-left:10px;margin-top:-7px"></li>		
 			</ul>
                         <div id="agca_advertising">

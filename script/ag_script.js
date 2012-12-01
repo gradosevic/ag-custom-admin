@@ -457,16 +457,38 @@ jQuery(document).ready(function(){
     jQuery("body").append("<div id='AGToolTipDiv'></div>");	
 	
     /*ToolTip*/
-    jQuery("label[title],#agca_donate_button").each(function() {  
-        jQuery(this).hover(function(e) { 	
-            jQuery(this).mousemove(function(e) {			
+    jQuery("label[title],#agca_donate_button, a.feedback").each(function() {  
+        jQuery(this).hover(function(e) {
+            if(jQuery(this).hasClass('feedback')){
+               jQuery(this).mousemove(function(e) {			
+                var tipY = e.pageY + 16; 
+                var tipX = e.pageX - 236;	
+                var type = '#fee6e6';
+                var border = '1px solid red';
+                if(jQuery(this).hasClass('positive')) {
+                    type = '#eafee6';
+                    border = '1px solid green';
+                }
+                jQuery("#AGToolTipDiv").css({
+                    'top': tipY, 
+                    'left': tipX,
+                    'background': type,
+                    'border': border
+                });
+            }); 
+            }else{
+                jQuery(this).mousemove(function(e) {			
                 var tipY = e.pageY + 16; 
                 var tipX = e.pageX + 16;	
                 jQuery("#AGToolTipDiv").css({
                     'top': tipY, 
-                    'left': tipX
+                    'left': tipX,
+                    'background': '#FFFFD4',
+                    'border': '1px solid #FFFF00'
                 });
-            });
+            });                
+            }
+            
             jQuery("#AGToolTipDiv")
             .html(jQuery(this).attr('title'))
             .stop(true,true)
