@@ -1146,10 +1146,7 @@ try
 					
 					<?php /*If Turned on*/ ?>
 					
-					<?php /*Only admin see button*/
-							if (current_user_can($this->admin_capability())){ ?>								
-								jQuery('#adminmenu').append('<?php echo $this->agca_create_admin_button('AG Custom Admin','tools.php?page=ag-custom-admin/plugin.php'); ?>');
-							<?php } ?>
+                                                       
 							
 							<?php if(get_option('agca_admin_menu_agca_button_only') == true){ ?>											
 								jQuery('#adminmenu > li').each(function(){
@@ -1157,7 +1154,12 @@ try
 										jQuery(this).addClass('noclass');
 									}
 								});
-							 <?php } ?>				
+							 <?php } ?>	
+                                                             
+                                                        <?php /*Only admin see button*/
+							if (current_user_can($this->admin_capability())){ ?>							
+								jQuery('#adminmenu').append('<?php echo $this->agca_create_admin_button('AG Custom Admin','tools.php?page=ag-custom-admin/plugin.php'); ?>');
+							<?php } ?>
 													
 							<?php /*EDIT MENU ITEMS*/?>
 							<?php if(get_option('ag_edit_adminmenu_json')!=""){ 											
@@ -1466,7 +1468,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 			<table>
 				<tr valign="left" >
 								<th scope="row">
-									<label title="If checked, all users will be affected with these changes, except admin. Not checked = apply for all" for="agca_role_allbutadmin">Do not apply these settings for Admin&nbsp;&nbsp;</label>
+                                                                    <label title="If checked, all users will be affected with these changes, except admin. Not checked = apply for all</br></br><strong>Q</strong>: Who is administrator?</br><strong>A</strong>: Go to <i>Advanced</i> tab and change capability option to define admin users." for="agca_role_allbutadmin">Do not apply these settings for Admin&nbsp;&nbsp;</label>
 								</th>
 								<td><input title="If checked, all users will be affected with these changes, except admin. Not checked = apply for all" type="checkbox" name="agca_role_allbutadmin" value="true" <?php if (get_option('agca_role_allbutadmin')==true) echo 'checked="checked" '; echo get_option('agca_role_allbutadmin'); ?> />								
 								</td>
@@ -1940,27 +1942,25 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</table>
 						</div>
 						<div id="section_login_page" style="display:none" class="ag_section">
-						<h2 class="section_title" tabindex="-1">Login Page Settings</h2>
-							<br /><br />					
-							<table class="form-table" width="500px">							
-							<tr valign="center" class="ag_table_major_options">
-									<td>
-										<label for="agca_login_banner"><strong><?php if($wpversion < 3.2){ ?>Hide Login top bar completely<?php }else{ ?>Hide back to blog block completely<?php } ?></strong></label>
-									</td>
-									<td>					
-										<input type="checkbox" name="agca_login_banner" title="<?php if($wpversion < 3.2){ ?>Hide Login top bar completely<?php }else{ ?>Hide back to blog block completely<?php } ?>" value="true" <?php if (get_option('agca_login_banner')==true) echo 'checked="checked" '; ?> />
-									</td>
-							</tr>						
+						<h2 class="section_title" tabindex="-1">Login Page Settings</h2>												
+							<table class="form-table" width="500px">				
+													
 							<tr valign="center">
 								<td colspan="2">
 										<div class="ag_table_heading"><h3 tabindex="0">Login Page Options</h3></div>
-								</td>
-								<td>									
-								</td>
+								</td>								
+							</tr>
+                                                        <tr valign="center">
+									<td>
+										<label for="agca_login_banner">Hide back to blog text</label>
+									</td>
+									<td>					
+										<input type="checkbox" name="agca_login_banner" title="Hide back to blog block" value="true" <?php if (get_option('agca_login_banner')==true) echo 'checked="checked" '; ?> />
+									</td>
 							</tr>
 							<tr valign="center">
 								<th scope="row">
-									<label title="Changes '<- Back to ...' text in top bar on Login page" for="agca_login_banner_text"><?php if($wpversion < 3.2){ ?>Change Login top bar text<?php }else{ ?>Change back to blog text<?php } ?></label>
+									<label title="Changes '<- Back to ...' text in top bar on Login page" for="agca_login_banner_text">Change back to blog text</label>
 								</th>
 								<td>
 									<textarea title="Changes 'Back to ...' text in top bar on Login page" rows="5" name="agca_login_banner_text" cols="40"><?php echo htmlspecialchars(get_option('agca_login_banner_text')); ?></textarea>&nbsp;<p><i>You should surround it with anchor tag &lt;a&gt;&lt;/a&gt;.</i></p>
@@ -2147,7 +2147,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<label title="Adds custom logo above the admin menu" for="agca_admin_menu_brand">Add custom branding logo above the admin menu</label>
 								</th>
 								<td>
-									<input title="Adds custom logo above the admin menu" type="text" size="47" name="agca_admin_menu_brand" value="<?php echo get_option('agca_admin_menu_brand'); ?>" />																
+									<input id="agca_admin_menu_brand" title="Adds custom logo above the admin menu" type="text" size="47" name="agca_admin_menu_brand" value="<?php echo get_option('agca_admin_menu_brand'); ?>" /><input type="button" class="agca_button" onClick="jQuery('#agca_admin_menu_brand').val('');" value="Clear" />																
 									&nbsp;<p><i>Put here URL of custom branding logo image. Image can be of any size and type</i>.</p>
 								</td>
 							</tr> 
