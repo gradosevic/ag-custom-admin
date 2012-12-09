@@ -76,7 +76,7 @@ Here is the list of options:
 	- Export/import customization settings
 
 
-For more information about the plugin please see: http://wordpress.argonius.com/ag-custom-admin
+For more information about the plugin please see: http://agca.argonius.com/ag-custom-admin/
 
 == Installation ==
 
@@ -110,6 +110,12 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 4. Default WP grey colors can be refreshed with any colors that you like! There are a lot of Colorizer option which can be use to style text, background, login, widgets, admin menu, top bar, footer and many more!
 
 == Changelog ==
+
+= 1.2.7 =
+* WordPress 3.5 compatible
+* Added login page background color
+* Resolving jQuery script
+* Added feedback buttons (postitive/negative)
 
 = 1.2.6.5 =
 * using capabilities instead of user levels
@@ -260,6 +266,9 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.2.7 =
+Plugin prepared for WordPress 3.5. Few additional improvements.
 
 = 1.2.6.5 =
 New features and bug fixes. Improved colorizer, fixed admin bar issues, using capabilities to define admin users, added new options for login page, options to remove AGCA scripts on front-end. Using collapsed menus.
