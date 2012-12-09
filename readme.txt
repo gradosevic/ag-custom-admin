@@ -116,6 +116,8 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 * Added login page background color
 * Resolving jQuery script
 * Added feedback buttons (postitive/negative)
+* Better user's experience (updated form buttons and textboxes)
+* Fixed problem with Howdy renaming
 
 = 1.2.6.5 =
 * using capabilities instead of user levels
