@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: AG Custom Admin
-Plugin URI: http://wordpress.org/extend/plugins/ag-custom-admin
+Plugin URI: http://agca.argonius.com/ag-custom-admin/category/ag_custom_admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 Author: Argonius
 Version: 1.2.7
-Author URI: http://wordpress.argonius.com/ag-custom-admin
+Author URI: http://www.argonius.com/
 
 	Copyright 2011. Argonius (email : info@argonius.com)
  
@@ -60,8 +60,8 @@ class AGCA{
 		if ( $file == plugin_basename(__FILE__) )
 		{
 		$links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php">' . __('Settings') . '</a>';
-		$links[] = '<a href="http://wordpress.argonius.com/ag-custom-admin">' . __('Support') . '</a>';
-		$links[] = '<a href="http://wordpress.argonius.com/donate">' . __('Donate') . '</a>';
+		$links[] = '<a href="http://agca.argonius.com/ag-custom-admin/category/ag_custom_admin">' . __('Support') . '</a>';
+		$links[] = '<a href="http://agca.argonius.com/ag-custom-admin/support-for-future-development">' . __('Donate') . '</a>';
 		}
 		return $links;
 	}
@@ -1031,7 +1031,7 @@ try
 					<?php } ?>
 						
 					<?php if(get_option('agca_footer')==true){ ?>
-							jQuery("#footer").css("display","none");
+							jQuery("#footer,#wpfooter").css("display","none");
 					<?php } ?>					
 						
 
@@ -1485,7 +1485,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 				<li class="normal" ><a href="#admin-menu-settings" title="Settings for main admin menu">Admin Menu</a></li>
 				<li class="normal"><a href="#ag-colorizer-setttings" title="AG colorizer settings">Colorizer</a></li>
                                 <li class="normal"><a href="#ag-advanced" title="My custom scripts">Advanced</a></li>
-				<li style="background:none;border:none;padding:0;"><a id="agca_donate_button" target="_blank" style="margin-left:8px" title="Like this plugin? You can support its future development by giving a donation by your wish " href="http://wordpress.argonius.com/donate"><img alt="Donate" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/btn_donate_LG.gif" /></a>
+				<li style="background:none;border:none;padding:0;"><a id="agca_donate_button" target="_blank" style="margin-left:8px" title="Like this plugin? You can support its future development by giving a donation by your wish " href="http://agca.argonius.com/ag-custom-admin/support-for-future-development"><img alt="Donate" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/btn_donate_LG.gif" /></a>
 				</li>                                
 				<li style="background:none;border:none;padding:0;padding-left:10px;margin-top:-7px"></li>		
 			</ul>
@@ -2440,7 +2440,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 			</div>
 							
 										<br />
-			<br /><br /><br /><p id="agca_footer_support_info">WordPress 'AG Custom Admin' plugin by Argonius. If you have any questions, ideas for future development or if you found a bug or having any issues regarding this plugin, please visit plugin's <a target="_blank" href="http://agca.argonius.com/ag-custom-admin/">SUPPORT</a> page. <br /><br />You can also support development of this plugin if you <a target="_blank" href="http://wordpress.argonius.com/donate">Make a donation</a>. Thanks!<br /><br />Have a nice blogging!</p><br />
+			<br /><br /><br /><p id="agca_footer_support_info">WordPress 'AG Custom Admin' plugin by Argonius. If you have any questions, ideas for future development or if you found a bug or having any issues regarding this plugin, please visit plugin's <a target="_blank" href="http://agca.argonius.com/ag-custom-admin/">SUPPORT</a> page. <br /><br />You can also support development of this plugin if you <a target="_blank" href="http://agca.argonius.com/ag-custom-admin/support-for-future-development">Make a donation</a>. Thanks!<br /><br />Have a nice blogging!</p><br />
 		<?php
 	}
 }

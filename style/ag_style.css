@@ -184,11 +184,14 @@ td.ag_admin_menu_parent:hover{
 #agca_form textarea:hover{
     background-color: #efffef;    
 }
-
 #agca_form #ag_edit_adminmenu input[type=text]:hover{
     background-color: #444444;
     color:#ffffff;
 }
 #agca_form #ag_add_adminmenu input[type=text]{
     width:300px;
+}
+#agca_form input#save_plugin_settings[type="button"]:hover{
+	background-color:#ffffff;
+	color:#ffffff;
 }
