@@ -1,6 +1,6 @@
 === AG Custom Admin ===
 Contributors: argonius
-Donate link: http://wordpress.argonius.com/donate
+Donate link: http://agca.argonius.com/ag-custom-admin/support-for-future-development
 Tags: admin, customize, hide, change admin
 Requires at least: 3.0
 Tested up to: 3.5
@@ -19,6 +19,7 @@ Here is the list of options:
 	- Hide admin bar on front end
 	- Change admin bar logo and link
 	- Hide admin bar WordPress logo
+	- Add custom image in admin header
 	- Add custom admin bar logo
 	- Hide admin bar dropdown menus
 	- Hide "New" dropdown items
