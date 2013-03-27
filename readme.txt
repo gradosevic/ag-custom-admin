@@ -5,7 +5,7 @@ Tags: admin, customize, hide, change admin
 Requires at least: 3.0
 Tested up to: 3.5
 Stable tag: 1.2.7
-
+ 
 Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 
 == Description ==
