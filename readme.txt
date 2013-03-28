@@ -112,6 +112,11 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 
 == Changelog ==
 
+= 1.2.7.1 =
+* Removed AGCA script on site pages automaticaly, if user is not logged in
+* Custom WordPress admin title. Using custom title templates
+* Added option for removing blog title from top bar
+
 = 1.2.7 =
 * WordPress 3.5 compatible
 * Added login page background color

@@ -648,7 +648,7 @@ function processData(){
         array += "\"" + jQuery(this).val() + "\"";
         firstElement = false;			
     });
-    array += "}";
+    array += "}";	
     
     if(!isSettingsImport){
         jQuery('#ag_colorizer_json').val(array);                

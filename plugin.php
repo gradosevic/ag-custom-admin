@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://agca.argonius.com/ag-custom-admin/category/ag_custom_admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 Author: Argonius
-Version: 1.2.7
+Version: 1.2.7.1
 Author URI: http://www.argonius.com/
 
 	Copyright 2011. Argonius (email : info@argonius.com)
@@ -25,9 +25,9 @@ Author URI: http://www.argonius.com/
 
 //require_once('/../../../../../FirePHPCore/lib/FirePHPCore/fb.php'); 
 //fb($_POST);
-
+	
 $agca = new AGCA();
- 
+
 class AGCA{
 	private $colorizer="";	
 	private $active_plugin;
@@ -40,19 +40,19 @@ class AGCA{
             
                 $this->reloadScript();
             
+		add_filter('admin_title', array(&$this,'change_title'), 10, 2); 		
 		add_filter('plugin_row_meta', array(&$this,'jk_filter_plugin_links'), 10, 2);
 		add_action('admin_init', array(&$this,'agca_register_settings'));
 		add_action('admin_head', array(&$this,'print_admin_css'));		
 		add_action('login_head', array(&$this,'print_login_head'));	
 		add_action('admin_menu', array(&$this,'agca_create_menu'));		
 		add_action('wp_head', array(&$this,'print_page'));			
-		register_deactivation_hook(__FILE__, array(&$this,'agca_deactivate'));			
-	
+		register_deactivation_hook(__FILE__, array(&$this,'agca_deactivate'));	
 	
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
                 //fb($this->colorizer);
-		$this->agca_version = "1.2.7";
+		$this->agca_version = "1.2.7.1";
 	}
 	// Add donate and support information
 	function jk_filter_plugin_links($links, $file)
@@ -65,6 +65,14 @@ class AGCA{
 		}
 		return $links;
 	}
+	function isGuest(){
+		global $user_login;
+		if($user_login) {
+			return false;
+		}else{
+			return true;
+		}
+	}
 	function check_active_plugin(){
 		
 		$ozh = false;			
@@ -76,6 +84,19 @@ class AGCA{
 		$this->active_plugin = array(
 			"ozh" => $ozh
 		);
+	}
+	function change_title($admin_title, $title){		
+	//return get_bloginfo('name').' - '.$title;
+		if(get_option('agca_custom_title')!=""){
+			$blog = get_bloginfo('name');
+			$page = $title;
+			$customTitle = get_option('agca_custom_title');				
+			$customTitle = str_replace('%BLOG%',$blog,$customTitle);
+			$customTitle = str_replace('%PAGE%',$page,$customTitle);
+			return $customTitle;
+		}else{
+			return $admin_title;
+		}	
 	}
 	function agca_get_includes() {            
             ?>		
@@ -91,7 +112,7 @@ class AGCA{
                        <?php
                         if(!((get_option('agca_role_allbutadmin')==true) and  (current_user_can($this->admin_capability())))){	
                             ?>
-                             <style type="text/css">
+                             <style type="text/css">							 
                                  <?php
                                     echo get_option('agca_custom_css'); 
                                  ?>
@@ -121,6 +142,7 @@ class AGCA{
 		register_setting( 'agca-options-group', 'agca_remove_your_profile' );
 		register_setting( 'agca-options-group', 'agca_logout_only' );
 		register_setting( 'agca-options-group', 'agca_options_menu' );
+		register_setting( 'agca-options-group', 'agca_custom_title' );
 		register_setting( 'agca-options-group', 'agca_howdy' );
 		register_setting( 'agca-options-group', 'agca_header' );
 		register_setting( 'agca-options-group', 'agca_header_show_logout' );		
@@ -129,6 +151,7 @@ class AGCA{
 		register_setting( 'agca-options-group', 'agca_header_logo' );
 		register_setting( 'agca-options-group', 'agca_header_logo_custom' );
 		register_setting( 'agca-options-group', 'agca_wp_logo_custom' );
+		register_setting( 'agca-options-group', 'agca_remove_site_link' );
                 register_setting( 'agca-options-group', 'agca_wp_logo_custom_link' );
                 
 		register_setting( 'agca-options-group', 'agca_site_heading' );
@@ -247,6 +270,7 @@ class AGCA{
                 'agca_remove_your_profile',
                 'agca_logout_only',
                 'agca_options_menu',
+				'agca_custom_title',
                 'agca_howdy',
                 'agca_header',
                 'agca_header_show_logout',
@@ -254,6 +278,7 @@ class AGCA{
                 'agca_privacy_options',
                 'agca_header_logo',
                 'agca_header_logo_custom',
+				'agca_remove_site_link',
                 'agca_wp_logo_custom',
                 'agca_wp_logo_custom_link',
                 'agca_site_heading',
@@ -510,6 +535,10 @@ class AGCA{
 	
 	function print_page()
 	{
+	if($this->isGuest()){
+		return false;
+	}
+	
 	if(get_option('agca_admin_bar_frontend_hide')==true){
 		add_filter( 'show_admin_bar', '__return_false' );
 	?>
@@ -691,6 +720,10 @@ class AGCA{
                                          jQuery("#wpadminbar #wp-admin-bar-root-default > #wp-admin-bar-wp-logo .ab-item").attr('title','');
                                 }
                 <?php }?>
+				<?php if(get_option('agca_remove_site_link')==true){ ?>
+                                jQuery("#wp-admin-bar-site-name").css("display","none");							                            
+
+                <?php } ?>
                 <?php if(get_option('agca_wp_logo_custom_link')!=""){ ?>						
                                 if(isWPHigherOrEqualThan("3.3")){       
                                          var href = "<?php echo get_option('agca_wp_logo_custom_link'); ?>";                                                        
@@ -787,6 +820,12 @@ class AGCA{
                                     }
                                     
                     <?php } ?>
+					<?php 
+					 if(get_option('agca_custom_title')!=""){
+							//add_filter('admin_title', '$this->change_title', 10, 2);                               
+							                              
+                     } 
+					 ?>
                     <?php if(get_option('agca_logout')!=""){ ?>						
                                     if(isWPHigherOrEqualThan("3.3")){
                                             jQuery("ul#wp-admin-bar-user-actions li#wp-admin-bar-logout a").text("<?php echo get_option('agca_logout'); ?>");
@@ -887,9 +926,7 @@ class AGCA{
 		$this->admin_capabilities();
 		$this->context = "admin";
 		get_currentuserinfo() ;		
-		$wpversion = $this->get_wp_version();	
-		
-		
+		$wpversion = $this->get_wp_version();			
 	?>	
 <?php
 	//in case that javaScript is disabled only admin can access admin menu
@@ -1576,6 +1613,15 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</tr> 
 							<tr valign="center">
 								<th >
+									<label title="Customize WordPress title using custom title template.</br></br>Examples:</br><strong>%BLOG% -- %PAGE%</strong>  (will be) <i>My Blog -- Add New Post</i></br><strong>%BLOG%</strong> (will be) <i>My Blog</i></br><strong>My Company > %BLOG% > %PAGE%</strong> (will be) <i>My Company > My Blog > Tools</i>" for="agca_custom_title">Custom admin title template</label>
+								</th>
+								<td>
+									<input title="" type="text" size="47" id="agca_custom_title" name="agca_custom_title" value="<?php echo get_option('agca_custom_title'); ?>" /><input type="button" class="agca_button"  onClick="jQuery('#agca_custom_title').val('');" value="Clear" />																
+									&nbsp;<p><i>Please use <strong>%BLOG%</strong> and <strong>%PAGE%</strong> in your title template.</i></p>
+								</td>
+							</tr> 
+							<tr valign="center">
+								<th >
 									<label title="Add custom image on the top of admin content." for="agca_header_logo_custom">Custom header image</label>
 								</th>
 								<td>
@@ -1591,7 +1637,15 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<input title="Small Wordpress logo in admin top bar" type="checkbox" name="agca_header_logo" value="true" <?php if (get_option('agca_header_logo')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr> 
-							<?php if($wpversion>=3.3){?>							
+							<?php if($wpversion>=3.3){?>
+							<tr valign="center">
+								<th >
+									<label title="Hides site name section in admin bar" for="agca_remove_site_link">Hide site name in admin bar</label>
+								</th>
+								<td>					
+									<input title="Hides site name section in admin bar" type="checkbox" name="agca_remove_site_link" value="true" <?php if (get_option('agca_remove_site_link')==true) echo 'checked="checked" '; ?> />
+								</td>
+							</tr> 							
 							<tr valign="center">
 								<th >
 									<label title="Hides default WordPress top bar dropdown menus on WordPress logo and Heading" for="agca_remove_top_bar_dropdowns">Hide WordPress top bar dropdown menus</label>
