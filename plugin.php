@@ -1223,7 +1223,7 @@ try
 												for(i=0; i< checkboxes.length ; i++){
 												
 													if(checkboxes[i][0].indexOf("<-TOP->") >=0){ //if it is top item													
-														if(checkboxes[i][0].indexOf(topmenuitem) >0){//if found match in menu, with top item in array															
+														if(checkboxes[i][0].replace('<-TOP->','') == topmenuitem){//if found match in menu, with top item in array															
 															matchFound = true;		
 															//console.log(checkboxes[i][0]);
                                                                                                                         //console.log(jQuery(this).find('.wp-menu-name').text());															

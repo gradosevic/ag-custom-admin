@@ -116,6 +116,7 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 * Removed AGCA script on site pages automaticaly, if user is not logged in
 * Custom WordPress admin title. Using custom title templates
 * Added option for removing blog title from top bar
+* Fixed missaligned menu when using custom content types plugins
 
 = 1.2.7 =
 * WordPress 3.5 compatible
@@ -274,6 +275,9 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.2.7.1 =
+Bug fixes. Removing admin bar site title. Custom page titles in WP admin.
 
 = 1.2.7 =
 Plugin prepared for WordPress 3.5. Few additional improvements.
