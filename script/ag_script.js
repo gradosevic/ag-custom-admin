@@ -211,7 +211,7 @@ function createEditMenuPageV35(checkboxes,textboxes){
                     sub_item_text_value = textboxes[counter][1];
                     isHidden = checkboxes[counter][1];					
                 }	
-                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_child'><div style=\"float:left\"><a tabindex=\"-1\" href=\"javascript:void(0)\" style=\"font-weight:bold;\"title=\""+topElement+" submenu: "+subElement+"\"><span style=\"font-weight:normal\">submenu: </span>"+subElement+"</a></div><div style=\"float:right\"><input type=\"checkbox\" title=\"Remove "+topElement+" submenu: "+subElement+" from menu\" class=\""+subElement+"\" "+booleanToChecked(isHidden)+"  name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></div></td><td class='ag_admin_menu_child2' ><input type=\"text\" title=\"Rename submenu item "+subElement+" with this value\" class=\""+subElement+"\" size=\"47\" value=\""+sub_item_text_value+"\" name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></td></tr>");
+                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_child'><div style=\"float:left\"><a tabindex=\"-1\" href=\"javascript:void(0)\" style=\"font-weight:bold;\"title=\""+topElement+" submenu: "+subElement+"\"><span style=\"font-weight:normal\">submenu: </span>"+subElement+"</a></div><div style=\"float:right\"><input type=\"checkbox\" title=\"Remove "+topElement+" submenu: "+subElement+" from menu\" class=\""+subElement+"\" "+booleanToChecked(isHidden)+"  name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></div></td><td class='ag_admin_menu_child2' ><input type=\"text\" title=\"Rename submenu item "+subElement+" with this value\" class=\""+subElement+"\" size=\"47\" value=\""+agca_escapeHTMLChars(sub_item_text_value)+"\" name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></td></tr>");
                 counter++;
             }
             //if top element
@@ -226,10 +226,10 @@ function createEditMenuPageV35(checkboxes,textboxes){
                 if(textboxes ==""){	
                     top_item_text_value = topElement;
                 }else{
-                    top_item_text_value = textboxes[counter][1];
+                    top_item_text_value = textboxes[counter][1];					
                     isHidden = checkboxes[counter][1];
-                }	
-                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_parent'><br /><span class=\"agcaMenuEditorPlusMinus\"><span class=\"plus\">+</span><span class=\"minus\">-</span></span><a tabindex=\"0\" href=\"javascript:void(0)\" >" + topElement +"</a><div style=\"float:right\"><input title=\"Remove "+topElement+" from menu\" class=\""+jQuery(this).attr("id")+"\" type=\"checkbox\" "+booleanToChecked(isHidden)+" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></div></td><td class='ag_admin_menu_parent2' ><input title=\"Rename "+topElement+" with this value\" type=\"text\" class=\""+jQuery(this).attr("id")+"\" size=\"47\" value=\""+top_item_text_value+"\" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></td></tr>");
+                }					
+                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_parent'><br /><span class=\"agcaMenuEditorPlusMinus\"><span class=\"plus\">+</span><span class=\"minus\">-</span></span><a tabindex=\"0\" href=\"javascript:void(0)\" >" + topElement +"</a><div style=\"float:right\"><input title=\"Remove "+topElement+" from menu\" class=\""+jQuery(this).attr("id")+"\" type=\"checkbox\" "+booleanToChecked(isHidden)+" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></div></td><td class='ag_admin_menu_parent2' ><input title=\"Rename "+topElement+" with this value\" type=\"text\" class=\""+jQuery(this).attr("id")+"\" size=\"47\" value=\""+agca_escapeHTMLChars(top_item_text_value)+"\" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></td></tr>");
                 counter++;
             }			
             
@@ -599,8 +599,8 @@ function processData(){
         if(jQuery(this).parent().hasClass('ag_admin_menu_parent2')){
             topMarker="<-TOP->";
         }
-        array += "\"" + topMarker  + jQuery(this).attr('class') + "\" : ";
-        array += "\"" + jQuery(this).val() + "\"";
+        array += "\"" + topMarker + jQuery(this).attr('class') + "\" : ";
+        array += "\"" + agca_escapeChars(jQuery(this).val()) + "\"";
         firstElement = false;			
     });
     array += "}";
@@ -610,6 +610,7 @@ function processData(){
     }else{
         jQuery('#ag_edit_adminmenu_json').val('');						
     }
+	//console.clear();
     //console.log(array);
     //serialize buttons
     array = "{";
@@ -653,6 +654,18 @@ function processData(){
     if(!isSettingsImport){
         jQuery('#ag_colorizer_json').val(array);                
     }    
+}
+
+function agca_escapeHTMLChars(str){
+	return str
+		.replace(/&/g, '&amp;')
+		.replace(/'/g, '&#39;')
+		.replace(/"/g, '&quot;');		
+}
+
+function agca_escapeChars(str){
+	return str.replace(/[\/\\\"\']/g, "\\$&");
+	//return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 }
 
 /*C O L O R I Z E R*/

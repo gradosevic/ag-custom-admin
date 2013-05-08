@@ -159,12 +159,15 @@ td.ag_admin_menu_parent:hover{
     padding: 3px 10px;
     background-color:#ffffff;
 }    */
-#agca_form input[type=button],button{
-    background-color:#275928;
-    color: #ffffff;
+#agca_form input[type=button],button{    
+	background-color: #275928;
+    border: 1px solid #275928;
+    color: #FFFFFF;
+    padding: 5px 10px;
 }
 #agca_form input[type=button]:hover{
     background-color:#e8fae5;
+	border: 1px solid #aaa;	
     color:green;
     cursor:pointer;
 }
@@ -190,6 +193,20 @@ td.ag_admin_menu_parent:hover{
 }
 #agca_form #ag_add_adminmenu input[type=text]{
     width:300px;
+}
+#agca_form input#save_plugin_settings{
+	background: none repeat scroll 0 0 #275928;
+    font-weight: bold;
+    height: 39px;
+    padding: 4px;
+    width: 130px;
+	border:1px solid #aaaaaa !important;
+	text-shadow: none !important;
+	box-shadow: none !important;
+}
+#agca_form input#save_plugin_settings:hover{
+	background-color:#E8FAE5 !important;
+	color:#275928 !important;
 }
 #agca_form input#save_plugin_settings[type="button"]:hover{
 	background-color:#ffffff;

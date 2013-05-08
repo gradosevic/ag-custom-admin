@@ -117,6 +117,8 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 * Custom WordPress admin title. Using custom title templates
 * Added option for removing blog title from top bar
 * Fixed missaligned menu when using custom content types plugins
+* Fixed bug "Save button does not work" caused by unescaped characters in footer text and custom button names
+* Updated AGCA buttons styles
 
 = 1.2.7 =
 * WordPress 3.5 compatible

@@ -979,7 +979,7 @@ try
 					<?php	$checkboxes = $this->jsonMenuArray(get_option('ag_edit_adminmenu_json'),'0');	?>
 
 					var checkboxes = <?php echo "[".$checkboxes."]"; ?>;
-
+					
 					<?php	$textboxes = $this->jsonMenuArray(get_option('ag_edit_adminmenu_json'),'1');	?>
 					var textboxes = <?php echo "[".$textboxes."]"; ?>;
 					
@@ -1079,8 +1079,8 @@ try
 					<?php if(get_option('agca_footer_left_hide')==true){ ?>											
 								jQuery("#footer-left").css("display","none");
 					<?php } ?>
-					<?php if(get_option('agca_footer_right')!=""){ ?>												
-								jQuery("#footer-upgrade").html('<?php echo get_option('agca_footer_right'); ?>');
+					<?php if(get_option('agca_footer_right')!=""){ ?>
+								jQuery("#footer-upgrade").html('<?php echo addslashes(get_option('agca_footer_right')); ?>');
 					<?php } ?>
 					<?php if(get_option('agca_footer_right_hide')==true){ ?>											
 								jQuery("#footer-upgrade").css("display","none");
@@ -1265,8 +1265,6 @@ try
 																	i++;
 																}						
 														};
-													}else{
-														//i++;
 													}												
 												}
 												//console.log(subMenus);					
@@ -2486,8 +2484,8 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
                                                                                 </table>
                                                 </div>
 				<br /><br /><br />
-				<p class="submit">
-				<input type="button" id="save_plugin_settings" title="Save changes button" class="button-primary" value="<?php _e('Save Changes') ?>" onClick="savePluginSettings()" />
+				<p class="submit">				
+				<input type="button" id="save_plugin_settings" style="padding:0px" title="Save AG Custom Admin configuration" class="button-primary" value="<?php _e('Save Changes') ?>" onClick="savePluginSettings()" />
 				</p>        
                                 
 			</form>
