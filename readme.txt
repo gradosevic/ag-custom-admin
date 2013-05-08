@@ -101,7 +101,7 @@ Go to browser's console and see if there are any errors. Try to locate them. If 
 
 = Plugin does not work =
 Try clearing browser's cache. If that does not work, go to browser's console and see if there are any errors. Try to locate them. If you can't fix error by yourself, post it back to plugin's support page. When trying to locate the problem, the best way is to disable other plugins, because there could be a conflict with them. If there is a conflict with other plugin, it can be found by disabling one by one plugin, until the problem is solved.
-
+ 
 
 == Screenshots ==
 
