@@ -533,6 +533,25 @@ class AGCA{
 		return $version;
 	}
 	
+	function finalErrorCheck(){
+		?>
+		function AGCAErrorPage(){
+			if(document.getElementsByTagName('html')[0].style.visibility == ""){
+			var txt = "";
+				txt += 'AG Custom Admin Error\n\n\n';
+				txt += 'AG Custom Admin is unable to correctly process this page. Probably there are some errors thrown from some of the installed plugins or templates.\n\n\n';
+				txt += 'To resolve this issue please:\n\n';
+				txt += '* Check browser\'s console for errors. Analyse .js script location which throws the error. Location of the script can give you more information about where is the source of the problem. Usualy it is a location of a plugin or a template. If there are more than one error, usualy the first one is the one which caused this problem.\n\n';
+				txt += '* If you can\'t access your login page, please disable JavaScript in your browser. After you log in, you can remove or fix problematic plugin, and re-enable JavaScript again.\n\n';
+				txt += '* If you can\'t find the source of the problem by yourself, please post this error to AGCA WordPress.org support page(http://wordpress.org/extend/plugins/ag-custom-admin/) or to AGCA support page(http://agca.argonius.com/ag-custom-admin/)';
+				txt += '\n\nThank you.';
+				alert(txt);
+			}
+		}
+		window.setTimeout(AGCAErrorPage,4000);
+		<?php
+	}
+	
 	function print_page()
 	{
 	if($this->isGuest()){
@@ -940,6 +959,7 @@ class AGCA{
 ?>	
 <script type="text/javascript">
 document.write('<style type="text/css">html{visibility:hidden;}</style>');
+<?php $this->finalErrorCheck(); ?>
 var wpversion = "<?php echo $wpversion; ?>";
 var agca_version = "<?php echo $this->agca_version; ?>";
 var errors = false;
@@ -1325,8 +1345,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 	}  ?>
 
                       
- /* ]]> */ 
-
+ /* ]]> */   
 </script>
 		<style type="text/css">
 			.underline_text{
@@ -1350,10 +1369,11 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 		$wpversion = $this->get_wp_version();
 	?>	
 		
-	     <script type="text/javascript">
-		 document.write('<style type="text/css">html{display:none;}</style>');
+	     <script type="text/javascript">		 
+		 document.write('<style type="text/css">html{visibility:hidden;}</style>');
+		 <?php $this->finalErrorCheck(); ?>
 		 var agca_version = "<?php echo $this->agca_version; ?>";
-		 var wpversion = "<?php echo $wpversion; ?>";	
+		 var wpversion = "<?php echo $wpversion; ?>";
                  var isSettingsImport = false;
                  var agca_context = "login";
         /* <![CDATA[ */
@@ -1472,11 +1492,12 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 			 }finally{				
 						
 				jQuery('html').show();
-				jQuery('html').css("display","block");
+				jQuery('html').css('visibility','visible');	
 																
 			 }
             });
         /* ]]> */
+		 
         </script>
 	<?php 	
 	}
