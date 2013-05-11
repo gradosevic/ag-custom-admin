@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://agca.argonius.com/ag-custom-admin/category/ag_custom_admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 Author: Argonius
-Version: 1.2.7.1
+Version: 1.2.7.2
 Author URI: http://www.argonius.com/
 
 	Copyright 2011. Argonius (email : info@argonius.com)
@@ -22,9 +22,6 @@ Author URI: http://www.argonius.com/
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-//require_once('/../../../../../FirePHPCore/lib/FirePHPCore/fb.php'); 
-//fb($_POST);
 	
 $agca = new AGCA();
 
@@ -52,7 +49,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
                 //fb($this->colorizer);
-		$this->agca_version = "1.2.7.1";
+		$this->agca_version = "1.2.7.2";
 	}
 	// Add donate and support information
 	function jk_filter_plugin_links($links, $file)
@@ -1094,7 +1091,7 @@ try
 
 					
 					<?php if(get_option('agca_footer_left')!=""){ ?>												
-								jQuery("#footer-left").html('<?php echo get_option('agca_footer_left'); ?>');
+								jQuery("#footer-left").html('<?php echo addslashes(get_option('agca_footer_left')); ?>');
 					<?php } ?>	
 					<?php if(get_option('agca_footer_left_hide')==true){ ?>											
 								jQuery("#footer-left").css("display","none");
@@ -1865,10 +1862,10 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</tr> 
 							<tr valign="center">
 								<th scope="row">
-									<label title="Replaces text 'Thank you for creating with WordPress. | Documentation | Feedback' with custom text" for="agca_footer_left">Change footer text</label>
+									<label title="Replaces text 'Thank you for creating with WordPress' with custom text" for="agca_footer_left">Change footer text</label>
 								</th>
 								<td>
-									<textarea title="Replaces text 'Thank you for creating with WordPress. | Documentation | Feedback' with custom text" rows="5" name="agca_footer_left" cols="40"><?php echo htmlspecialchars(get_option('agca_footer_left')); ?></textarea>
+									<textarea title="Replaces text 'Thank you for creating with WordPress' with custom text" rows="5" name="agca_footer_left" cols="40"><?php echo htmlspecialchars(get_option('agca_footer_left')); ?></textarea>
 								</td>						
 							</tr> 
 							<tr valign="center">

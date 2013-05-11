@@ -113,6 +113,9 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 
 == Changelog ==
 
+= 1.2.7.2 =
+* Escaping characters (like single quote) in footer text
+
 = 1.2.7.1 =
 * Removed AGCA script on site pages automaticaly, if user is not logged in
 * Custom WordPress admin title. Using custom title templates
@@ -278,6 +281,9 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.2.7.2 =
+Bug fixes.
 
 = 1.2.7.1 =
 Bug fixes. Removing admin bar site title. Custom page titles in WP admin.
