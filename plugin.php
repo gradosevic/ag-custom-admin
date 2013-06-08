@@ -125,9 +125,13 @@ class AGCA{
 		<?php
 	}
 	
+	function agca_enqueue_scripts() {			
+		wp_enqueue_script('jquery'); 
+	}
+	
 	function reloadScript(){
-            if(in_array($GLOBALS['pagenow'], array('wp-login.php', 'wp-register.php')) || WP_ADMIN == 1){              
-                wp_enqueue_script('jquery');              
+            if(in_array($GLOBALS['pagenow'], array('wp-login.php', 'wp-register.php')) || WP_ADMIN == 1){              			
+				add_action('init', array(&$this,'agca_enqueue_scripts'));				
             }             
 	}
 	
@@ -531,21 +535,22 @@ class AGCA{
 	}
 	
 	function finalErrorCheck(){
-		?>
+		?>		
 		function AGCAErrorPage(){
 			if(document.getElementsByTagName('html')[0].style.visibility == ""){
-			var txt = "";
-				txt += 'AG Custom Admin Error\n\n\n';
-				txt += 'AG Custom Admin is unable to correctly process this page. Probably there are some errors thrown from some of the installed plugins or templates.\n\n\n';
-				txt += 'To resolve this issue please:\n\n';
-				txt += '* Check browser\'s console for errors. Analyse .js script location which throws the error. Location of the script can give you more information about where is the source of the problem. Usualy it is a location of a plugin or a template. If there are more than one error, usualy the first one is the one which caused this problem.\n\n';
-				txt += '* If you can\'t access your login page, please disable JavaScript in your browser. After you log in, you can remove or fix problematic plugin, and re-enable JavaScript again.\n\n';
-				txt += '* If you can\'t find the source of the problem by yourself, please post this error to AGCA WordPress.org support page(http://wordpress.org/extend/plugins/ag-custom-admin/) or to AGCA support page(http://agca.argonius.com/ag-custom-admin/)';
-				txt += '\n\nThank you.';
-				alert(txt);
+			var txt = "";				
+				txt += '</br></br>AG Custom Admin is unable to correctly process this page. Probably there are some errors thrown from some of the installed plugins or templates.</br></br>';
+				txt += 'To resolve this issue please:</br><ul style="list-style-type:disc;list-style-position: inside;">';
+				txt += '<li><strong>Check browser\'s console for errors</strong>: Please analyse .js script location which throws the error. Location of the script can give you more information about where is the source of the problem. Usualy it is a location of a plugin or a template. If there are several errors, usualy the first one is the one which caused this problem, and you should try to resolve that one first.</li>';
+				txt += '<li><strong>Find the source of the problem</strong>: Please try disabling plugins/themes one by one, until the problem is solved. If you disable some plugin and the problem is solved after that, most likely is that plugin does not work well.</li>';
+				txt += '<li><strong>Can\'t access your login page?</strong> Please disable JavaScript in your browser. After you log in, you can remove or fix problematic plugin, and re-enable JavaScript again.</li>';
+				txt += '<li><strong>Still no progress?</strong> If you can\'t find the source of the problem by yourself, please check our <a target="_blank" href="http://agca.argonius.com/ag-custom-admin/ag_custom_admin/ag-custom-admin-js-error">support page for this error</a>. You can check also our <a target="_blank" href="http://wordpress.org/extend/plugins/ag-custom-admin/">AGCA WordPress.org support page</a></li>';
+				txt += '</ul></br>Thank you';				
+				document.body.innerHTML = '<div style="border: 1px solid gray;width:500px;height:auto;color:gray;background:white;margin:10px;margin-left:auto;margin-right:auto;padding: 20px;"><strong>AG Custom Admin JS Error</strong></br></br>Please try again after clearing browser\'s cache and reloading the page. If problem persists, please contact your administrator.</br></br><a href="#" onclick="document.getElementById(\'agca_more_info_for_admin\').style.display = \'block\'">Debug Info (for site administrator)</a><span style="display:none" id="agca_more_info_for_admin">'+txt+'</span></div>';				
 			}
-		}
-		window.setTimeout(AGCAErrorPage,4000);
+		}		
+		window.setTimeout(AGCAErrorPage, 15000);	
+		
 		<?php
 	}
 	
@@ -1322,7 +1327,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 	errors = "AGCA - ADMIN ERROR: " + err.name + " / " + err.message;
 	alert(errors);		
  }finally{
-	jQuery('html').css('visibility','visible');	
+	jQuery('html').css('visibility','visible');		
 	if(errors){
 		jQuery("#agca_form").html('<div style="height:500px"><p style="color:red"><strong>WARNING:</strong> AG Custom Admin stops its execution because of an error. Please resolve this error before continue: <br /><br /><strong>' + errors + '</strong></p></div>');
 	}	
