@@ -7,7 +7,7 @@ Author: Argonius
 Version: 1.2.7.2
 Author URI: http://www.argonius.com/
 
-	Copyright 2011. Argonius (email : info@argonius.com)
+	Copyright 2013. Argonius (email : info@argonius.com)
  
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -1455,7 +1455,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 						jQuery('label,h1,h2,h3,h4,h5,h6,a,p,.form-table th,.form-wrap label').css('text-shadow','none');
 						
 						if(isWPHigherOrEqualThan("3.3")){
-							jQuery("body.login").css("background","<?php echo $this->colorizer['login_color_background'];?>");
+							jQuery("body.login, html").css("background","<?php echo $this->colorizer['login_color_background'];?>");
 						}else{
 						
 							<?php
@@ -1526,7 +1526,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 			<table>
 				<tr valign="left" >
 								<th scope="row">
-                                                                    <label title="If checked, all users will be affected with these changes, except admin. Not checked = apply for all</br></br><strong>Q</strong>: Who is administrator?</br><strong>A</strong>: Go to <i>Advanced</i> tab and change capability option to define admin users." for="agca_role_allbutadmin">Do not apply these settings for Admin&nbsp;&nbsp;</label>
+                                                                    <label title="If checked, all users will be affected with these changes, except admin. Not checked = apply for all</br></br><strong>Q</strong>: Who is administrator?</br><strong>A</strong>: Go to <i>Advanced</i> tab and change capability option to define admin users." for="agca_role_allbutadmin">Do not apply customizations for Administrator&nbsp;&nbsp;</label>
 								</th>
 								<td><input title="If checked, all users will be affected with these changes, except admin. Not checked = apply for all" type="checkbox" name="agca_role_allbutadmin" value="true" <?php if (get_option('agca_role_allbutadmin')==true) echo 'checked="checked" '; echo get_option('agca_role_allbutadmin'); ?> />								
 								</td>
