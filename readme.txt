@@ -113,6 +113,9 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 
 == Changelog ==
 
+= 1.2.7.3 =
+* Illegal string offset 'value'
+
 = 1.2.7.2 =
 * Escaping characters (like single quote) in footer text
 * Fixed AGCA alert message issue
