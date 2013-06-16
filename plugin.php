@@ -446,12 +446,8 @@ class AGCA{
 		$class="";
                 $wpversion = $this->get_wp_version();
 		$href = $arr["value"];
-		$target =$arr["target"];;
-		if($name == 'AG Custom Admin'){
-			$class="agca_button_only";
-			$target = "_self";
-			$href = $arr;
-		}
+		$target =$arr["target"];
+		
                 $button ="";
                 
                 if($wpversion >=3.5 ){
@@ -1217,7 +1213,7 @@ try
                                                              
                                                         <?php /*Only admin see button*/
 							if (current_user_can($this->admin_capability())){ ?>							
-								jQuery('#adminmenu').append('<?php echo $this->agca_create_admin_button('AG Custom Admin','tools.php?page=ag-custom-admin/plugin.php'); ?>');
+								jQuery('#adminmenu').append('<?php echo $this->agca_create_admin_button('AG Custom Admin',array('value'=>'tools.php?page=ag-custom-admin/plugin.php','target'=>'_self')); ?>');
 							<?php } ?>
 													
 							<?php /*EDIT MENU ITEMS*/?>
