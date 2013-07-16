@@ -78,5 +78,7 @@
                 
                 delete_option( 'agca_custom_js' );
                 delete_option( 'agca_custom_css' );
+				
+				delete_option( 'agca_disablewarning' );				
 ?>
    

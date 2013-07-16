@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://agca.argonius.com/ag-custom-admin/category/ag_custom_admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 Author: Argonius
-Version: 1.2.7.2
+Version: 1.2.7.3
 Author URI: http://www.argonius.com/
 
 	Copyright 2013. Argonius (email : info@argonius.com)
@@ -49,7 +49,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
                 //fb($this->colorizer);
-		$this->agca_version = "1.2.7.2";
+		$this->agca_version = "1.2.7.3";
 	}
 	// Add donate and support information
 	function jk_filter_plugin_links($links, $file)
@@ -201,6 +201,7 @@ class AGCA{
 		register_setting( 'agca-options-group', 'agca_login_register_href' );
 		register_setting( 'agca-options-group', 'agca_login_lostpassword_remove' );
 		register_setting( 'agca-options-group', 'agca_admin_capability' );		
+		register_setting( 'agca-options-group', 'agca_disablewarning' );		
 		
 
 
@@ -247,9 +248,13 @@ class AGCA{
                             }
                     }else if(isset($_POST['_agca_export_settings']) && $_POST['_agca_export_settings']=="true"){
                             $this->exportSettings();  
-                    }else{
-                       
                     }    
+                }
+				
+				if(isset($_GET['agca_action'])){
+						if($_GET['agca_action'] == "disablewarning"){
+							update_option('agca_disablewarning', true);
+						}                       
                 }
 	}
 
@@ -335,6 +340,7 @@ class AGCA{
                 'agca_custom_js',
                 'agca_custom_css',
                 'agca_colorizer_turnonoff',
+				'agca_disablewarning',
             ); 
         }  
         
@@ -533,7 +539,8 @@ class AGCA{
 	function finalErrorCheck(){
 		?>		
 		function AGCAErrorPage(){
-			if(document.getElementsByTagName('html')[0].style.visibility == ""){
+			if(document.getElementsByTagName('html')[0].style.visibility == ""){		
+			var ddf ="dfsfsfsfs";
 			var txt = "";				
 				txt += '</br></br>AG Custom Admin is unable to correctly process this page. Probably there are some errors thrown from some of the installed plugins or templates.</br></br>';
 				txt += 'To resolve this issue please:</br><ul style="list-style-type:disc;list-style-position: inside;">';
@@ -541,13 +548,17 @@ class AGCA{
 				txt += '<li><strong>Find the source of the problem</strong>: Please try disabling plugins/themes one by one, until the problem is solved. If you disable some plugin and the problem is solved after that, most likely is that plugin does not work well.</li>';
 				txt += '<li><strong>Can\'t access your login page?</strong> Please disable JavaScript in your browser. After you log in, you can remove or fix problematic plugin, and re-enable JavaScript again.</li>';
 				txt += '<li><strong>Still no progress?</strong> If you can\'t find the source of the problem by yourself, please check our <a target="_blank" href="http://agca.argonius.com/ag-custom-admin/ag_custom_admin/ag-custom-admin-js-error">support page for this error</a>. You can check also our <a target="_blank" href="http://wordpress.org/extend/plugins/ag-custom-admin/">AGCA WordPress.org support page</a></li>';
-				txt += '</ul></br>Thank you';				
+				txt += '</ul></br></br>Thank you';				
+				txt += '</ul></br><a href="<?php echo $_SERVER['PHP_SELF']."?page=ag-custom-admin/plugin.php&agca_action=disablewarning"; ?>" style="color:red;float:right;text-decoration: none;margin-top:-15px;" onclick="return confirm(\'<?php echo "Are you sure you want to disable this message?&nbsp;&nbsp;&nbsp;&nbsp;Please be aware that in case of errors your page might become blank, and you need to check browsers console to find the errors."; ?>\');" >Never show this message again</a>';
 				document.body.innerHTML = '<div style="border: 1px solid gray;width:500px;height:auto;color:gray;background:white;margin:10px;margin-left:auto;margin-right:auto;padding: 20px;"><strong>AG Custom Admin JS Error</strong></br></br>Please try again after clearing browser\'s cache and reloading the page. If problem persists, please contact your administrator.</br></br><a href="#" onclick="document.getElementById(\'agca_more_info_for_admin\').style.display = \'block\'">Debug Info (for site administrator)</a><span style="display:none" id="agca_more_info_for_admin">'+txt+'</span></div>';				
 			}
+		}	
+		<?php			
+		if(get_option('agca_disablewarning')==""){
+			?>
+			     window.setTimeout(AGCAErrorPage, 15000);						
+			<?php			
 		}		
-		window.setTimeout(AGCAErrorPage, 15000);	
-		
-		<?php
 	}
 	
 	function print_page()
@@ -704,7 +715,7 @@ class AGCA{
 
 
                                 if(isWPHigherOrEqualThan("3.3")){
-                                        var img_url = '<?php echo get_option('agca_header_logo_custom'); ?>';							
+                                        var img_url = '<?php echo addslashes(get_option('agca_header_logo_custom')); ?>';							
 
                                         advanced_url = img_url;
                                         image = jQuery("<img />").attr("src",advanced_url);								
@@ -714,7 +725,7 @@ class AGCA{
                                 }else{
                                         jQuery("#wphead img#header-logo").attr('src','');
                                         jQuery("#wphead img#header-logo").hide(); 							
-                                        var img_url = '<?php echo get_option('agca_header_logo_custom'); ?>';							
+                                        var img_url = '<?php echo addslashes(get_option('agca_header_logo_custom')); ?>';							
                                         advanced_url = img_url+ "?" + new Date().getTime();
                                         image = jQuery("<img />").attr("src",advanced_url);								
                                         jQuery(image).load(function() {	
@@ -759,10 +770,10 @@ class AGCA{
                                 jQuery("#wphead #site-heading").css("display","none");
                 <?php } ?>
                 <?php if(get_option('agca_custom_site_heading')!=""){ ?>	
-                                jQuery("#wphead #site-heading").after('<h1><?php echo get_option('agca_custom_site_heading'); ?></h1>');
+                                jQuery("#wphead #site-heading").after('<h1><?php echo addslashes(get_option('agca_custom_site_heading')); ?></h1>');
                                 //3.3FIX
                                 if(isWPHigherOrEqualThan("3.3")){
-                                        jQuery("#wp-admin-bar-site-name a:first").html('<?php echo get_option('agca_custom_site_heading'); ?>');
+                                        jQuery("#wp-admin-bar-site-name a:first").html('<?php echo addslashes(get_option('agca_custom_site_heading')); ?>');
                                 }
                 <?php } ?>	                           
                 <?php if(get_option('agca_header')==true && $this->context =='admin'){ 										
@@ -1387,7 +1398,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							jQuery("#backtoblog").css("display","none");
 					<?php } ?>	
 					<?php if(get_option('agca_login_banner_text')==true){ ?>
-							jQuery("#backtoblog").html('<?php echo get_option('agca_login_banner_text'); ?>');
+							jQuery("#backtoblog").html('<?php echo addslashes(get_option('agca_login_banner_text')); ?>');
 					<?php } ?>
 					<?php if(get_option('agca_login_photo_url')==true){ ?>								
 							advanced_url = "<?php echo get_option('agca_login_photo_url'); ?>";
