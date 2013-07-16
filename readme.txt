@@ -114,7 +114,9 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 == Changelog ==
 
 = 1.2.7.3 =
-* Illegal string offset 'value'
+* Fixed single quote character escaping on several settings
+* Added option for removing AGCA JS warning message
+* Fixed "Illegal string offset" server error
 
 = 1.2.7.2 =
 * Escaping characters (like single quote) in footer text
@@ -288,6 +290,8 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 
 == Upgrade Notice ==
 
+= 1.2.7.3 =
+Bug fixes.
 
 = 1.2.7.2 =
 Bug fixes. Preparation for 3.6 WordPress
