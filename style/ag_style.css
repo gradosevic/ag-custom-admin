@@ -161,13 +161,13 @@ td.ag_admin_menu_parent:hover{
 }    */
 #agca_form input[type=button],button{    
 	background-color: #275928;
-    border: 1px solid #275928;
+    border: 1px solid #444;
     color: #FFFFFF;
     padding: 5px 10px;
 }
 #agca_form input[type=button]:hover{
     background-color:#e8fae5;
-	border: 1px solid #aaa;	
+	border: 1px solid #E8FAE5;	
     color:green;
     cursor:pointer;
 }
