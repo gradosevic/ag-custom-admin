@@ -78,6 +78,8 @@ Here is the list of options:
 
 **IMPORTANT**: AG Custom Admin should always be updated before updating WordPress. If you are unable to login or you have any other problems, please check our [FAQ](http://wordpress.org/extend/plugins/ag-custom-admin/faq/) and [SUPPORT](http://wordpress.org/support/plugin/ag-custom-admin) page.
 
+Check [POSITIVE](http://agca.argonius.com/ag-custom-admin/feedback/ag-custom-admin-positive-feedback) and [NEGATIVE](http://agca.argonius.com/ag-custom-admin/feedback/ag-custom-admin-negative-feedback) comments of our users.
+
 For more information about the plugin please check [PLUGIN WEBSITE](http://agca.argonius.com/ag-custom-admin/)
 
 == Installation ==
