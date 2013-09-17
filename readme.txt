@@ -115,6 +115,10 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 
 == Changelog ==
 
+= 1.2.7.4 =
+* Removing submenu box on mouseover, if all submenu items are hidden (Fixed empty box issue)
+* Added WYSIWYG editor for Dashboard page
+
 = 1.2.7.3 =
 * Fixed single quote character escaping on several settings
 * Added option for removing AGCA JS warning message
@@ -291,6 +295,9 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.2.7.4 =
+Few improvements.
 
 = 1.2.7.3 =
 Bug fixes.

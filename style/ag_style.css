@@ -212,3 +212,15 @@ td.ag_admin_menu_parent:hover{
 	background-color:#ffffff;
 	color:#ffffff;
 }
+
+/*editor style fix*/
+#agca_form .agca_editor input[type="button"], button{
+	color: black;
+}
+
+#agca_form .agca_editor textarea{
+	width: 100%;
+}
+.agca_editor{
+	width:600px;
+}

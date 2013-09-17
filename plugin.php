@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://agca.argonius.com/ag-custom-admin/category/ag_custom_admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 Author: Argonius
-Version: 1.2.7.3
+Version: 1.2.7.4
 Author URI: http://www.argonius.com/
 
 	Copyright 2013. Argonius (email : info@argonius.com)
@@ -49,7 +49,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
                 //fb($this->colorizer);
-		$this->agca_version = "1.2.7.3";
+		$this->agca_version = "1.2.7.4";
 	}
 	// Add donate and support information
 	function jk_filter_plugin_links($links, $file)
@@ -104,7 +104,10 @@ class AGCA{
                             ?>
                         </script>
 			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/ag_style.css?ver=<?php echo $this->agca_version; ?>" />                       
-			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>	                        	
+			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>
+			<?php if($this->context == "admin"){ ?>
+				<script type="text/javascript" src="../wp-includes/js/tinymce/tiny_mce.js"></script>			
+			<?php } ?>
                         
                        <?php
                         if(!((get_option('agca_role_allbutadmin')==true) and  (current_user_can($this->admin_capability())))){	
@@ -343,6 +346,20 @@ class AGCA{
 				'agca_disablewarning',
             ); 
         }  
+		
+		function getTextEditor($name){
+				$settings = array(
+				'textarea_name' => $name,				
+				'media_buttons' => true,				
+				'tinymce' => array(							
+					'theme_advanced_buttons1' => 'formatselect,|,bold,italic,underline,|,' .
+						'bullist,blockquote,|,justifyleft,justifycenter' .
+						',justifyright,justifyfull,|,link,unlink,|' .
+						',spellchecker,wp_fullscreen,wp_adv'
+				)
+			);
+			wp_editor( get_option($name), $name, $settings );
+		}
         
         function importSettings($settings){
             $exploaded = explode("|^|^|", $settings);
@@ -1269,9 +1286,14 @@ try
 															
 															i++;
 															var selector = '#' + topmenuitem + ' ul li';
-															//console.log(i+" "+checkboxes);													
-																while((i<checkboxes.length) && (checkboxes[i][0].indexOf("<-TOP->") < 0)){															
+															var hoverPopupSelector = '#' + topmenuitem + ' .wp-submenu.wp-submenu-wrap';
+															//console.log(i+" "+checkboxes);	
+																var allSubmenuItemsHidden = true;	
+																//console.log(selector);															
+																while((i<checkboxes.length) && (checkboxes[i][0].indexOf("<-TOP->") < 0)){	
+																	
 																	jQuery(selector).each(function(){ //loop through all submenus	
+																	
                                                                                                                                             var currentItemText = "";                                                                                                                                           
                                                                                                                                             
                                                                                                                                              <?php if($wpversion >=3.5 ){ ?>
@@ -1282,17 +1304,23 @@ try
                                                                                                                                                 currentItemText = jQuery(this).text();
                                                                                                                                             <?php } ?>
 
-                                                                                                                                             //console.log("*"+checkboxes[i][0]+":"+withoutNumber+"*");
-																		if(checkboxes[i][0] == currentItemText){
-                                                                                                                                                   
-																			if((checkboxes[i][1] == "true") || (checkboxes[i][1] == "checked")){
-																				jQuery(this).addClass('noclass');
+                                                                                                                                             //console.log("*"+checkboxes[i][0]);
+																		if(checkboxes[i][0] == currentItemText){                                                                                                                                                   
+																			if((checkboxes[i][1] == "true") || (checkboxes[i][1] == "checked")){																			
+																				jQuery(this).addClass('noclass');	
+																			}else{
+																				allSubmenuItemsHidden = false;
 																			}
-																			jQuery(this).find('a').text(textboxes[i][1]);																			
+																			jQuery(this).find('a').text(textboxes[i][1]);																		
 																		}
 																	});
+																	
 																	i++;
-																}						
+																}	
+																if(allSubmenuItemsHidden){
+																	jQuery(hoverPopupSelector).hide();
+																}
+															//console.log(allSubmenuItemsHidden);																
 														};
 													}												
 												}
@@ -1926,8 +1954,8 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								<th scope="row">
 									<label title="Adds custom text (or HTML) between heading and widgets area on Dashboard page" for="agca_dashboard_text_paragraph">Add custom Dashboard content<br> <em>(text or HTML content)</em></label>
 								</th>
-								<td>
-								<textarea title="Adds custom text or HTML between heading and widgets area on Dashboard page" rows="5" name="agca_dashboard_text_paragraph" cols="40"><?php echo htmlspecialchars(get_option('agca_dashboard_text_paragraph')); ?></textarea>
+								<td class="agca_editor">								
+								<?php $this->getTextEditor('agca_dashboard_text_paragraph'); ?>			
 								</td>
 							</tr>
 							<?php /* DEPRECATED 1.2
