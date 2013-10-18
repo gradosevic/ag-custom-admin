@@ -113,6 +113,12 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 
 == Changelog ==
 
+
+= 1.2.7.5 =
+* Better style for close button
+* Removed deprecated jQuery live function
+* Including jQuery migrate plugin on Advanced tab
+
 = 1.2.7.4 =
 * Removing submenu box on mouseover, if all submenu items are hidden (Fixed empty box issue)
 * Added WYSIWYG editor for Dashboard page
@@ -293,6 +299,9 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.2.7.5 =
+Better style for close button. Removed deprecated jQuery live function.
 
 = 1.2.7.4 =
 Few improvements.

@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://agca.argonius.com/ag-custom-admin/category/ag_custom_admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 Author: Argonius
-Version: 1.2.7.4
+Version: 1.2.7.5
 Author URI: http://www.argonius.com/
 
 	Copyright 2013. Argonius (email : info@argonius.com)
@@ -33,9 +33,8 @@ class AGCA{
         private $context = "";
         private $saveAfterImport = false;
 	public function __construct()
-	{           
-            
-                $this->reloadScript();
+	{              
+        $this->reloadScript();
             
 		add_filter('admin_title', array(&$this,'change_title'), 10, 2); 		
 		add_filter('plugin_row_meta', array(&$this,'jk_filter_plugin_links'), 10, 2);
@@ -49,7 +48,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
                 //fb($this->colorizer);
-		$this->agca_version = "1.2.7.4";
+		$this->agca_version = "1.2.7.5";
 	}
 	// Add donate and support information
 	function jk_filter_plugin_links($links, $file)
@@ -129,7 +128,12 @@ class AGCA{
 	}
 	
 	function agca_enqueue_scripts() {			
-		wp_enqueue_script('jquery'); 
+		wp_enqueue_script('jquery');
+		
+		if(get_option('agca_include_jquery_migrate') == 'true'){
+		wp_register_script('agca-jquery-migrate',trailingslashit(plugins_url(basename(dirname(__FILE__))))."script/jquery-migrate.js?ver=".$this->agca_version, array(), '1.2.1', true);
+		wp_enqueue_script( 'agca-jquery-migrate' );
+		}
 	}
 	
 	function reloadScript(){
@@ -223,7 +227,8 @@ class AGCA{
 		register_setting( 'agca-options-group', 'ag_edit_adminmenu_json' );
 		register_setting( 'agca-options-group', 'ag_add_adminmenu_json' );	
 		register_setting( 'agca-options-group', 'ag_colorizer_json' );	
-		register_setting( 'agca-options-group', 'agca_colorizer_turnonoff' );                
+		register_setting( 'agca-options-group', 'agca_colorizer_turnonoff' ); 
+		register_setting( 'agca-options-group', 'agca_include_jquery_migrate' );   		
                 
                 register_setting( 'agca-options-group', 'agca_custom_js' );
                 register_setting( 'agca-options-group', 'agca_custom_css' );                
@@ -343,6 +348,7 @@ class AGCA{
                 'agca_custom_js',
                 'agca_custom_css',
                 'agca_colorizer_turnonoff',
+				'agca_include_jquery_migrate',
 				'agca_disablewarning',
             ); 
         }  
@@ -802,9 +808,11 @@ class AGCA{
 
                 <?php } ?>	
                 <?php if((get_option('agca_header')==true)&&(get_option('agca_header_show_logout')==true)){ ?>									
-
+							<?php
+							$agca_logout_text = ((get_option('agca_logout')=="")?"Log Out":get_option('agca_logout'));
+							?>
                                 if(isWPHigherOrEqualThan("3.3")){	
-                                jQuery("#wpbody-content").prepend('<a href="../wp-login.php?action=logout" tabindex="10" style="float:right;margin-right:20px" class="ab-item">Log Out</a>');								
+                                jQuery("#wpbody-content").prepend('<a href="../wp-login.php?action=logout" tabindex="10" style="float:right;margin-right:20px" class="ab-item agca_logout_button"><?php echo $agca_logout_text; ?></a>');								
                                 }else{
                                         var clon ="";
                                         jQuery("div#user_info a").each(function(){
@@ -814,7 +822,7 @@ class AGCA{
                                         });
                                         if(clon !=""){
                                                 jQuery(clon).attr('style','float:right;padding:15px');	
-                                                jQuery(clon).html('<?php echo ((get_option('agca_logout')=="")?"Log Out":get_option('agca_logout')); ?>');	
+                                                jQuery(clon).html('<?php echo $agca_logout_text; ?>');	
                                         }													
                                         jQuery("#wphead").after(clon);
                                 }
@@ -2498,6 +2506,14 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 																						<td>
 																						</td>
 																					</tr> 
+																					<tr valign="center">
+																						<th scope="row">
+																							<label title="If you're using an older version of jQuery plugin which has some deprecated functions, please include this option to make plugin backward compatible with your WordPress." for="agca_include_jquery_migrate">Include jQuery migration script</label>
+																						</th>
+																						<td>					
+																							<input title="If you're using an older version of jQuery plugin which has some deprecated functions, please include this option to make plugin backward compatible with your WordPress." type="checkbox" name="agca_include_jquery_migrate" value="true" <?php if (get_option('agca_include_jquery_migrate')==true) echo 'checked="checked" '; ?> />
+																						</td>
+																					</tr>
 																					<tr valign="center">
 																					<td colspan="2">
 																						<br />

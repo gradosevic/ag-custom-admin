@@ -224,3 +224,12 @@ td.ag_admin_menu_parent:hover{
 .agca_editor{
 	width:600px;
 }
+.agca_logout_button{
+	background: none repeat scroll 0 0 #dddddd;
+    float: right;
+    font-size: 15px;
+    font-weight: bold;
+    margin-right: 20px;
+    padding: 10px;
+    text-decoration: none
+}

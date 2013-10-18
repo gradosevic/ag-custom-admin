@@ -380,10 +380,10 @@ function savePluginSettings(){
 }
 
 jQuery(document).ready(function(){     
-    jQuery('a.button_remove').live("click", function(){
+    jQuery('a.button_remove').on("click", function(){
         jQuery(this).parent().parent().remove();
     });		
-    jQuery('a.button_edit').live("click", function(){			
+    jQuery('a.button_edit').on("click", function(){			
         if(editingButtonNow == false){				
             var name = jQuery(this).parent().find('button').text();
             var url = jQuery(this).parent().find('button').attr('title');				
@@ -394,7 +394,7 @@ jQuery(document).ready(function(){
             reloadRemoveButtonEvents();
         }		
     });/*Save editing changes*/
-    jQuery('#ag_add_adminmenu_button_edit').live("click", function(){			
+    jQuery('#ag_add_adminmenu_button_edit').on("click", function(){			
         //alert(jQuery(this).parent().html());			
         var name = jQuery('#ag_add_adminmenu_name_edit').val();
         var url = jQuery('#ag_add_adminmenu_url_edit').val();
@@ -1055,7 +1055,7 @@ function isWPHigherOrEqualThan(targetVersion){
 
 //VALIDATION
 jQuery(document).ready(function() {
-    jQuery(".validateNumber").live('keydown',function(event) {
+    jQuery(".validateNumber").on('keydown',function(event) {
         // Allow only backspace and delete
         var limit = jQuery(this).attr('limit');
         var value = jQuery(this).val();
