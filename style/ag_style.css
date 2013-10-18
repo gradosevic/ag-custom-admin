@@ -231,5 +231,17 @@ td.ag_admin_menu_parent:hover{
     font-weight: bold;
     margin-right: 20px;
     padding: 10px;
-    text-decoration: none
+    text-decoration: none;
+    border-radius: 0 0 3px 3px;
+    border: 1px solid #BBBBBB;
+    border-top: none;   
+    margin-left: 6px;
+    margin-right: 20px;
+    padding: 6px 10px;
+}
+#ag_add_adminmenu button{
+	border: medium none;
+    border-radius: 4px;
+    color: #FFFFFF;
+    padding: 3px 7px;
 }

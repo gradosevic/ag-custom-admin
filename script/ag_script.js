@@ -380,10 +380,10 @@ function savePluginSettings(){
 }
 
 jQuery(document).ready(function(){     
-    jQuery('a.button_remove').on("click", function(){
+    jQuery('#ag_add_adminmenu').on("click", 'a.button_remove', function(){
         jQuery(this).parent().parent().remove();
     });		
-    jQuery('a.button_edit').on("click", function(){			
+    jQuery('#ag_add_adminmenu').on('click', 'a.button_edit', function(){			
         if(editingButtonNow == false){				
             var name = jQuery(this).parent().find('button').text();
             var url = jQuery(this).parent().find('button').attr('title');				
@@ -394,7 +394,7 @@ jQuery(document).ready(function(){
             reloadRemoveButtonEvents();
         }		
     });/*Save editing changes*/
-    jQuery('#ag_add_adminmenu_button_edit').on("click", function(){			
+    jQuery('#ag_add_adminmenu').on("click", '#ag_add_adminmenu_button_edit', function(){			
         //alert(jQuery(this).parent().html());			
         var name = jQuery('#ag_add_adminmenu_name_edit').val();
         var url = jQuery('#ag_add_adminmenu_url_edit').val();

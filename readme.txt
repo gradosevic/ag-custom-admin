@@ -113,6 +113,9 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 
 == Changelog ==
 
+= 1.2.7.6 =
+* Better style for close button
+* Fixed bugs when adding new admin menu buttons
 
 = 1.2.7.5 =
 * Better style for close button
@@ -299,6 +302,9 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.2.7.6 =
+Bug fixes. Better close button styles.
 
 = 1.2.7.5 =
 Better style for close button. Removed deprecated jQuery live function.
