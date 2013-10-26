@@ -245,3 +245,6 @@ td.ag_admin_menu_parent:hover{
     color: #FFFFFF;
     padding: 3px 7px;
 }
+.wp-admin.folded #sidebar_adminmenu_logo{
+    display:none;
+}
