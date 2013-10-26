@@ -3,8 +3,8 @@
     if( !defined( 'WP_UNINSTALL_PLUGIN' ) )
         exit ();
 
-                delete_option( 'agca_role_allbutadmin' );
-		delete_option( 'agca_screen_options_menu' );
+		delete_option(  'agca_role_allbutadmin' );
+		delete_option(  'agca_screen_options_menu' );
 		delete_option(  'agca_help_menu' );
 		delete_option(  'agca_logout' );
 		delete_option(  'agca_remove_your_profile' );
@@ -18,7 +18,7 @@
 		delete_option(  'agca_header_logo' );
 		delete_option(  'agca_header_logo_custom' );
 		delete_option(  'agca_wp_logo_custom' );	
-                delete_option(  'agca_wp_logo_custom_link' );
+        delete_option(  'agca_wp_logo_custom_link' );
 		delete_option(  'agca_site_heading' );
 		delete_option(  'agca_custom_site_heading' );
 		delete_option(  'agca_update_bar' );
@@ -33,13 +33,13 @@
 		delete_option( 'agca_login_photo_remove' );
 		delete_option( 'agca_login_photo_url' );
 		delete_option( 'agca_login_photo_href' );
-                delete_option( 'agca_login_round_box' );
+        delete_option( 'agca_login_round_box' );
 		delete_option( 'agca_login_round_box_size' );		
 	
 		delete_option(  'agca_dashboard_icon' );
 		delete_option(  'agca_dashboard_text' );
 		delete_option(  'agca_dashboard_text_paragraph' );
-                delete_option(  'agca_dashboard_widget_welcome' );
+        delete_option(  'agca_dashboard_widget_welcome' );
 		delete_option(  'agca_dashboard_widget_rc' );	
 		delete_option(  'agca_dashboard_widget_il' );	
 		delete_option(  'agca_dashboard_widget_plugins' );	
@@ -66,19 +66,20 @@
 		delete_option(  'agca_admin_menu_separator_first' );
 		delete_option(  'agca_admin_menu_separator_second' );
 		delete_option(  'agca_admin_menu_icons' );
-                delete_option(  'agca_admin_menu_arrow' );
-                delete_option(  'agca_admin_menu_submenu_round' );
-                delete_option(  'agca_admin_menu_submenu_round_size' );
-                delete_option(  'agca_admin_menu_brand' );
-                delete_option(  'agca_admin_menu_brand_link' );                
+        delete_option(  'agca_admin_menu_arrow' );
+        delete_option(  'agca_admin_menu_submenu_round' );
+        delete_option(  'agca_admin_menu_submenu_round_size' );
+        delete_option(  'agca_admin_menu_brand' );
+        delete_option(  'agca_admin_menu_brand_link' );                
+		delete_option(  'agca_admin_menu_always_unfolded' );      
 		delete_option(  'ag_edit_adminmenu_json' );
 		delete_option(  'ag_add_adminmenu_json' );
 		delete_option(  'ag_colorizer_json' );	
 		delete_option(  'agca_colorizer_turnonoff' );
                 
-                delete_option( 'agca_custom_js' );
-                delete_option( 'agca_custom_css' );
+        delete_option( 'agca_custom_js' );
+        delete_option( 'agca_custom_css' );
 				
-				delete_option( 'agca_disablewarning' );				
+		delete_option( 'agca_disablewarning' );				
 ?>
    
