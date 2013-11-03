@@ -65,6 +65,7 @@ Here is the list of options:
 	- Round admin submenu popups	
 	- Add custom branding image above the admin menu
 	- Add custom link to branding image
+	- Admin menu auto-folding options for mobile devices
 	
 	Colorizer
 	- Change background and text colors on admin and login page	
@@ -112,6 +113,13 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 4. Default WP grey colors can be refreshed with any colors that you like! There are a lot of Colorizer option which can be use to style text, background, login, widgets, admin menu, top bar, footer and many more!
 
 == Changelog ==
+
+= 1.2.7.7 =
+* Updated options labels
+* Better checkbox and radiobox styles
+* Some additional style improvements
+* Updated option for auto folding admin menu on mobile devices
+* Fixed AGCA error popup on reset password page
 
 = 1.2.7.6 =
 * Better style for close button 
@@ -302,6 +310,9 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.2.7.7 =
+Updated admin menu auto-folding options. Fixed bug on reset password page. Updated options styles.
 
 = 1.2.7.6 =
 Bug fixes. Better close button styles.

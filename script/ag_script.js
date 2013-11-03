@@ -86,7 +86,7 @@ function createEditMenuPage(checkboxes,textboxes){
                     sub_item_text_value = textboxes[counter][1];
                     isHidden = checkboxes[counter][1];
                 }	
-                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_child'><div style=\"float:left\"><a tabindex=\"-1\" href=\"javascript:void(0)\" style=\"font-weight:bold;\"title=\""+topElement+" submenu: "+subElement+"\"><span style=\"font-weight:normal\">submenu: </span>"+subElement+"</a></div><div style=\"float:right\"><input type=\"checkbox\" title=\"Remove "+topElement+" submenu: "+subElement+" from menu\" class=\""+subElement+"\" "+booleanToChecked(isHidden)+"  name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></div></td><td class='ag_admin_menu_child2' ><input type=\"text\" title=\"Rename submenu item "+subElement+" with this value\" class=\""+subElement+"\" size=\"47\" value=\""+sub_item_text_value+"\" name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></td></tr>");
+                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_child'><div style=\"float:left\"><a tabindex=\"-1\" href=\"javascript:void(0)\" style=\"font-weight:bold;\"title=\""+topElement+" submenu: "+subElement+"\"><span style=\"font-weight:normal\">submenu: </span>"+subElement+"</a></div><div style=\"float:right\"><input type=\"checkbox\" title=\"Remove "+topElement+" submenu: "+subElement+" from menu\" class=\""+subElement+" agca-checkbox\" "+booleanToChecked(isHidden)+"  name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></div></td><td class='ag_admin_menu_child2' ><input type=\"text\" title=\"Rename submenu item "+subElement+" with this value\" class=\""+subElement+"\" size=\"47\" value=\""+sub_item_text_value+"\" name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></td></tr>");
             }
             //if top element
             else{
@@ -100,7 +100,7 @@ function createEditMenuPage(checkboxes,textboxes){
                     top_item_text_value = textboxes[counter][1];
                     isHidden = checkboxes[counter][1];					
                 }	
-                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_parent'><br /><span class=\"agcaMenuEditorPlusMinus\"><span class=\"plus\">+</span><span class=\"minus\">-</span></span><a tabindex=\"0\" href=\"javascript:void(0)\" >" + topElement +"</a><div style=\"float:right\"><input title=\"Remove "+topElement+" from menu\" class=\""+jQuery(this).attr("id")+"\" type=\"checkbox\" "+booleanToChecked(isHidden)+" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></div></td><td class='ag_admin_menu_parent2' ><input title=\"Rename "+topElement+" with this value\" type=\"text\" class=\""+jQuery(this).attr("id")+"\" size=\"47\" value=\""+top_item_text_value+"\" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></td></tr>");
+                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_parent'><br /><span class=\"agcaMenuEditorPlusMinus\"><span class=\"plus\">+</span><span class=\"minus\">-</span></span><a tabindex=\"0\" href=\"javascript:void(0)\" >" + topElement +"</a><div style=\"float:right\"><input title=\"Remove "+topElement+" from menu\" class=\""+jQuery(this).attr("id")+" agca-checkbox\" type=\"checkbox\" "+booleanToChecked(isHidden)+" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></div></td><td class='ag_admin_menu_parent2' ><input title=\"Rename "+topElement+" with this value\" type=\"text\" class=\""+jQuery(this).attr("id")+"\" size=\"47\" value=\""+top_item_text_value+"\" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></td></tr>");
             }			
             counter++;
         }		
@@ -108,7 +108,7 @@ function createEditMenuPage(checkboxes,textboxes){
 	 
     //console.log(checkboxes.replace('<-TOP->','')+"|"+textboxes.replace('<-TOP->',''));	  
     prettyEditMenuPage();   
-  
+	agcaChangeCheckBoxStyles();
 }
 
 function createEditMenuPageV32(checkboxes,textboxes){		
@@ -137,7 +137,7 @@ function createEditMenuPageV32(checkboxes,textboxes){
                     sub_item_text_value = textboxes[counter][1];
                     isHidden = checkboxes[counter][1];					
                 }	
-                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_child'><div style=\"float:left\"><a tabindex=\"-1\" href=\"javascript:void(0)\" style=\"font-weight:bold;\"title=\""+topElement+" submenu: "+subElement+"\"><span style=\"font-weight:normal\">submenu: </span>"+subElement+"</a></div><div style=\"float:right\"><input type=\"checkbox\" title=\"Remove "+topElement+" submenu: "+subElement+" from menu\" class=\""+subElement+"\" "+booleanToChecked(isHidden)+"  name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></div></td><td class='ag_admin_menu_child2' ><input type=\"text\" title=\"Rename submenu item "+subElement+" with this value\" class=\""+subElement+"\" size=\"47\" value=\""+sub_item_text_value+"\" name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></td></tr>");
+                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_child'><div style=\"float:left\"><a tabindex=\"-1\" href=\"javascript:void(0)\" style=\"font-weight:bold;\"title=\""+topElement+" submenu: "+subElement+"\"><span style=\"font-weight:normal\">submenu: </span>"+subElement+"</a></div><div style=\"float:right\"><input type=\"checkbox\" title=\"Remove "+topElement+" submenu: "+subElement+" from menu\" class=\""+subElement+" agca-checkbox\" "+booleanToChecked(isHidden)+"  name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></div></td><td class='ag_admin_menu_child2' ><input type=\"text\" title=\"Rename submenu item "+subElement+" with this value\" class=\""+subElement+"\" size=\"47\" value=\""+sub_item_text_value+"\" name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></td></tr>");
             }
             //if top element
             else{
@@ -151,7 +151,7 @@ function createEditMenuPageV32(checkboxes,textboxes){
                     top_item_text_value = textboxes[counter][1];
                     isHidden = checkboxes[counter][1];
                 }	
-                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_parent'><br /><span class=\"agcaMenuEditorPlusMinus\"><span class=\"plus\">+</span><span class=\"minus\">-</span></span><a tabindex=\"0\" href=\"javascript:void(0)\" >" + topElement +"</a><div style=\"float:right\"><input title=\"Remove "+topElement+" from menu\" class=\""+jQuery(this).attr("id")+"\" type=\"checkbox\" "+booleanToChecked(isHidden)+" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></div></td><td class='ag_admin_menu_parent2' ><input title=\"Rename "+topElement+" with this value\" type=\"text\" class=\""+jQuery(this).attr("id")+"\" size=\"47\" value=\""+top_item_text_value+"\" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></td></tr>");
+                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_parent'><br /><span class=\"agcaMenuEditorPlusMinus\"><span class=\"plus\">+</span><span class=\"minus\">-</span></span><a tabindex=\"0\" href=\"javascript:void(0)\" >" + topElement +"</a><div style=\"float:right\"><input title=\"Remove "+topElement+" from menu\" class=\""+jQuery(this).attr("id")+" agca-checkbox\" type=\"checkbox\" "+booleanToChecked(isHidden)+" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></div></td><td class='ag_admin_menu_parent2' ><input title=\"Rename "+topElement+" with this value\" type=\"text\" class=\""+jQuery(this).attr("id")+"\" size=\"47\" value=\""+top_item_text_value+"\" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></td></tr>");
             }			
             counter++;
         }else if(jQuery(this).attr('id') =="collapse-menu"){
@@ -179,6 +179,7 @@ function createEditMenuPageV32(checkboxes,textboxes){
         }        
       
     });
+	agcaChangeCheckBoxStyles();
 }
 
 function createEditMenuPageV35(checkboxes,textboxes){		
@@ -211,7 +212,7 @@ function createEditMenuPageV35(checkboxes,textboxes){
                     sub_item_text_value = textboxes[counter][1];
                     isHidden = checkboxes[counter][1];					
                 }	
-                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_child'><div style=\"float:left\"><a tabindex=\"-1\" href=\"javascript:void(0)\" style=\"font-weight:bold;\"title=\""+topElement+" submenu: "+subElement+"\"><span style=\"font-weight:normal\">submenu: </span>"+subElement+"</a></div><div style=\"float:right\"><input type=\"checkbox\" title=\"Remove "+topElement+" submenu: "+subElement+" from menu\" class=\""+subElement+"\" "+booleanToChecked(isHidden)+"  name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></div></td><td class='ag_admin_menu_child2' ><input type=\"text\" title=\"Rename submenu item "+subElement+" with this value\" class=\""+subElement+"\" size=\"47\" value=\""+agca_escapeHTMLChars(sub_item_text_value)+"\" name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></td></tr>");
+                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_child'><div style=\"float:left\"><a tabindex=\"-1\" href=\"javascript:void(0)\" style=\"font-weight:bold;\"title=\""+topElement+" submenu: "+subElement+"\"><span style=\"font-weight:normal\">submenu: </span>"+subElement+"</a></div><div style=\"float:right\"><input type=\"checkbox\" title=\"Remove "+topElement+" submenu: "+subElement+" from menu\" class=\""+subElement+" agca-checkbox\" "+booleanToChecked(isHidden)+"  name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></div></td><td class='ag_admin_menu_child2' ><input type=\"text\" title=\"Rename submenu item "+subElement+" with this value\" class=\""+subElement+"\" size=\"47\" value=\""+agca_escapeHTMLChars(sub_item_text_value)+"\" name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></td></tr>");
                 counter++;
             }
             //if top element
@@ -229,7 +230,7 @@ function createEditMenuPageV35(checkboxes,textboxes){
                     top_item_text_value = textboxes[counter][1];					
                     isHidden = checkboxes[counter][1];
                 }					
-                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_parent'><br /><span class=\"agcaMenuEditorPlusMinus\"><span class=\"plus\">+</span><span class=\"minus\">-</span></span><a tabindex=\"0\" href=\"javascript:void(0)\" >" + topElement +"</a><div style=\"float:right\"><input title=\"Remove "+topElement+" from menu\" class=\""+jQuery(this).attr("id")+"\" type=\"checkbox\" "+booleanToChecked(isHidden)+" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></div></td><td class='ag_admin_menu_parent2' ><input title=\"Rename "+topElement+" with this value\" type=\"text\" class=\""+jQuery(this).attr("id")+"\" size=\"47\" value=\""+agca_escapeHTMLChars(top_item_text_value)+"\" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></td></tr>");
+                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_parent'><br /><span class=\"agcaMenuEditorPlusMinus\"><span class=\"plus\">+</span><span class=\"minus\">-</span></span><a tabindex=\"0\" href=\"javascript:void(0)\" >" + topElement +"</a><div style=\"float:right\"><input title=\"Remove "+topElement+" from menu\" class=\""+jQuery(this).attr("id")+" agca-checkbox\" type=\"checkbox\" "+booleanToChecked(isHidden)+" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></div></td><td class='ag_admin_menu_parent2' ><input title=\"Rename "+topElement+" with this value\" type=\"text\" class=\""+jQuery(this).attr("id")+"\" size=\"47\" value=\""+agca_escapeHTMLChars(top_item_text_value)+"\" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></td></tr>");
                 counter++;
             }			
             
@@ -258,6 +259,7 @@ function createEditMenuPageV35(checkboxes,textboxes){
         }       
       
     });
+	agcaChangeCheckBoxStyles();
 }
 
 function showHideSection(text) {	
@@ -950,6 +952,55 @@ jQuery(document).ready(function(){
 });
 /*A J A X*/
 
+/*AGCA CHECKBOX RADIOBOX*/
+function agcaCheckBoxOnClick(obj){	
+	obj.prev().trigger('click');
+	//console.log(obj.prev());
+	if(jQuery(obj).prev().is(':checked')){
+		jQuery(obj).addClass('agca-checkbox-box-checked');
+		jQuery(obj).removeClass('agca-checkbox-box');
+	}else{
+		jQuery(obj).addClass('agca-checkbox-box');
+		jQuery(obj).removeClass('agca-checkbox-box-checked');
+	}
+}
+function agcaRadioBoxOnClick(obj){	
+	obj.prev().trigger('click');
+	//console.log(obj.prev());
+	obj.parent().find('.agca-radiobox').removeClass('checked');
+	if(jQuery(obj).prev().is(':checked')){
+		jQuery(obj).addClass('checked');		
+	}else{
+		jQuery(obj).removeClass('checked');
+	}
+}
+function agcaChangeCheckBoxStyles(){
+	
+	/*checkbox*/
+	jQuery('.agca-checkbox-box-checked').remove();
+	jQuery('.agca-checkbox-box').remove();
+	jQuery('.agca-checkbox').each(function(){
+		jQuery(this).hide();
+		var cls = "agca-checkbox-box";
+		if(jQuery(this).is(':checked')){
+			cls = "agca-checkbox-box-checked";
+		}
+		jQuery(this).after('<div onClick="agcaCheckBoxOnClick(jQuery(this));" class="' + cls + '" title="'+jQuery(this).attr('title')+'"><div/>');		
+	});
+	
+	/*radio*/
+	jQuery('.agca-radiobox').remove();
+	jQuery('.agca-radio').each(function(){
+		jQuery(this).hide();
+		var cls = "agca-radiobox";		
+		if(jQuery(this).is(':checked')){
+			cls = "agca-radiobox checked";		
+		}
+		
+		jQuery(this).after('<div onClick="agcaRadioBoxOnClick(jQuery(this));" value="'+jQuery(this).attr('value')+'" class="' + cls + '" title="'+jQuery(this).attr('title')+'"><div/>');		
+	});
+}
+
 function isWPHigherOrEqualThan(targetVersion){
     var versions = ["0.7",
     "0.71",
@@ -1038,7 +1089,17 @@ function isWPHigherOrEqualThan(targetVersion){
 	"3.6.1",
 	"3.6.2",
 	"3.6.3",
-	"3.7"];
+	"3.7",
+	"3.7.1",
+	"3.7.2",
+	"3.7.3",
+	"3.7.4",
+	"3.8",
+	"3.8.1",
+	"3.8.2",
+	"3.8.3",
+	"3.9",
+	"3.9.1"];
     //remove sufixes, beta RC etc
     if (wpversion.indexOf("-")!=-1){
         var parts = wpversion.split("-");

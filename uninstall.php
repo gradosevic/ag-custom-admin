@@ -71,7 +71,7 @@
         delete_option(  'agca_admin_menu_submenu_round_size' );
         delete_option(  'agca_admin_menu_brand' );
         delete_option(  'agca_admin_menu_brand_link' );                
-		delete_option(  'agca_admin_menu_always_unfolded' );      
+		delete_option(  'agca_admin_menu_autofold' );      
 		delete_option(  'ag_edit_adminmenu_json' );
 		delete_option(  'ag_add_adminmenu_json' );
 		delete_option(  'ag_colorizer_json' );	
