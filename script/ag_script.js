@@ -576,6 +576,7 @@ function processData(){
     var array = "{";
     var firstElement = true;
     var topMarker = "";
+	jQuery('#ag_edit_adminmenu input').removeClass('agca-checkbox');
     jQuery('#ag_edit_adminmenu :checkbox').each(function(){		
         if(firstElement != true){
             array += ", ";				
