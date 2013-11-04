@@ -114,6 +114,9 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 
 == Changelog ==
 
+= 1.2.7.8 =
+* Fixed admin menu bug
+
 = 1.2.7.7 =
 * Updated options labels
 * Better checkbox and radiobox styles
@@ -310,6 +313,9 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.2.7.8 =
+* Fixed admin menu bug
 
 = 1.2.7.7 =
 Updated admin menu auto-folding options. Fixed bug on reset password page. Updated options styles.

@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://agca.argonius.com/ag-custom-admin/category/ag_custom_admin
 Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 Author: Argonius
-Version: 1.2.7.7
+Version: 1.2.7.8
 Author URI: http://www.argonius.com/
 
 	Copyright 2013. Argonius (email : info@argonius.com)
@@ -48,7 +48,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
                 //fb($this->colorizer);
-		$this->agca_version = "1.2.7.7";
+		$this->agca_version = "1.2.7.8";
 	}
 	// Add donate and support information
 	function jk_filter_plugin_links($links, $file)
