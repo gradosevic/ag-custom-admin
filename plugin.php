@@ -1562,6 +1562,8 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
                         <script type="text/javascript">
                             var isAGCAPage = true;
                         </script>
+						<?php //cache images ?>
+						<img src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/checkbox_over.png" style="display:none;"/>						
 		<?php //includes ?>		
 		<div class="wrap">
 			<h1 style="color:green">AG Custom Admin Settings <span style="font-size:15px;">(v<?php echo $this->agca_version; ?>)</span></h1>						
