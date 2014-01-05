@@ -1,10 +1,10 @@
 === AG Custom Admin ===
 Contributors: argonius
 Donate link: http://agca.argonius.com/ag-custom-admin/support-for-future-development
-Tags: admin, customize, hide, change admin
+Tags: admin, customize, hide, change admin, admin panel
 Requires at least: 3.0
-Tested up to: 3.7.1
-Stable tag: 1.2.7.8
+Tested up to: 3.8
+Stable tag: 1.2.7.9
  
 Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 
@@ -113,6 +113,9 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 4. Default WP grey colors can be refreshed with any colors that you like! There are a lot of Colorizer option which can be use to style text, background, login, widgets, admin menu, top bar, footer and many more!
 
 == Changelog ==
+
+= 1.2.7.9 =
+* Fixed remove admin submenu arrow option in WordPress 3.8
 
 = 1.2.7.8 =
 * Fixed admin menu bug
@@ -313,6 +316,9 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.2.7.9 =
+* Fixed remove admin submenu arrow option in WordPress 3.8
 
 = 1.2.7.8 =
 * Fixed admin menu bug
