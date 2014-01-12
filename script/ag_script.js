@@ -9,6 +9,22 @@ function booleanToChecked(bool){
     }
 }
 
+function agcaLog(text){
+	console.log(text);
+}
+
+function agcaDebug(text){
+	if(agca_debug){
+		console.log('- '+text);
+	}
+}
+
+function agcaDebugObj(obj){
+	if(agca_debug){
+		console.log(obj);
+	}
+}
+
 function hideShowSubmenus(index){
 	
     var finish = false;
@@ -108,7 +124,7 @@ function createEditMenuPage(checkboxes,textboxes){
 	 
     //console.log(checkboxes.replace('<-TOP->','')+"|"+textboxes.replace('<-TOP->',''));	  
     prettyEditMenuPage();   
-	agcaChangeCheckBoxStyles();
+    agcaChangeCheckBoxStyles();
 }
 
 function createEditMenuPageV32(checkboxes,textboxes){		
@@ -289,6 +305,14 @@ function showHideSection(text) {
             jQuery('#section_ag_colorizer_settings').show();
             jQuery('#section_ag_colorizer_settings .section_title').trigger('focus');
             break;
+		case 'Admin Themes':
+			if(!jQuery('#section_templates').hasClass("loaded")){
+				jQuery('#section_templates').addClass('loaded');
+				agca_client_init();
+			}				
+            jQuery('#section_templates').show();
+            jQuery('#section_templates .section_title').trigger('focus');			
+            break;
         case 'Advanced':
             jQuery('#section_advanced').show();
             jQuery('#section_advanced .section_title').trigger('focus');
@@ -424,7 +448,53 @@ jQuery(document).ready(function(){
     setTimeout(function(){
         jQuery('#agca_advertising').show(),700
         });
-});		
+});	
+/*ToolTip*/
+function agcaApplyTooltip(){ 
+	if(jQuery(this).attr('title') != ""){
+        jQuery(this).hover(function(e) {
+            if(jQuery(this).hasClass('feedback')){
+               jQuery(this).mousemove(function(e) {			
+                var tipY = e.pageY + 16; 
+                var tipX = e.pageX - 236;	
+                var type = '#fee6e6';
+                var border = '1px solid red';
+                if(jQuery(this).hasClass('positive')) {
+                    type = '#eafee6';
+                    border = '1px solid green';
+                }
+                jQuery("#AGToolTipDiv").css({
+                    'top': tipY, 
+                    'left': tipX,
+                    'background': type,
+                    'border': border
+                });
+            }); 
+            }else{
+                jQuery(this).mousemove(function(e) {			
+                var tipY = e.pageY + 16; 
+                var tipX = e.pageX + 16;	
+                jQuery("#AGToolTipDiv").css({
+                    'top': tipY, 
+                    'left': tipX,
+                    'background': '#FFFFD4',
+                    'border': '1px solid #FFFF00'
+                });
+            });                
+            }            
+			jQuery("#AGToolTipDiv")
+			.html(jQuery(this).attr('title'))
+			.stop(true,true)
+			.fadeIn("fast");
+			jQuery(this).removeAttr('title');			          
+        }, function() {
+            jQuery("#AGToolTipDiv")
+            .stop(true,true)
+            .fadeOut("fast");
+            jQuery(this).attr('title', jQuery("#AGToolTipDiv").html());
+        });
+	}
+}	
 
 jQuery(document).ready(function(){	
     /*Add click handler on main buttons*/
@@ -459,50 +529,7 @@ jQuery(document).ready(function(){
     jQuery("body").append("<div id='AGToolTipDiv'></div>");	
 	
     /*ToolTip*/
-    jQuery("label[title],#agca_donate_button, a.feedback").each(function() {  
-        jQuery(this).hover(function(e) {
-            if(jQuery(this).hasClass('feedback')){
-               jQuery(this).mousemove(function(e) {			
-                var tipY = e.pageY + 16; 
-                var tipX = e.pageX - 236;	
-                var type = '#fee6e6';
-                var border = '1px solid red';
-                if(jQuery(this).hasClass('positive')) {
-                    type = '#eafee6';
-                    border = '1px solid green';
-                }
-                jQuery("#AGToolTipDiv").css({
-                    'top': tipY, 
-                    'left': tipX,
-                    'background': type,
-                    'border': border
-                });
-            }); 
-            }else{
-                jQuery(this).mousemove(function(e) {			
-                var tipY = e.pageY + 16; 
-                var tipX = e.pageX + 16;	
-                jQuery("#AGToolTipDiv").css({
-                    'top': tipY, 
-                    'left': tipX,
-                    'background': '#FFFFD4',
-                    'border': '1px solid #FFFF00'
-                });
-            });                
-            }
-            
-            jQuery("#AGToolTipDiv")
-            .html(jQuery(this).attr('title'))
-            .stop(true,true)
-            .fadeIn("fast");
-            jQuery(this).removeAttr('title');
-        }, function() {
-            jQuery("#AGToolTipDiv")
-            .stop(true,true)
-            .fadeOut("fast");
-            jQuery(this).attr('title', jQuery("#AGToolTipDiv").html());
-        });
-    });
+    jQuery("label[title],#agca_donate_button, a.feedback").each(agcaApplyTooltip);
 	  
     /*SECTION FOCUS*/
     jQuery('.section_title').focus(function(){			  
@@ -683,7 +710,7 @@ function updateTargetColor(id, color){
         case 'login_color_background':		
             jQuery('body.login').css({
                 'background-color':color
-            });			          	
+            });	           	
             break;             
             
         case 'color_header':		 

@@ -3,8 +3,8 @@
     if( !defined( 'WP_UNINSTALL_PLUGIN' ) )
         exit ();
 
-		delete_option(  'agca_role_allbutadmin' );
-		delete_option(  'agca_screen_options_menu' );
+        delete_option( 'agca_role_allbutadmin' );
+		delete_option( 'agca_screen_options_menu' );
 		delete_option(  'agca_help_menu' );
 		delete_option(  'agca_logout' );
 		delete_option(  'agca_remove_your_profile' );
@@ -70,8 +70,8 @@
         delete_option(  'agca_admin_menu_submenu_round' );
         delete_option(  'agca_admin_menu_submenu_round_size' );
         delete_option(  'agca_admin_menu_brand' );
-        delete_option(  'agca_admin_menu_brand_link' );                
-		delete_option(  'agca_admin_menu_autofold' );      
+        delete_option(  'agca_admin_menu_brand_link' );   
+		delete_option(  'agca_admin_menu_autofold' );		
 		delete_option(  'ag_edit_adminmenu_json' );
 		delete_option(  'ag_add_adminmenu_json' );
 		delete_option(  'ag_colorizer_json' );	
@@ -80,6 +80,8 @@
         delete_option( 'agca_custom_js' );
         delete_option( 'agca_custom_css' );
 				
-		delete_option( 'agca_disablewarning' );				
+		delete_option( 'agca_selected_template' );
+        delete_option( 'agca_templates' );
+		delete_option( 'agca_disablewarning' );	
+				
 ?>
-   

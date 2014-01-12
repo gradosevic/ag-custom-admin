@@ -1,6 +1,6 @@
 #ag_main_menu {
 	display:block;
-	height:32px;
+	height:35px;
 	border-bottom:3px solid green;	
 	margin-top:2px;
 }
@@ -125,6 +125,22 @@ td.ag_admin_menu_parent:hover{
 #agca_form .section_title{
 	font-weight:bold;
 }
+#section_templates h2.section_title{
+	float: left;
+    font-size: 35px;
+	text-shadow:none;
+    margin-left: 8px;
+}
+#agca_form  #templates_head_buttons input[type=button]{
+	background:#174F69;
+	color:white;
+	font-weight:bold;
+}
+#agca_form  #templates_head_buttons input[type=button]:hover{
+	background:white;
+	color:#174F69;	
+}
+
 .ag-custom-button{
     
    /* margin-bottom:-4px !important;*/
@@ -182,6 +198,9 @@ td.ag_admin_menu_parent:hover{
 #agca_form textarea{
     width:400px;    
 }
+#agca_form textarea.wp-editor-area{
+    width:100%;    
+}
 #agca_form textarea:hover{
     background-color: #efffef;    
 }
@@ -222,6 +241,62 @@ td.ag_admin_menu_parent:hover{
 }
 .agca_editor{
 	width:600px;
+}
+
+/*templates*/
+#agca_templates .error{
+	padding:8px;
+	font-size: 14px;
+}
+
+.agca_template{
+	display:block;
+	float:left;
+	border:3px solid #aaa;
+	margin:10px;
+	margin-top:15px;
+	cursor:pointer;
+}
+.agca_template:hover{
+	border:3px solid green;
+}
+.agca_template h3{	
+	text-align: center;
+	color:green;
+}
+.agca_template h3 span{	
+	color:#555;
+	font-size:16px;
+}
+.agca_template img{
+	width:250px;
+}
+
+#advanced_template_options {
+    background: none repeat scroll 0 0 #EEEEEE;
+    border: 2px solid green;
+    display: block;
+    height: 100%;
+    margin-top: 200px;
+    width: 500px;
+	padding:15px;
+	display:none;
+}
+#advanced_template_options a{
+	font-size:14px;
+	font-weight: bold;
+	text-decoration:none;
+}
+#advanced_template_options a:hover{
+	text-decoration:underline;
+}
+#advanced_template_options h4 {
+    background: none repeat scroll 0 0 green;
+    color: #FFFFFF;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 0;
+    padding: 10px;
 }
 .agca_logout_button{
 	background: none repeat scroll 0 0 #dddddd;
@@ -315,4 +390,7 @@ td.ag_admin_menu_parent:hover{
 }
 #agca_form  .agca-radiobox.checked[value=off]{
 	background:url(../images/radio-off.png);
+}
+#agca_form #section_templates{
+    background: rgba(255, 255, 255, 0.95)
 }
