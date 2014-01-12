@@ -1,10 +1,10 @@
 === AG Custom Admin ===
 Contributors: argonius
 Donate link: http://agca.argonius.com/ag-custom-admin/support-for-future-development
-Tags: admin, customize, hide, change admin, admin panel
+Tags: admin, customize, hide, change admin, themes, admin themes
 Requires at least: 3.0
 Tested up to: 3.8
-Stable tag: 1.2.8
+Stable tag: 1.3.1
  
 Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 
@@ -65,19 +65,21 @@ Here is the list of options:
 	- Round admin submenu popups	
 	- Add custom branding image above the admin menu
 	- Add custom link to branding image
-	- Admin menu auto-folding options for mobile devices
 	
 	Colorizer
 	- Change background and text colors on admin and login page	
 	- Change admin menu colors
 	- Change widget colors
 	
+	Admin Panel Themes
+	- Use predefined AG Custom Admin themes for WordPress Admin Panel
+	
 	Advanced
 	- Add custom CSS
 	- Add custom JavaScript
 	- Export/import customization settings
 
-**IMPORTANT**: AG Custom Admin should always be updated before updating WordPress. If you are unable to login or you have any other problems, please check our [FAQ](http://wordpress.org/extend/plugins/ag-custom-admin/faq/) and [SUPPORT](http://wordpress.org/support/plugin/ag-custom-admin) page. Check [POSITIVE](http://agca.argonius.com/ag-custom-admin/feedback/ag-custom-admin-positive-feedback) and [NEGATIVE](http://agca.argonius.com/ag-custom-admin/feedback/ag-custom-admin-negative-feedback) comments of our users.
+**IMPORTANT**: AG Custom Admin should always be updated before updating WordPress. If you are unable to login or you have any other problems, please check our [FAQ](http://wordpress.org/extend/plugins/ag-custom-admin/faq/) and [SUPPORT](http://wordpress.org/support/plugin/ag-custom-admin) page.
 
 For more information about the plugin please check [PLUGIN WEBSITE](http://agca.argonius.com/ag-custom-admin/)
 
@@ -99,7 +101,7 @@ This is caused by JavaScript error thrown by AGCA or some other plugin. If you w
 Please use 'Reset Settings' button on Admin Menu page to reset menu configuration to defaults. Remember that you should postpone admin menu configuration to the very end of admin page customization, because, any changes made from other plugins to admin menu (e.g adding new button of plugin that is activated, or removing that button when plugin is deactivated) could corrupt admin menu configuration.
 
 = Some errors appear on my page =
-Go to browser's console and see if there are any errors. Try to locate them. If you can't fix error by yourself, post it back to plugin's support page. 
+Go to browser's console and see if there are any errors. Try to locate them. If you can't fix error by yourself, post it back to plugin's support page.
 
 = Plugin does not work =
 Try clearing browser's cache. If that does not work, go to browser's console and see if there are any errors. Try to locate them. If you can't fix error by yourself, post it back to plugin's support page. When trying to locate the problem, the best way is to disable other plugins, because there could be a conflict with them. If there is a conflict with other plugin, it can be found by disabling one by one plugin, until the problem is solved.
@@ -113,6 +115,12 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 4. Default WP grey colors can be refreshed with any colors that you like! There are a lot of Colorizer option which can be use to style text, background, login, widgets, admin menu, top bar, footer and many more!
 
 == Changelog ==
+
+= 1.3.1 =
+* First production version with AGCA Themes
+
+= 1.3 =
+* Introducing AG Custom Admin Themes
 
 = 1.2.8 =
 * Fixed PHP errors in DEBUG mode
@@ -319,6 +327,12 @@ Try clearing browser's cache. If that does not work, go to browser's console and
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.3.1 =
+Introducing AG Custom Admin Themes
+
+= 1.3 =
+Introducing AG Custom Admin Themes
 
 = 1.2.8 =
 * Fixed PHP errors in DEBUG mode
