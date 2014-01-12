@@ -139,6 +139,7 @@ class AGCA{
 			exit;
 		}else if(isset($_POST['_agca_get_templates'])){
 			$templates = get_option( 'agca_templates' );
+			if($templates == "") $templates = array();	
 			$results = array();
 			foreach($templates as $key=>$val){
 				$results[]=$key;
