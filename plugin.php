@@ -44,6 +44,7 @@ class AGCA{
 		add_filter('admin_title', array(&$this,'change_title'), 10, 2); 		
 		add_filter('plugin_row_meta', array(&$this,'jk_filter_plugin_links'), 10, 2);
 		add_action('admin_init', array(&$this,'agca_register_settings'));
+		add_action('admin_init', array(&$this,'agca_init_session'));
 		add_action('admin_head', array(&$this,'print_admin_css'));		
 		add_action('login_head', array(&$this,'print_login_head'));	
 		add_action('admin_menu', array(&$this,'agca_create_menu'));		
@@ -80,6 +81,11 @@ class AGCA{
 		$links[] = '<a href="http://agca.argonius.com/ag-custom-admin/support-for-future-development">' . __('Donate') . '</a>';
 		}
 		return $links;
+	}
+	
+	function agca_init_session(){
+		if (!session_id())
+		session_start();
 	}
 	
 	function checkGET(){
@@ -1232,9 +1238,9 @@ class AGCA{
 		//session_destroy();
 		//session_unset();
 		
-		if(!session_id()){
-			session_start();			
-		}
+		/*if(!session_id()){
+			session_start();		
+		}*/
 		
 		if(!isset($_SESSION["AGCA"])){
 			$_SESSION["AGCA"] = array();			
