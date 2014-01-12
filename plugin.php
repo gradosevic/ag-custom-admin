@@ -350,7 +350,7 @@ class AGCA{
 		register_setting( 'agca-options-group', 'agca_dashboard_text' );
 		register_setting( 'agca-options-group', 'agca_dashboard_text_paragraph' );
         register_setting( 'agca-options-group', 'agca_dashboard_widget_welcome' );
-		register_setting( 'agca-options-group', 'agca_dashboard_widget_rc' );	
+		register_setting( 'agca-options-group', 'agca_dashboard_widget_activity' );			
 		register_setting( 'agca-options-group', 'agca_dashboard_widget_il' );	
 		register_setting( 'agca-options-group', 'agca_dashboard_widget_plugins' );	
 		register_setting( 'agca-options-group', 'agca_dashboard_widget_qp' );	
@@ -483,7 +483,8 @@ class AGCA{
                 'agca_dashboard_text',
                 'agca_dashboard_text_paragraph',
                 'agca_dashboard_widget_welcome',
-                'agca_dashboard_widget_rc',
+				'agca_dashboard_widget_activity',
+                //'agca_dashboard_widget_rc', deprecated in 3.8 and 1.3.1
                 'agca_dashboard_widget_il',
                 'agca_dashboard_widget_plugins',
                 'agca_dashboard_widget_qp',
@@ -772,14 +773,12 @@ class AGCA{
 		  <style type="text/css">
                             #wpadminbar{
                                 display: none;                       
-                            }                          
+                            }   													
                         </style>
-                 <?php if(get_option('agca_header')==true){ ?>
-                        <script type="text/javascript">
+						 <script type="text/javascript">
                             window.setTimeout(function(){document.getElementsByTagName('html')[0].setAttribute('style',"margin-top:0px !important");},50);                            
                         </script>
-                       
-                 <?php } 
+                 <?php 
 	}
 		if(get_option('agca_admin_bar_frontend')!=true){ 				 		
 		
@@ -1387,7 +1386,7 @@ try
                                              if(isWPHigherOrEqualThan("3.4")){
                                                  additionalStyles = ' style="margin-bottom:-4px" ';
                                              }
-                                             jQuery("#adminmenu").before('<div '+additionalStyles+' id="sidebar_adminmenu_logo"><img width="145" src="<?php echo get_option('agca_admin_menu_brand'); ?>" /></div>');
+                                             jQuery("#adminmenu").before('<div '+additionalStyles+' id="sidebar_adminmenu_logo"><img width="160" src="<?php echo get_option('agca_admin_menu_brand'); ?>" /></div>');
                                              
                                         <?php } ?> 
                                          <?php if(get_option('agca_admin_menu_brand_link')!=""){ ?>					
@@ -1406,8 +1405,9 @@ try
                                        
 					<?php if(get_option('agca_admin_menu_submenu_round')==true){ ?>
 							jQuery("#adminmenu .wp-submenu").css("border-radius","<?php echo get_option('agca_admin_menu_submenu_round_size'); ?>px");
+							jQuery("#adminmenu .wp-menu-open .wp-submenu").css('border-radius','');
 							<?php $roundedSidebarSize = get_option('agca_admin_menu_submenu_round_size'); ?>
-                                                   roundedSidberSize = <?php echo ($roundedSidebarSize == "")?"0":$roundedSidebarSize; ?>;
+                                 roundedSidberSize = <?php echo ($roundedSidebarSize == "")?"0":$roundedSidebarSize; ?>;
                                                         
                                                         
 					<?php } ?>
@@ -1490,16 +1490,11 @@ try
 					<?php /*Remove Dashboard widgets*/ ?>
 					<?php			
 
-                                                if(get_option('agca_dashboard_widget_welcome')==true){
+                        if(get_option('agca_dashboard_widget_welcome')==true){
 							?>jQuery("#welcome-panel").css("display","none");<?php
 						}else{
 							?>jQuery("#welcome-panel").css("display","block");<?php
-						}
-						if(get_option('agca_dashboard_widget_rc')==true){
-							$this->remove_dashboard_widget('dashboard_recent_comments','normal');
-						}else{
-							?>jQuery("#dashboard_recent_comments").css("display","block");<?php
-						}
+						}						
 						if(get_option('agca_dashboard_widget_il')==true){
 							$this->remove_dashboard_widget('dashboard_incoming_links','normal');
 						}else{
@@ -1534,7 +1529,12 @@ try
 							$this->remove_dashboard_widget('dashboard_secondary','side');
 						}else{
 							?>jQuery("#dashboard_secondary").css("display","block");<?php
-						}					
+						}	
+						if(get_option('agca_dashboard_widget_activity')==true){
+							remove_meta_box( 'dashboard_activity', 'dashboard', 'normal');
+						}else{
+							?>jQuery("#dashboard_activity").css("display","block");<?php
+						}	
 						
 					?>	
 					
@@ -1553,6 +1553,7 @@ try
 										jQuery(".wp-menu-image").each(function(){
 											jQuery(this).css("display","none");
 										});
+										jQuery('#adminmenu div.wp-menu-name').css('padding','8px');
 							<?php } ?>
                                                         <?php if(get_option('agca_admin_menu_arrow') == true){ ?>											
 								jQuery("#adminmenu .wp-menu-arrow").css("visibility","hidden");							
@@ -1829,36 +1830,8 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 						
 					<?php //COLORIZER ?>
 					<?php if(get_option('agca_colorizer_turnonoff') == 'on'){ ?>
-						jQuery('label,h1,h2,h3,h4,h5,h6,a,p,.form-table th,.form-wrap label').css('text-shadow','none');
-						
-						if(isWPHigherOrEqualThan("3.3")){
-							jQuery("body.login, html").css("background","<?php echo $this->colorizer['login_color_background'];?>");
-						}else{
-						
-							<?php
-							if($this->colorizer['login_color_background']!=""){							
-								?> 							
-								updateTargetColor("login_color_background","<?php echo $this->colorizer['login_color_background'];?>"); 		
-							
-								<?php
-							}	
-							if($this->colorizer['color_header']!=""){							
-								?> 	
-								<?php if($wpversion < 3.2){ ?>
-									jQuery("#backtoblog").css("background","<?php echo $this->colorizer['color_header'];?>");
-									
-								<?php } ?>
-								<?php
-							}
-							if($this->colorizer['color_font_header']!=""){							
-								?> 										
-									jQuery("#backtoblog a,#backtoblog p").css("color","<?php echo $this->colorizer['color_font_header'];?>");									
-									
-								<?php
-							}
-						
-							?>						
-						}
+						jQuery('label,h1,h2,h3,h4,h5,h6,a,p,.form-table th,.form-wrap label').css('text-shadow','none');					
+						jQuery("body.login, html").css("background","<?php echo $this->colorizer['login_color_background'];?>");	
 						
 							
 					<?php								
@@ -2283,14 +2256,14 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								</td>
 								<td></td>
 							</tr>
-							<tr valign="center">
+							<!--<tr valign="center">
 								<th scope="row">
 									<label title="This is small 'house' icon next to main heading (Dashboard text by default) on Dashboard page" for="agca_dashboard_icon">Hide Dashboard heading icon</label>
 								</th>
 								<td>					
 									<input class="agca-checkbox" title="This is small house icon next to main heading on Dashboard page. Dashboard text is shown by default" type="checkbox" name="agca_dashboard_icon" value="true" <?php if (get_option('agca_dashboard_icon')==true) echo 'checked="checked" '; ?> />
 								</td>
-							</tr>
+							</tr>-->
 							
 							<tr valign="center">
 								<th scope="row">
@@ -2316,7 +2289,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							<p tabindex="0"><i><strong>Info:</strong> These settings override settings in Screen options on Dashboard page.</i></p>							
 							</td>
 							</tr>
-                                                        <tr valign="center">
+							<tr valign="center">
 								<th scope="row">
 									<label for="agca_dashboard_widget_welcome">Hide "Welcome" WordPress Message</label>
 								</th>
@@ -2324,33 +2297,33 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<input class="agca-checkbox" type="checkbox" name="agca_dashboard_widget_welcome" value="true" <?php if (get_option('agca_dashboard_widget_welcome')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr>	
-							<tr valign="center">
+                            <tr valign="center">
 								<th scope="row">
-									<label for="agca_dashboard_widget_rc">Hide "Recent Comments"</label>
+									<label for="agca_dashboard_widget_activity">Hide "Activity" Dashboard Widget</label>
 								</th>
 								<td>					
-									<input class="agca-checkbox" type="checkbox" name="agca_dashboard_widget_rc" value="true" <?php if (get_option('agca_dashboard_widget_rc')==true) echo 'checked="checked" '; ?> />
+									<input class="agca-checkbox" type="checkbox" name="agca_dashboard_widget_activity" value="true" <?php if (get_option('agca_dashboard_widget_activity')==true) echo 'checked="checked" '; ?> />
 								</td>
-							</tr>	
-							<tr valign="center">
+							</tr>								
+							<!--<tr valign="center">
 								<th scope="row">
 									<label for="agca_dashboard_widget_il">Hide "Incoming Links"</label>
 								</th>
 								<td>					
 									<input class="agca-checkbox" type="checkbox" name="agca_dashboard_widget_il" value="true" <?php if (get_option('agca_dashboard_widget_il')==true) echo 'checked="checked" '; ?> />
 								</td>
-							</tr>
-								<tr valign="center">
+							</tr>-->
+								<!--<tr valign="center">
 								<th scope="row">
 									<label for="agca_dashboard_widget_plugins">Hide "Plugins"</label>
 								</th>
 								<td>					
 									<input class="agca-checkbox" type="checkbox" name="agca_dashboard_widget_plugins" value="true" <?php if (get_option('agca_dashboard_widget_plugins')==true) echo 'checked="checked" '; ?> />
 								</td>
-							</tr>											
+							</tr>	-->										
 							<tr valign="center">
 								<th scope="row">
-									<label for="agca_dashboard_widget_qp">Hide "Quick Press"</label>
+									<label for="agca_dashboard_widget_qp">Hide "Quick Draft"</label>
 								</th>
 								<td>					
 									<input class="agca-checkbox" type="checkbox" name="agca_dashboard_widget_qp" value="true" <?php if (get_option('agca_dashboard_widget_qp')==true) echo 'checked="checked" '; ?> />
@@ -2358,20 +2331,20 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</tr>	
 							<tr valign="center">
 								<th scope="row">
-									<label for="agca_dashboard_widget_rn">Hide "Right Now"</label>
+									<label for="agca_dashboard_widget_rn">Hide "At a Glance"</label>
 								</th>
 								<td>					
 									<input class="agca-checkbox" type="checkbox" name="agca_dashboard_widget_rn" value="true" <?php if (get_option('agca_dashboard_widget_rn')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr>	
-							<tr valign="center">
+							<!--<tr valign="center">
 								<th scope="row">
 									<label for="agca_dashboard_widget_rd">Hide "Recent Drafts"</label>
 								</th>
 								<td>					
 									<input class="agca-checkbox" type="checkbox" name="agca_dashboard_widget_rd" value="true" <?php if (get_option('agca_dashboard_widget_rd')==true) echo 'checked="checked" '; ?> />
 								</td>
-							</tr>	
+							</tr>	-->
 							<tr valign="center">
 								<th scope="row">
 									<label title="This is 'WordPress Development Blog' widget by default" for="agca_dashboard_widget_primary">Hide primary widget area</label>
@@ -2573,7 +2546,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</tr> 
                                                         <tr valign="center">
 								<th scope="row">
-									<label title="Rounds submenu pop-up box" for="agca_admin_menu_submenu_round">Round sub-menu pop-up box</label><p><i>(Please use it in combination with Colorizer)</i></p>
+									<label title="Rounds submenu pop-up box" for="agca_admin_menu_submenu_round">Round sub-menu pop-up box</label>
 								</th>
 								<td>
 									<input class="agca-checkbox" title="Rounds submenu pop-up box" type="checkbox" name="agca_admin_menu_submenu_round" value="true" <?php if (get_option('agca_admin_menu_submenu_round')==true) echo 'checked="checked" '; ?> />

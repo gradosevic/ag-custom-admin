@@ -39,8 +39,7 @@
 		delete_option(  'agca_dashboard_icon' );
 		delete_option(  'agca_dashboard_text' );
 		delete_option(  'agca_dashboard_text_paragraph' );
-        delete_option(  'agca_dashboard_widget_welcome' );
-		delete_option(  'agca_dashboard_widget_rc' );	
+        delete_option(  'agca_dashboard_widget_welcome' );			
 		delete_option(  'agca_dashboard_widget_il' );	
 		delete_option(  'agca_dashboard_widget_plugins' );	
 		delete_option(  'agca_dashboard_widget_qp' );	
@@ -48,6 +47,7 @@
 		delete_option(  'agca_dashboard_widget_rd' );	
 		delete_option(  'agca_dashboard_widget_primary' );	
 		delete_option(  'agca_dashboard_widget_secondary' );
+		delete_option(  'agca_dashboard_widget_activity' );
 		
 		//WP3.3
 		delete_option( 'agca_admin_bar_comments' );
