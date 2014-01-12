@@ -4,7 +4,7 @@ Donate link: http://agca.argonius.com/ag-custom-admin/support-for-future-develop
 Tags: admin, customize, hide, change admin, themes, admin themes
 Requires at least: 3.0
 Tested up to: 3.8
-Stable tag: 1.3.1
+Stable tag: 1.2.8
  
 Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
 
