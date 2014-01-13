@@ -945,15 +945,13 @@ class AGCA{
                                 }					
 
                 <?php } ?>	
-                <?php if(get_option('agca_wp_logo_custom')!=""){ ?>						
-                                if(isWPHigherOrEqualThan("3.3")){                                       
+                <?php if(get_option('agca_wp_logo_custom')!=""){ ?>		                                                                     
                                          jQuery("li#wp-admin-bar-wp-logo a.ab-item span.ab-icon").html("<img style=\"height:28px;margin-top:-4px\" src=\"<?php echo get_option('agca_wp_logo_custom'); ?>\" />");
                                          jQuery("li#wp-admin-bar-wp-logo a.ab-item span.ab-icon").css('background-image','none');
-                                         jQuery("li#wp-admin-bar-wp-logo a.ab-item span.ab-icon").css('width','auto');  
-                                         jQuery("li#wp-admin-bar-wp-logo a.ab-item").attr('href',"<?php echo get_bloginfo('wpurl'); ?>");
-                                       
-                                         jQuery("#wpadminbar #wp-admin-bar-root-default > #wp-admin-bar-wp-logo .ab-item").attr('title','');
-                                }
+                                         jQuery("li#wp-admin-bar-wp-logo a.ab-item span.ab-icon").css('width','auto');										 									 
+                                         jQuery("li#wp-admin-bar-wp-logo a.ab-item").attr('href',"<?php echo get_bloginfo('wpurl'); ?>");                                       
+                                         jQuery("#wpadminbar #wp-admin-bar-root-default > #wp-admin-bar-wp-logo .ab-item:before").attr('title','');    
+										 jQuery('body #wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon').attr('class','ab-icon2');	
                 <?php }?>
 				<?php if(get_option('agca_remove_site_link')==true){ ?>
                                 jQuery("#wp-admin-bar-site-name").css("display","none");							                            
