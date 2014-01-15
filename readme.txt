@@ -1,110 +1,139 @@
 === AG Custom Admin ===
 Contributors: argonius
 Donate link: http://agca.argonius.com/ag-custom-admin/support-for-future-development
-Tags: admin, customize, hide, change admin, themes, admin themes
+Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
 Tested up to: 3.8
 Stable tag: 1.3.2
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
  
 All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 
 == Description ==
-With this plugin you hide/change admin panel items (like admin bar or footer text, remove Screen options, Help options or Favorites dropdown menu etc).
-You can also completely change or hide buttons from admin menu, or add new customized buttons. With Colorizer you can completely customize background and text colors in admin and login page.
+With this plugin you can easily customize WordPress **admin panel**, **login page**, **admin menu**, **admin bar** etc. in tiny details and apply free responsive **admin themes**.
 
-Here is the list of options:
+* **ADMIN BAR**: Hide or change admin bar items. Remove WordPress traces from admin bar. Brand it with custom colors.
+* **ADMIN MENU**: Change and remove existing and add custom admin menu items. Brand it with custom colors. 
+* **ADMIN THEMES**: it was never been so easy to apply free and responsive admin panel themes with just few clicks.
+* **COLORIZER**: This tool is integrated with AG Custom Admin panel and can be used to change default WordPress admin panel colors, admin bar, admin menu, login page, backgrounds and fonts.
+* **BRANDING**: Brand your admin panel pages with custom content, colors, images and text.
+* **ADMIN PANEL OPTIONS**: There are also dozens of many other admin panel options used to hide or change existing WordPress admin panel and login page items like Dashboard widgets, Help and Screen options, WordPress logos, links, menus etc. See the full list down below.
 
-	Admin Bar Options
-	- Hide admin bar completely
-	- Hide admin bar on front end
-	- Change admin bar logo and link
-	- Hide admin bar WordPress logo
-	- Add custom image in admin header
-	- Add custom admin bar logo
-	- Hide admin bar dropdown menus
-	- Hide "New" dropdown items
-	- Hide comments from admin bar
-	- Hide updates from admin bar
-	- Hide WordPress update notification bar
-	- Hide default blog heading in admin bar
-	- Change admin bar heading text
-	- Hide Screen Options menu
-	- Hide Help menu
-	- Hide Favorite Actions
-	- Change/remove Howdy text
-	- Change Log out text
-	- Log out button only
 
-	Admin Footer Options
-	- Hide footer completely
-	- Change/remove footer text
-	- Change/remove footer version text
 
-	Dashboard Page Options
-	- Hide Dashboard heading icon
-	- Change Dashboard heading text
-	- Add custom Dashboard content
-	- Hide dashboard widgets
+= Admin Bar Options =
+* Hide admin bar completely 
+* Hide admin bar completely, but show only Log Out button
+* Remove admin bar on site pages
+* Replace WordPress logo with custom image
+* Change link on admin bar logo
+* Change page title (html title tag) of all admin pages
+* Add custom branding image between admin bar and content on all pages
+* Hide WordPress in from admin bar
+* Hide site name in admin bar
+* Hide admin bar context menus
+* Hide "Comments" menu
+* Hide "New" menu
+* Hide "New" -> "Post"
+* Hide "New" -> "Link"
+* Hide "New" -> "Page"
+* Hide "New" -> "User"
+* Hide "New" -> "Media"
+* Hide update notifications
+* Add custom heading to admin bar
+* Hide yellow WordPress update notification
+* Hide Screen options menu
+* Hide Help menu
+* Hide Favorite Actions menu
+* Change Howdy text
+* Change Log Out text
+* Remove "Edit My Profile" option from context menu
+* Show "Log Out" button only
 
-	Login Page Options
-	- Hide back to blog completely
-	- Change login image	
-	- Change hyperlink on login image
-	- Hide login image
-	- Round corners on login boxes
-	- Hide register and lost password links
-	- Change hyperlink on register button
+
+= Admin Footer Options =
+* Hide footer completely
+* Change/remove footer text
+* Change/remove footer version text
+
+= Dashboard Page Options =
+* Change Dashboard heading text
+* Add custom Dashboard HTML content
+* Hide dashboard widgets
+
+= Login Page Options =
+* Hide back to blog text
+* Change back to blog text
+* Change login image
+* Change hyperlink on login image
+* Hide login image
+* Round corners on login boxes
+* Hide register and lost password links
+* Change hyperlink on register button
 	
-	Admin Menu Options
-	- Rename menu and submenu items
-	- Remove menu and submenu items
-	- Add new buttons with custom links
-	- Remove icons from admin menu buttons
-	- Remove spaces between admin menu buttons
-	- Remove admin menu arrow on rollower
-	- Round admin submenu popups	
-	- Add custom branding image above the admin menu
-	- Add custom link to branding image
+= Admin Menu Options =
+* Rename menu and submenu items
+* Remove menu and submenu items
+* Add new buttons with custom links
+* Remove icons from admin menu buttons
+* Remove spaces between admin menu buttons
+* Remove admin menu arrow on mouseover
+* Round admin submenu popups	
+* Remove "Collapse" button	
+* Add custom branding image above the admin menu
+* Add custom link to branding image
+* Change admin menu auto-folding settings
 	
-	Colorizer
-	- Change background and text colors on admin and login page	
-	- Change admin menu colors
-	- Change widget colors
-	
-	Admin Panel Themes
-	- Use predefined AG Custom Admin themes for WordPress Admin Panel
-	
-	Advanced
-	- Add custom CSS
-	- Add custom JavaScript
-	- Export/import customization settings
+= Colorizer =
+* Change background and text colors on admin and login page	
+* Change admin menu colors
+* Change widget colors
 
-**IMPORTANT**: AG Custom Admin should always be updated before updating WordPress. If you are unable to login or you have any other problems, please check our [FAQ](http://wordpress.org/extend/plugins/ag-custom-admin/faq/) and [SUPPORT](http://wordpress.org/support/plugin/ag-custom-admin) page.
+= Advanced =
+* Add custom CSS
+* Add custom JavaScript
+* Export/import customization settings
+	
+= Admin Themes =
+AG Custom Admin plugin contains specialy created professional and responsive themes for admin panel and login page, that can be applied easily within AG Custom Admin plugin with only few clicks!
+We will add more themes with better styles and theme options in future. 
 
-For more information about the plugin please check [PLUGIN WEBSITE](http://agca.argonius.com/ag-custom-admin/)
+For more info about AG Custom Admin themes, please go to [WordPress Admin Panel Themes](http://wordpressadminpanel.com/themes/home) site.
+
+= Contact =
+If you are unable to login or you have any other problems, please check our [FAQ](http://wordpress.org/extend/plugins/ag-custom-admin/faq/) and [SUPPORT](http://wordpress.org/support/plugin/ag-custom-admin) page.
+
+For more information about the plugin please check [PLUGIN WEBSITE](http://agca.argonius.com/ag-custom-admin/) and for more information about admin themes please check [THEMES WEBSITE](http://wordpressadminpanel.com/themes/home)
+
+**Important**: AG Custom Admin should always be updated before updating WordPress. 
 
 == Installation ==
 
 1. Upload `ag-custom-admin` directory to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Activated plugin should appear in 'Tools' menu
+3. Activated plugin appears in 'Tools' menu
 
 == Frequently Asked Questions ==
 
-= Plugin does not work after upgrading to new version. What should I do? =
-Try to clear browser's cache, and reload page. In extreme situations, you would need to remove plugin and to download and install fresh installation from WordPress repository.
+= I see only blank page. What can I do? =
+This is caused by JavaScript error thrown by this or some other plugin. Please open browser's console and try to find JavaScript errors. Try to find the source of the error, it is probably thrown by some plugin. If you can find the source, please try to disable that plugin or theme and post that error on their support page. You could try also disabling plugins one-by-one to see when this problem occures. If you can't access login page, please temporary disable JavaScript in your browser and refresh the page.
+If this does not work, try to find JavaScript error in browser's console and post it to our support page.
 
-= I see only blank page. What to do? =
-This is caused by JavaScript error thrown by AGCA or some other plugin. If you want to deactivate plugin, but you can't access admin panel, turn off JavaScript in your browser and than log in back and deactivate plugin (This works only for administrator). Try also to clear browser's cache. If this does not work, try to find javaScript error in browser's console and post it to plugin's support page.
+= I cannot log in to admin panel =
+If you see blank page or login form is disappeared, it's most likely that you have some errors thrown in your WordPress site. This is caused by JavaScript error thrown by this or some other plugin. If you want to deactivate plugin, but you can't access admin panel, turn off JavaScript in your browser and then log in back and deactivate plugin (This works only for administrator). Try also to clear browser's cache. If this does not work, try to find JavaScript error in browser's console and post it to plugin's support page.
+
+= Plugin does not work after upgrading to new version. What should I do? =
+Try to clear browser's cache, and reload page. You can try to download fresh copy of plugin and to re-install it again. Make sure to have latest plugin and WordPress versions installed. If nothing of these solutions help, please contact our support.
 
 = Something is wrong with Admin Menu buttons =
 Please use 'Reset Settings' button on Admin Menu page to reset menu configuration to defaults. Remember that you should postpone admin menu configuration to the very end of admin page customization, because, any changes made from other plugins to admin menu (e.g adding new button of plugin that is activated, or removing that button when plugin is deactivated) could corrupt admin menu configuration.
 
-= Some errors appear on my page =
+= Errors appear on admin/login pages =
 Go to browser's console and see if there are any errors. Try to locate them. If you can't fix error by yourself, post it back to plugin's support page.
 
-= Plugin does not work =
-Try clearing browser's cache. If that does not work, go to browser's console and see if there are any errors. Try to locate them. If you can't fix error by yourself, post it back to plugin's support page. When trying to locate the problem, the best way is to disable other plugins, because there could be a conflict with them. If there is a conflict with other plugin, it can be found by disabling one by one plugin, until the problem is solved.
+= Some options are not working =
+Plugin should be always up-to-date with latest WordPress release. If you have found out that something is not working in the latest WordPress, please contact us and let us know. If you're using older WordPress version, some options could be deprecated. In that case, please check our [COMPATIBILITY](http://agca.argonius.com/ag-custom-admin/ag_custom_admin/recommended-ag-custom-admin-version-for-your-wordpress-version) page to find the best AG Custom Admin version for your WordPress.
  
 
 == Screenshots ==
