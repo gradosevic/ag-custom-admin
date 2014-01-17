@@ -2,7 +2,7 @@
 /*
 Plugin Name: AG Custom Admin
 Plugin URI: http://agca.argonius.com/ag-custom-admin/category/ag_custom_admin
-Description: Hide or change items in admin panel. Customize buttons from admin menu. Colorize admin and login page with custom colors.
+Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Argonius
 Version: 1.3.2
 Author URI: http://www.argonius.com/
