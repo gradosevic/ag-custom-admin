@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://agca.argonius.com/ag-custom-admin/category/ag_custom_admin
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Argonius
-Version: 1.3.2
+Version: 1.3.3
 Author URI: http://www.argonius.com/
 
 	Copyright 2014. Argonius (email : info@argonius.com)
@@ -54,7 +54,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
                 //fb($this->colorizer);
-		$this->agca_version = "1.3.2";
+		$this->agca_version = "1.3.3";
 		
 		/*upload images programmaticaly*/
 		//TODO upload with AJAX one by one, use post data to send urls one by one
@@ -282,9 +282,7 @@ class AGCA{
                         </script>
 			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/ag_style.css?ver=<?php echo $this->agca_version; ?>" />                       
 			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>	                        	
-            <?php if($this->context == "admin"){ ?>
-				<script type="text/javascript" src="../wp-includes/js/tinymce/tiny_mce.js"></script>			
-			<?php } 					    
+                        <?php 					    
 						echo $this->templateCustomizations; 
 						
                         if(!((get_option('agca_role_allbutadmin')==true) and  (current_user_can($this->admin_capability())))){	
