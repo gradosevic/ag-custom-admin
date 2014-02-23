@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://agca.argonius.com/ag-custom-admin/category/ag_custom_admin
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Argonius
-Version: 1.3.3
+Version: 1.3.4
 Author URI: http://www.argonius.com/
 
 	Copyright 2014. Argonius (email : info@argonius.com)
@@ -31,8 +31,8 @@ class AGCA{
 	private $agca_version;    
 	private $agca_debug = false;    
 	private $admin_capabilities;    	
-    private $context = "";
-    private $saveAfterImport = false;	
+        private $context = "";
+        private $saveAfterImport = false;	
 	private $templateCustomizations = "";
 	private $templates_ep = "http://wordpressadminpanel.com/configuration.php";	
 	public function __construct()
@@ -41,8 +41,10 @@ class AGCA{
 		$this->checkPOST();
 		$this->checkGET();		
             
-		add_filter('admin_title', array(&$this,'change_title'), 10, 2); 		
-		add_filter('plugin_row_meta', array(&$this,'jk_filter_plugin_links'), 10, 2);
+                if(function_exists("add_filter")){
+                    add_filter('admin_title', array(&$this,'change_title'), 10, 2); 		
+                    add_filter('plugin_row_meta', array(&$this,'jk_filter_plugin_links'), 10, 2);
+                }		
 		add_action('admin_init', array(&$this,'agca_register_settings'));
 		add_action('admin_init', array(&$this,'agca_init_session'));
 		add_action('admin_head', array(&$this,'print_admin_css'));		
@@ -54,7 +56,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
                 //fb($this->colorizer);
-		$this->agca_version = "1.3.3";
+		$this->agca_version = "1.3.4";
 		
 		/*upload images programmaticaly*/
 		//TODO upload with AJAX one by one, use post data to send urls one by one
@@ -741,32 +743,7 @@ class AGCA{
 		$version = $array[0];		
 		return $version;
 	}
-	
-	function finalErrorCheck(){
-		?>		
-		function AGCAErrorPage(){
-			if(document.getElementsByTagName('html')[0].style.visibility == ""){		
-			var ddf ="dfsfsfsfs";
-			var txt = "";				
-				txt += '</br></br>AG Custom Admin is unable to correctly process this page. Probably there are some errors thrown from some of the installed plugins or templates.</br></br>';
-				txt += 'To resolve this issue please:</br><ul style="list-style-type:disc;list-style-position: inside;">';
-				txt += '<li><strong>Check browser\'s console for errors</strong>: Please analyse .js script location which throws the error. Location of the script can give you more information about where is the source of the problem. Usualy it is a location of a plugin or a template. If there are several errors, usualy the first one is the one which caused this problem, and you should try to resolve that one first.</li>';
-				txt += '<li><strong>Find the source of the problem</strong>: Please try disabling plugins/themes one by one, until the problem is solved. If you disable some plugin and the problem is solved after that, most likely is that plugin does not work well.</li>';
-				txt += '<li><strong>Can\'t access your login page?</strong> Please disable JavaScript in your browser. After you log in, you can remove or fix problematic plugin, and re-enable JavaScript again.</li>';
-				txt += '<li><strong>Still no progress?</strong> If you can\'t find the source of the problem by yourself, please check our <a target="_blank" href="http://agca.argonius.com/ag-custom-admin/ag_custom_admin/ag-custom-admin-js-error">support page for this error</a>. You can check also our <a target="_blank" href="http://wordpress.org/extend/plugins/ag-custom-admin/">AGCA WordPress.org support page</a></li>';
-				txt += '</ul></br></br>Thank you';				
-				txt += '</ul></br><a href="<?php echo $_SERVER['PHP_SELF']."?page=ag-custom-admin/plugin.php&agca_action=disablewarning"; ?>" style="color:red;float:right;text-decoration: none;margin-top:-15px;" onclick="return confirm(\'<?php echo "Are you sure you want to disable this message?&nbsp;&nbsp;&nbsp;&nbsp;Please be aware that in case of errors your page might become blank, and you need to check browsers console to find the errors."; ?>\');" >Never show this message again</a>';
-				document.body.innerHTML = '<div style="border: 1px solid gray;width:500px;height:auto;color:gray;background:white;margin:10px;margin-left:auto;margin-right:auto;padding: 20px;"><strong>AG Custom Admin JS Error</strong></br></br>Please try again after clearing browser\'s cache and reloading the page. If problem persists, please contact your administrator.</br></br><a href="#" onclick="document.getElementById(\'agca_more_info_for_admin\').style.display = \'block\'">Debug Info (for site administrator)</a><span style="display:none" id="agca_more_info_for_admin">'+txt+'</span></div>';				
-			}
-		}	
-		<?php			
-		if(get_option('agca_disablewarning')==""){
-			?>
-			     window.setTimeout(AGCAErrorPage, 15000);						
-			<?php			
-		}		
-	}
-	
+		
 	function print_page()
 	{
 	if($this->isGuest()){
@@ -1282,13 +1259,32 @@ class AGCA{
 			}
 		}
 	}
+        
+        function agca_error_check(){
+            ?>
+                <script type="text/javascript"> 
+                 function AGCAErrorPage(msg, url, line){
+                     var title = 'AG Custom Admin just caught a JavaScript error on this site:\n\n '+ msg +'\n' + url + '\n' + line+'\n\nThis error prevents AG Custom Admin to work properly. To fix this, please analyse this error message and try to find the source. You can also check browser\'s console to see this error. \n\nIf you need more help, just click on this error message';
+                        document.getElementsByTagName('html')[0].style.visibility = "visible";
+                        document.body.innerHTML += '<div style="position:absolute;width:auto;height:auto;padding:4px;right:0;top:0;z-index:99999;background:#ff0000;color:#ffffff";border:3px solid #ffffff;><a target="_blank" href="http://agca.argonius.com/ag-custom-admin/ag_custom_admin/error-ocurred-javascript-error-caught" title="'+title+'" style="color:#ffffff;text-decoration:none;font-weight:bold;">Error Ocurred</a></div>';			
+		}
+                window.onerror = function(msg, url, line) {                   
+                    window.onload = function() {
+                        AGCAErrorPage(msg, url, line);
+                    }                                  
+                   return true;
+                };
+                </script>
+            <?php
+        }
 
 	function print_admin_css()
 	{	
 		$agcaTemplateSession = $this->agcaAdminSession();
 		$wpversion = $this->get_wp_version();	
 		$this->context = "admin";
-		?>
+                $this->agca_error_check();
+		?>                 
 		<script type="text/javascript">
 			var wpversion = "<?php echo $wpversion; ?>";
 			var agca_debug = <?php echo ($this->agca_debug)?"true":"false"; ?>;
@@ -1319,7 +1315,6 @@ class AGCA{
 ?>	
 <script type="text/javascript">
 document.write('<style type="text/css">html{visibility:hidden;}</style>');
-<?php $this->finalErrorCheck(); ?>
 <?php
 if(isset($_POST['_agca_import_settings']) && $_POST['_agca_import_settings']=='true'){
     echo 'isSettingsImport = true;';
@@ -1694,12 +1689,9 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
                                
  }catch(err){	
 	errors = "AGCA - ADMIN ERROR: " + err.name + " / " + err.message;
-	alert(errors);		
+	console.log(errors);		
  }finally{
-	jQuery('html').css('visibility','visible');	
-	if(errors){
-		jQuery("#agca_form").html('<div style="height:500px"><p style="color:red"><strong>WARNING:</strong> AG Custom Admin stops its execution because of an error. Please resolve this error before continue: <br /><br /><strong>' + errors + '</strong></p></div>');
-	}	
+	jQuery('html').css('visibility','visible');		
  }  
  <?php
  if($this->saveAfterImport == true){
@@ -1737,10 +1729,10 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 	function print_login_head(){
 		$this->context = "login";	
 		$wpversion = $this->get_wp_version();
+                $this->agca_error_check();
 		?>
-		<script type="text/javascript">		 
-		 document.write('<style type="text/css">html{visibility:hidden;}</style>');
-		 <?php $this->finalErrorCheck(); ?>
+		<script type="text/javascript">		
+		 document.write('<style type="text/css">html{visibility:hidden;}</style>');		 
 		 var agca_version = "<?php echo $this->agca_version; ?>";
 		 <?php //var wpversion = "echo $wpversion; ?>
 		 var agca_debug = <?php echo ($this->agca_debug)?"true":"false"; ?>;
@@ -1844,12 +1836,10 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 					 } ?>
 					<?php //COLORIZER END ?>			
 			 }catch(err){				
-				alert("AGCA - LOGIN ERROR: " + err.name + " / " + err.message);							
-			 }finally{				
-						
+				console.log("AGCA - LOGIN ERROR: " + err.name + " / " + err.message);							
+			 }finally{		
 				jQuery('html').show();
-				jQuery('html').css('visibility','visible');	
-																
+				jQuery('html').css('visibility','visible');							
 			 }
             });
         /* ]]> */
