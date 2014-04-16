@@ -3,7 +3,7 @@ Contributors: argonius
 Donate link: http://agca.argonius.com/ag-custom-admin/support-for-future-development
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
-Tested up to: 3.8.1
+Tested up to: 3.9
 Stable tag: 1.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
