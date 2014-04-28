@@ -678,7 +678,8 @@ class AGCA{
 	function agca_decode($code){
 		$code = str_replace("{","",$code);
 		$code = str_replace("}","",$code);
-		$elements = explode(", ",$code);
+                $code = str_replace("\", \"","\"|||\"",$code);
+		$elements = explode("|||",$code);
 		
 		return $elements;
 	}
@@ -708,13 +709,13 @@ class AGCA{
 					$array.='<tr><td colspan="2"><button target="'.$v["target"].'" title="'.$v["value"].'" type="button">'.$k.'</button>&nbsp;(<a style="cursor:pointer" class="button_edit">edit</a>)&nbsp;(<a style="cursor:pointer" class="button_remove">remove</a>)</td><td></td></tr>';							
 				}	
 			}
-		}else{
-			//$elements = json_decode($arr[$type],true);			
+		}else{				
 			if(isset($arr[$type])){
 				$elements = $this->agca_decode($arr[$type]);
 			}
+                       
 			if($elements !=""){
-				foreach($elements as $element){
+				foreach($elements as $element){                                     
 					if(!$first){
 						$array .=",";
 					}
