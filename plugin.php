@@ -678,7 +678,7 @@ class AGCA{
 	function agca_decode($code){
 		$code = str_replace("{","",$code);
 		$code = str_replace("}","",$code);
-                $code = str_replace("\", \"","\"|||\"",$code);
+        $code = str_replace("\", \"","\"|||\"",$code);
 		$elements = explode("|||",$code);
 		
 		return $elements;
