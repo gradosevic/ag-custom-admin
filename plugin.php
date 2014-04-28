@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://agca.argonius.com/ag-custom-admin/category/ag_custom_admin
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Argonius
-Version: 1.3.5
+Version: 1.3.6
 Author URI: http://www.argonius.com/
 
 	Copyright 2014. Argonius (email : info@argonius.com)
@@ -31,8 +31,8 @@ class AGCA{
 	private $agca_version;    
 	private $agca_debug = false;    
 	private $admin_capabilities;    	
-        private $context = "";
-        private $saveAfterImport = false;	
+    private $context = "";
+    private $saveAfterImport = false;	
 	private $templateCustomizations = "";
 	private $templates_ep = "http://wordpressadminpanel.com/configuration.php";	
 	public function __construct()
@@ -56,7 +56,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
                 //fb($this->colorizer);
-		$this->agca_version = "1.3.5";
+		$this->agca_version = "1.3.6";
 		
 		/*upload images programmaticaly*/
 		//TODO upload with AJAX one by one, use post data to send urls one by one
