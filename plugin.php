@@ -1481,10 +1481,12 @@ try
 					<?php if(get_option('agca_dashboard_text')!=""){ ?>							
 							jQuery("#dashboard-widgets-wrap").parent().find("h2").html("<?php echo addslashes(get_option('agca_dashboard_text')); ?>");
 					<?php } ?>
-					<?php if(get_option('agca_dashboard_text_paragraph')!=""){ ?>	
+					<?php if(get_option('agca_dashboard_text_paragraph')!=""){ 
+                                                        require_once(ABSPATH . 'wp-includes/formatting.php');
+                                        ?>	
                                                         jQuery("#wpbody-content #dashboard-widgets-wrap").before('<div id="agca_custom_dashboard_content"></div>');
                                                        
-							jQuery("#agca_custom_dashboard_content").html('<br /><p ttt style=\"text-indent:45px;\"><?php echo preg_replace('/(\r\n|\r|\n)/', '\n', addslashes(get_option('agca_dashboard_text_paragraph'))); ?></p>');
+							jQuery("#agca_custom_dashboard_content").html('<br /><?php echo preg_replace('/(\r\n|\r|\n)/', '\n', addslashes(wpautop(get_option('agca_dashboard_text_paragraph')))); ?>');
 					<?php } ?>
 					
 					<?php /*Remove Dashboard widgets*/ ?>
