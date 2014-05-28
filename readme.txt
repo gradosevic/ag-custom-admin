@@ -3,7 +3,7 @@ Contributors: argonius
 Donate link: http://agca.argonius.com/ag-custom-admin/support-for-future-development
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
-Tested up to: 3.9
+Tested up to: 3.9.1
 Stable tag: 1.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -144,6 +144,11 @@ Plugin should be always up-to-date with latest WordPress release. If you have fo
 4. Default WP grey colors can be refreshed with any colors that you like! There are a lot of Colorizer option which can be use to style text, background, login, widgets, admin menu, top bar, footer and many more!
 
 == Changelog ==
+
+= 1.3.8 =
+* Central alignment for smaller login images, and for different form widths
+* Option to remove "WordPress News" dashboard widget
+* Better "Error Caught" message with more useful information
 
 = 1.3.7 =
 * Fixed issues with custom dashboard content
@@ -376,6 +381,9 @@ Plugin should be always up-to-date with latest WordPress release. If you have fo
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.3.8 =
+* Bug fixes: WordPress News dashboard widget, login image center alignment
 
 = 1.3.7 =
 * Fixed issues with custom dashboard content

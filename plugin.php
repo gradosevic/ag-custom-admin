@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://agca.argonius.com/ag-custom-admin/category/ag_custom_admin
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Argonius
-Version: 1.3.7
+Version: 1.3.8
 Author URI: http://www.argonius.com/
 
 	Copyright 2014. Argonius (email : info@argonius.com)
@@ -56,7 +56,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
                 //fb($this->colorizer);
-		$this->agca_version = "1.3.7";
+		$this->agca_version = "1.3.8";
 		
 		/*upload images programmaticaly*/
 		//TODO upload with AJAX one by one, use post data to send urls one by one
@@ -491,8 +491,7 @@ class AGCA{
                 'agca_dashboard_text',
                 'agca_dashboard_text_paragraph',
                 'agca_dashboard_widget_welcome',
-				'agca_dashboard_widget_activity',
-                //'agca_dashboard_widget_rc', deprecated in 3.8 and 1.3.1
+				'agca_dashboard_widget_activity',  
                 'agca_dashboard_widget_il',
                 'agca_dashboard_widget_plugins',
                 'agca_dashboard_widget_qp',
@@ -1265,10 +1264,20 @@ class AGCA{
             ?>
                 <script type="text/javascript"> 
                  function AGCAErrorPage(msg, url, line){
-                     var title = 'AG Custom Admin just caught a JavaScript error on this site:\n\n '+ msg +'\n' + url + '\n' + line+'\n\nThis error prevents AG Custom Admin to work properly. To fix this, please analyse this error message and try to find the source. You can also check browser\'s console to see this error. \n\nIf you need more help, just click on this error message';
+                     var title = 'AG Custom Admin just caught a JavaScript error on this site:\n\n'+ msg +'\n' + url + '\n' + line+'\n\nThis error prevents AG Custom Admin to work properly. To fix this, please navigate to the link above in your browser and open the source of that page (right click -> view page source) and find the line in code where it fails. In most cases this error should be fixed there.\n\nAs alternative solution, you can analyse the link above to find the plugin/theme where it was thrown. You can try to disable it or to report this error to the support of that/plugin theme.\n\nYou can also check browser\'s console to see & copy this error. \n\nIf you need more help, just click on this error message';
                         document.getElementsByTagName('html')[0].style.visibility = "visible";
                         document.body.innerHTML += '<div style="position:absolute;width:auto;height:auto;padding:4px;right:0;top:0;z-index:99999;background:#ff0000;color:#ffffff";border:3px solid #ffffff;><a target="_blank" href="http://agca.argonius.com/ag-custom-admin/ag_custom_admin/error-ocurred-javascript-error-caught" title="'+title+'" style="color:#ffffff;text-decoration:none;font-weight:bold;">Error Ocurred</a></div>';			
-		}
+						
+						if(typeof window.console === "object"){
+							console.log("___________________________________________________");
+							console.log("AG Custom Admin caught a JavaScript on your site:");
+							console.log("___________________________________________________");
+							console.log(msg);
+							console.log("source: " + url);
+							console.log("line: " + line);
+							console.log("___________________________________________________");
+						}						
+				}
                 window.onerror = function(msg, url, line) {                   
                     window.onload = function() {
                         AGCAErrorPage(msg, url, line);
@@ -1776,9 +1785,19 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								var originalWidth = 326;
 								var widthDiff = this.width - originalWidth; 
 								jQuery("#login h1 a").height(this.height);
-								jQuery("#login h1 a").width(this.width);
-								jQuery("#login h1 a").css("background-size",this.width+"px "+this.height+"px");								
-								jQuery("#login h1 a").css('margin-left',-(widthDiff/2)+"px");
+								jQuery("#login h1 a").width(this.width);								
+								jQuery("#login h1 a").css("background-size",this.width+"px "+this.height+"px");							
+																
+								var loginWidth = jQuery('#login').width();
+								var originalLoginWidth = 320;
+								var photoWidth = this.width;
+								
+								if(loginWidth > photoWidth){								
+									jQuery("#login h1 a").css('margin','auto');
+								}else{								
+									jQuery("#login h1 a").css('margin-left',-(widthDiff/2)+((loginWidth-originalLoginWidth)/2)+"px");		
+								}						
+														
 								jQuery("#login h1 a").show();
 							});												
 					<?php } ?>
@@ -2344,10 +2363,10 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</tr>	-->
 							<tr valign="center">
 								<th scope="row">
-									<label title="This is 'WordPress Development Blog' widget by default" for="agca_dashboard_widget_primary">Hide primary widget area</label>
+									<label title="This is 'WordPress News' or 'WordPress Development Blog' widget in older WordPress versions" for="agca_dashboard_widget_primary">Hide "WordPress News" widget</label>
 								</th>
 								<td>					
-									<input class="agca-checkbox" title="This is 'WordPress Development Blog' widget by default" type="checkbox" name="agca_dashboard_widget_primary" value="true" <?php if (get_option('agca_dashboard_widget_primary')==true) echo 'checked="checked" '; ?> />
+									<input class="agca-checkbox" title="This is 'WordPress News' or 'WordPress Development Blog' widget in older WordPress versions" type="checkbox" name="agca_dashboard_widget_primary" value="true" <?php if (get_option('agca_dashboard_widget_primary')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr>	
 							<tr valign="center">
