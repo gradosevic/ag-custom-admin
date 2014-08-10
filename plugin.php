@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://agca.argonius.com/ag-custom-admin/category/ag_custom_admin
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Argonius
-Version: 1.3.9
+Version: 1.4
 Author URI: http://www.argonius.com/
 
 	Copyright 2014. Argonius (email : info@argonius.com)
@@ -55,8 +55,8 @@ class AGCA{
 	
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
-                //fb($this->colorizer);
-		$this->agca_version = "1.3.9";
+              
+		$this->agca_version = "1.4";
 		
 		/*upload images programmaticaly*/
 		//TODO upload with AJAX one by one, use post data to send urls one by one
@@ -1236,6 +1236,12 @@ class AGCA{
 		
 		return $agcaTemplatesSession;
 		
+	}
+	
+	function getAGCAColor($name){
+		if(isset($this->colorizer[$name])){
+			echo htmlspecialchars($this->colorizer[$name]); 
+		}		
 	}
 	
 	function prepareAGCALoginTemplates(){
@@ -2658,21 +2664,21 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</tr>
 							<tr valign="center">
 								<th><label title="Change admin page background color" for="color_background">Background color:</label></th>
-								<td><input type="text" id="color_background" name="color_background" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_background']); ?>" />
+								<td><input type="text" id="color_background" name="color_background" class="color_picker" value="<?php echo $this->getAGCAColor('color_background'); ?>" />
 									<input type="button" alt="color_background" class="pick_color_button agca_button" value="Pick color" />
 									<input type="button" alt="color_background" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
 							</tr>	
                                                         <tr valign="center">
 								<th><label title="Change login page background color" for="login_color_background">Login page background color:</label></th>
-								<td><input type="text" id="login_color_background" name="login_color_background" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['login_color_background']); ?>" />
+								<td><input type="text" id="login_color_background" name="login_color_background" class="color_picker" value="<?php echo $this->getAGCAColor('login_color_background'); ?>" />
 									<input type="button" alt="login_color_background" class="pick_color_button agca_button" value="Pick color" />
 									<input type="button" alt="login_color_background" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
 							</tr>
 							<tr valign="center">
 								<th><label title="Change admin bar (on top) color in admin panel" for="color_header">Admin bar color:</label></th>
-								<td><input type="text" id="color_header" name="color_header" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_header']); ?>" />
+								<td><input type="text" id="color_header" name="color_header" class="color_picker" value="<?php echo $this->getAGCAColor('color_header'); ?>" />
 									<input type="button" alt="color_header" class="pick_color_button agca_button" value="Pick color" />
 									<input type="button" alt="color_header" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
@@ -2686,63 +2692,63 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</tr>
 							<tr valign="center">
 								<th><label title="Change button background color" for="color_admin_menu_top_button_background">Button background color:</label></th>
-								<td><input type="text" id="color_admin_menu_top_button_background" name="color_admin_menu_top_button_background" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_top_button_background']); ?>" />
+								<td><input type="text" id="color_admin_menu_top_button_background" name="color_admin_menu_top_button_background" class="color_picker" value="<?php echo $this->getAGCAColor('color_admin_menu_top_button_background'); ?>" />
 									<input type="button" alt="color_admin_menu_top_button_background" class="pick_color_button agca_button" value="Pick color" />
 									<input type="button" alt="color_admin_menu_top_button_background" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
 							</tr>
                                                          <tr valign="center">
 								<th><label title="Change button text color" for="color_admin_menu_font">Button text color:</label></th>
-								<td><input type="text" id="color_admin_menu_font" name="color_admin_menu_font" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_font']); ?>" />
+								<td><input type="text" id="color_admin_menu_font" name="color_admin_menu_font" class="color_picker" value="<?php echo $this->getAGCAColor('color_admin_menu_font'); ?>" />
 									<input type="button" alt="color_admin_menu_font" class="pick_color_button agca_button" value="Pick color" />
 									<input type="button" alt="color_admin_menu_font" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
 							</tr>
                                                         <tr valign="center">
 								<th><label title="Change button background color for current button" for="color_admin_menu_top_button_current_background">Button current background color:</label></th>
-								<td><input type="text" id="color_admin_menu_top_button_current_background" name="color_admin_menu_top_button_current_background" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_top_button_current_background']); ?>" />
+								<td><input type="text" id="color_admin_menu_top_button_current_background" name="color_admin_menu_top_button_current_background" class="color_picker" value="<?php echo $this->getAGCAColor('color_admin_menu_top_button_current_background'); ?>" />
 									<input type="button" alt="color_admin_menu_top_button_current_background" class="pick_color_button agca_button" value="Pick color" />
 									<input type="button" alt="color_admin_menu_top_button_current_background" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
 							</tr>
                                                         <tr valign="center">
 								<th><label title="Change button background color on mouseover" for="color_admin_menu_top_button_hover_background">Button hover background color:</label></th>
-								<td><input type="text" id="color_admin_menu_top_button_hover_background" name="color_admin_menu_top_button_hover_background" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_top_button_hover_background']); ?>" />
+								<td><input type="text" id="color_admin_menu_top_button_hover_background" name="color_admin_menu_top_button_hover_background" class="color_picker" value="<?php echo $this->getAGCAColor('color_admin_menu_top_button_hover_background'); ?>" />
 									<input type="button" alt="color_admin_menu_top_button_hover_background" class="pick_color_button agca_button" value="Pick color" />
 									<input type="button" alt="color_admin_menu_top_button_hover_background" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
 							</tr>
                                                         <tr valign="center">
 								<th><label title="Change button top border color" for="color_admin_menu_submenu_border_top">Button border top color:</label></th>
-								<td><input type="text" id="color_admin_menu_submenu_border_top" name="color_admin_menu_submenu_border_top" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_submenu_border_top']); ?>" />
+								<td><input type="text" id="color_admin_menu_submenu_border_top" name="color_admin_menu_submenu_border_top" class="color_picker" value="<?php echo $this->getAGCAColor('color_admin_menu_submenu_border_top'); ?>" />
 									<input type="button" alt="color_admin_menu_submenu_border_top" class="pick_color_button agca_button" value="Pick color" />
 									<input type="button" alt="color_admin_menu_submenu_border_top" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
 							</tr>
 							<tr valign="center">
 								<th><label title="Change button bottom border color" for="color_admin_menu_submenu_border_bottom">Button border bottom color:</label></th>
-								<td><input type="text" id="color_admin_menu_submenu_border_bottom" name="color_admin_menu_submenu_border_bottom" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_submenu_border_bottom']); ?>" />
+								<td><input type="text" id="color_admin_menu_submenu_border_bottom" name="color_admin_menu_submenu_border_bottom" class="color_picker" value="<?php echo $this->getAGCAColor('color_admin_menu_submenu_border_bottom'); ?>" />
 									<input type="button" alt="color_admin_menu_submenu_border_bottom" class="pick_color_button agca_button" value="Pick color" />
 									<input type="button" alt="color_admin_menu_submenu_border_bottom" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
                                                         </tr>    
 							<tr valign="center">
 								<th><label title="Change submenu item background color" for="color_admin_menu_submenu_background">Submenu button background color:</label></th>
-								<td><input type="text" id="color_admin_menu_submenu_background" name="color_admin_menu_submenu_background" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_submenu_background']); ?>" />
+								<td><input type="text" id="color_admin_menu_submenu_background" name="color_admin_menu_submenu_background" class="color_picker" value="<?php echo $this->getAGCAColor('color_admin_menu_submenu_background'); ?>" />
 									<input type="button" alt="color_admin_menu_submenu_background" class="pick_color_button agca_button" value="Pick color" />
 									<input type="button" alt="color_admin_menu_submenu_background" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
 							</tr>         
                                                         <tr valign="center">
 								<th><label title="Change submenu item background color on mouseover" for="color_admin_menu_submenu_background_hover">Submenu button hover background color:</label></th>
-								<td><input type="text" id="color_admin_menu_submenu_background_hover" name="color_admin_menu_submenu_background_hover" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_submenu_background_hover']); ?>" />
+								<td><input type="text" id="color_admin_menu_submenu_background_hover" name="color_admin_menu_submenu_background_hover" class="color_picker" value="<?php echo $this->getAGCAColor('color_admin_menu_submenu_background_hover'); ?>" />
 									<input type="button" alt="color_admin_menu_submenu_background_hover" class="pick_color_button agca_button" value="Pick color" />
 									<input type="button" alt="color_admin_menu_submenu_background_hover" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
 							</tr>  
                                                          <tr valign="center">
 								<th><label title="Change submenu item text color" for="color_admin_submenu_font">Submenu text color:</label></th>
-								<td><input type="text" id="color_admin_submenu_font" name="color_admin_submenu_font" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_submenu_font']); ?>" />
+								<td><input type="text" id="color_admin_submenu_font" name="color_admin_submenu_font" class="color_picker" value="<?php echo $this->getAGCAColor('color_admin_submenu_font'); ?>" />
 									<input type="button" alt="color_admin_submenu_font" class="pick_color_button agca_button" value="Pick color" />
 									<input type="button" alt="color_admin_submenu_font" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
@@ -2750,14 +2756,14 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							<?php if($wpversion >= 3.2) { ?>
 							<tr valign="center">
 								<th><label title="Change background color of element behind admin menu" for="color_admin_menu_behind_background">Wrapper background color:</label></th>
-								<td><input type="text" id="color_admin_menu_behind_background" name="color_admin_menu_behind_background" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_behind_background']); ?>" />
+								<td><input type="text" id="color_admin_menu_behind_background" name="color_admin_menu_behind_background" class="color_picker" value="<?php echo $this->getAGCAColor('color_admin_menu_behind_background'); ?>" />
 									<input type="button" alt="color_admin_menu_behind_background" class="pick_color_button agca_button" value="Pick color" />
 									<input type="button" alt="color_admin_menu_behind_background" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
 							</tr>
 							<tr valign="center">
 								<th><label title="Change border color of element behind admin menu" for="color_admin_menu_behind_border">Wrapper border color:</label></th>
-								<td><input type="text" id="color_admin_menu_behind_border" name="color_admin_menu_behind_border" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_admin_menu_behind_border']); ?>" />
+								<td><input type="text" id="color_admin_menu_behind_border" name="color_admin_menu_behind_border" class="color_picker" value="<?php echo $this->getAGCAColor('color_admin_menu_behind_border'); ?>" />
 									<input type="button" alt="color_admin_menu_behind_border" class="pick_color_button agca_button" value="Pick color" />
 									<input type="button" alt="color_admin_menu_behind_border" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
@@ -2778,21 +2784,21 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</tr>
 							<tr valign="center">
 								<th><label title="Change color in content text" for="color_font_content">Content text color:</label></th>
-								<td><input type="text" id="color_font_content" name="color_font_content" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_font_content']); ?>" />
+								<td><input type="text" id="color_font_content" name="color_font_content" class="color_picker" value="<?php echo $this->getAGCAColor('color_font_content'); ?>" />
 									<input type="button" alt="color_font_content" class="pick_color_button agca_button" value="Pick color" />
 									<input type="button" alt="color_font_content" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
 							</tr>
 							<tr valign="center">
 								<th><label title="Change color of admin bar text" for="color_font_header">Admin bar text color:</label></th>
-								<td><input type="text" id="color_font_header" name="color_font_header" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_font_header']); ?>" />
+								<td><input type="text" id="color_font_header" name="color_font_header" class="color_picker" value="<?php echo $this->getAGCAColor('color_font_header'); ?>" />
 									<input type="button" alt="color_font_header" class="pick_color_button agca_button" value="Pick color" />
 									<input type="button" alt="color_font_header" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
 							</tr>
 							<tr valign="center">
 								<th><label title="Change color in fotter text" for="color_font_footer">Footer text color:</label></th>
-								<td><input type="text" id="color_font_footer" name="color_font_footer" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_font_footer']); ?>" />
+								<td><input type="text" id="color_font_footer" name="color_font_footer" class="color_picker" value="<?php echo $this->getAGCAColor('color_font_footer'); ?>" />
 									<input type="button" alt="color_font_footer" class="pick_color_button agca_button" value="Pick color" />
 									<input type="button" alt="color_font_footer" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
@@ -2806,14 +2812,14 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</tr>
 							<tr valign="center">
 								<th><label title="Change color in header text" for="color_widget_bar">Title bar background color:</label></th>
-								<td><input type="text" id="color_widget_bar" name="color_widget_bar" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_widget_bar']); ?>" />
+								<td><input type="text" id="color_widget_bar" name="color_widget_bar" class="color_picker" value="<?php echo $this->getAGCAColor('color_widget_bar'); ?>" />
 									<input type="button" alt="color_widget_bar" class="pick_color_button agca_button" value="Pick color" />
 									<input type="button" alt="color_widget_bar" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
 							</tr>
 							<tr valign="center">
 								<th><label title="Change widget background color" for="color_widget_background">Background color:</label></th>
-								<td><input type="text" id="color_widget_background" name="color_widget_background" class="color_picker" value="<?php echo htmlspecialchars($this->colorizer['color_widget_background']); ?>" />
+								<td><input type="text" id="color_widget_background" name="color_widget_background" class="color_picker" value="<?php echo $this->getAGCAColor('color_widget_background'); ?>" />
 									<input type="button" alt="color_widget_background" class="pick_color_button agca_button" value="Pick color" />
 									<input type="button" alt="color_widget_background" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
