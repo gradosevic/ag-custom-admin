@@ -1893,7 +1893,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/agca_tmpl.js?ver=<?php echo $wpversion; ?>"></script>                  						
 		<?php //includes ?>		
 		<div class="wrap">
-			<h1 style="color:green">AG Custom Admin Settings <span style="font-size:15px;">(v<?php echo $this->agca_version; ?>)</span></h1>						
+			<h1 style="color:#005B69">AG Custom Admin Settings <span style="font-size:15px;">(v<?php echo $this->agca_version; ?>)</span></h1>						
 										<div id="agca_news">&nbsp;</div><br />								
 			<form method="post" id="agca_form" action="options.php">
 				<?php settings_fields( 'agca-options-group' ); ?>
@@ -2923,7 +2923,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 			</div>
 							
 										<br />
-			<br /><br /><br /><p id="agca_footer_support_info">WordPress 'AG Custom Admin' plugin by Argonius. If you have any questions, ideas for future development or if you found a bug or having any issues regarding this plugin, please visit plugin's <a target="_blank" href="http://agca.argonius.com/ag-custom-admin/">SUPPORT</a> page. <br /><br />You can also support development of this plugin if you <a target="_blank" href="http://agca.argonius.com/ag-custom-admin/support-for-future-development">Make a donation</a>. Thanks!<br /><br />Have a nice blogging!</p><br />
+			<br /><br /><br /><p id="agca_footer_support_info">If you have any questions, ideas for future development or you want to report an issue, please visit our support site:</br><a target="_blank" href="http://agca.argonius.com/ag-custom-admin/">Visit support site</a></br><br />You can also support future development of this plugin by giving a donation: </br><a target="_blank" href="http://agca.argonius.com/ag-custom-admin/support-for-future-development">Give a donation</a><br /><br />Thank you! Have a nice blogging!</p><br />
 		<?php
 	}
 }

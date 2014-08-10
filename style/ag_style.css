@@ -1,43 +1,57 @@
+/*color scheme*/
+/*
+-main
+#ACC491
+#DEF7C3
+
+-lighter
+#eef9d5
+
+-blue
+#005B69
+*/
 #ag_main_menu {
 	display:block;
 	height:35px;
-	border-bottom:3px solid green;	
+	border-bottom:3px solid #ACC491;	
 	margin-top:2px;
+}
+.ag_section h2, .ag_section h3{
+	color:#005B69;
 }
 #ag_main_menu li{
 	display:block;
-	background-color:#A9F5A9;
+	background-color:#DEF7C3;
 	float:left;
 	color:#0B6138;
 	padding:15px;
 	padding-top:8px;
 	padding-bottom:8px;
 	font-weight:bold;
-	border-bottom:3px solid green;
+	border-bottom:3px solid #ACC491;
 }
 #ag_main_menu li.selected{
-	border:3px solid green;
+	border:3px solid #ACC491;
 	border-bottom:none ;
 	background-color:#F9F9F9;
 	cursor:default;
 }
 #ag_main_menu li.normal:hover{
-	background-color:#A9F500;
+	background-color:#eef9d5;
 	cursor:pointer;
 }
 #ag_main_menu li a{
 	text-decoration:none;
-	color: green;
+	color: #888888;
 }
 .ag_table_heading{
-	background-color:#A9F5A9;
+	background-color:#DEF7C3;
 	display:block;
-	height:20px;
+	height:25px;
 	padding:5px;
 	padding-top:0px;
 	padding-bottom:1px;
-	margin-top:50px;
-	border-bottom:1px solid green;	
+	margin-top:50px;		
 	margin-left:-10px;
 	margin-right:-10px;
 }
@@ -89,17 +103,23 @@ td.ag_admin_menu_parent:hover{
 #agca_footer_support_info{
 	font-size:12px;
 	font-weight:bold;
-	color:#555;
-	border:1px solid green;
+	background:#acc491;
+	color:#ffffff;
+	border:none;
 	padding:20px;
+}
+#agca_footer_support_info a{
+	color:#005b69;
+	text-decoration:none;
+	font-size:18px;
 }
 #agca_news{
 	 height:50px;
 	 margin-top:-35px;
-	 color:green;
+	 color:#ACC491;
 }
 #agca_news a{
-	 color:green;
+	 color:#ACC491;
 }
 #agca_advertising{
     display:block;
@@ -174,15 +194,15 @@ td.ag_admin_menu_parent:hover{
     background-color:#ffffff;
 }    */
 #agca_form input[type=button],button{    
-	background-color: #275928;
-    border: 1px solid #444;
+	background-color: #ACC491;
+    border: 1px solid #ACC491;
     color: #FFFFFF;
     padding: 5px 10px;
 }
 #agca_form input[type=button]:hover{
-    background-color:#e8fae5;
-	border: 1px solid #E8FAE5;	
-    color:green;
+    background-color:#DEF7C3;
+	border: 1px solid #DEF7C3;	
+    color:#005B69;
     cursor:pointer;
 }
 #agca_form input[type=text]{
@@ -190,7 +210,7 @@ td.ag_admin_menu_parent:hover{
     width:400px; 
 }
 #agca_form input.color_picker{   
-    width:65px; 
+    width:77px; 
 }
 #agca_form input[type=text]:hover{
     background-color: #efffef;
@@ -212,19 +232,19 @@ td.ag_admin_menu_parent:hover{
     width:300px;
 }
 #agca_form input#save_plugin_settings{
-	background: none repeat scroll 0 0 #275928;
+	background: none repeat scroll 0 0 #acc491;
     font-weight: bold;
     height: 39px;
     padding: 4px;
     width: 130px;
-	border:1px solid #aaaaaa !important;
+	border:1px solid #acc491 !important;
 	text-shadow: none !important;
 	box-shadow: none !important;
 	font-size:16px;
 }
 #agca_form input#save_plugin_settings:hover{
-	background-color:#E8FAE5 !important;
-	color:#275928 !important;
+	background-color:#DEF7C3 !important;
+	color:#005B69 !important;
 }
 #agca_form input#save_plugin_settings[type="button"]:hover{
 	background-color:#ffffff;
