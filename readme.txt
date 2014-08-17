@@ -101,6 +101,11 @@ We will add more themes with better styles and theme options in future.
 
 For more info about AG Custom Admin themes, please go to [WordPress Admin Panel Themes](http://wordpressadminpanel.com/themes/home) site.
 
+= Additional Features = 
+We also offer some additional features to this plugin:
+* [Admin Panel Themes](http://wordpressadminpanel.com/themes/home)
+* [Admin Menu Icons Management](http://wordpressadminpanel.com/aglcami/home)
+
 = Contact =
 If you are unable to login or you have any other problems, please check our [FAQ](http://wordpress.org/extend/plugins/ag-custom-admin/faq/) and [SUPPORT](http://wordpress.org/support/plugin/ag-custom-admin) page.
 
