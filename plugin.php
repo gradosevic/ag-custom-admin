@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://agca.argonius.com/ag-custom-admin/category/ag_custom_admin
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Argonius
-Version: 1.4
+Version: 1.4.1
 Author URI: http://www.argonius.com/
 
 	Copyright 2014. Argonius (email : info@argonius.com)
@@ -56,7 +56,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
               
-		$this->agca_version = "1.4";
+		$this->agca_version = "1.4.1";
 		
 		/*upload images programmaticaly*/
 		//TODO upload with AJAX one by one, use post data to send urls one by one
@@ -1270,18 +1270,17 @@ class AGCA{
             ?>
                 <script type="text/javascript"> 
                  function AGCAErrorPage(msg, url, line){
-                     var title = 'AG Custom Admin just caught a JavaScript error on this site:\n\n'+ msg +'\n' + url + '\n' + line+'\n\nThis error prevents AG Custom Admin to work properly. To fix this, please navigate to the link above in your browser and open the source of that page (right click -> view page source) and find the line in code where it fails. In most cases this error should be fixed there.\n\nAs alternative solution, you can analyse the link above to find the plugin/theme where it was thrown. You can try to disable it or to report this error to the support of that/plugin theme.\n\nYou can also check browser\'s console to see & copy this error. \n\nIf you need more help, just click on this error message';
+				 var agca_error_details = "___________________________________________________\n";
+				 agca_error_details += '\n' + msg +'\nsource:' + url + '\nline:' + line + '\n';
+				 agca_error_details += "___________________________________________________\n";
+				 window.agca_error_details_alert = 'AG Custom Admin caught a JavaScript error on this site:\n'+ agca_error_details + '\nThis error prevents AG Custom Admin plugin to work properly. To fix this, please navigate to the link above in your browser and open the source of that page (right click -> view page source) and find the line in code where it fails. In most cases this error should be fixed there.\n\nAs an alternative solution, you could analyse the link above to find the plugin/theme where it was thrown. You can try to disable it or to report this error to their support.\n\nIf you\'re unable to fix this issue by yourself, you can also report it to AGCA support. Please select the content of the error first and press Ctrl+C(Win) or Cmd+C(Mac).\n\nConfirm this message to redirect to AGCA support page, or press Cancel to exit.';
                         document.getElementsByTagName('html')[0].style.visibility = "visible";
-                        document.body.innerHTML += '<div style="position:absolute;width:auto;height:auto;padding:4px;right:0;top:0;z-index:99999;background:#ff0000;color:#ffffff";border:3px solid #ffffff;><a target="_blank" href="http://agca.argonius.com/ag-custom-admin/ag_custom_admin/error-ocurred-javascript-error-caught" title="'+title+'" style="color:#ffffff;text-decoration:none;font-weight:bold;">Error Ocurred</a></div>';			
+                        document.body.innerHTML += '<div style="background: #ff0000;border-radius: 3px;color: #ffffff;height: auto; margin-right: 13px;margin-top: 47px;padding: 1px 4px;position: fixed; right: 0;top: 0;width: auto;z-index: 99999;"><a target="_blank" href="#" onclick="if(confirm(window.agca_error_details_alert)){window.open(\'http://agca.argonius.com/ag-custom-admin/ag_custom_admin/error-ocurred-javascript-error-caught\')};return false;"  title="AG Custom Admin caught a JavaScript error on this page. Please click here fore more info..." style="color: #ffffff !important;font-weight: bold;padding: 4px;text-decoration: none;">!</a></div>';			
 						
 						if(typeof window.console === "object"){
 							console.log("___________________________________________________");
-							console.log("AG Custom Admin caught a JavaScript on your site:");
-							console.log("___________________________________________________");
-							console.log(msg);
-							console.log("source: " + url);
-							console.log("line: " + line);
-							console.log("___________________________________________________");
+							console.log("AG Custom Admin caught a JavaScript on your site:");							
+							console.log(agca_error_details);														
 						}						
 				}
                 window.onerror = function(msg, url, line) {                   
