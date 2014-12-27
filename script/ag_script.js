@@ -881,23 +881,6 @@ function updateColor(id,color){
 
 /*C O L O R I Z E R  E N D*/
 
-/*A J A X*//*
-jQuery(document).ready(function(){	
-	jQuery.ajax({          
-		url: "http://wordpress.argonius.com/ag-custom-admin/news.php",           
-		type: "POST",       
-			cache: false,      
-			success: function (html) {             
-				//if data turned       
-				if (html==1) { 
-				  // jQuery('#agca_news').html(html);
-				alert(html+'3');
-				} else{   
-					alert('no');
-				}
-			}      
-	});
-});*/
 /*A J A X*/
 jQuery(document).ready(function(){		
     
@@ -905,7 +888,7 @@ jQuery(document).ready(function(){
     if(typeof isAGCAPage !== 'undefined'){
         if(isAGCAPage == true){
                  //alert('admin page');
-            var url="http://argonius.com/ag-custom-admin/ep/ads?jsoncallback=?";
+            var url="http://wordpressadminpanel.com/ads/ep/ads/ads?jsoncallback=?";
         jQuery.getJSON(
             url,{
                 wp_ver: wpversion,
@@ -914,7 +897,7 @@ jQuery(document).ready(function(){
             },
             function(json){                      
                 jQuery.each(json,function(i,post){
-                    jQuery('#agca_advertising ul').append('<li><a target="_blank" href="http://www.argonius.com/ag-custom-admin/ep/ad?id=' + post.id + '" ><img height=\"100px\" src=\"'+post.src+'\"  title=\"'+post.title+'\" /></a></li>');
+                    jQuery('#agca_advertising ul').append('<li><a target="_blank" href="http://wordpressadminpanel.com/ads/ep/ads/ad?id=' + post.id + '" ><img height=\"100px\" src=\"'+post.src+'\"  title=\"'+post.title+'\" /></a></li>');
                 });    
                 jQuery('#agca_advertising').show();
                 
@@ -927,7 +910,7 @@ jQuery(document).ready(function(){
     jQuery(document).ready(function(){
          if(typeof isAGCAPage !== 'undefined'){
                 if(isAGCAPage == true){
-                      var url="http://wordpress.argonius.com/agca/info.php/info?jsoncallback=?";
+                      var url="http://wordpressadminpanel.com/info/info?jsoncallback=?";
                         jQuery.getJSON(
                             url,{
                                 wp_ver: wpversion,

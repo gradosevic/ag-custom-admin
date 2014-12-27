@@ -1,10 +1,10 @@
 === AG Custom Admin ===
 Contributors: argonius
-Donate link: http://agca.argonius.com/ag-custom-admin/support-for-future-development
+Donate link: http://wordpressadminpanel.com/ag-custom-admin/
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
 Tested up to: 4.1
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
  
@@ -108,7 +108,7 @@ For more info about AG Custom Admin themes, please go to [WordPress Admin Panel 
 = Contact =
 If you are unable to login or you have any other problems, please check our [FAQ](http://wordpress.org/extend/plugins/ag-custom-admin/faq/) and [SUPPORT](http://wordpress.org/support/plugin/ag-custom-admin) page.
 
-For more information about the plugin please check [PLUGIN WEBSITE](http://agca.argonius.com/ag-custom-admin/) and for more information about admin themes please check [THEMES WEBSITE](http://wordpressadminpanel.com/themes/home)
+For more information about the plugin please check [PLUGIN WEBSITE](http://wordpressadminpanel.com/ag-custom-admin/) and for more information about admin themes please check [THEMES WEBSITE](http://wordpressadminpanel.com/themes/home)
 
 **Important**: AG Custom Admin should always be updated before updating WordPress. 
 
@@ -137,7 +137,7 @@ Please use 'Reset Settings' button on Admin Menu page to reset menu configuratio
 Go to browser's console and see if there are any errors. Try to locate them. If you can't fix error by yourself, post it back to plugin's support page.
 
 = Some options are not working =
-Plugin should be always up-to-date with latest WordPress release. If you have found out that something is not working in the latest WordPress, please contact us and let us know. If you're using older WordPress version, some options could be deprecated. In that case, please check our [COMPATIBILITY](http://agca.argonius.com/ag-custom-admin/ag_custom_admin/recommended-ag-custom-admin-version-for-your-wordpress-version) page to find the best AG Custom Admin version for your WordPress.
+Plugin should be always up-to-date with latest WordPress release. If you have found out that something is not working in the latest WordPress, please contact us and let us know. If you're using older WordPress version, some options could be deprecated. In that case, please check our [COMPATIBILITY](http://wordpressadminpanel.com/agca-support/news/recommended-ag-custom-admin-version-for-your-wordpress-version/) page to find the best AG Custom Admin version for your WordPress.
  
 
 == Screenshots ==
@@ -148,6 +148,9 @@ Plugin should be always up-to-date with latest WordPress release. If you have fo
 4. Default WP grey colors can be refreshed with any colors that you like! There are a lot of Colorizer option which can be use to style text, background, login, widgets, admin menu, top bar, footer and many more!
 
 == Changelog ==
+
+= 1.4.2 =
+* Internal links changes, support for the new support site domain
 
 = 1.4.1 =
 * Support up to WordPress 4.1
@@ -396,6 +399,9 @@ Plugin should be always up-to-date with latest WordPress release. If you have fo
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.4.2 =
+* Internal links changes
 
 = 1.4.1 =
 * Improvements

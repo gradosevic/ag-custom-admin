@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: AG Custom Admin
-Plugin URI: http://agca.argonius.com/ag-custom-admin/category/ag_custom_admin
+Plugin URI: http://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Argonius
-Version: 1.4.1
+Version: 1.4.2
 Author URI: http://www.argonius.com/
 
 	Copyright 2014. Argonius (email : info@argonius.com)
@@ -56,7 +56,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
               
-		$this->agca_version = "1.4.1";
+		$this->agca_version = "1.4.2";
 		
 		/*upload images programmaticaly*/
 		//TODO upload with AJAX one by one, use post data to send urls one by one
@@ -79,8 +79,8 @@ class AGCA{
 		if ( $file == plugin_basename(__FILE__) )
 		{
 		$links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php">' . __('Settings') . '</a>';
-		$links[] = '<a href="http://agca.argonius.com/ag-custom-admin/category/ag_custom_admin">' . __('Support') . '</a>';
-		$links[] = '<a href="http://agca.argonius.com/ag-custom-admin/support-for-future-development">' . __('Donate') . '</a>';
+		$links[] = '<a href="http://wordpressadminpanel.com/agca-support/">' . __('Support') . '</a>';
+		$links[] = '<a href="http://wordpressadminpanel.com/agca-support/support-for-future-development">' . __('Donate') . '</a>';
 		}
 		return $links;
 	}
@@ -1275,7 +1275,7 @@ class AGCA{
 				 agca_error_details += "___________________________________________________\n";
 				 window.agca_error_details_alert = 'AG Custom Admin caught a JavaScript error on this site:\n'+ agca_error_details + '\nThis error prevents AG Custom Admin plugin to work properly. To fix this, please navigate to the link above in your browser and open the source of that page (right click -> view page source) and find the line in code where it fails. In most cases this error should be fixed there.\n\nAs an alternative solution, you could analyse the link above to find the plugin/theme where it was thrown. You can try to disable it or to report this error to their support.\n\nIf you\'re unable to fix this issue by yourself, you can also report it to AGCA support. Please select the content of the error first and press Ctrl+C(Win) or Cmd+C(Mac).\n\nConfirm this message to redirect to AGCA support page, or press Cancel to exit.';
                         document.getElementsByTagName('html')[0].style.visibility = "visible";
-                        document.body.innerHTML += '<div style="background: #ff0000;border-radius: 3px;color: #ffffff;height: auto; margin-right: 13px;margin-top: 47px;padding: 1px 4px;position: fixed; right: 0;top: 0;width: auto;z-index: 99999;"><a target="_blank" href="#" onclick="if(confirm(window.agca_error_details_alert)){window.open(\'http://agca.argonius.com/ag-custom-admin/ag_custom_admin/error-ocurred-javascript-error-caught\')};return false;"  title="AG Custom Admin caught a JavaScript error on this page. Please click here fore more info..." style="color: #ffffff !important;font-weight: bold;padding: 4px;text-decoration: none;">!</a></div>';			
+                        document.body.innerHTML += '<div style="background: #ff0000;border-radius: 3px;color: #ffffff;height: auto; margin-right: 13px;margin-top: 47px;padding: 1px 4px;position: fixed; right: 0;top: 0;width: auto;z-index: 99999;"><a target="_blank" href="#" onclick="if(confirm(window.agca_error_details_alert)){window.open(\'http://wordpressadminpanel.com/agca-support/ag_custom_admin/error-ocurred-javascript-error-caught/\')};return false;"  title="AG Custom Admin caught a JavaScript error on this page. Please click here fore more info..." style="color: #ffffff !important;font-weight: bold;padding: 4px;text-decoration: none;">!</a></div>';			
 						
 						if(typeof window.console === "object"){
 							console.log("___________________________________________________");
@@ -1905,7 +1905,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								</td>
 				</tr>                                
 			</table>                        
-                        <div style="float:right;width:152px;margin-left: 100px;margin-top: -25px;"><strong><span style="font-size:12px" >Your feedback:</span></strong> <a class="feedback positive" target="_blank" title="POSITIVE FEEDBACK: I like this plugin!" href="http://agca.argonius.com/ag-custom-admin/feedback/ag-custom-admin-positive-feedback?comments=hidden" style="padding:5px;"><img  style="" width="15" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/thumbup.png" /></a>  <a class="feedback" target="_blank" title="NEGATIVE FEEDBACK: I don't like this plugin." style="padding:5px;" href="http://agca.argonius.com/ag-custom-admin/feedback/ag-custom-admin-negative-feedback?comments=hidden"><img width="15" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/thumbdown.png" /></a></div>
+                        <div style="float:right;width:152px;margin-left: 100px;margin-top: -25px;"><strong><span style="font-size:12px" >Your feedback:</span></strong> <a class="feedback positive" target="_blank" title="POSITIVE FEEDBACK: I like this plugin!" href="http://wordpressadminpanel.com/agca-support/feedback/ag-custom-admin-positive-feedback/" style="padding:5px;"><img  style="" width="15" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/thumbup.png" /></a>  <a class="feedback" target="_blank" title="NEGATIVE FEEDBACK: I don't like this plugin." style="padding:5px;" href="http://wordpressadminpanel.com/agca-support/feedback/ag-custom-admin-negative-feedback/"><img width="15" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/thumbdown.png" /></a></div>
                                     
 			<br />
 			<ul id="ag_main_menu">
@@ -1918,7 +1918,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
                 <li class="normal"><a href="#ag-advanced" title="My custom scripts">Advanced</a></li>
 				<li class="normal" style=""><a style="color:#DB6014;font-weight:bolder;" href="#ag-templates" title="AG Custom Admin Themes">Admin Themes</a></li>
 								
-				<li style="background:none;border:none;padding:0;"><a id="agca_donate_button" target="_blank" style="margin-left:8px" title="Like this plugin? You can support its future development by giving a donation by your wish " href="http://agca.argonius.com/ag-custom-admin/support-for-future-development"><img alt="Donate" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/btn_donate_LG.gif" /></a>
+				<li style="background:none;border:none;padding:0;"><a id="agca_donate_button" target="_blank" style="margin-left:8px" title="Like this plugin? You can support its future development by giving a donation by your wish " href="http://wordpressadminpanel.com/agca-support/support-for-future-development/"><img alt="Donate" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/btn_donate_LG.gif" /></a>
 				</li>                                
 				<li style="background:none;border:none;padding:0;padding-left:10px;margin-top:-7px"></li>		
 			</ul>
@@ -2922,7 +2922,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 			</div>
 							
 										<br />
-			<br /><br /><br /><p id="agca_footer_support_info">If you have any questions, ideas for future development or you want to report an issue, please visit our support site:</br><a target="_blank" href="http://agca.argonius.com/ag-custom-admin/">Visit support site</a></br><br />You can also support future development of this plugin by giving a donation: </br><a target="_blank" href="http://agca.argonius.com/ag-custom-admin/support-for-future-development">Give a donation</a><br /><br />Thank you! Have a nice blogging!</p><br />
+			<br /><br /><br /><p id="agca_footer_support_info">If you have any questions, ideas for future development or you want to report an issue, please visit our support site:</br><a target="_blank" href="http://wordpressadminpanel.com/agca-support/">Visit support site</a></br><br />You can also support future development of this plugin by giving a donation: </br><a target="_blank" href="http://wordpressadminpanel.com/agca-support/support-for-future-development/">Give a donation</a><br /><br />Thank you! Have a nice blogging!</p><br />
 		<?php
 	}
 }
