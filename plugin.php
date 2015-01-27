@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Argonius
-Version: 1.4.2
+Version: 1.4.3
 Author URI: http://www.argonius.com/
 
 	Copyright 2014. Argonius (email : info@argonius.com)
@@ -56,7 +56,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
               
-		$this->agca_version = "1.4.2";
+		$this->agca_version = "1.4.3";
 		
 		/*upload images programmaticaly*/
 		//TODO upload with AJAX one by one, use post data to send urls one by one
@@ -97,6 +97,13 @@ class AGCA{
 				update_option('agca_templates', "");
 				update_option('agca_selected_template', "");
 			}
+		}
+		if(isset($_GET['agca_debug'])){
+			if($_GET['agca_debug'] =="true"){
+				$this->agca_debug = true;			
+			}else{
+				$this->agca_debug = false;			
+			}			
 		}
 	}
 	
@@ -283,6 +290,7 @@ class AGCA{
                             ?>
                         </script>
 			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/ag_style.css?ver=<?php echo $this->agca_version; ?>" />                       
+			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/agca.css" /> 
 			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>	                        	
                         <?php 					    
 						echo $this->templateCustomizations; 
@@ -746,7 +754,7 @@ class AGCA{
 		
 	function print_page()
 	{
-	if($this->isGuest()){
+	if($this->isGuest() && get_option('agca_admin_bar_frontend_hide')){
 		return false;
 	}
 	
@@ -1650,9 +1658,8 @@ try
                                                                                                                                             <?php }else{ ?>
                                                                                                                                                 currentItemText = jQuery(this).text();
                                                                                                                                             <?php } ?>
-
-                                                                                                                                             //console.log("*"+checkboxes[i][0]+":"+withoutNumber+"*");
-																		if(checkboxes[i][0] == currentItemText){
+                                                                                                                                         
+																		if(checkboxes[i][0] == ((typeof currentItemText !== "undefined")?currentItemText.trim():currentItemText)){
                                                                                                                                                    
 																			if((checkboxes[i][1] == "true") || (checkboxes[i][1] == "checked")){
 																				jQuery(this).addClass('noclass');
@@ -2828,7 +2835,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							 <div id="picker"></div>			
 						</div>
 						<div id="section_templates" style="display:none" class="ag_section">	
-							<h2 class="section_title" tabindex="-1"><span style="float:left">Admin Themes</span><span style="width:100px;color:red;font-size:15px;float:left;margin-top:-8px;margin-left:6px;display:block">(beta)</span></h2>											
+							<h2 class="section_title" tabindex="-1"><span style="float:left">Admin Themes</span></h2>											
 							<br /><br />						
 							<table class="form-table" width="500px">					
 							<tr valign="center">								
@@ -2926,6 +2933,4 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 		<?php
 	}
 }
-//<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ? >style/agca.css" /> 
-//<link rel="stylesheet" type="text/css" href="http://localhost/wp/351/wp-content/plugins/ag-custom-admin/style/agca.css" />
 ?>
