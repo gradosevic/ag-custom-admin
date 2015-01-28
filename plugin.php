@@ -1191,15 +1191,15 @@ class AGCA{
 			foreach($templates as $templname=>$templdata){
 				if($templname == get_option('agca_selected_template')){
 					
-					echo ($templdata['common']);
+					echo (stripslashes($templdata['common']));
 					echo "<!--AGCAIMAGES: ".$templdata['images']."-->";
 				 if(!((get_option('agca_role_allbutadmin')==true) and  (current_user_can($this->admin_capability())))){	
 					if($templdata['settings'] == "") $templdata['settings'] = "{}";		
 					//print_r($templdata);															
 					
-					$this->JSPrintAGCATemplateSettingsVar($templdata['settings']);
+					$this->JSPrintAGCATemplateSettingsVar($templdata['settings']);					
 					
-					$admindata = $this->appendSettingsToAGCATemplateCustomizations($templdata['admin'], $templdata['settings']);	
+					$admindata = $this->appendSettingsToAGCATemplateCustomizations(stripslashes($templdata['admin']), $templdata['settings']);	
 					$admindata = $this->enableSpecificWPVersionCustomizations($admindata);
 					$admindata = $this->removeCSSComments($admindata);											
 					
@@ -1258,12 +1258,12 @@ class AGCA{
 			$templates = get_option( 'agca_templates' );
 			foreach($templates as $templname=>$templdata){
 				if($templname == get_option('agca_selected_template')){
-					echo ($templdata['common']);				
+					echo (stripslashes($templdata['common']));				
 					
 					if($templdata['settings'] == "") $templdata['settings'] = "{}";						
 					$this->JSPrintAGCATemplateSettingsVar($templdata['settings']);
 					
-					$logindata = $this->appendSettingsToAGCATemplateCustomizations($templdata['login'], $templdata['settings']);					
+					$logindata = $this->appendSettingsToAGCATemplateCustomizations(stripslashes($templdata['login']), $templdata['settings']);					
 					$logindata = $this->enableSpecificWPVersionCustomizations($logindata);
 					$logindata = $this->removeCSSComments($logindata);				
 					
