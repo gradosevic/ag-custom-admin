@@ -142,15 +142,15 @@ Plugin should be always up-to-date with latest WordPress release. If you have fo
 
 == Screenshots ==
 
-1. AG Custom Admin provides most of options for Admin Panel customization, and it's easy to use.
+1. AG Custom Admin provides most of the options for admin panel customization, and it's pretty easy to use it.
 2. Login page can be customized and styled with custom branding logo or image, rounded borders, background colors.
-3. Admin menu is completely customizable. You can rename or remove items from menu and submenu, or add brand new buttons with custom links.
-4. Default WP grey colors can be refreshed with any colors that you like! There are a lot of Colorizer option which can be use to style text, background, login, widgets, admin menu, top bar, footer and many more!
+3. Admin menu is completely customizable. You can rename or remove the items from them menu and submenu, or add brand new buttons with custom links.
+4. Default WP grey colors can be refreshed with any colors! There are a lot of Colorizer's options that can be used to style the text, background, login, widgets, admin menu, top bar, footer, almost everything!
 5. Free and commercial predefined WP admin panel themes.
-6. Orange - free theme - login page
-7. Dunes - commercial theme
-8. Wasteland - commerical theme
-9. Army - commercial theme
+6. Orange - free theme - login page.
+7. Dunes - commercial theme.
+8. Wasteland - commerical theme.
+9. Army - commercial theme.
 
 == Changelog ==
 
