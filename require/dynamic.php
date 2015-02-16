@@ -1,5 +1,5 @@
 <?php  
- require '/../../../../wp-load.php';  
+ require '../../../../wp-load.php';  
  
  $themes = get_option('agca_templates');	
  $selectedTheme = get_option('agca_selected_template');
