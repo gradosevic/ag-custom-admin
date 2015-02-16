@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Argonius
-Version: 1.4.4
+Version: 1.4.5
 Author URI: http://www.argonius.com/
 
 	Copyright 2014. Argonius (email : info@argonius.com)
@@ -56,7 +56,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
               
-		$this->agca_version = "1.4.4";
+		$this->agca_version = "1.4.5";
 		
 		/*upload images programmaticaly*/
 		//TODO upload with AJAX one by one, use post data to send urls one by one
@@ -1206,7 +1206,7 @@ class AGCA{
 				
 				//KEEP THIS FOR MIGRATION PURPOSE FOR SOME TIME
 				if(!((get_option('agca_role_allbutadmin')==true) and  (current_user_can($this->admin_capability())))){	
-					if($theme['settings'] == "") $theme['settings'] = "{}";		
+					if($theme['settings'] == "" || $theme['settings'] == " ") $theme['settings'] = "{}";		
 					//print_r($templdata);															
 					
 					$this->JSPrintAGCATemplateSettingsVar($theme['settings']);					
@@ -1271,7 +1271,7 @@ class AGCA{
 				if($templname == get_option('agca_selected_template')){
 					echo (stripslashes($templdata['common']));				
 					
-					if($templdata['settings'] == "") $templdata['settings'] = "{}";						
+					if($templdata['settings'] == "" || $templdata['settings'] == " ") $templdata['settings'] = "{}";						
 					$this->JSPrintAGCATemplateSettingsVar($templdata['settings']);
 					
 					$logindata = $this->appendSettingsToAGCATemplateCustomizations(stripslashes($templdata['login']), $templdata['settings']);					
