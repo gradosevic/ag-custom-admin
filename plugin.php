@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Argonius
-Version: 1.4.3
+Version: 1.4.4
 Author URI: http://www.argonius.com/
 
 	Copyright 2014. Argonius (email : info@argonius.com)
@@ -56,7 +56,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
               
-		$this->agca_version = "1.4.3";
+		$this->agca_version = "1.4.4";
 		
 		/*upload images programmaticaly*/
 		//TODO upload with AJAX one by one, use post data to send urls one by one
@@ -112,11 +112,15 @@ class AGCA{
 		  //print_r($_POST);					  
 		  $data = $_POST['templates_data'];
 		  $parts = explode("|||",$data);
+		  
 		  $common_data = $parts [0];
-		  $admin_data = $parts [1];
-		  $login_data = $parts [2];
-		  $settings = $parts [3];
-		  $images = $parts [4];
+		  $admin_js = $parts [1];
+		  $admin_css = $parts [2];
+		  $login_js = $parts [3];
+		  $login_css = $parts [4];
+		  $settings = $parts [5];
+		  $images = $parts [6];		  
+		  
 		  $template_name = $_POST['templates_name'];	
 			
 			update_option('agca_selected_template', $template_name);
@@ -128,8 +132,12 @@ class AGCA{
 			
 			$templates[$template_name] = array(
 				'common'=>$common_data,
-				'admin'=>$admin_data,
-				'login'=>$login_data,
+				'admin'=>"",
+				'adminjs'=>$admin_js,
+				'admincss'=>$admin_css,				
+				'login'=>"",
+				'loginjs'=>$login_js,
+				'logincss'=>$login_css,
 				'images'=>$images,
 				'settings'=>$settings
 				);
@@ -291,7 +299,9 @@ class AGCA{
                         </script>
 			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/ag_style.css?ver=<?php echo $this->agca_version; ?>" />                       
 			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/agca.css" /> 
+			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>require/dynamic.php?type=css&context=<?php echo $this->context; ?>&ver=<?php echo "changed_theme"; ?>" /> 
 			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>	                        	
+			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>require/dynamic.php?type=js&context=<?php echo $this->context; ?>&ver=<?php echo "changed_theme"; ?>"></script>	                        	
                         <?php 					    
 						echo $this->templateCustomizations; 
 						
@@ -1187,29 +1197,30 @@ class AGCA{
 	function prepareAGCAAdminTemplates(){
 		if(get_option( 'agca_templates' ) != ""){
 			//print_r(get_option( 'agca_templates' ));
-			$templates = get_option( 'agca_templates' );
-			foreach($templates as $templname=>$templdata){
-				if($templname == get_option('agca_selected_template')){
-					
-					echo (stripslashes($templdata['common']));
-					echo "<!--AGCAIMAGES: ".$templdata['images']."-->";
-				 if(!((get_option('agca_role_allbutadmin')==true) and  (current_user_can($this->admin_capability())))){	
-					if($templdata['settings'] == "") $templdata['settings'] = "{}";		
+			$themes = get_option( 'agca_templates' );
+			$selectedTheme = get_option('agca_selected_template');
+			if(isset($themes[$selectedTheme])){
+				$theme = $themes[$selectedTheme];
+				echo (stripslashes($theme['common']));
+				echo "<!--AGCAIMAGES: ".$theme['images']."-->";
+				
+				//KEEP THIS FOR MIGRATION PURPOSE FOR SOME TIME
+				if(!((get_option('agca_role_allbutadmin')==true) and  (current_user_can($this->admin_capability())))){	
+					if($theme['settings'] == "") $theme['settings'] = "{}";		
 					//print_r($templdata);															
 					
-					$this->JSPrintAGCATemplateSettingsVar($templdata['settings']);					
+					$this->JSPrintAGCATemplateSettingsVar($theme['settings']);					
 					
-					$admindata = $this->appendSettingsToAGCATemplateCustomizations(stripslashes($templdata['admin']), $templdata['settings']);	
+					$admindata = $this->appendSettingsToAGCATemplateCustomizations(stripslashes($theme['admin']), $theme['settings']);	
 					$admindata = $this->enableSpecificWPVersionCustomizations($admindata);
 					$admindata = $this->removeCSSComments($admindata);											
 					
 					//echo $admindata;
 					//REPLACE TAGS WITH CUSTOM TEMPLATE SETTINGS					
 					$this->templateCustomizations = $admindata;
-				 }				
-					break;
 				}
-			}
+				//KEEP THIS FOR MIGRATION PURPOSE FOR SOME TIME
+			}			
 		}
 	}
 	

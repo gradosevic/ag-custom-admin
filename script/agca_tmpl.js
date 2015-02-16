@@ -677,8 +677,7 @@ function agcaTemplatesSessionAdd(template, license, callback){
 		"license":license
 		},
 	  success: callback	  
-	});
-	//agcaTemplatesSession
+	});	
 }
 
 function agcaTemplatesSessionRemove(template, callback){
