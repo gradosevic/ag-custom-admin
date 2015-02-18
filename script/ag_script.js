@@ -795,21 +795,7 @@ function updateTargetColor(id, color){
             break;            
         case 'color_admin_submenu_font':		  
             jQuery('#adminmenu .wp-submenu li a').css('color',color);	
-            break;
-        case 'color_admin_menu_submenu_border_top':		  
-			if(jQuery('body').hasClass('folded')){
-				jQuery('#adminmenu li.menu-top').css('border-top-color',color);	
-			}else{
-				jQuery('#adminmenu > li > a').css('border-top-color',color);	
-			}
-            break;
-        case 'color_admin_menu_submenu_border_bottom':
-			if(jQuery('body').hasClass('folded')){
-				jQuery('#adminmenu li.menu-top').css('border-bottom-color',color);
-			}else{
-				jQuery('#adminmenu > li > a').css('border-bottom-color',color);
-			}            
-            break;                  
+            break;                          
         case 'color_admin_menu_font':
             jQuery('#adminmenu, #adminmenu a, #adminmenu p').css({
                 'color':color
@@ -818,11 +804,6 @@ function updateTargetColor(id, color){
         case 'color_admin_menu_behind_background':
             jQuery('#adminmenuback, #adminmenuwrap').css({
                 'background-color':color
-            });
-            break;
-        case 'color_admin_menu_behind_border':
-            jQuery('#adminmenuback, #adminmenuwrap').css({
-                'border-color':color
             });
             break;
         case 'color_admin_menu_submenu_background_hover':

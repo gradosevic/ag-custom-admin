@@ -4,10 +4,10 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Argonius
-Version: 1.4.5
+Version: 1.4.6
 Author URI: http://www.argonius.com/
 
-	Copyright 2014. Argonius (email : info@argonius.com)
+	Copyright 2015. Argonius (email : info@argonius.com)
  
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -56,7 +56,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
               
-		$this->agca_version = "1.4.5";
+		$this->agca_version = "1.4.6";
 		
 		/*upload images programmaticaly*/
 		//TODO upload with AJAX one by one, use post data to send urls one by one
@@ -313,9 +313,12 @@ class AGCA{
                                  ?>
                              </style>
                              <script type="text/javascript">
-                                 <?php
-                                    echo get_option('agca_custom_js'); 
-                                 ?>
+							 try{
+                                 eval("<?php echo str_replace(array("\r\n", "\n", "\r"), ' ', get_option('agca_custom_js')); ?>");
+								 }catch(e){
+									alert('AG CUSTOM ADMIN : There is an error in your custom JS script. Please fix it: \n\n' + e + '\n\n (AG CUSTOM ADMIN -> Advanced -> Custom JavaScript)');
+									console.log(e);
+								 }
                              </script>
                             <?php
                         }			
@@ -410,8 +413,7 @@ class AGCA{
 		/*Admin menu*/
 		register_setting( 'agca-options-group', 'agca_admin_menu_turnonoff' );	
 		register_setting( 'agca-options-group', 'agca_admin_menu_agca_button_only' );	
-		register_setting( 'agca-options-group', 'agca_admin_menu_separator_first' );	
-		register_setting( 'agca-options-group', 'agca_admin_menu_separator_second' );	
+		register_setting( 'agca-options-group', 'agca_admin_menu_separators' );	
 		register_setting( 'agca-options-group', 'agca_admin_menu_icons' );	
 		register_setting( 'agca-options-group', 'agca_admin_menu_collapse_button' );
         register_setting( 'agca-options-group', 'agca_admin_menu_arrow' );
@@ -528,8 +530,7 @@ class AGCA{
                 'agca_remove_top_bar_dropdowns',
                 'agca_admin_menu_turnonoff',
                 'agca_admin_menu_agca_button_only',
-                'agca_admin_menu_separator_first',
-                'agca_admin_menu_separator_second',
+				'agca_admin_menu_separators',
                 'agca_admin_menu_icons',
                 'agca_admin_menu_arrow',
                 'agca_admin_menu_submenu_round',
@@ -1575,14 +1576,10 @@ try
 					
 			
 					
-					<?php /*ADMIN MENU*/ ?>							
-								
+					<?php /*ADMIN MENU*/ ?>	
 					
-							<?php if(get_option('agca_admin_menu_separator_first')==true){ ?>											
-								jQuery("li.wp-menu-separator").eq(0).css("display","none");
-							<?php } ?>
-							<?php if(get_option('agca_admin_menu_separator_second')==true){ ?>											
-								jQuery("li.wp-menu-separator").eq(1).css("display","none");
+							<?php if(get_option('agca_admin_menu_separators')==true){ ?>											
+								jQuery("#adminmenu li.wp-menu-separator").css({height: 0, margin: 0});
 							<?php } ?>	
 							<?php if(get_option('agca_admin_menu_icons') == true){ ?>											
 										jQuery(".wp-menu-image").each(function(){
@@ -1997,17 +1994,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<div class="ag_table_heading"><h3 tabindex="0">On the Left</h3></div>
 								</td>
 								<td></td>
-							</tr>
-							<?php if($wpversion<3.3){?>
-							<tr valign="center">
-								<th >
-									<label title="This is link next to heading in admin bar" for="agca_privacy_options">Hide Privacy link</label>
-								</th>
-								<td>					
-									<input class="agca-checkbox" type="checkbox" title="This is link next to heading in admin bar" name="agca_privacy_options" value="true" <?php if (get_option('agca_privacy_options')==true) echo 'checked="checked" '; ?> />
-								</td>
-							</tr>
-							<?php } ?>							
+							</tr>													
 							<tr valign="center">
 								<th >
 									<label title="Change default WordPress logo with custom image." for="agca_wp_logo_custom">Change admin bar logo</label>
@@ -2051,8 +2038,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								<td>					
 									<input class="agca-checkbox" title="Small Wordpress logo in admin top bar" type="checkbox" name="agca_header_logo" value="true" <?php if (get_option('agca_header_logo')==true) echo 'checked="checked" '; ?> />
 								</td>
-							</tr> 
-							<?php if($wpversion>=3.3){?>
+							</tr> 							
 							<tr valign="center">
 								<th >
 									<label title="Hides site name section in admin bar" for="agca_remove_site_link">Hide site name in admin bar</label>
@@ -2132,9 +2118,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								<td>					
 									<input class="agca-checkbox" title="Removes update notifications from admin bar" type="checkbox" name="agca_admin_bar_update_notifications" value="true" <?php if (get_option('agca_admin_bar_update_notifications')==true) echo 'checked="checked" '; ?> />
 								</td>
-							</tr> 							
-							<?php } ?>
-							
+							</tr>
 							<tr valign="center">
 								<th scope="row">
 									<label title="Adds custom text in admin top bar. Default Wordpress heading stays intact." for="agca_custom_site_heading">Custom blog heading</label>
@@ -2151,18 +2135,6 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<input class="agca-checkbox" title="Hides yellow bar with notifications for new Wordpress release" type="checkbox" name="agca_update_bar" value="true" <?php if (get_option('agca_update_bar')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr> 
-							
-							<?php if($wpversion<3.3){ ?>
-							<tr valign="center">
-								<th scope="row">
-									<label for="agca_site_heading">Hide default blog heading</label>
-								</th>
-								<td>					
-									<input class="agca-checkbox" type="checkbox" name="agca_site_heading" value="true" <?php if (get_option('agca_site_heading')==true) echo 'checked="checked" '; ?> />
-								</td>
-							</tr>
-							<?php } ?>
-							
 							<tr valign="center">
 								<td colspan="2">
 										<div class="ag_table_heading"><h3 tabindex="0">On the Right</h3></div>
@@ -2205,23 +2177,15 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<label title="Put 'Exit', for example" for="agca_logout">Change Log out text</label>
 								</th>
 								<td><input title="Put 'Exit', for example" type="text" size="47" name="agca_logout" value="<?php echo get_option('agca_logout'); ?>" /></td>
-							</tr> 	
-							<?php if($wpversion >= 3.2){ ?>
-								<?php 
-									$profile_text = 'Remove "Your profile" option from dropdown menu';
-									if($wpversion >= 3.3){
-										$profile_text = 'Remove "Edit My Profile" option from dropdown menu';
-									}
-								?>
+							</tr>
 							<tr valign="center">
 								<th scope="row">
-									<label for="agca_remove_your_profile"><?php echo $profile_text; ?></label>
+									<label for="agca_remove_your_profile">Remove "Edit My Profile" option from dropdown menu</label>
 								</th>
 								<td>					
 									<input class="agca-checkbox" type="checkbox" name="agca_remove_your_profile" value="true" <?php if (get_option('agca_remove_your_profile')==true) echo 'checked="checked" '; ?> />
 								</td>
-							</tr> 
-							<?php } ?>
+							</tr> 						
 							<tr valign="center">
 								<th scope="row">
 									<label title="If selected, hides all elements in top right corner, except Log Out button" for="agca_logout_only">Log out only</label>
@@ -2294,15 +2258,6 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								</td>
 								<td></td>
 							</tr>
-							<!--<tr valign="center">
-								<th scope="row">
-									<label title="This is small 'house' icon next to main heading (Dashboard text by default) on Dashboard page" for="agca_dashboard_icon">Hide Dashboard heading icon</label>
-								</th>
-								<td>					
-									<input class="agca-checkbox" title="This is small house icon next to main heading on Dashboard page. Dashboard text is shown by default" type="checkbox" name="agca_dashboard_icon" value="true" <?php if (get_option('agca_dashboard_icon')==true) echo 'checked="checked" '; ?> />
-								</td>
-							</tr>-->
-							
 							<tr valign="center">
 								<th scope="row">
 									<label title="Main heading ('Dashboard') on Dashboard page" for="agca_dashboard_text">Change Dashboard heading text</label>
@@ -2342,23 +2297,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								<td>					
 									<input class="agca-checkbox" type="checkbox" name="agca_dashboard_widget_activity" value="true" <?php if (get_option('agca_dashboard_widget_activity')==true) echo 'checked="checked" '; ?> />
 								</td>
-							</tr>								
-							<!--<tr valign="center">
-								<th scope="row">
-									<label for="agca_dashboard_widget_il">Hide "Incoming Links"</label>
-								</th>
-								<td>					
-									<input class="agca-checkbox" type="checkbox" name="agca_dashboard_widget_il" value="true" <?php if (get_option('agca_dashboard_widget_il')==true) echo 'checked="checked" '; ?> />
-								</td>
-							</tr>-->
-								<!--<tr valign="center">
-								<th scope="row">
-									<label for="agca_dashboard_widget_plugins">Hide "Plugins"</label>
-								</th>
-								<td>					
-									<input class="agca-checkbox" type="checkbox" name="agca_dashboard_widget_plugins" value="true" <?php if (get_option('agca_dashboard_widget_plugins')==true) echo 'checked="checked" '; ?> />
-								</td>
-							</tr>	-->										
+							</tr>														
 							<tr valign="center">
 								<th scope="row">
 									<label for="agca_dashboard_widget_qp">Hide "Quick Draft"</label>
@@ -2374,15 +2313,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								<td>					
 									<input class="agca-checkbox" type="checkbox" name="agca_dashboard_widget_rn" value="true" <?php if (get_option('agca_dashboard_widget_rn')==true) echo 'checked="checked" '; ?> />
 								</td>
-							</tr>	
-							<!--<tr valign="center">
-								<th scope="row">
-									<label for="agca_dashboard_widget_rd">Hide "Recent Drafts"</label>
-								</th>
-								<td>					
-									<input class="agca-checkbox" type="checkbox" name="agca_dashboard_widget_rd" value="true" <?php if (get_option('agca_dashboard_widget_rd')==true) echo 'checked="checked" '; ?> />
-								</td>
-							</tr>	-->
+							</tr>						
 							<tr valign="center">
 								<th scope="row">
 									<label title="This is 'WordPress News' or 'WordPress Development Blog' widget in older WordPress versions" for="agca_dashboard_widget_primary">Hide "WordPress News" widget</label>
@@ -2544,20 +2475,13 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</tr>
 							<tr valign="center">
 								<th scope="row">
-									<label title="This is blank space between Dashboard and Posts button (by default)" for="agca_admin_menu_separator_first">Remove first menu items separator</label>
+									<label title="Remove empty space between some top menu items" for="agca_admin_menu_separators">Remove top menu items separators</label>
 								</th>
 								<td>
-									<input class="agca-checkbox" title="This is blank space separator between Dashboard and Posts button (by default)" type="checkbox" name="agca_admin_menu_separator_first" value="true" <?php if (get_option('agca_admin_menu_separator_first')==true) echo 'checked="checked" '; ?> />
+									<input class="agca-checkbox" title="Remove empty space between some top menu items" type="checkbox" name="agca_admin_menu_separators" value="true" <?php if (get_option('agca_admin_menu_separators')==true) echo 'checked="checked" '; ?> />
 								</td>
-							</tr> 
-							<tr valign="center">
-								<th scope="row">
-									<label title="This is blank space  separator between Comments and Appearance button (by default)" for="agca_admin_menu_separator_second">Remove second menu items separator</label>
-								</th>
-								<td>
-									<input class="agca-checkbox" title="This is blank space  separator between Comments and Appearance button (by default)" type="checkbox" name="agca_admin_menu_separator_second" value="true" <?php if (get_option('agca_admin_menu_separator_second')==true) echo 'checked="checked" '; ?> />
-								</td>
-							</tr> 
+							</tr>
+							
 							<tr valign="center">
 								<th scope="row">
 									<label title="Removes small icons on admin menu buttons" for="agca_admin_menu_icons">Remove menu icons</label>
@@ -2735,20 +2659,6 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<input type="button" alt="color_admin_menu_top_button_hover_background" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
 							</tr>
-                                                        <tr valign="center">
-								<th><label title="Change button top border color" for="color_admin_menu_submenu_border_top">Button border top color:</label></th>
-								<td><input type="text" id="color_admin_menu_submenu_border_top" name="color_admin_menu_submenu_border_top" class="color_picker" value="<?php echo $this->getAGCAColor('color_admin_menu_submenu_border_top'); ?>" />
-									<input type="button" alt="color_admin_menu_submenu_border_top" class="pick_color_button agca_button" value="Pick color" />
-									<input type="button" alt="color_admin_menu_submenu_border_top" class="pick_color_button_clear agca_button" value="Clear" />
-								</td>
-							</tr>
-							<tr valign="center">
-								<th><label title="Change button bottom border color" for="color_admin_menu_submenu_border_bottom">Button border bottom color:</label></th>
-								<td><input type="text" id="color_admin_menu_submenu_border_bottom" name="color_admin_menu_submenu_border_bottom" class="color_picker" value="<?php echo $this->getAGCAColor('color_admin_menu_submenu_border_bottom'); ?>" />
-									<input type="button" alt="color_admin_menu_submenu_border_bottom" class="pick_color_button agca_button" value="Pick color" />
-									<input type="button" alt="color_admin_menu_submenu_border_bottom" class="pick_color_button_clear agca_button" value="Clear" />
-								</td>
-                                                        </tr>    
 							<tr valign="center">
 								<th><label title="Change submenu item background color" for="color_admin_menu_submenu_background">Submenu button background color:</label></th>
 								<td><input type="text" id="color_admin_menu_submenu_background" name="color_admin_menu_submenu_background" class="color_picker" value="<?php echo $this->getAGCAColor('color_admin_menu_submenu_background'); ?>" />
@@ -2769,8 +2679,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<input type="button" alt="color_admin_submenu_font" class="pick_color_button agca_button" value="Pick color" />
 									<input type="button" alt="color_admin_submenu_font" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
-							</tr>                                                       
-							<?php if($wpversion >= 3.2) { ?>
+							</tr>
 							<tr valign="center">
 								<th><label title="Change background color of element behind admin menu" for="color_admin_menu_behind_background">Wrapper background color:</label></th>
 								<td><input type="text" id="color_admin_menu_behind_background" name="color_admin_menu_behind_background" class="color_picker" value="<?php echo $this->getAGCAColor('color_admin_menu_behind_background'); ?>" />
@@ -2778,20 +2687,6 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<input type="button" alt="color_admin_menu_behind_background" class="pick_color_button_clear agca_button" value="Clear" />
 								</td>
 							</tr>
-							<tr valign="center">
-								<th><label title="Change border color of element behind admin menu" for="color_admin_menu_behind_border">Wrapper border color:</label></th>
-								<td><input type="text" id="color_admin_menu_behind_border" name="color_admin_menu_behind_border" class="color_picker" value="<?php echo $this->getAGCAColor('color_admin_menu_behind_border'); ?>" />
-									<input type="button" alt="color_admin_menu_behind_border" class="pick_color_button agca_button" value="Pick color" />
-									<input type="button" alt="color_admin_menu_behind_border" class="pick_color_button_clear agca_button" value="Clear" />
-								</td>
-							</tr>
-							<?php } ?>
-							<!--<tr valign="center">
-								<th><label title="Change background submenu color on mouse over in admin menu" for="color_admin_menu_submenu_background_over">Submenu button background (Mouse over):</label></th>
-								<td><input type="text" id="color_admin_menu_submenu_background_over" name="color_admin_menu_submenu_background_over" class="color_picker" value="#123456" />
-									<input type="button" alt="color_admin_menu_submenu_background_over" class="pick_color_button" value="Pick color" />
-								</td>
-							</tr>-->
 							<tr valign="center">
 								<td colspan="2">
 										<div class="ag_table_heading"><h3 tabindex="0">Font Color Options</h3></div>
