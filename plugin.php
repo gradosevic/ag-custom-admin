@@ -851,60 +851,43 @@ class AGCA{
 	}
         
         function print_admin_bar_scripts(){
-            ?>
-            if(isWPHigherOrEqualThan("3.3")){ 
-                <?php if(get_option('agca_remove_top_bar_dropdowns')==true){ ?>
-                   	
-                        
-                        //remove on site page
+            ?>        
+                <?php if(get_option('agca_remove_top_bar_dropdowns')==true){ ?>                   	
                          jQuery("#wpadminbar #wp-admin-bar-root-default > #wp-admin-bar-wp-logo .ab-sub-wrapper").hide();
-                         jQuery("#wpadminbar #wp-admin-bar-root-default > #wp-admin-bar-site-name .ab-sub-wrapper").hide();
-                         
-                         jQuery("#wpadminbar #wp-admin-bar-root-default > #wp-admin-bar-wp-logo .ab-item").attr('title','');
-                     
-                        
-                         var abitemSelector = "#wpadminbar .ab-top-menu > li.menupop > .ab-item";
-                         var originalBkg = jQuery(abitemSelector).css('background');
-                         var originalColor = jQuery(abitemSelector).css('color');
-                       jQuery(abitemSelector).mouseover(function(){
-                            jQuery(this).css({'background':'#222222','color':'#fafafa'});
-                       }).mouseout(function(){
-                              jQuery(this).css({'background':originalBkg,'color':originalColor});
-                       });                       
+                         jQuery("#wpadminbar #wp-admin-bar-root-default > #wp-admin-bar-site-name .ab-sub-wrapper").hide();                         
+                         jQuery("#wpadminbar #wp-admin-bar-root-default > #wp-admin-bar-wp-logo .ab-item").attr('title','');                                        
 
                         <?php if(get_option('agca_admin_bar_new_content')!=""){  ?> 
                                 jQuery(".new_content_header_submenu").hide();
                         <?php } ?>					
 
-                <?php } ?>	
-                }
+                <?php } ?>	             
                 
-                if(isWPHigherOrEqualThan("3.3")){
-                        <?php if(get_option('agca_admin_bar_comments')!=""){  ?>
-                                jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-comments").css("display","none");
-                        <?php } ?>
-                        <?php if(get_option('agca_admin_bar_new_content')!=""){  ?> 
-                                jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content").css("display","none");								
-                        <?php } ?>
-                        <?php if(get_option('agca_admin_bar_new_content_post')!=""){  ?>
-                                jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-post").css("display","none");
-                        <?php } ?>
-                        <?php if(get_option('agca_admin_bar_new_content_link')!=""){  ?>
-                                jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-link").css("display","none");
-                        <?php } ?>
-                        <?php if(get_option('agca_admin_bar_new_content_page')!=""){  ?>
-                                jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-page").css("display","none");
-                        <?php } ?>
-                        <?php if(get_option('agca_admin_bar_new_content_user')!=""){  ?>
-                                jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-user").css("display","none");
-                        <?php } ?>
-                        <?php if(get_option('agca_admin_bar_new_content_media')!=""){  ?>
-                                jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-media").css("display","none");
-                        <?php } ?>								
-                        <?php if(get_option('agca_admin_bar_update_notifications')!=""){  ?>
-                                jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-updates").css("display","none");
-                        <?php } ?>
-                }
+				<?php if(get_option('agca_admin_bar_comments')!=""){  ?>
+						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-comments").css("display","none");
+				<?php } ?>
+				<?php if(get_option('agca_admin_bar_new_content')!=""){  ?> 
+						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content").css("display","none");								
+				<?php } ?>
+				<?php if(get_option('agca_admin_bar_new_content_post')!=""){  ?>
+						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-post").css("display","none");
+				<?php } ?>
+				<?php if(get_option('agca_admin_bar_new_content_link')!=""){  ?>
+						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-link").css("display","none");
+				<?php } ?>
+				<?php if(get_option('agca_admin_bar_new_content_page')!=""){  ?>
+						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-page").css("display","none");
+				<?php } ?>
+				<?php if(get_option('agca_admin_bar_new_content_user')!=""){  ?>
+						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-user").css("display","none");
+				<?php } ?>
+				<?php if(get_option('agca_admin_bar_new_content_media')!=""){  ?>
+						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-media").css("display","none");
+				<?php } ?>								
+				<?php if(get_option('agca_admin_bar_update_notifications')!=""){  ?>
+						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-updates").css("display","none");
+				<?php } ?>
+                
                 
                 
                 <?php if(get_option('agca_header_logo')==true){ ?>
@@ -913,30 +896,14 @@ class AGCA{
 
                 <?php } ?>
                 <?php if(get_option('agca_header_logo_custom')!=""){ ?>	
+                               
+								var img_url = '<?php echo addslashes(get_option('agca_header_logo_custom')); ?>';							
 
-
-                                if(isWPHigherOrEqualThan("3.3")){
-                                        var img_url = '<?php echo addslashes(get_option('agca_header_logo_custom')); ?>';							
-
-                                        advanced_url = img_url;
-                                        image = jQuery("<img />").attr("src",advanced_url);								
-                                        jQuery(image).load(function() {										
-                                                jQuery("#wpbody-content").prepend(image);
-                                        });
-                                }else{
-                                        jQuery("#wphead img#header-logo").attr('src','');
-                                        jQuery("#wphead img#header-logo").hide(); 							
-                                        var img_url = '<?php echo addslashes(get_option('agca_header_logo_custom')); ?>';							
-                                        advanced_url = img_url+ "?" + new Date().getTime();
-                                        image = jQuery("<img />").attr("src",advanced_url);								
-                                        jQuery(image).load(function() {	
-                                                jQuery("#wphead img#header-logo").attr('src', advanced_url);
-                                                jQuery("#wphead img#header-logo").attr('width',this.width);			
-                                                jQuery("#wphead img#header-logo").attr('height',this.height);	
-                                                jQuery("#wphead").css('height', (14 + this.height)+'px');
-                                                jQuery("#wphead img#header-logo").show();										
-                                        });
-                                }					
+								advanced_url = img_url;
+								image = jQuery("<img />").attr("src",advanced_url);								
+								jQuery(image).load(function() {										
+										jQuery("#wpbody-content").prepend(image);
+								});                                				
 
                 <?php } ?>	
                 <?php if(get_option('agca_wp_logo_custom')!=""){ ?>		                                                                     
@@ -951,29 +918,26 @@ class AGCA{
                                 jQuery("#wp-admin-bar-site-name").css("display","none");							                            
 
                 <?php } ?>
-                <?php if(get_option('agca_wp_logo_custom_link')!=""){ ?>						
-                                if(isWPHigherOrEqualThan("3.3")){       
-                                         var href = "<?php echo get_option('agca_wp_logo_custom_link'); ?>";                                                        
-                                         href = href.replace("%BLOG%", "<?php echo get_bloginfo('wpurl'); ?>");
-                                         if(href == "%SWITCH%"){                                         
-                                            href = "<?php echo get_bloginfo('wpurl'); ?>";
-                                            <?php if($this->context == "page"){
-                                                ?>href+="/wp-admin";<?php    
-                                            }
-                                            ?>
-                                         }
-                                         jQuery("li#wp-admin-bar-wp-logo a.ab-item").attr('href',href);                                        
-                                }
+                <?php if(get_option('agca_wp_logo_custom_link')!=""){ ?>                                     
+								 var href = "<?php echo get_option('agca_wp_logo_custom_link'); ?>";                                                        
+								 href = href.replace("%BLOG%", "<?php echo get_bloginfo('wpurl'); ?>");
+								 if(href == "%SWITCH%"){                                         
+									href = "<?php echo get_bloginfo('wpurl'); ?>";
+									<?php if($this->context == "page"){
+										?>href+="/wp-admin";<?php    
+									}
+									?>
+								 }
+								 jQuery("li#wp-admin-bar-wp-logo a.ab-item").attr('href',href);                                        
+                                
                 <?php }?>
                 <?php if(get_option('agca_site_heading')==true){ ?>
                                 jQuery("#wphead #site-heading").css("display","none");
                 <?php } ?>
                 <?php if(get_option('agca_custom_site_heading')!=""){ ?>	
                                 jQuery("#wphead #site-heading").after('<h1><?php echo addslashes(get_option('agca_custom_site_heading')); ?></h1>');
-                                //3.3FIX
-                                if(isWPHigherOrEqualThan("3.3")){
-                                        jQuery("#wp-admin-bar-site-name a:first").html('<?php echo addslashes(get_option('agca_custom_site_heading')); ?>');
-                                }
+                                jQuery("#wp-admin-bar-site-name a:first").html('<?php echo addslashes(get_option('agca_custom_site_heading')); ?>');
+                                
                 <?php } ?>	                           
                 <?php if(get_option('agca_header')==true && $this->context =='admin'){ 										
 										?>
@@ -986,68 +950,22 @@ class AGCA{
                 <?php if((get_option('agca_header')==true)&&(get_option('agca_header_show_logout')==true)){ ?>									
 								<?php
 									$agca_logout_text = ((get_option('agca_logout')=="")?"Log Out":get_option('agca_logout'));
-								?>
-                                if(isWPHigherOrEqualThan("3.3")){	
+								?>                               
                                 jQuery("#wpbody-content").prepend('<a href="../wp-login.php?action=logout" tabindex="10" style="float:right;margin-right:20px" class="ab-item agca_logout_button"><?php echo $agca_logout_text; ?></a>');								
-                                }else{
-                                        var clon ="";
-                                        jQuery("div#user_info a").each(function(){
-                                                if(jQuery(this).text() =="Log Out"){
-                                                        clon = jQuery(this).clone();
-                                                }								
-                                        });
-                                        if(clon !=""){
-                                                jQuery(clon).attr('style','float:right;padding:15px');	
-                                                jQuery(clon).html('<?php echo $agca_logout_text; ?>');	
-                                        }													
-                                        jQuery("#wphead").after(clon);
-                                }
+                               
 
                 <?php } ?>
-                <?php if(get_option('agca_howdy')!=""){ ?>
-                                    if(isWPHigherOrEqualThan("3.5")){	
-                                                    var alltext="";								
-                                                    alltext="";
-                                                    jQuery('li#wp-admin-bar-my-account').css('cursor','default');
-                                                    alltext = jQuery('li#wp-admin-bar-my-account').html();
-                                                    if(alltext!=null){                                                        								
-                                                        var parts = alltext.split(',');	
-                                                        alltext = "<?php echo get_option('agca_howdy'); ?>" + ", " + parts[1];
-                                                    }    
-                                                    jQuery("li#wp-admin-bar-my-account").html("<a href=\"#\" class=\"ab-item\">"+alltext+"</a>");
-                                    }else if(isWPHigherOrEqualThan("3.3")){	
-                                                    var alltext="";								
-                                                    alltext="";
-                                                    jQuery('li#wp-admin-bar-my-account').css('cursor','default');
-                                                    alltext = jQuery('li#wp-admin-bar-my-account').html();
-                                                    if(alltext!=null){                                                        								
-                                                        var parts = alltext.split(',');	
-                                                        alltext = "<?php echo get_option('agca_howdy'); ?>" + ", " + parts[1];
-                                                    }    
-                                                    jQuery("li#wp-admin-bar-my-account").html(alltext);
-                                    }else if(isWPHigherOrEqualThan("3.2")){	
-                                                    var alltext="";								
-                                                    alltext="";
-                                                    alltext = jQuery('#user_info div.hide-if-no-js').html();
-                                                    if(alltext!=null){
-                                                        var parts = alltext.split(',');	
-                                                        alltext = "<?php echo get_option('agca_howdy'); ?>" + ", " + parts[1];									
-                                                    }
-                                                    jQuery("#user_info div.hide-if-no-js").html(alltext);
-                                                    
-                                    }else{	
-                                                    var howdyText = jQuery("#user_info").html();
-                                                    if(howdyText !=null){
-                                                    jQuery("#user_info").html("<p>"+"<?php echo get_option('agca_howdy'); ?>"+howdyText.substr(9));
-                                            }
-                                    }
-                                    if(isWPHigherOrEqualThan("3.5")){
-                                        //jQuery("#wp-admin-bar-my-account").css("padding-left","10px");
-                                        //jQuery("#wp-admin-bar-my-account").css("padding-right","10px");
-                                        //jQuery("#wp-admin-bar-my-account img").css({"margin-left":"5px","margin-bottom":"-4px"});
-                                        
-                                    }
-                                    
+                <?php if(get_option('agca_howdy')!=""){ ?>                                    
+								var alltext="";								
+								alltext="";
+								jQuery('li#wp-admin-bar-my-account').css('cursor','default');
+								alltext = jQuery('li#wp-admin-bar-my-account').html();
+								if(alltext!=null){                                                        								
+									var parts = alltext.split(',');	
+									alltext = "<?php echo get_option('agca_howdy'); ?>" + ", " + parts[1];
+								}    
+								jQuery("li#wp-admin-bar-my-account").html("<a href=\"#\" class=\"ab-item\">"+alltext+"</a>");                  
+                                 
                     <?php } ?>
 					<?php 
 					 if(get_option('agca_custom_title')!=""){
@@ -1055,44 +973,20 @@ class AGCA{
 							                              
                      } 
 					 ?>
-                    <?php if(get_option('agca_logout')!=""){ ?>						
-                                    if(isWPHigherOrEqualThan("3.3")){
-                                            jQuery("ul#wp-admin-bar-user-actions li#wp-admin-bar-logout a").text("<?php echo get_option('agca_logout'); ?>");
-                                    }else if(isWPHigherOrEqualThan("3.2")){
-                                            jQuery("#user_info #user_info_links a:eq(1)").text("<?php echo get_option('agca_logout'); ?>");
-                                    }else{
-                                            jQuery("#user_info a:eq(1)").text("<?php echo get_option('agca_logout'); ?>");
-                                    }
-
+                    <?php if(get_option('agca_logout')!=""){ ?>					
+                                jQuery("ul#wp-admin-bar-user-actions li#wp-admin-bar-logout a").text("<?php echo get_option('agca_logout'); ?>");
                     <?php } ?>
-                    <?php if(get_option('agca_remove_your_profile')==true){ ?>	
-                                    if(isWPHigherOrEqualThan("3.3")){
-                                            jQuery("ul#wp-admin-bar-user-actions li#wp-admin-bar-edit-profile").css("visibility","hidden");
-                                            jQuery("ul#wp-admin-bar-user-actions li#wp-admin-bar-edit-profile").css("height","10px");
-                                            jQuery('#wpadminbar #wp-admin-bar-top-secondary > #wp-admin-bar-my-account > a').attr('href','#');
-                                            jQuery('#wpadminbar #wp-admin-bar-top-secondary #wp-admin-bar-user-info > a').attr('href','#');
-                                            jQuery('#wpadminbar #wp-admin-bar-top-secondary #wp-admin-bar-edit-profile > a').attr('href','#');
-                                            
-                                    }else if(isWPHigherOrEqualThan("3.2")){
-                                            jQuery("#user_info #user_info_links li:eq(0)").remove();
-                                    }					
+                    <?php if(get_option('agca_remove_your_profile')==true){ ?>                                   
+								jQuery("ul#wp-admin-bar-user-actions li#wp-admin-bar-edit-profile").css("visibility","hidden");
+								jQuery("ul#wp-admin-bar-user-actions li#wp-admin-bar-edit-profile").css("height","10px");
+								jQuery('#wpadminbar #wp-admin-bar-top-secondary > #wp-admin-bar-my-account > a').attr('href','#');
+								jQuery('#wpadminbar #wp-admin-bar-top-secondary #wp-admin-bar-user-info > a').attr('href','#');
+								jQuery('#wpadminbar #wp-admin-bar-top-secondary #wp-admin-bar-edit-profile > a').attr('href','#');                                    					
                     <?php } ?>						
-                    <?php if(get_option('agca_logout_only')==true){ ?>	
-                                    if(isWPHigherOrEqualThan("3.3")){
-                                            var logout_content = jQuery("li#wp-admin-bar-logout").html();
-                                            jQuery("ul#wp-admin-bar-top-secondary").html('<li id="wp-admin-bar-logout">'+ logout_content +'</li>');
-                                    }else if(isWPHigherOrEqualThan("3.2")){
-                                            var logoutText = jQuery("#user_info a:nth-child(2)").text();
-                                            <?php if(get_option('agca_logout')!=""){ ?>
-                                                    logoutText = "<?php echo get_option('agca_logout'); ?>";
-                                            <?php } ?>
-                                            var logoutLink = jQuery("#user_info a:nth-child(2)").attr("href");						
-                                            jQuery("#user_info").html("<a href=\""+logoutLink+"\" title=\"Log Out\">"+logoutText+"</a>");
-                                    }else{
-                                            var logoutText = jQuery("#user_info a:nth-child(2)").text();
-                                            var logoutLink = jQuery("#user_info a:nth-child(2)").attr("href");						
-                                            jQuery("#user_info").html("<a href=\""+logoutLink+"\" title=\"Log Out\">"+logoutText+"</a>");
-                                    }						
+                    <?php if(get_option('agca_logout_only')==true){ ?>	                                    
+								var logout_content = jQuery("li#wp-admin-bar-logout").html();
+								jQuery("ul#wp-admin-bar-top-secondary").html('<li id="wp-admin-bar-logout">'+ logout_content +'</li>');
+                                    						
                     <?php } ?>
                 
                 <?php
@@ -1416,12 +1310,8 @@ try
 		?>				
 		<?php } else{ ?>
                                         <?php if(get_option('agca_admin_menu_brand')!=""){ ?>
-                                             additionalStyles = "";
-                                             if(isWPHigherOrEqualThan("3.4")){
-                                                 additionalStyles = ' style="margin-bottom:-4px" ';
-                                             }
-                                             jQuery("#adminmenu").before('<div '+additionalStyles+' id="sidebar_adminmenu_logo"><img width="160" src="<?php echo get_option('agca_admin_menu_brand'); ?>" /></div>');
-                                             
+                                             additionalStyles = ' style="margin-bottom:-4px" ';                                             
+                                             jQuery("#adminmenu").before('<div '+additionalStyles+' id="sidebar_adminmenu_logo"><img width="160" src="<?php echo get_option('agca_admin_menu_brand'); ?>" /></div>');                                             
                                         <?php } ?> 
                                          <?php if(get_option('agca_admin_menu_brand_link')!=""){ ?>					
                                                       
@@ -1451,8 +1341,7 @@ try
 								jQuery("body").removeClass("auto-fold");                                               
 					<?php } ?>
                                             
-                                        <?php $this->print_admin_bar_scripts(); ?>
-						
+                    <?php $this->print_admin_bar_scripts(); ?>						
 			
 					<?php if(get_option('agca_screen_options_menu')==true){ ?>
 							jQuery("#screen-options-link-wrap").css("display","none");
@@ -1466,10 +1355,7 @@ try
 					<?php } ?>	
 					<?php if(get_option('agca_privacy_options')==true){ ?>
 							jQuery("#privacy-on-link").css("display","none");
-					<?php } ?>	
-					
-					
-						
+					<?php } ?>							
 					
 					<?php if(get_option('agca_update_bar')==true){ ?>							
                                                         <?php
@@ -1487,9 +1373,7 @@ try
 					<?php if(get_option('agca_footer')==true){ ?>
 							jQuery("#footer,#wpfooter").css("display","none");
 					<?php } ?>					
-						
-
-					
+										
 					<?php if(get_option('agca_footer_left')!=""){ ?>												
 								jQuery("#footer-left").html('<?php echo addslashes(get_option('agca_footer_left')); ?>');
 					<?php } ?>	
@@ -1572,9 +1456,7 @@ try
 							?>jQuery("#dashboard_activity").css("display","block");<?php
 						}	
 						
-					?>	
-					
-			
+					?>				
 					
 					<?php /*ADMIN MENU*/ ?>	
 					
@@ -1593,9 +1475,7 @@ try
 							<?php } ?>
 					<?php if(get_option('agca_admin_menu_turnonoff') == 'on'){ ?>
 					
-					<?php /*If Turned on*/ ?>
-					
-                                                       
+					<?php /*If Turned on*/ ?>					                             
 							
 							<?php if(get_option('agca_admin_menu_agca_button_only') == true){ ?>											
 								jQuery('#adminmenu > li').each(function(){
@@ -1696,7 +1576,6 @@ try
 							/*Add user buttons*/					
 							jQuery('#adminmenu').append(buttons);						
 							
-							
 					<?php /*END If Turned on*/ ?>
 					<?php } else{ ?>
 							jQuery("#adminmenu").removeClass("noclass");
@@ -1708,8 +1587,6 @@ try
 						//add collapse menu button
 						jQuery('#adminmenu').append('<li class="hide-if-no-js" onclick="window.setTimeout(function(){updateAllColors();},10);" id="collapse-menu"><div id="collapse-button"><div></div></div><span>Collapse menu</span></li>');					
 					<?php } ?>				
-					
-				
 					
 					<?php //COLORIZER ?>
 					updateAllColors();
@@ -1914,7 +1791,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 			<table>
 				<tr valign="left" >
 								<th scope="row">
-                                                                    <label title="If checked, all users will be affected with these changes, except admin. Not checked = apply for all</br></br><strong>Q</strong>: Who is administrator?</br><strong>A</strong>: Go to <i>Advanced</i> tab and change capability option to define admin users." for="agca_role_allbutadmin">Do not apply customizations for Administrator&nbsp;&nbsp;</label>
+                                                                    <label title="If checked, all users will be affected with these changes, except admin. Not checked = apply for all</br></br><strong>Q</strong>: Who is AGCA administrator?</br><strong>A</strong>: Go to <i>Advanced</i> tab and change capability option to define administrators. Only the users with selected capability will be AGCA administrators." for="agca_role_allbutadmin">Don't apply these customizations for AGCA administrator&nbsp;&nbsp;</label>
 								</th>
 								<td><input class="agca-checkbox" title="If checked, all users will be affected with these changes, except admin. Not checked = apply for all" type="checkbox" name="agca_role_allbutadmin" value="true" <?php if (get_option('agca_role_allbutadmin')==true) echo 'checked="checked" '; echo get_option('agca_role_allbutadmin'); ?> />								
 								</td>
@@ -1944,17 +1821,17 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
                         </div>
                         <div style="clear:both"></div>
 				<div id="section_admin_bar" class="ag_section">
-				<h2 class="section_title" tabindex="-1">Admin Bar Settings Page</h2>
+				<h2 class="section_title" tabindex="-1">Admin Bar Settings</h2>
 				<br />
-					<p tabindex="0"><i><strong>Info: </strong>Move your mouse over option labels for more information about an option</i></p>							
+					<p tabindex="0"><i><strong>Info: </strong>Move your mouse over the option labels to see more information about the options</i></p>							
 				<br />
 				<table class="form-table" width="500px">							
 							<tr valign="center" class="ag_table_major_options" >
 								<td>
-									<label tabindex="0" title="Hide admin bar with all elements on the top of the admin page" for="agca_header"><strong>Hide admin bar completely</strong></label>
+									<label tabindex="0" title="Hide admin bar with all elements in admin panel" for="agca_header"><strong>Hide admin bar completely</strong></label>
 								</td>
 								<td>					
-                                                                    <input id="agca_header" class="agca-checkbox" type="checkbox" onchange="if(jQuery('#agca_header').is(':checked')){jQuery('#agca_header_show_logout_content').show('slide');}else{jQuery('#agca_header_show_logout_content').hide('slide');};" title="Hide admin bar with all elements on the top of the admin page" name="agca_header" value="true" <?php if (get_option('agca_header')==true) echo 'checked="checked" '; ?> />
+                                                                    <input id="agca_header" class="agca-checkbox" type="checkbox" onchange="if(jQuery('#agca_header').is(':checked')){jQuery('#agca_header_show_logout_content').show('slide');}else{jQuery('#agca_header_show_logout_content').hide('slide');};" title="Hide admin bar with all elements in admin panel" name="agca_header" value="true" <?php if (get_option('agca_header')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr>
                                                         
@@ -1966,18 +1843,18 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
                                                         ?>
 							<tr valign="center" class="ag_table_major_options" id="agca_header_show_logout_content" <?php echo $agca_header_show_logout_style;  ?> >
 								<td>
-									<label tabindex="0" title='Check this if you want to show Log Out button in top right corner of admin page' for="agca_header_show_logout"><strong>(but show Log Out button)</strong></label>
+									<label tabindex="0" title='Check this if you want to show Log Out button in top right corner of the admin page' for="agca_header_show_logout"><strong>(but show Log Out button)</strong></label>
 								</td>
 								<td>					
-									<input type="checkbox" class="agca-checkbox" title='Check this if you want to show Log Out button in top right corner of admin page' name="agca_header_show_logout" value="true" <?php if ((get_option('agca_header')==true) && (get_option('agca_header_show_logout')==true)) echo 'checked="checked" '; ?> />
+									<input type="checkbox" class="agca-checkbox" title='Check this if you want to show Log Out button in top right corner of the admin page' name="agca_header_show_logout" value="true" <?php if ((get_option('agca_header')==true) && (get_option('agca_header_show_logout')==true)) echo 'checked="checked" '; ?> />
 								</td>
 							</tr> 
                                                         <tr valign="center" >
 								<td>
-									<label tabindex="0" title="Removes admin bar customizations (AGCA scripts) on front end." for="agca_admin_bar_frontend">Remove admin bar customizations on site pages</label>
+									<label tabindex="0" title="Removes admin bar customizations (AGCA scripts) on front end.</br>This option can be helpful if you want to remove customizations on the website pages for logged in users." for="agca_admin_bar_frontend">Remove admin bar customizations on site pages</label>
 								</td>
 								<td>					
-                                                                    <input style="margin-left:-5px" class="agca-checkbox" id="agca_admin_bar_frontend" type="checkbox" title="Removes admin bar customizations (AGCA scripts) on front end." name="agca_admin_bar_frontend" value="true" <?php if (get_option('agca_admin_bar_frontend')==true) echo 'checked="checked" '; ?> />
+                                                                    <input style="margin-left:-5px" class="agca-checkbox" id="agca_admin_bar_frontend" type="checkbox" title="Removes admin bar customizations (AGCA scripts) on front end.</br>This option can be helpful if you want to remove customizations on the website pages for logged in users." name="agca_admin_bar_frontend" value="true" <?php if (get_option('agca_admin_bar_frontend')==true) echo 'checked="checked" '; ?> />
 																	
 								</td>
 							</tr>
@@ -2198,7 +2075,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 						</div>
 						
 						<div id="section_admin_footer" style="display:none" class="ag_section">	
-							<h2 class="section_title" tabindex="-1">Admin Footer Settings Page</h2>
+							<h2 class="section_title" tabindex="-1">Admin Footer Settings</h2>
 							<br /><br />						
 							<table class="form-table" width="500px">		
 							<tr valign="center" class="ag_table_major_options">
@@ -2437,7 +2314,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							/*ADMIN MENU*/
 						?>
 						<div id="section_admin_menu" style="display:none" class="ag_section">
-						<h2 class="section_title" tabindex="-1">Admin Menu Settings Page</h2>
+						<h2 class="section_title" tabindex="-1">Admin Menu Settings</h2>
 						<br />
 						<p style="font-style:italic" tabindex="0"><strong>Important: </strong>Please Turn off menu configuration before activating or disabling other plugins (or making any other changes to main menu). Use <strong>Reset Settings</strong> button to restore default values if anything goes wrong.</p>					
 						<p style="font-style:italic" tabindex="0"><strong></strong>If you found that admin menu items are misaligned or not correct, press <strong>Reset Settings</strong> button. This happens if admin menu is changed by other plugins, or after activating / deactivating other plugings. Avoid such changes after you apply admin menu customizations.</p>
