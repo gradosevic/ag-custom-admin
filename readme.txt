@@ -18,7 +18,7 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 * **ADMIN THEMES**: it was never been so easy to apply free and responsive admin panel themes with just few clicks.
 * **COLORIZER**: This tool is integrated with AG Custom Admin panel and can be used to change default WordPress admin panel colors, admin bar, admin menu, login page, backgrounds and fonts.
 * **BRANDING**: Brand your admin panel pages with custom content, colors, images and text.
-* **ADMIN PANEL OPTIONS**: There are also dozens of many other admin panel options used to hide or change existing WordPress admin panel and login page items like Dashboard widgets, Help and Screen options, WordPress logos, links, menus etc. See the full list down below.
+* **ADMIN PANEL OPTIONS**: There are also dozens of many other admin panel options used to hide or change existing WordPress admin panel and login page items like Dashboard widgets, Help and Screen options, WordPress logos, links, menus etc. See the full list down below. 
 
 
 
