@@ -24,25 +24,28 @@ function agcaDebugObj(obj){
 		console.log(obj);
 	}
 }
-jQuery(function(){
-	var agcapage = localStorage.getItem('agca-page');
-	if(!agcapage){
-		localStorage.setItem('agca-page', window.location.hash);
-		agcapage = localStorage.getItem('agca-page');
-	}	
-	window.location.hash = window.location.hash || agcapage;
-	localStorage.setItem('agca-page', window.location.hash);
-	
-});
-window.onhashchange = function(){
-	localStorage.setItem('agca-page', window.location.hash);
-	if(jQuery('#ag_main_menu a.selected').attr('href') !== window.location.hash){
-		if(window.location.hash !== ""){
-			jQuery('#ag_main_menu a[href='+window.location.hash+']').trigger('click');
-		}		
-	}
-};
 
+/*use only on agca page*/
+if(window.location.href.indexOf(encodeURIComponent('ag-custom-admin/plugin.php')) !== -1 || window.location.href.indexOf('ag-custom-admin/plugin.php') !== -1){
+	jQuery(function(){
+		var agcapage = localStorage.getItem('agca-page');
+		if(!agcapage){
+			localStorage.setItem('agca-page', window.location.hash);
+			agcapage = localStorage.getItem('agca-page');
+		}	
+		window.location.hash = window.location.hash || agcapage;
+		localStorage.setItem('agca-page', window.location.hash);
+		
+	});
+	window.onhashchange = function(){
+		localStorage.setItem('agca-page', window.location.hash);
+		if(jQuery('#ag_main_menu a.selected').attr('href') !== window.location.hash){
+			if(window.location.hash !== ""){
+				jQuery('#ag_main_menu a[href='+window.location.hash+']').trigger('click');
+			}		
+		}
+	};
+}
 
 function hideShowSubmenus(index){
 	
