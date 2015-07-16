@@ -24,6 +24,23 @@ function agcaDebugObj(obj){
 		console.log(obj);
 	}
 }
+jQuery(function(){
+	var agcapage = localStorage.getItem('agca-page');
+	if(!agcapage){
+		localStorage.setItem('agca-page', window.location.hash);
+		agcapage = localStorage.getItem('agca-page');
+	}	
+	window.location.hash = window.location.hash || agcapage;
+	localStorage.setItem('agca-page', window.location.hash);
+	
+});
+window.onhashchange = function(){
+	localStorage.setItem('agca-page', window.location.hash);
+	if(jQuery('#ag_main_menu a.selected').attr('href') !== window.location.hash){
+		jQuery('#ag_main_menu a[href='+window.location.hash+']').trigger('click');
+	}
+};
+
 
 function hideShowSubmenus(index){
 	
@@ -498,11 +515,16 @@ function agcaApplyTooltip(){
 
 jQuery(document).ready(function(){	
     /*Add click handler on main buttons*/
-    jQuery('#ag_main_menu a, #ag_main_menu li').bind('click',function(){
+    jQuery('#ag_main_menu a, #ag_main_menu li').bind('click',function(e){
+		if(jQuery(e.target).is('li')){
+			var hash = jQuery(this).find('a:first').attr('href');
+			document.location.hash = hash;
+		};
         hideAllSections();		
         var text = jQuery(this).text();
         jQuery(this).attr("class","selected");		
         showHideSection(text);
+		
     });
 	
     /*Admin Menu Reset all setings button*/	
@@ -575,6 +597,10 @@ jQuery(document).ready(function(){
         }		
     });
 	  
+	 //check hashtag
+	 if(document.location.hash !== ""){
+		jQuery('#ag_main_menu a[href='+document.location.hash+']').trigger('click');
+	 };
 	  
 });
 

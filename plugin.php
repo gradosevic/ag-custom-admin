@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Argonius
-Version: 1.4.7
+Version: 1.4.8
 Author URI: http://www.argonius.com/
 
 	Copyright 2015. Argonius (email : info@argonius.com)
@@ -51,12 +51,13 @@ class AGCA{
 		add_action('login_head', array(&$this,'print_login_head'));	
 		add_action('admin_menu', array(&$this,'agca_create_menu'));		
 		add_action('wp_head', array(&$this,'print_page'));			
+		add_action( 'wp_before_admin_bar_render', array(&$this,'admin_bar_changes') ); 
 		register_deactivation_hook(__FILE__, array(&$this,'agca_deactivate'));	
 	
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
               
-		$this->agca_version = "1.4.7";
+		$this->agca_version = "1.4.8";
 		
 		/*upload images programmaticaly*/
 		//TODO upload with AJAX one by one, use post data to send urls one by one
@@ -71,7 +72,7 @@ class AGCA{
 			
 		}
 		add_action( 'admin_init', 'my_sideload_image' );*/
-		/*upload images programmaticaly*/
+		/*upload images programmaticaly*/	
 	}
 	// Add donate and support information
 	function jk_filter_plugin_links($links, $file)
@@ -79,6 +80,7 @@ class AGCA{
 		if ( $file == plugin_basename(__FILE__) )
 		{
 		$links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php">' . __('Settings') . '</a>';
+		$links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php#ag-templates">' . __('Admin Themes') . '</a>';
 		$links[] = '<a href="http://wordpressadminpanel.com/agca-support/">' . __('Support') . '</a>';
 		$links[] = '<a href="http://wordpressadminpanel.com/agca-support/support-for-future-development">' . __('Donate') . '</a>';
 		}
@@ -108,6 +110,7 @@ class AGCA{
 	}
 	
 	function checkPOST(){
+	
 		if(isset($_POST['_agca_save_template'])){
 		  //print_r($_POST);					  
 		  $data = $_POST['templates_data'];
@@ -204,6 +207,15 @@ class AGCA{
 			$this->delete_template_images($_POST['_agca_remove_template_images']);			
 			exit;
 		}
+	}
+	
+	function admin_bar_changes(){
+		global $wp_admin_bar;
+		$wp_admin_bar->add_menu( array(
+			'id'    => 'agca-admin-themes',
+			'title' => '<span class="ab-icon"></span>'.__( 'Admin Themes', 'agca-admin-themes' ),
+			'href'  => 'tools.php?page=ag-custom-admin/plugin.php#ag-templates'				
+		) );
 	}
 	
 	function delete_template_images_all(){
@@ -665,9 +677,8 @@ class AGCA{
         
  
                 
-	function agca_create_menu() {
-		//create new top-level menu		
-		add_management_page( 'AG Custom Admin', 'AG Custom Admin', 'administrator', __FILE__, array(&$this,'agca_admin_page') );
+	function agca_create_menu() {			
+		add_management_page( 'AG Custom Admin', 'AG Custom Admin', 'administrator', __FILE__, array(&$this,'agca_admin_page') );	
 	}
 	
 	function agca_create_admin_button($name,$arr) {
@@ -1235,7 +1246,8 @@ class AGCA{
 		$agcaTemplateSession = $this->agcaAdminSession();
 		$wpversion = $this->get_wp_version();	
 		$this->context = "admin";
-		$this->error_check();
+		$this->error_check();	
+	
 			 
 		?>                 
 		<script type="text/javascript">
@@ -1789,10 +1801,9 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 		 
         </script>
 	<?php 	
-	}
-	
+	}	
 	function agca_admin_page() {
-	
+
 		$wpversion = $this->get_wp_version();
 		$this->agca_error_check();
 		?>		
@@ -1848,8 +1859,8 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
                         </div>
                         <div style="clear:both"></div>
 				<div id="section_admin_bar" class="ag_section">
-				<h2 class="section_title" tabindex="-1">Admin Bar Settings</h2>
-				<br />
+				<h2 class="section_title">Admin Bar Settings</h2>
+				<br /><br /><br /><br />
 					<p tabindex="0"><i><strong>Info: </strong>Move your mouse over the option labels to see more information about the options</i></p>							
 				<br />
 				<table class="form-table" width="500px">							
@@ -2102,8 +2113,8 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 						</div>
 						
 						<div id="section_admin_footer" style="display:none" class="ag_section">	
-							<h2 class="section_title" tabindex="-1">Admin Footer Settings</h2>
-							<br /><br />						
+							<h2 class="section_title">Admin Footer Settings</h2>
+							<br /><br /><br /><br /><br /><br /><br />					
 							<table class="form-table" width="500px">		
 							<tr valign="center" class="ag_table_major_options">
 								<td>
@@ -2154,7 +2165,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 						</div>
 						
 						<div id="section_dashboard_page" style="display:none" class="ag_section">	
-							<h2 class="section_title"  tabindex="-1">Dashboard Page Settings</h2>
+							<h2 class="section_title">Dashboard Page Settings</h2>
 							<table class="form-table" width="500px">	
 							<tr valign="center">
 								<td colspan="2">
@@ -2237,7 +2248,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</table>
 						</div>
 						<div id="section_login_page" style="display:none" class="ag_section">
-						<h2 class="section_title" tabindex="-1">Login Page Settings</h2>												
+						<h2 class="section_title">Login Page Settings</h2>												
 							<table class="form-table" width="500px">				
 													
 							<tr valign="center">
@@ -2341,9 +2352,9 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							/*ADMIN MENU*/
 						?>
 						<div id="section_admin_menu" style="display:none" class="ag_section">
-						<h2 class="section_title" tabindex="-1">Admin Menu Settings</h2>
-						<br />
-						<p style="font-style:italic" tabindex="0"><strong>Important: </strong>Please Turn off menu configuration before activating or disabling other plugins (or making any other changes to main menu). Use <strong>Reset Settings</strong> button to restore default values if anything goes wrong.</p>					
+						<h2 class="section_title">Admin Menu Settings</h2>
+						<br /><br /><br /><br />
+						<p style="font-style:italic" tabindex="0"><strong>Important: </strong>Please turn off the menu configuration before activating or disabling other plugins (or making any other changes to main menu). Use <strong>Reset Settings</strong> button to restore default values if anything goes wrong.</p>					
 						<p style="font-style:italic" tabindex="0"><strong></strong>If you found that admin menu items are misaligned or not correct, press <strong>Reset Settings</strong> button. This happens if admin menu is changed by other plugins, or after activating / deactivating other plugings. Avoid such changes after you apply admin menu customizations.</p>
 						<br />
 							<table class="form-table" width="500px">	
@@ -2494,7 +2505,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 						</div>
 						<div id="section_ag_colorizer_settings" style="display:none" class="ag_section">
 						<h2 class="section_title">Colorizer Page</h2>
-						<br />						
+						<br /><br /><br /><br /><br /><br /><br />							
 						<table class="form-table" width="500px">	
 							<tr valign="center" class="ag_table_major_options">
 								<td><label for="agca_colorizer_turnonoff"><strong>Turn on/off Colorizer configuration</strong></label></td>
@@ -2645,7 +2656,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							 <div id="picker"></div>			
 						</div>
 						<div id="section_templates" style="display:none" class="ag_section">	
-							<h2 class="section_title" tabindex="-1"><span style="float:left">Admin Themes</span></h2>											
+							<h2 class="section_title"><span style="float:left">Admin Themes</span></h2>											
 							<br /><br />						
 							<table class="form-table" width="500px">					
 							<tr valign="center">								
@@ -2658,8 +2669,8 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							<tr>							
 								<td>
 									<div id="advanced_template_options" style="display:none">
-										<h4>Advanced Theme Actions</h4>
-										<p style="color:red;"><strong>WARNING:</strong> Use these theme actions only if you are experiencing some problems with AGCA themes. With these options you can deactivate or remove all installed themes.</p>
+										<h4>Theme Actions</h4>
+										<p style="color:red;"><strong>WARNING:</strong> Use these theme actions only if you are experiencing problems with AGCA themes. With these options you can deactivate or remove all installed themes.</p>
 										<p><a href="javascript:agca_activateTemplate('');" title="When used, currently applied AGCA theme will be disabled</br>and WordPress will use default admin UI.</br>Themes will not be removed, and you can use them again.">DEACTIVATE CURRENT THEME</a> - themes will be deactivated, but still installed.</p>
 										<p><a href="javascript:agca_removeAllTemplates();" title="All themes will be removed, including all theme settings and customizations.</br>If you're using commercial theme, you can install it again on the same site and activation will not be charged">REMOVE ALL THEMES</a> - installed themes will be removed.</p>										
 									</div>
@@ -2668,7 +2679,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</table>
 						</div>
                                                 <div id="section_advanced" style="display:none" class="ag_section">
-                                                                        <h2 class="section_title" tabindex="-1">Advanced</h2>
+                                                                        <h2 class="section_title">Advanced</h2>
                                                                         
                                                                                 <br /><br />					
                                                                                 <table class="form-table" width="500px">

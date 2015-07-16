@@ -144,13 +144,36 @@ td.ag_admin_menu_parent:hover{
 }
 #agca_form .section_title{
 	font-weight:bold;
+	background: #def7c3;
+    border-bottom-right-radius: 15px;
+    color: #acc491;
+    float: left;
+    font-size: 40px;
+    padding: 20px 11px;
+    position: relative;   
+    text-decoration: none;
+    text-shadow: none;
+    width: 50%;
 }
-#section_templates h2.section_title{
-	float: left;
-    font-size: 35px;
-	text-shadow:none;
-    margin-left: 8px;
+#agca_form h2.section_title{
+	
 }
+#agca_form  h2.section_title{
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 45px;
+    line-height: 1em;
+}
+#agca_form h2.section_title {
+    /* Shadows are visible under slightly transparent text color */
+    color: rgba(189, 193, 172, 0.71);
+    text-shadow: 1px 4px 6px #def7c3, 0 0 0 #000, 1px 4px 6px #def7c3;
+}
+/* Don't show shadows when selecting text */
+#agca_form h2.section_title::-moz-selection { background: #5af; color: #fff; text-shadow: none; }
+#agca_form h2.section_title::selection { background: #5af; color: #fff; text-shadow: none; }
+
+
 #agca_form  #templates_head_buttons input[type=button]{
 	background:#174F69;
 	color:white;
@@ -196,13 +219,14 @@ td.ag_admin_menu_parent:hover{
 #agca_form input[type=button],button{    
 	background-color: #ACC491;
     border: 1px solid #ACC491;
+	border-radius: 3px;
     color: #FFFFFF;
     padding: 5px 10px;
 }
 #agca_form input[type=button]:hover{
     background-color:#DEF7C3;
 	border: 1px solid #DEF7C3;	
-    color:#005B69;
+    color:#444;
     cursor:pointer;
 }
 #agca_form input[type=text]{
@@ -413,4 +437,14 @@ td.ag_admin_menu_parent:hover{
 }
 #agca_form #section_templates{
     background: rgba(255, 255, 255, 0.95)
+}
+#wp-admin-bar-agca-admin-themes a{
+	color:  #def7c3 !important;
+}
+#wp-admin-bar-agca-admin-themes .ab-icon:before {
+    font-family: "dashicons";
+    content: "\f100";
+	margin-top: 2px;
+	display: block;
+	color:  #eef9d5 !important;
 }
