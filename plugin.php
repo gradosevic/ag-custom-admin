@@ -210,12 +210,14 @@ class AGCA{
 	}
 	
 	function admin_bar_changes(){
-		global $wp_admin_bar;
-		$wp_admin_bar->add_menu( array(
-			'id'    => 'agca-admin-themes',
-			'title' => '<span class="ab-icon"></span>'.__( 'Admin Themes', 'agca-admin-themes' ),
-			'href'  => 'tools.php?page=ag-custom-admin/plugin.php#ag-templates'				
-		) );
+		if( current_user_can( 'manage_options' )){
+			global $wp_admin_bar;
+			$wp_admin_bar->add_menu( array(
+				'id'    => 'agca-admin-themes',
+				'title' => '<span class="ab-icon"></span>'.__( 'Admin Themes', 'agca-admin-themes' ),
+				'href'  => 'tools.php?page=ag-custom-admin/plugin.php#ag-templates'				
+			) );
+		}		
 	}
 	
 	function delete_template_images_all(){
