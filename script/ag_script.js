@@ -37,7 +37,9 @@ jQuery(function(){
 window.onhashchange = function(){
 	localStorage.setItem('agca-page', window.location.hash);
 	if(jQuery('#ag_main_menu a.selected').attr('href') !== window.location.hash){
-		jQuery('#ag_main_menu a[href='+window.location.hash+']').trigger('click');
+		if(window.location.hash !== ""){
+			jQuery('#ag_main_menu a[href='+window.location.hash+']').trigger('click');
+		}		
 	}
 };
 
