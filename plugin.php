@@ -311,11 +311,22 @@ class AGCA{
                                 echo "var agca_global_plugin_url = '".trailingslashit(plugins_url(basename(dirname(__FILE__))))."';"; 
                             ?>
                         </script>
-			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/ag_style.css?ver=<?php echo $this->agca_version; ?>" />                       
-			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/agca.css" /> 
+			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/ag_style.css?ver=<?php echo $this->agca_version; ?>" />
 			<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>require/dynamic.php?type=css&context=<?php echo $this->context; ?>&ver=<?php echo "changed_theme"; ?>" /> 
 			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>	                        	
 			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>require/dynamic.php?type=js&context=<?php echo $this->context; ?>&ver=<?php echo "changed_theme"; ?>"></script>	                        	
+			
+			<?php
+				if($this->context == "login"){				
+				?>
+				<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/login.min.css" /> 
+				<?php
+				}else{
+				?>
+				<link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/admin.min.css" /> 
+				<?php
+				}
+			?>
                         <?php 					    
 						echo $this->templateCustomizations; 
 						
