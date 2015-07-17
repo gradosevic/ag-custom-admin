@@ -347,7 +347,7 @@ class AGCA{
 		if(defined('WP_ADMIN') && WP_ADMIN == 1){
 			$isAdmin = true;
 		}
-        if(in_array($GLOBALS['pagenow'], array('wp-login.php', 'wp-register.php')) || $isAdmin){              			
+        if(in_array((isset($GLOBALS['pagenow'])?$GLOBALS['pagenow']:""), array('wp-login.php', 'wp-register.php')) || $isAdmin){               			
 			add_action('init', array(&$this,'agca_enqueue_scripts'));				
         }             
 	}
