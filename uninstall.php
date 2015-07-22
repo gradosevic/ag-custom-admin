@@ -58,6 +58,7 @@
 		delete_option( 'agca_admin_bar_new_content_user' );
 		delete_option( 'agca_admin_bar_new_content_media' );
 		delete_option( 'agca_admin_bar_update_notifications' );
+		delete_option( 'agca_admin_bar_admin_themes' );
 		delete_option( 'agca_remove_top_bar_dropdowns' );
 
 		/*Admin menu*/

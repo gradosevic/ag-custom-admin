@@ -432,6 +432,7 @@ class AGCA{
 		register_setting( 'agca-options-group', 'agca_admin_bar_new_content_user' );
 		register_setting( 'agca-options-group', 'agca_admin_bar_new_content_media' );		
 		register_setting( 'agca-options-group', 'agca_admin_bar_update_notifications' );	
+		register_setting( 'agca-options-group', 'agca_admin_bar_admin_themes' );	
 		register_setting( 'agca-options-group', 'agca_remove_top_bar_dropdowns' );	
 		register_setting( 'agca-options-group', 'agca_admin_bar_frontend' );	
 		register_setting( 'agca-options-group', 'agca_admin_bar_frontend_hide' );
@@ -562,6 +563,7 @@ class AGCA{
                 'agca_admin_bar_new_content_user',
                 'agca_admin_bar_new_content_media',
                 'agca_admin_bar_update_notifications',
+				'agca_admin_bar_admin_themes',
                 'agca_remove_top_bar_dropdowns',
                 'agca_admin_menu_turnonoff',
                 'agca_admin_menu_agca_button_only',
@@ -919,6 +921,9 @@ class AGCA{
 						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-new-content li#wp-admin-bar-new-media").css("display","none");
 				<?php } ?>								
 				<?php if(get_option('agca_admin_bar_update_notifications')!=""){  ?>
+						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-updates").css("display","none");
+				<?php } ?>
+				<?php if(get_option('agca_admin_bar_admin_themes')!=""){  ?>
 						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-updates").css("display","none");
 				<?php } ?>
                 
@@ -2057,6 +2062,14 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								</th>
 								<td>					
 									<input class="agca-checkbox" title="Removes update notifications from admin bar" type="checkbox" name="agca_admin_bar_update_notifications" value="true" <?php if (get_option('agca_admin_bar_update_notifications')==true) echo 'checked="checked" '; ?> />
+								</td>
+							</tr>
+							<tr valign="center">
+								<th >
+									<label title="Remove 'Admin themes' from admin bar" for="agca_admin_bar_admin_themes">Remove "Admin themes" from admin bar</label>
+								</th>
+								<td>					
+									<input class="agca-checkbox" title="Remove 'Admin themes' from admin bar" type="checkbox" name="agca_admin_bar_admin_themes" value="true" <?php if (get_option('agca_admin_bar_admin_themes')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr>
 							<tr valign="center">
