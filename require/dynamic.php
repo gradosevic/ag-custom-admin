@@ -37,7 +37,7 @@ if ( $agcaContext != "login" && !is_user_logged_in()) {
 			$adminscript = stripslashes($theme[$optionName]);
 			$settings = $theme['settings'];
 			if($settings == "" || $settings == " ") $settings = "{}";		
-			$adminscript = agcaAppendSettingsToAGCATemplateCustomizations(stripslashes($adminscript), $settings);	
+			$adminscript = agcaAppendSettingsToAGCATemplateCustomizations($adminscript, $settings);				
 			$admindata = agcaEnableSpecificWPVersionCustomizations($admindata);
 			$admindata = agcaRemoveCSSComments($admindata);	
 			
