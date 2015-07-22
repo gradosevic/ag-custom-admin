@@ -924,7 +924,7 @@ class AGCA{
 						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-updates").css("display","none");
 				<?php } ?>
 				<?php if(get_option('agca_admin_bar_admin_themes')!=""){  ?>
-						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-updates").css("display","none");
+						jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-agca-admin-themes").css("display","none");
 				<?php } ?>
                 
                 
