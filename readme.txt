@@ -4,7 +4,7 @@ Donate link: http://wordpressadminpanel.com/ag-custom-admin/
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
 Tested up to: 4.2.2
-Stable tag: 1.4.8.1
+Stable tag: 1.4.8.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
  
@@ -158,6 +158,7 @@ Plugin should be always up-to-date with latest WordPress release. If you have fo
 * Added check for non existing 'pagenow' GLOBAL variable
 * Using default WordPress theme when AGCA theme is activated
 * Fixed unknown font theme issue
+* Option to remove AGCA themes from admin bar
 
 = 1.4.8.1 =
 * Small bug fix
@@ -443,6 +444,7 @@ Plugin should be always up-to-date with latest WordPress release. If you have fo
 * Added check for non existing 'pagenow' GLOBAL variable
 * Using default WordPress theme when AGCA theme is activated
 * Fixed unknown font theme issue
+* Option to remove AGCA themes from admin bar
 
 = 1.4.8.1 =
 * Small bug fix
