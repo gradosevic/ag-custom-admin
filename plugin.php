@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Argonius
-Version: 1.4.8.2
+Version: 1.4.9
 Author URI: http://www.argonius.com/
 
 	Copyright 2015. Argonius (email : info@argonius.com)
@@ -59,7 +59,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
               
-		$this->agca_version = "1.4.8.2";
+		$this->agca_version = "1.4.9";
 		
 		/*upload images programmaticaly*/
 		//TODO upload with AJAX one by one, use post data to send urls one by one
@@ -368,7 +368,7 @@ class AGCA{
 		if(defined('WP_ADMIN') && WP_ADMIN == 1){
 			$isAdmin = true;
 		}
-        if(in_array($GLOBALS['pagenow'], array('wp-login.php', 'wp-register.php')) || $isAdmin){              			
+        if(in_array((isset($GLOBALS['pagenow'])?$GLOBALS['pagenow']:""), array('wp-login.php', 'wp-register.php')) || $isAdmin){             			
 			add_action('init', array(&$this,'agca_enqueue_scripts'));				
         }             
 	}
@@ -1727,10 +1727,11 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
             jQuery(document).ready(function() {			
 				try{ 
                                         <?php if(get_option('agca_login_round_box')==true){ ?>
-							jQuery("form#loginform").css("border-radius","<?php echo get_option('agca_login_round_box_size'); ?>px");
+												jQuery("form#loginform").css("border-radius","<?php echo get_option('agca_login_round_box_size'); ?>px");
                                                         jQuery("#login h1 a").css("border-radius","<?php echo get_option('agca_login_round_box_size'); ?>px");
-                                                        jQuery("#login h1 a").css("margin-bottom",'10px');
+                                                        jQuery("#login h1 a").css("margin-bottom",'10px');														
                                                         jQuery("#login h1 a").css("padding-bottom",'0');
+												jQuery("form#lostpasswordform").css("border-radius","<?php echo get_option('agca_login_round_box_size'); ?>px");
 					<?php } ?>
 					<?php if(get_option('agca_login_banner')==true){ ?>
 							jQuery("#backtoblog").css("display","none");
@@ -2013,7 +2014,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<label title="Removes 'New' block with its contents from admin bar" for="agca_admin_bar_new_content">Hide admin bar "New" content completely</label>
 								</th>
 								<td>					
-									<input class="agca-checkbox" title="Removes 'New' block with its contents from admin bar" type="checkbox" name="agca_admin_bar_new_content" value="true" <?php if (get_option('agca_admin_bar_new_content')==true) echo 'checked="checked" '; ?> />
+									<input class="agca-checkbox has-dependant dependant-opposite" data-dependant=".new_content_header_submenu" title="Removes 'New' block with its contents from admin bar" type="checkbox" name="agca_admin_bar_new_content" value="true" <?php if (get_option('agca_admin_bar_new_content')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr> 	
 							<tr class="new_content_header_submenu" valign="center">
@@ -2341,7 +2342,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<label title="Rounds box on login page" for="agca_login_round_box">Round box corners</label>
 								</th>
 								<td>
-									<input class="agca-checkbox" title="Rounds box on login page" type="checkbox" name="agca_login_round_box" value="true" <?php if (get_option('agca_login_round_box')==true) echo 'checked="checked" '; ?> />
+									<input class="agca-checkbox has-dependant" data-dependant="#agca_login_round_box_size_block" title="Rounds box on login page" type="checkbox" name="agca_login_round_box" value="true" <?php if (get_option('agca_login_round_box')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr> 
                                                          <?php 
@@ -2361,7 +2362,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<label title="Remove register link on login page" for="agca_login_register_remove">Remove register link</label>
 								</th>
 								<td>
-									<input class="agca-checkbox" title="Remove register link on login page" type="checkbox" name="agca_login_register_remove" value="true" <?php if (get_option('agca_login_register_remove')==true) echo 'checked="checked" '; ?> />
+									<input class="agca-checkbox has-dependant dependant-opposite" data-dependant="#agca_login_register_href_block" title="Remove register link on login page" type="checkbox" name="agca_login_register_remove" value="true" <?php if (get_option('agca_login_register_remove')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr>
 														<?php 
@@ -2391,7 +2392,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 						?>
 						<div id="section_admin_menu" style="display:none" class="ag_section">
 						<h2 class="section_title">Admin Menu Settings</h2>
-						<br /><br /><br /><br />
+						<br /><br /><br /><br /><br /><br /><br /><br /><br />
 						<p style="font-style:italic" tabindex="0"><strong>Important: </strong>Please turn off the menu configuration before activating or disabling other plugins (or making any other changes to main menu). Use <strong>Reset Settings</strong> button to restore default values if anything goes wrong.</p>					
 						<p style="font-style:italic" tabindex="0"><strong></strong>If you found that admin menu items are misaligned or not correct, press <strong>Reset Settings</strong> button. This happens if admin menu is changed by other plugins, or after activating / deactivating other plugings. Avoid such changes after you apply admin menu customizations.</p>
 						<br />
@@ -2464,7 +2465,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									<label title="Rounds submenu pop-up box" for="agca_admin_menu_submenu_round">Round sub-menu pop-up box</label>
 								</th>
 								<td>
-									<input class="agca-checkbox" title="Rounds submenu pop-up box" type="checkbox" name="agca_admin_menu_submenu_round" value="true" <?php if (get_option('agca_admin_menu_submenu_round')==true) echo 'checked="checked" '; ?> />
+									<input class="agca-checkbox has-dependant" data-dependant="#agca_admin_menu_submenu_round_block" title="Rounds submenu pop-up box" type="checkbox" name="agca_admin_menu_submenu_round" value="true" <?php if (get_option('agca_admin_menu_submenu_round')==true) echo 'checked="checked" '; ?> />
 								</td>
 							</tr> 
                                                          <?php 
@@ -2524,7 +2525,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 											<td colspan="2">
 												name:<input type="text" size="47" title="New button visible name" id="ag_add_adminmenu_name" name="ag_add_adminmenu_name" />
 												url:<input type="text" size="47" title="New button link" id="ag_add_adminmenu_url" name="ag_add_adminmenu_url" />
-												<select id="ag_add_adminmenu_target" class="agca-selectbox" style="width:64px">
+												<select id="ag_add_adminmenu_target" class="agca-selectbox" style="width:77px">
 													<option value="_blank" selected >blank</option>
 													<option value="_self">self</option>
 													<option value="_parent">parent</option>													

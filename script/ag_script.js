@@ -560,48 +560,9 @@ jQuery(document).ready(function(){
 	  
     /*SECTION FOCUS*/
     jQuery('.section_title').focus(function(){			  
-        });	 
-	  
-    /*HIDE/SHOW New items click*/
-    jQuery('input[name=agca_admin_bar_new_content]').bind("click",function(){				
-        var checked = jQuery(this).is(":checked");
-        if(!checked){
-            jQuery(".new_content_header_submenu").show("slide");
-        }else{
-            jQuery(".new_content_header_submenu").hide("slideDown");
-        }		
-    });
-          
-    /*HIDE/SHOW size of rounded box on login page*/
-    jQuery('input[name=agca_login_round_box]').bind("click",function(){				
-        var checked = jQuery(this).is(":checked");
-        if(checked){
-            jQuery("#agca_login_round_box_size_block").show("slide");
-        }else{
-            jQuery("#agca_login_round_box_size_block").hide("slideDown");
-        }		
-    });
-    
-     /*HIDE/SHOW size of rounded submenu box on admin page*/
-    jQuery('input[name=agca_admin_menu_submenu_round]').bind("click",function(){				
-        var checked = jQuery(this).is(":checked");
-        if(checked){
-            jQuery("#agca_admin_menu_submenu_round_block").show("slide");
-        }else{
-            jQuery("#agca_admin_menu_submenu_round_block").hide("slideDown");
-        }		
-    });
-	
-	 /*HIDE/SHOW size hyperllink on register link on login page*/
-    jQuery('input[name=agca_login_register_remove]').bind("click",function(){				
-        var checked = jQuery(this).is(":checked");
-        if(!checked){
-            jQuery("#agca_login_register_href_block").show("slide");
-        }else{
-            jQuery("#agca_login_register_href_block").hide("slideDown");
-        }		
-    });
-	  
+        });	 	  
+       
+  
 	 //check hashtag
 	 if(document.location.hash !== ""){
 		jQuery('#ag_main_menu a[href='+document.location.hash+']').trigger('click');
@@ -976,10 +937,29 @@ jQuery(document).ready(function(){
 /*A J A X*/
 
 /*AGCA CHECKBOX RADIOBOX*/
-function agcaCheckBoxOnClick(obj){	
-	obj.prev().trigger('click');
+function agcaCheckBoxOnClick(obj){		 
+	 var isNowChecked = false;
+	 var $input = jQuery(obj).prev();
+	 if($input.is(':checked')){		
+	   $input.removeAttr('checked');
+	 }else{
+	   isNowChecked = true;
+	   $input.attr('checked','checked'); 
+	 }
+	 
+	 if($input.hasClass('has-dependant')){
+		var dependantSel = $input.data('dependant');
+		var isOppositeToggle = $input.hasClass('dependant-opposite');
+	
+		if(isNowChecked && !isOppositeToggle || !isNowChecked && isOppositeToggle){			
+            jQuery(dependantSel).show("slide");
+        }else{
+            jQuery(dependantSel).hide("slideDown");
+        }
+	 }
+	
 	//console.log(obj.prev());
-	if(jQuery(obj).prev().is(':checked')){
+	if($input.is(':checked')){
 		jQuery(obj).addClass('agca-checkbox-box-checked');
 		jQuery(obj).removeClass('agca-checkbox-box');
 	}else{
