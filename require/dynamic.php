@@ -34,7 +34,7 @@ if ( $agcaContext != "login" && !is_user_logged_in()) {
 			$admin_capability = "edit_dashboard";
 		}
 		if(!((get_option('agca_role_allbutadmin')==true) and (current_user_can($admin_capability )))){	
-			$adminscript = stripslashes($theme[$optionName]);
+			$adminscript = $theme[$optionName];
 			$settings = $theme['settings'];
 			if($settings == "" || $settings == " ") $settings = "{}";		
 			$adminscript = agcaAppendSettingsToAGCATemplateCustomizations($adminscript, $settings);				
