@@ -3,8 +3,8 @@ Contributors: argonius
 Donate link: http://wordpressadminpanel.com/ag-custom-admin/
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
-Tested up to: 4.2.2
-Stable tag: 1.4.8.2
+Tested up to: 4.4
+Stable tag: 1.4.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
  
@@ -153,6 +153,9 @@ Plugin should be always up-to-date with latest WordPress release. If you have fo
 9. Army - commercial theme.
 
 == Changelog ==
+
+= 1.4.9 =
+* Issues fixed
 
 = 1.4.8.2 =
 * Added check for non existing 'pagenow' GLOBAL variable
@@ -439,6 +442,9 @@ Plugin should be always up-to-date with latest WordPress release. If you have fo
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.4.9 =
+* Issues fixed
 
 = 1.4.8.2 =
 * Added check for non existing 'pagenow' GLOBAL variable
