@@ -21,7 +21,6 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 * **ADMIN PANEL OPTIONS**: There are also dozens of many other admin panel options used to hide or change existing WordPress admin panel and login page items like Dashboard widgets, Help and Screen options, WordPress logos, links, menus etc. See the full list down below. 
 
 
-
 = Admin Bar Options =
 * Hide admin bar completely 
 * Hide admin bar completely, but show only Log Out button
@@ -50,7 +49,6 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 * Change Log Out text
 * Remove "Edit My Profile" option from context menu
 * Show "Log Out" button only
-
 
 = Admin Footer Options =
 * Hide footer completely
