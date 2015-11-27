@@ -638,7 +638,7 @@ function checkIfTemplatesAreLoaded(pass){
 	else if(pass == 4){
 		agcaLoadingTimeOut = window.setTimeout(function(){
 		if(jQuery('#agca_templates p:first').hasClass('initialLoader')){
-			jQuery('#agca_templates p:first').html('Sorry, unable to load themes right now. Please try again later.</br>We recommend using only latest browsers for theme management.');
+			jQuery('#agca_templates p:first').html('Sorry, unable to load themes right now. Please try again later.');
 			agcaDebug('ERR:Unable to load themes');
 		}
 		},10000);

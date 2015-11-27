@@ -9,7 +9,7 @@
 		delete_option(  'agca_logout' );
 		delete_option(  'agca_remove_your_profile' );
 		delete_option(  'agca_logout_only' );
-		delete_option(  'agca_options_menu' );
+		delete_option(  'agca_options_menu' ); //obsolete from 1.5
 		delete_option(  'agca_howdy' );
 		delete_option(  'agca_header' );
 		delete_option(  'agca_header_show_logout' );
@@ -74,6 +74,7 @@
         delete_option(  'agca_admin_menu_brand_link' );   
 		delete_option(  'agca_admin_menu_autofold' );		
 		delete_option(  'ag_edit_adminmenu_json' );
+		delete_option(  'ag_edit_adminmenu_json_new' );
 		delete_option(  'ag_add_adminmenu_json' );
 		delete_option(  'ag_colorizer_json' );	
 		delete_option(  'agca_colorizer_turnonoff' );

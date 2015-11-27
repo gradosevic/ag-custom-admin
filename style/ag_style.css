@@ -10,13 +10,25 @@
 -blue
 #005B69
 */
-#ag_main_menu {
-	display:block;
-	height:35px;
-	border-bottom:3px solid #ACC491;	
-	margin-top:2px;
+.agca-clear{
+	clear:both;
 }
-.ag_section h2, .ag_section h3{
+.agca-tip{
+	padding-left:20px;
+}
+table .agca-tip{
+	padding-left: 10px;
+}
+#ag_main_menu {
+	display: block;
+	height: 34px;
+	border-bottom: 3px solid #ACC491;
+	margin-top: 2px;
+}
+.ag_section{
+	background: #fff;
+}
+.ag_section h2{
 	color:#005B69;
 }
 #ag_main_menu li{
@@ -31,8 +43,6 @@
 	border-bottom:3px solid #ACC491;
 }
 #ag_main_menu li.selected{
-	border:3px solid #ACC491;
-	border-bottom:none ;
 	background-color:#F9F9F9;
 	cursor:default;
 }
@@ -40,12 +50,18 @@
 	background-color:#eef9d5;
 	cursor:pointer;
 }
+#ag_main_menu a:focus{
+	outline: none;
+	border:0;
+}
 #ag_main_menu li a{
 	text-decoration:none;
 	color: #888888;
+	outline: none;
+	border:0;
 }
 .ag_table_heading{
-	background-color:#DEF7C3;
+	background:none;
 	display:block;
 	height:25px;
 	padding:5px;
@@ -55,9 +71,21 @@
 	margin-left:-10px;
 	margin-right:-10px;
 }
+.ag_table_heading h3{
+	color: #fff;
+	background: gray;
+	margin-left: -15px;
+	padding: 3px 9px;
+	border: none;
+	border-radius: 6px;
+}
 .ag_table_major_options{
-	background-color:#ddd;
-	width:500px;
+	background-color:#f8f8f8;
+	width: 500px;
+	margin-bottom: 2px;
+}
+#agca_form .form-table .ag_table_major_options td{
+	padding-left:20px;
 }
 
 div#AGToolTipDiv {
@@ -79,6 +107,9 @@ td.ag_admin_menu_parent{
 td.ag_admin_menu_parent:hover{
 	background-color:#ddd;	
 }
+#ag_edit_adminmenu h3{
+	color: #ffffff;
+}
 #ag_edit_adminmenu tr{
 	margin:0;
 	padding:0;
@@ -96,6 +127,9 @@ td.ag_admin_menu_parent:hover{
 #ag_edit_adminmenu a{
 	text-decoration:none;
 	color:#444;
+}
+ #ag_edit_adminmenu input[name=ag_edit_adminmenu_item_top_2]:hover{
+	background-color: grey !important;
 }
 .noclass{
 	display:none;
@@ -154,6 +188,8 @@ td.ag_admin_menu_parent:hover{
     text-decoration: none;
     text-shadow: none;
     width: 50%;
+	display:block;
+	margin-top:0;
 }
 #agca_form h2.section_title{
 	
@@ -206,12 +242,6 @@ td.ag_admin_menu_parent:hover{
     cursor: default;
     width:10px;
 }
-
-#export_settings_additional{
-    float: left;
-    margin-top:3px;
-    width: 229px;
-}
 /*#agca_form input.agca_button,#agca_form #ag_add_adminmenu button{
     padding: 3px 10px;
     background-color:#ffffff;
@@ -254,6 +284,14 @@ td.ag_admin_menu_parent:hover{
 }
 #agca_form #ag_add_adminmenu input[type=text]{
     width:300px;
+}
+#agca_form #ag_add_adminmenu .button_edit span,
+#agca_form #ag_add_adminmenu .button_remove span{
+	font-size: 25px;
+	color: #7A8A67;
+}
+#agca_form #ag_add_adminmenu .button_remove span{
+	color: red;
 }
 #agca_form input#save_plugin_settings{
 	background: none repeat scroll 0 0 #acc491;
@@ -362,6 +400,7 @@ td.ag_admin_menu_parent:hover{
     border-radius: 4px;
     color: #FFFFFF;
     padding: 6px 9px;
+	min-width: 150px;
 }
 .wp-admin.folded #sidebar_adminmenu_logo{
     display:none;
@@ -405,6 +444,7 @@ td.ag_admin_menu_parent:hover{
 }
 #agca_form .form-table th{
 	width:350px;
+	padding-left: 20px;
 }
 .ag_admin_menu_parent  .agca-checkbox-box-checked, .ag_admin_menu_parent  .agca-checkbox-box{
 	margin-top:-15px;
@@ -414,7 +454,6 @@ td.ag_admin_menu_parent:hover{
 	float:left;
 }
 #agca_form  .agca-radiobox{
-	background:url(../images/radio-gray.png);
 	cursor:pointer;
 	display: block;
 	width: 28px;
@@ -425,16 +464,37 @@ td.ag_admin_menu_parent:hover{
 #agca_form .agca-radio-text{
 	display: block;
     float: left;
-    font-size: 14px;
+    font-size: 17px;
     font-weight: bold;
-    margin: 4px 10px 4px 4px;
+	margin: 4px 25px 4px 4px;
+	cursor:pointer;
 }
-#agca_form  .agca-radiobox.checked[value=on]{
-	background:url(../images/radio-on.png);	
+#agca_form .agca-radio-text.on{
+	color: #ACC491;
 }
-#agca_form  .agca-radiobox.checked[value=off]{
-	background:url(../images/radio-off.png);
+#agca_form .agca-radio-text.off{
+	color: #f08080;
 }
+#agca_form  .agca-radiobox:before{
+	font-family: Dashicons;
+	content: "\f159";
+	font-size: 30px;
+	line-height:30px;
+}
+#agca_form  .agca-radiobox.checked:before{
+	content: "\f502";
+}
+#agca_form  .agca-radiobox.checked[value=off]:before{
+	/*TODO: Add minus icon when become available in WordPress*/
+	content: "\f502";
+}
+#agca_form  .agca-radiobox[value=on]:before{
+	color: #ACC491;
+}
+#agca_form  .agca-radiobox[value=off]:before{
+	color: #f08080;
+}
+
 #agca_form #section_templates{
     background: rgba(255, 255, 255, 0.95)
 }
@@ -447,4 +507,19 @@ td.ag_admin_menu_parent:hover{
 	margin-top: 2px;
 	display: block;
 	color:  #eef9d5 !important;
+}
+.agca-feedback-and-support a{
+	border: medium none;
+	border-radius: 4px;
+	color: #FFFFFF;
+	padding: 6px 9px;
+	min-width: 210px;
+	background: rgb(216, 234, 216);
+	display: inline-block;
+	text-decoration: none;
+	color: gray;
+}
+.agca-feedback-and-support a:hover{
+	background-color:#ACC491;
+	color:#fff;
 }
