@@ -96,10 +96,10 @@ function prettyEditMenuPage(){
     });
 };
 function editMenuRow(url, originalName, newName, removed){
-    return '<tr class="top" data-url="'+url+'" style="background-color: rgb(216, 234, 216);"><td class="ag_admin_menu_parent"><br><span class=\"agcaMenuEditorPlusMinus\"><span class=\"plus\">+</span><span class=\"minus\">-</span></span><a tabindex="0" href="javascript:void(0)">'+originalName+'</a><div style="float:right"><input title="Remove Home from menu" class=" agca-checkbox" type="checkbox" '+(removed?' checked=\"checked\" ':'')+' name="ag_edit_adminmenu_item_top_2" style="display: none;"><div onclick="agcaCheckBoxOnClick(jQuery(this));" class="agca-checkbox-box" title="Remove '+originalName+' from menu"><div></div></div></div></td><td class="ag_admin_menu_parent2"><input title="Rename '+originalName+' with this value" type="text" class="undefined" size="47" value="'+newName+'" name="ag_edit_adminmenu_item_top_2"></td></tr>';
+    return '<tr class="top" data-url="'+url+'" style="background-color: rgb(216, 234, 216);"><td class="ag_admin_menu_parent"><br><span class=\"agcaMenuEditorPlusMinus\"><span class="dashicons plus dashicons-arrow-down-alt2"></span><span class="dashicons minus dashicons-arrow-up-alt2"></span></span><a tabindex="0" href="javascript:void(0)">'+originalName+'</a><div style="float:right"><input title="Remove Home from menu" class=" agca-checkbox visibility" type="checkbox" '+(removed?' checked=\"checked\" ':'')+' name="ag_edit_adminmenu_item_top_2" style="display: none;"><div onclick="agcaCheckBoxOnClick(jQuery(this));" class="agca-checkbox-box" title="Remove '+originalName+' from menu"><div></div></div></div></td><td class="ag_admin_menu_parent2"><input title="Rename '+originalName+' with this value" type="text" class="undefined" size="47" value="'+newName+'" name="ag_edit_adminmenu_item_top_2"></td></tr>';
 }
 function editMenuSubrow(index, parentName, parentIndex, url, originalName, newName, removed){
-    return '<tr class="sub" data-index="'+index+'" data-parent="'+parentIndex+'" data-name="'+originalName+'" data-url="'+url+'"><td class="ag_admin_menu_child"><div style="float:left"><a tabindex="-1" href="javascript:void(0)" style="font-weight:bold;" title="Dashboard submenu: '+originalName+'"><span style="font-weight:normal">sub-menu: </span>'+originalName+'</a></div><div style="float:right"><input type="checkbox" title="Remove '+parentName+' submenu: '+originalName+' from menu" class="Home agca-checkbox" '+(removed?' checked=\"checked\" ':'')+' name="ag_edit_adminmenu_item_sub_1" style="display: none;"><div onclick="agcaCheckBoxOnClick(jQuery(this));" class="agca-checkbox-box" title="Remove '+parentName+' submenu: '+originalName+' from menu"><div></div></div></div></td><td class="ag_admin_menu_child2"><input type="text" title="Rename submenu item '+originalName+' with this value" class="'+originalName+'" size="47" value="'+newName+'" name="ag_edit_adminmenu_item_sub_1"></td></tr>';
+    return '<tr class="sub" data-index="'+index+'" data-parent="'+parentIndex+'" data-name="'+originalName+'" data-url="'+url+'"><td class="ag_admin_menu_child"><div style="float:left"><a tabindex="-1" href="javascript:void(0)" style="font-weight:bold;" title="Dashboard submenu: '+originalName+'"><span style="font-weight:normal">sub-menu: </span>'+originalName+'</a></div><div style="float:right"><input type="checkbox" title="Remove '+parentName+' submenu: '+originalName+' from menu" class="Home agca-checkbox visibility" '+(removed?' checked=\"checked\" ':'')+' name="ag_edit_adminmenu_item_sub_1" style="display: none;"><div onclick="agcaCheckBoxOnClick(jQuery(this));" class="agca-checkbox-box" title="Remove '+parentName+' submenu: '+originalName+' from menu"><div></div></div></div></td><td class="ag_admin_menu_child2"><input type="text" title="Rename submenu item '+originalName+' with this value" class="'+originalName+'" size="47" value="'+newName+'" name="ag_edit_adminmenu_item_sub_1"></td></tr>';
 }
 function createEditMenuPageNew(agca_menu){
     for(var url in agca_menu){
@@ -341,17 +341,19 @@ function agcaApplyTooltip(){
                jQuery(this).mousemove(function(e) {			
                 var tipY = e.pageY + 16; 
                 var tipX = e.pageX - 236;	
-                var type = '#fee6e6';
-                var border = '1px solid red';
+                var type = '#f08080';
                 if(jQuery(this).hasClass('positive')) {
-                    type = '#eafee6';
-                    border = '1px solid green';
+                    type = '#ACC491';
                 }
                 jQuery("#AGToolTipDiv").css({
                     'top': tipY, 
                     'left': tipX,
                     'background': type,
-                    'border': border
+                    'border': 'none',
+                    'padding': '10px',
+                    'color':'#fff',
+                    'font-weight':'bold',
+                    'border-radius': '5px'
                 });
             }); 
             }else{
@@ -434,23 +436,27 @@ jQuery(document).ready(function(){
 
 jQuery(function($){
     /*Admin menu*/
-    $('#adminmenu').css('display','block');
+    jQuery('#adminmenu').css('display','block');
 
     /*FORM SUBMITTED*/
-    $('#agca_form').submit(function(){
+    jQuery('#agca_form').submit(function(){
         processData();
         return true;
     });
 
-    $('.agca-radio-text').on('click', function(){
-        var $o = $(this);
+    //on radio button text click
+    jQuery('.agca-radio-text').on('click', function(){
+        var $o = jQuery(this);
         var type = 'off';
         if($o.hasClass('on')){
             type='on';
         }
         $o.parent().find('.agca-radiobox[value='+type+']').trigger('click');
     });
-})(jQuery);
+
+    //Colorizer update input text colors
+    colorizerColorizeTextboxes();
+});
 
 
 function processEditAdminMenu(){
@@ -558,7 +564,7 @@ function agca_escapeChars(str){
 }
 
 /*C O L O R I Z E R*/
-function updateTargetColor(id, color){ 
+function updateTargetColor(id, color){
     switch(id)
     { 
         case 'color_background':		
@@ -854,6 +860,9 @@ function agcaChangeCheckBoxStyles(){
 		if(jQuery(this).is(':checked')){
 			cls = "agca-checkbox-box-checked";
 		}
+        if(jQuery(this).hasClass('visibility')){
+            cls +=' visibility';
+        }
 		jQuery(this).after('<div onClick="agcaCheckBoxOnClick(jQuery(this));" class="' + cls + '" title="'+jQuery(this).attr('title')+'"><div/>');		
 	});
 	
@@ -882,6 +891,19 @@ function isWPHigherOrEqualThan(targetVersion){
 	return (wpversion >= targetVersion);    
 }
 
+function colorizerColorizeTextboxes(){
+    jQuery('#section_ag_colorizer_settings .color_picker').each(function(){
+        var $o = jQuery(this);
+        $o.css('background-color', $o.val());
+        $o.lightOrDark();
+        if($o.hasClass('dark')){
+            $o.css('color','#fff');
+        }else{
+            $o.css('color','#000');
+        }
+    });
+}
+
 
 //VALIDATION
 jQuery(document).ready(function() {
@@ -907,3 +929,37 @@ jQuery(document).ready(function() {
         }
     });
 });
+
+(function($){
+
+    $.fn.lightOrDark = function(){
+        var r,b,g,hsp
+            , a = this.css('background-color');
+
+        if (a.match(/^rgb/)) {
+            a = a.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
+            r = a[1];
+            g = a[2];
+            b = a[3];
+        } else {
+            a = +("0x" + a.slice(1).replace( // thanks to jed : http://gist.github.com/983661
+                    a.length < 5 && /./g, '$&$&'
+                )
+            );
+            r = a >> 16;
+            b = a >> 8 & 255;
+            g = a & 255;
+        }
+        hsp = Math.sqrt( // HSP equation from http://alienryderflex.com/hsp.html
+            0.299 * (r * r) +
+            0.587 * (g * g) +
+            0.114 * (b * b)
+        );
+        if (hsp>127.5) {
+            this.addClass('light');
+        } else {
+            this.addClass('dark');
+        }
+    }
+
+})(jQuery);

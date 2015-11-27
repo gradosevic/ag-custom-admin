@@ -470,11 +470,11 @@ function agca_activateTemplate(template){
 				});
             }
      });
-}							
+}
 
 function agca_removeAllTemplates(){
 	agcaDebug('FN:agca_removeAllTemplates()');
-	yesnoPopup("Confirm","Are you sure? All installed themes will be removed completely?",agca_removeAllTemplatesConfirmed);										
+	yesnoPopup("Confirm","All installed themes will be uninstalled completely. You would need to re-activate your purchased themes with valid license keys in order to install them again. Are you sure?",agca_removeAllTemplatesConfirmed);
 }
 
 function agca_removeAllTemplatesConfirmed(){

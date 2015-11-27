@@ -1948,15 +1948,24 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 			 var template_selected = '<?php echo get_option('agca_selected_template'); ?>';			 
             </script>
 			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/agca_tmpl.js?ver=<?php echo $wpversion; ?>"></script>                  						
-		<?php //includes ?>		
+		<?php //includes ?>
 		<div class="wrap">
-			<h1 style="color:#005B69">AG Custom Admin Settings <span style="font-size:15px;">(v<?php echo $this->agca_version; ?>)</span></h1>	
+			<h1 id="agca-title">AG Custom Admin Settings <span style="font-size:15px;">(v<?php echo $this->agca_version; ?>)</span></h1>
 			<div id="agca_error_placeholder"></div>
 										<div id="agca_news">&nbsp;</div><br />								
 			<form method="post" id="agca_form" action="options.php">
 				<?php settings_fields( 'agca-options-group' ); ?>
-                        <div style="float:right;width:152px;margin-left: 100px;margin-top: -25px;"><strong><span style="font-size:12px" >Your feedback:</span></strong> <a class="feedback positive" target="_blank" title="POSITIVE FEEDBACK: I like this plugin!" href="http://wordpressadminpanel.com/agca-support/feedback/ag-custom-admin-positive-feedback/" style="padding:5px;"><img  style="" width="15" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/thumbup.png" /></a>  <a class="feedback" target="_blank" title="NEGATIVE FEEDBACK: I don't like this plugin." style="padding:5px;" href="http://wordpressadminpanel.com/agca-support/feedback/ag-custom-admin-negative-feedback/"><img width="15" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/thumbdown.png" /></a></div>
-                                    
+                        <div id="agca-your-feedback">
+							<strong>
+								<span style="color:#005B69">Your feedback:</span>
+							</strong>
+							<a class="feedback positive" target="_blank" title="POSITIVE FEEDBACK: I like this plugin!" href="http://wordpressadminpanel.com/agca-support/feedback/ag-custom-admin-positive-feedback/">
+								<span class="dashicons dashicons-thumbs-up"></span>
+							</a>
+							<a class="feedback negative" target="_blank" title="NEGATIVE FEEDBACK: I don't like this plugin." href="http://wordpressadminpanel.com/agca-support/feedback/ag-custom-admin-negative-feedback/">
+								<span class="dashicons dashicons-thumbs-down"></span>
+							</a>
+						</div>
 			<br />
 			<ul id="ag_main_menu">
 				<li class="selected"><a href="#general-settings" title="General Settings" >General</a></li>
@@ -1994,15 +2003,17 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 						$this->print_options_h3('Pages');
 
 						$this->print_checkbox([
+							'hide'=>true,
 							'name'=>'agca_screen_options_menu',
-							'label'=>'Hide "Screen Options" menu',
-							'title'=>'Removes the menu from the admin pages (located on the top right corner of the page, below the admin bar)'
+							'label'=>'"Screen Options" menu',
+							'title'=>'Hides the menu from the admin pages (located on the top right corner of the page, below the admin bar)'
 						]);
 
 						$this->print_checkbox([
+							'hide'=>true,
 							'name'=>'agca_help_menu',
-							'label'=>'Hide "Help" menu',
-							'title'=>'Removes the menu from the admin pages (located on the top right corner of the page, below the admin bar)'
+							'label'=>'"Help" menu',
+							'title'=>'Hides the menu from the admin pages (located on the top right corner of the page, below the admin bar)'
 						]);
 
 						$this->print_options_h3('Security');
@@ -2027,19 +2038,22 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							<td colspan="2">
 								<div class="agca-feedback-and-support">
 									<ul>
-										<li><a href="#">Idea for improvement</a> - submit your idea for improvement </li>
+										<li><a href="http://wordpressadminpanel.com/agca-support/contact/?type=feature" target="_blank"><span class="dashicons dashicons-lightbulb"></span>&nbsp;&nbsp;Idea for improvement</a> - submit your idea for improvement </li>
 									</ul>
 									<ul>
-										<li><a href="#">Report an issue</a> - if plugin does not work as expected </li>
+										<li><a href="http://wordpressadminpanel.com/agca-support/contact/?type=bug" target="_blank"><span class="dashicons dashicons-megaphone"></span>&nbsp;&nbsp;Report an issue</a> - if plugin does not work as expected </li>
 									</ul>
 									<ul>
-										<li><a href="https://wordpress.org/support/view/plugin-reviews/ag-custom-admin" target="_blank">Add a review on WordPress.org</a> - add your review and rate us on WordPress.org </li>
+										<li><a href="http://wordpressadminpanel.com/agca-support/contact/?type=theme" target="_blank"><span class="dashicons dashicons-art"></span>&nbsp;&nbsp;Idea for admin theme</a> - submit your idea for admin theme </li>
 									</ul>
 									<ul>
-										<li><a href="http://wordpressadminpanel.com/agca-support/" target="_blank">Visit our support site</a> - for any other questions, feel free to contact us </li>
+										<li><a href="https://wordpress.org/support/view/plugin-reviews/ag-custom-admin" target="_blank"><span class="dashicons dashicons-awards"></span>&nbsp;&nbsp;Add a review on WordPress.org</a> - add your review and rate us on WordPress.org </li>
 									</ul>
 									<ul>
-										<li><a href="http://wordpressadminpanel.com/agca-support/support-for-future-development/" target="_blank">Donate</a> - only if you find this plugin helpful for your needs </li>
+										<li><a href="http://wordpressadminpanel.com/agca-support/" target="_blank"><span class="dashicons dashicons-shield-alt"></span>&nbsp;&nbsp;Visit our support site</a> - for any other questions, feel free to contact us </li>
+									</ul>
+									<ul>
+										<li><a href="http://wordpressadminpanel.com/agca-support/support-for-future-development/" target="_blank"><span class="dashicons dashicons-palmtree"></span>&nbsp;&nbsp;Donate</a> - only if you find this plugin helpful for your needs </li>
 									</ul>
 								</div>
 							</td>
@@ -2056,9 +2070,10 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 						'attributes'=>[
 							'class'=>'ag_table_major_options',
 						],
-						'title'=>'Removes admin bar completely from the admin panel',
+						'hide'=>true,
+						'title'=>'Hides admin bar completely from the admin panel',
 						'name'=>'agca_header',
-						'label'=>'<strong>Hide admin bar completely</strong>',
+						'label'=>'<strong>Admin bar</strong>',
 						'onchange'=>"if(jQuery('#agca_header').is(':checked')){jQuery('#agca_header_show_logout_content').show('slide');}else{jQuery('#agca_header_show_logout_content').hide('slide');};"
 					]);
 
@@ -2077,16 +2092,18 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 					$this->print_checkbox([
 						'title'=>'Removes admin bar customizations for authenticated users on site pages.</br>This option can be useful if you want to remove AGCA scripts (styles, JavaScript) on your website for any reason.',
 						'name'=>'agca_admin_bar_frontend',
-						'label'=>'Site pages: Remove admin bar customizations'
+						'hide'=>true,
+						'label'=>'Site pages: Admin bar customizations'
 					]);
 
 					$this->print_checkbox([
-						'title'=>'Removes admin bar completely for authenticated users on site pages.',
+						'title'=>'Hides admin bar completely for authenticated users on site pages.',
 						'name'=>'agca_admin_bar_frontend_hide',
-						'label'=>'Site pages: Remove admin bar completely'
+						'hide'=>true,
+						'label'=>'Site pages: Admin bar'
 					]);
 
-					$this->print_options_h3('Left side');
+					$this->print_options_h3('Left Side');
 
 					$this->print_input([
 						'title'=>'Change default WordPress logo with custom image.',
@@ -2118,95 +2135,107 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 
 
 					$this->print_checkbox([
-						'title'=>'Removes small Wordpress logo from the admin bar',
+						'hide'=>true,
+						'title'=>'Hides small Wordpress logo from the admin bar',
 						'name'=>'agca_header_logo',
-						'label'=>'Hide WordPress logo'
+						'label'=>'WordPress logo'
 					]);
 
 					$this->print_checkbox([
-						'title'=>'Removes site name link from the admin bar',
+						'hide'=>true,
+						'title'=>'Hides site name link from the admin bar',
 						'name'=>'agca_remove_site_link',
-						'label'=>'Hide site name'
+						'label'=>'Site name'
 					]);
 
 					$this->print_checkbox([
-						'title'=>'Removes WordPress context menu on WordPress logo icon from admin bar',
+						'hide'=>true,
+						'title'=>'Hides WordPress context menu on WordPress logo icon from admin bar',
 						'name'=>'agca_remove_top_bar_dropdowns',
-						'label'=>'Hide WordPress context menu'
+						'label'=>'WordPress context menu'
 					]);
 
 					$this->print_checkbox([
-						'title'=>'Removes comments block from admin bar',
+						'hide'=>true,
+						'title'=>'Hides comments block from admin bar',
 						'name'=>'agca_admin_bar_comments',
-						'label'=>'Hide "Comments" block'
+						'label'=>'"Comments" block'
 					]);
 
 					$this->print_checkbox([
+						'hide'=>true,
 						'attributes'=>[
 							'style'=>'margin-top:20px;'
 						],
-						'title'=>'Removes "+ New" block and its context menu from admin bar',
+						'title'=>'Hides "+ New" block and its context menu from admin bar',
 						'name'=>'agca_admin_bar_new_content',
-						'label'=>'Hide "+ New" block',
+						'label'=>'"+ New" block',
 						'input-attributes'=>'data-dependant=".new_content_header_submenu"',
 						'input-class'=>'has-dependant dependant-opposite'
 					]);
 
 					$this->print_checkbox([
+						'hide'=>true,
 						'attributes'=>[
 							'class'=>'new_content_header_submenu'
 						],
-						'title'=>'Removes "Post" sub-menu from "+ New" block on admin bar',
+						'title'=>'Hides "Post" sub-menu from "+ New" block on admin bar',
 						'name'=>'agca_admin_bar_new_content_post',
-						'label'=>'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hide "+ New" -> Post sub-menu'
+						'label'=>'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ New" -> Post sub-menu'
 					]);
 
 					$this->print_checkbox([
+						'hide'=>true,
 						'attributes'=>[
 							'class'=>'new_content_header_submenu'
 						],
-						'title'=>'Removes "Link" sub-menu from "+ New" block on admin bar',
+						'title'=>'Hides "Link" sub-menu from "+ New" block on admin bar',
 						'name'=>'agca_admin_bar_new_content_link',
-						'label'=>'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hide "+ New" -> Link sub-menu'
+						'label'=>'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ New" -> Link sub-menu'
 					]);
 
 					$this->print_checkbox([
+						'hide'=>true,
 						'attributes'=>[
 							'class'=>'new_content_header_submenu'
 						],
-						'title'=>'Removes "Page" sub-menu from "+ New" block on admin bar',
+						'title'=>'Hides "Page" sub-menu from "+ New" block on admin bar',
 						'name'=>'agca_admin_bar_new_content_page',
-						'label'=>'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hide "+ New" -> Page sub-menu'
+						'label'=>'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ New" -> Page sub-menu'
 					]);
 
 					$this->print_checkbox([
+						'hide'=>true,
 						'attributes'=>[
 							'class'=>'new_content_header_submenu'
 						],
-						'title'=>'Removes "User" sub-menu from "+ New" block on admin bar',
+						'title'=>'Hides "User" sub-menu from "+ New" block on admin bar',
 						'name'=>'agca_admin_bar_new_content_user',
-						'label'=>'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hide "+ New" -> User sub-menu'
+						'label'=>'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ New" -> User sub-menu'
 					]);
 
 					$this->print_checkbox([
+						'hide'=>true,
 						'attributes'=>[
 							'class'=>'new_content_header_submenu'
 						],
-						'title'=>'Removes "Media" sub-menu from "+ New" block on admin bar',
+						'title'=>'Hides "Media" sub-menu from "+ New" block on admin bar',
 						'name'=>'agca_admin_bar_new_content_media',
-						'label'=>'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hide "+ New" -> Media sub-menu'
+						'label'=>'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ New" -> Media sub-menu'
 					]);
 
 					$this->print_checkbox([
-						'title'=>'Removes update notifications from admin bar',
+						'hide'=>true,
+						'title'=>'Hides update notifications from admin bar',
 						'name'=>'agca_admin_bar_update_notifications',
-						'label'=>'Hide update notifications'
+						'label'=>'Update notifications'
 					]);
 
 					$this->print_checkbox([
-						'title'=>'Remove "Admin themes" from admin bar',
+						'hide'=>true,
+						'title'=>'Hides "Admin themes" from admin bar',
 						'name'=>'agca_admin_bar_admin_themes',
-						'label'=>'Hide "Admin themes"'
+						'label'=>'"Admin themes"'
 					]);
 
 					$this->print_textarea([
@@ -2218,12 +2247,13 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 
 
 							$this->print_checkbox([
+								'hide'=>true,
 								'title'=>'Hides yellow bar with information about new WordPress release',
 								'name'=>'agca_update_bar',
-								'label'=>'Hide update WordPress notification'
+								'label'=>'Update WordPress notification'
 							]);
 
-							$this->print_options_h3('Right side');
+							$this->print_options_h3('Right Side');
 
 							$this->print_input([
 								'name'=>'agca_howdy',
@@ -2237,8 +2267,9 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							]);
 
 							$this->print_checkbox([
+								'hide'=>true,
 								'name'=>'agca_remove_your_profile',
-								'label'=>'Remove "Edit My Profile" option from dropdown menu'
+								'label'=>'"Edit My Profile" option from dropdown menu'
 							]);
 
 							$this->print_checkbox([
@@ -2254,24 +2285,25 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 						
 						<div id="section_admin_footer" style="display:none" class="ag_section">	
 							<h2 class="section_title">Admin Footer Settings</h2>
-							<br /><br /><br /><br /><br /><br /><br />					
 							<table class="form-table" width="500px">
 								<?php
 								$this->print_checkbox([
+									'hide'=>true,
 									'attributes'=>[
 										'class'=>'ag_table_major_options'
 									],
 									'title'=>'Hides footer with all elements',
 									'name'=>'agca_footer',
-									'label'=>'<strong>Hide footer completely</strong>'
+									'label'=>'<strong>Footer</strong>'
 								]);
 
-								$this->print_options_h3('Footer options');
+								$this->print_options_h3('Footer Options');
 
 								$this->print_checkbox([
+									'hide'=>true,
 									'title'=>'Hides default text in footer',
 									'name'=>'agca_footer_left_hide',
-									'label'=>'Hide footer text'
+									'label'=>'Footer text'
 								]);
 
 								$this->print_textarea([
@@ -2281,9 +2313,10 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								]);
 
 								$this->print_checkbox([
+									'hide'=>true,
 									'title'=>'Hides text \'Get Version ...\' on right',
 									'name'=>'agca_footer_right_hide',
-									'label'=>'Hide version text'
+									'label'=>'Version text'
 								]);
 
 								$this->print_textarea([
@@ -2330,35 +2363,45 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							</tr>
 								<?php
 									$this->print_checkbox([
+										'hide'=>true,
+										'title'=>'Hides Welcome WordPress widget',
 										'name'=>'agca_dashboard_widget_welcome',
-										'label'=>'Hide "Welcome" WordPress Message'
+										'label'=>'"Welcome" widget'
 									]);
 
 									$this->print_checkbox([
+										'hide'=>true,
+										'title'=>'Hides Activity dashboard widget',
 										'name'=>'agca_dashboard_widget_activity',
-										'label'=>'Hide "Activity" Dashboard Widget'
+										'label'=>'"Activity" widget'
 									]);
 
 									$this->print_checkbox([
+										'hide'=>true,
+										'title'=>'Hides Quick Draft dashboard widget',
 										'name'=>'agca_dashboard_widget_qp',
-										'label'=>'Hide "Quick Draft"'
+										'label'=>'"Quick Draft" widget'
 									]);
 
 									$this->print_checkbox([
+										'hide'=>true,
+										'title'=>'Hides At a Glance dashboard widget',
 										'name'=>'agca_dashboard_widget_rn',
-										'label'=>'Hide "At a Glance"'
+										'label'=>'"At a Glance" widget'
 									]);
 
 									$this->print_checkbox([
+										'hide'=>true,
 										'name'=>'agca_dashboard_widget_primary',
 										'title'=>"This is 'WordPress News' or 'WordPress Development Blog' widget in older WordPress versions",
-										'label'=>'Hide "WordPress News" widget'
+										'label'=>'"WordPress News" widget'
 									]);
 
 									$this->print_checkbox([
+										'hide'=>true,
 										'name'=>'agca_dashboard_widget_secondary',
 										'title'=>"This is 'Other WordPress News' widget by default",
-										'label'=>'Hide secondary widget area'
+										'label'=>'Secondary widget area'
 									]);
 
 								?>
@@ -2372,23 +2415,24 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								$this->print_options_h3('Login Page Options');
 
 								$this->print_checkbox([
+									'hide'=>true,
 									'name'=>'agca_login_banner',
 									'title'=>"Hide back to blog block",
-									'label'=>'Hide back to blog text'
+									'label'=>'Back to blog text'
 								]);
 
 								$this->print_textarea([
 									'name'=>'agca_login_banner_text',
 									'title'=>"Changes '<- Back to ...' text in top bar on Login page",
 									'label'=>'Change back to blog text',
-									'hint'=>'You should surround it with anchor tag &lt;a&gt;&lt;/a&gt;'
+									'hint'=>'Should be wrapped with an anchor tag &lt;a&gt;&lt;/a&gt;'
 								]);
 
 								$this->print_input([
 									'title'=>'If this field is not empty, image from provided url will be visible on Login page',
 									'name'=>'agca_login_photo_url',
 									'label'=>'Change Login header image',
-									'hint'=>'Put here link of new login image. Image can be of any size and type'
+									'hint'=>'Image URL'
 								]);
 
 								$this->print_input([
@@ -2398,10 +2442,11 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									'hint'=>'For blog URL use %BLOG%'
 								]);
 
-								$this->print_input([
-									'title'=>'Remove login image completely',
+								$this->print_checkbox([
+									'hide'=>true,
+									'title'=>'Hides login image completely',
 									'name'=>'agca_login_photo_remove',
-									'label'=>'Hide Login header image',
+									'label'=>'Login header image',
 								]);
 
 								$this->print_checkbox([
@@ -2425,9 +2470,10 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								]);
 
 								$this->print_checkbox([
-									'title'=>'Remove register link on login page',
+									'hide'=>true,
+									'title'=>'Hides register link on login page',
 									'name'=>'agca_login_register_remove',
-									'label'=>'Remove register link',
+									'label'=>'Register link',
 									'input-class'=>'has-dependant dependant-opposite',
 									'input-attributes'=>'data-dependant="#agca_login_register_href_block"'
 								]);
@@ -2443,9 +2489,10 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								]);
 
 								$this->print_checkbox([
-									'title'=>'Removes lost password link on login page',
+									'hide'=>true,
+									'title'=>'Hides lost password link on login page',
 									'name'=>'agca_login_lostpassword_remove',
-									'label'=>'Remove lost password link',
+									'label'=>'Lost password link',
 								]);
 								?>
 						</table>
@@ -2470,8 +2517,8 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								</td>
 							</tr>
 							<tr valign="center" class="ag_table_major_options">
-								<td><label for="agca_admin_menu_agca_button_only"><strong>Hide admin menu completely</strong></label></td>
-								<td><input class="agca-checkbox" type="checkbox" name="agca_admin_menu_agca_button_only" title="Hide admin menu completly (administrator can see 'AG custom admin' button)" value="true" <?php if (get_option('agca_admin_menu_agca_button_only')==true) echo 'checked="checked" '; ?> /></td>
+								<td><label for="agca_admin_menu_agca_button_only"><strong>Admin menu</strong></label></td>
+								<td><input class="agca-checkbox visibility" type="checkbox" name="agca_admin_menu_agca_button_only" title="Hides admin menu completly (administrator can see 'AG custom admin' button)" value="true" <?php if (get_option('agca_admin_menu_agca_button_only')==true) echo 'checked="checked" '; ?> /></td>
 							</tr>
 								<?php
 								$this->print_options_h3('Edit / Remove Menu Items');
@@ -2482,7 +2529,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 											<p tabindex="0"><em>(click on the top menu item to show its sub-menus)</em></p>
 									<table id="ag_edit_adminmenu">									
 										<tr style="background-color:#999;">
-											<td width="300px"><div style="float:left;color:#fff;"><h3>Item</h3></div><div style="float:right;color:#fff;"><h3>Remove?</h3></div></td><td width="300px" style="color:#fff;" ><h3>Change Text</h3>													
+											<td width="300px"><div style="float:left;color:#fff;"><h3>Item</h3></div><div style="float:right;color:#fff;"><h3>Visibility</h3></div></td><td width="300px" style="color:#fff;" ><h3>Change Text</h3>
 											</td>
 										</tr>
 									</table>
@@ -2515,10 +2562,8 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								</td>								
 							</tr>
 								<?php
-								$this->print_options_h3('Admin Menu settings');
-
+								$this->print_options_h3('Admin Menu Settings');
 								?>
-
 								<tr valign="center">
 									<th scope="row">
 										<label title="Choose how admin menu should behave on mobile devices / small screens" for="agca_admin_menu_autofold">Admin menu auto folding</label>
@@ -2534,27 +2579,31 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								<?php
 
 								$this->print_checkbox([
-									'title'=>'Remove empty space between some top menu items',
+									'hide'=>true,
+									'title'=>'Removes empty space between some top menu items',
 									'name'=>'agca_admin_menu_separators',
-									'label'=>'Remove top menu items separators',
+									'label'=>'Menu items separators',
 								]);
 
 								$this->print_checkbox([
-									'title'=>'Removes small icons on admin menu buttons',
+									'hide'=>true,
+									'title'=>'Removes icons from dmin menu buttons',
 									'name'=>'agca_admin_menu_icons',
-									'label'=>'Remove menu icons',
+									'label'=>'Menu icons',
 								]);
 
 								$this->print_checkbox([
-									'title'=>'Removes small arrow that appears on button hover',
+									'hide'=>true,
+									'title'=>'Removes small arrow that appears on the top button hover',
 									'name'=>'agca_admin_menu_arrow',
-									'label'=>'Remove sub-menu arrow',
+									'label'=>'Sub-menu arrow',
 								]);
 
 								$this->print_checkbox([
+									'hide'=>true,
 									'title'=>'Removes collapse button at the end of admin menu',
 									'name'=>'agca_admin_menu_collapse_button',
-									'label'=>'Remove "Collapse menu" button',
+									'label'=>'"Collapse menu" button',
 								]);
 
 								$this->print_input([
@@ -2580,15 +2629,15 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								$this->print_input([
 									'title'=>'Adds custom logo above the admin menu',
 									'name'=>'agca_admin_menu_brand',
-									'label'=>'Add custom branding logo above the admin menu',
-									'hint'=>'Put here your custom image URL. Image can be of any size and type'
+									'label'=>'Admin menu branding with logo',
+									'hint'=>'Image URL'
 								]);
 
 								$this->print_input([
 									'title'=>'Change branding logo link</br></br>Use:</br><strong>%BLOG%</strong> - for blog URL',
 									'name'=>'agca_admin_menu_brand_link',
 									'label'=>'Change branding logo link',
-									'hint'=>'Put here a link for branding logo'
+									'hint'=>'Branding image URL'
 								]);
 								?>
 							</table>
@@ -2603,31 +2652,31 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							<?php
 							$this->print_options_h3('Global Color Options');
 
-							$this->print_color('color_background','Background color:','Change admin page background color');
-							$this->print_color('login_color_background','Login page background color:','Change login page background color');
-							$this->print_color('color_header','Admin bar color:','Change admin bar (on top) color in admin panel');
+							$this->print_color('color_background','Background:','Change admin page background color');
+							$this->print_color('login_color_background','Login page background:','Change login page background color');
+							$this->print_color('color_header','Admin bar:','Change admin bar (on top) color in admin panel');
 
 							$this->print_options_h3('Admin Menu Color Options');
 
-							$this->print_color('color_admin_menu_top_button_background','Button background color:','Change button background color');
-							$this->print_color('color_admin_menu_font','Button text color:','Change button text color');
-							$this->print_color('color_admin_menu_top_button_current_background','Button current background color:','Change button background color for current button');
-							$this->print_color('color_admin_menu_top_button_hover_background','Button hover background color:','Change button background color on mouseover');
-							$this->print_color('color_admin_menu_submenu_background','Submenu button background color:','Change submenu item background color');
-							$this->print_color('color_admin_menu_submenu_background_hover','Submenu button hover background color:','Change submenu item background color on mouseover');
-							$this->print_color('color_admin_submenu_font','Submenu text color:','Change submenu item text color');
-							$this->print_color('color_admin_menu_behind_background','Wrapper background color:','Change background color of element behind admin menu');
+							$this->print_color('color_admin_menu_top_button_background','Button background:','Change button background color');
+							$this->print_color('color_admin_menu_font','Button text:','Change button text color');
+							$this->print_color('color_admin_menu_top_button_current_background','Selected button background:','Change button background color for current button');
+							$this->print_color('color_admin_menu_top_button_hover_background','Hover button background:','Change button background color on mouseover');
+							$this->print_color('color_admin_menu_submenu_background','Sub-menu button background:','Change submenu item background color');
+							$this->print_color('color_admin_menu_submenu_background_hover','Sub-menu hover button background:','Change submenu item background color on mouseover');
+							$this->print_color('color_admin_submenu_font','Sub-menu text:','Sub-menu text color');
+							$this->print_color('color_admin_menu_behind_background','Wrapper background:','Change background color of element behind admin menu');
 
 							$this->print_options_h3('Font Color Options');
 
-							$this->print_color('color_font_content','Content text color:','Change color in content text');
-							$this->print_color('color_font_header','Admin bar text color:','Change color of admin bar text');
-							$this->print_color('color_font_footer','Footer text color:','Change color in fotter text');
+							$this->print_color('color_font_content','Content text:','Change color in content text');
+							$this->print_color('color_font_header','Admin bar text:','Change color of admin bar text');
+							$this->print_color('color_font_footer','Footer text:','Change color in fotter text');
 
 							$this->print_options_h3('Widgets Color Options');
 
-							$this->print_color('color_widget_bar','Title bar background color:','Change color in header text');
-							$this->print_color('color_widget_background','Background color:','Change widget background color');
+							$this->print_color('color_widget_bar','Title bar background:','Change color in header text');
+							$this->print_color('color_widget_background','Background:','Change widget background color');
 
 							?>
 							</table>
@@ -2641,14 +2690,16 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								<td>	
 									<div id="agca_templates"></div>
 								</td>								
-							</tr>	
-							<tr>							
+							</tr>
+							<tr>
 								<td>
 									<div id="advanced_template_options" style="display:none">
-										<h4>Theme Actions</h4>
-										<p style="color:red;"><strong>WARNING:</strong> Use these theme actions only if you are experiencing problems with AGCA themes. With these options you can deactivate or remove all installed themes.</p>
-										<p><a href="javascript:agca_activateTemplate('');" title="When used, currently applied AGCA theme will be disabled</br>and WordPress will use default admin UI.</br>Themes will not be removed, and you can use them again.">DEACTIVATE CURRENT THEME</a> - themes will be deactivated, but still installed.</p>
-										<p><a href="javascript:agca_removeAllTemplates();" title="All themes will be removed, including all theme settings and customizations.</br>If you're using commercial theme, you can install it again on the same site and activation will not be charged">REMOVE ALL THEMES</a> - installed themes will be removed.</p>										
+										<div class="agca-feedback-and-support">
+											<ul>
+												<li><a href="http://wordpressadminpanel.com/agca-support/contact/?type=theme" title="If you have any ideas for theme improvements, or you have new themes requests, please feel free to send us a message" target="_blank"><span class="dashicons dashicons-art"></span>&nbsp;&nbsp;Submit your admin themes ideas</a></li>
+												<li><a style="background: #f08080;color:#fff;" href="javascript:agca_removeAllTemplates();" title="WARNING: All installed themes will be removed. To activate them again, you would need to install theme and activate using valid license keys. Free themes can be installed again."><span style="color:#fff" class="dashicons dashicons-trash"></span>&nbsp;&nbsp;Uninstall all installed themes</a></li>
+											</ul>
+										</div>
 									</div>
 								</td>
 							</tr>
@@ -2659,12 +2710,12 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
                                                                                 <table class="form-table" width="500px">
 																					<tr valign="center">
 																					<td colspan="2">
-																						<p class="agca-tip"><i><strong>Note: </strong>These options will override existing customizations.</i></p>
+																						<p class="agca-tip"><i><strong>Note: </strong>These options will override existing customizations</i></p>
 																					</td><td></td>
 																					</tr>
                                                                                     <tr valign="center">
                                                                                             <th scope="row">
-                                                                                                    <label title="Add custom CSS script to override existing styles" for="agca_script_css">Custom CSS Script</em></label>
+                                                                                                    <label title="Add custom CSS script to override existing styles" for="agca_script_css">Custom CSS script</em></label>
                                                                                             </th>
                                                                                             <td>
                                                                                             <textarea style="width:100%;height:200px" title="Add custom CSS script to override existing styles" rows="5" id="agca_custom_css"  name="agca_custom_css" cols="40"><?php echo htmlspecialchars(get_option('agca_custom_css')); ?></textarea>
@@ -2721,6 +2772,9 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 		}
 		if(isset($data['input-class'])){
 			$strInputClass = $data['input-class'];
+		}
+		if(isset($data['hide'])){
+			$strInputClass .= " visibility";
 		}
 		if(isset($data['input-attributes'])){
 			$strInputAttributes = $data['input-attributes'];
@@ -2794,11 +2848,11 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 	}
 	function print_color($name, $label, $title){
 		?>
-		<tr valign="center">
+		<tr valign="center" class="color">
 			<th><label title="<?= $title ?>" for="<?= $name ?>"><?= $label ?></label></th>
 			<td><input type="text" id="<?= $name ?>" name="<?= $name ?>" class="color_picker" value="<?php echo $this->getAGCAColor($name); ?>" />
-				<input type="button" alt="<?= $name ?>" class="pick_color_button agca_button" value="Pick color" />
-				<input type="button" alt="<?= $name ?>" class="pick_color_button_clear agca_button" value="Clear" />
+				<a title="Pick Color" alt="<?= $name ?>" class="pick_color_button agca_button"><span class="dashicons dashicons-art"></span></a>
+				<a title="Clear" alt="<?= $name ?>" class="pick_color_button_clear agca_button" ><span class="dashicons clear dashicons-no-alt"></span></a>
 			</td>
 		</tr>
 		<?php
