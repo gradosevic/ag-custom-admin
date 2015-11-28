@@ -4,7 +4,7 @@ Donate link: http://wordpressadminpanel.com/ag-custom-admin/
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
 Tested up to: 4.4
-Stable tag: 1.4.9
+Stable tag: 1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
  
@@ -436,7 +436,7 @@ If you have found that something is not working correctly, and you have the late
 * Added settings for hiding/showing Dashboard widgets:"Recent Comments", "Incoming Links", "Plugins", "Quick Press", "Right Now", "Recent Drafts", primary widget area, secondary widget area.
 * Added option "(but show 'Log Out' button)" for displaying 'Log Out' button if admin top bar is completely removed.
 * Added option "Hide footer text".
-* Added support for hidding new Wordpress release notification.
+* Added support for hidding new WordPress release notification.
 
 = 1.0.1 =
 * Changed text in Settings page to be more clearer.
