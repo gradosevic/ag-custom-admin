@@ -48,7 +48,6 @@ if(window.location.href.indexOf(encodeURIComponent('ag-custom-admin/plugin.php')
 }
 
 function hideShowSubmenus(index){
-	
     var finish = false;
     var	found = false;
     jQuery('#ag_edit_adminmenu td').each(function(){	
@@ -96,213 +95,89 @@ function prettyEditMenuPage(){
     //jQuery(this).parent().focus();
     });
 };
+function editMenuRow(url, originalName, newName, removed){
+    return '<tr class="top" data-url="'+url+'" style="background-color: rgb(216, 234, 216);"><td class="ag_admin_menu_parent"><br><span class=\"agcaMenuEditorPlusMinus\"><span class="dashicons plus dashicons-arrow-down-alt2"></span><span class="dashicons minus dashicons-arrow-up-alt2"></span></span><a tabindex="0" href="javascript:void(0)">'+originalName+'</a><div style="float:right"><input title="Remove Home from menu" class=" agca-checkbox visibility" type="checkbox" '+(removed?' checked=\"checked\" ':'')+' name="ag_edit_adminmenu_item_top_2" style="display: none;"><div onclick="agcaCheckBoxOnClick(jQuery(this));" class="agca-checkbox-box" title="Remove '+originalName+' from menu"><div></div></div></div></td><td class="ag_admin_menu_parent2"><input title="Rename '+originalName+' with this value" type="text" class="undefined" size="47" value="'+newName+'" name="ag_edit_adminmenu_item_top_2"></td></tr>';
+}
+function editMenuSubrow(index, parentName, parentIndex, url, originalName, newName, removed){
+    return '<tr class="sub" data-index="'+index+'" data-parent="'+parentIndex+'" data-name="'+originalName+'" data-url="'+url+'"><td class="ag_admin_menu_child"><div style="float:left"><a tabindex="-1" href="javascript:void(0)" style="font-weight:bold;" title="Dashboard submenu: '+originalName+'"><span style="font-weight:normal">sub-menu: </span>'+originalName+'</a></div><div style="float:right"><input type="checkbox" title="Remove '+parentName+' submenu: '+originalName+' from menu" class="Home agca-checkbox visibility" '+(removed?' checked=\"checked\" ':'')+' name="ag_edit_adminmenu_item_sub_1" style="display: none;"><div onclick="agcaCheckBoxOnClick(jQuery(this));" class="agca-checkbox-box" title="Remove '+parentName+' submenu: '+originalName+' from menu"><div></div></div></div></td><td class="ag_admin_menu_child2"><input type="text" title="Rename submenu item '+originalName+' with this value" class="'+originalName+'" size="47" value="'+newName+'" name="ag_edit_adminmenu_item_sub_1"></td></tr>';
+}
+function createEditMenuPageNew(agca_menu){
+    for(var url in agca_menu){
+        jQuery('#ag_edit_adminmenu').append(editMenuRow(url, agca_menu[url]['name'], agca_menu[url]['new'], agca_menu[url]['remove']));
+        //console.log(agca_menu[url]['name'],agca_menu[url]['new']);
 
-function createEditMenuPage(checkboxes,textboxes){		
-    /*Create menu page in AGCA settings*/	
-	
-    //console.log(textboxes);
-    var counter = 0;
-    var TBlength = textboxes.length;
-    if(textboxes==""){
-        TBlength = 9999999;
-    }
-	
-    var topElement="";
-    jQuery('ul#adminmenu li').each(function(){  
-        if(!jQuery(this).hasClass("wp-menu-separator") && !jQuery(this).hasClass("wp-menu-separator-last") && !jQuery(this).hasClass("ag-custom-button") && (counter < TBlength )){	
-			
-            //if subelement
-            if(jQuery(this).parent().parent().hasClass('wp-submenu')){	
-                subElement = jQuery(this).find('a').text();
-                //console.log(jQuery(this));
-                //console.log(subElement);
-                var isHidden = "";
-                var sub_item_text_value;
-                if(textboxes ==""){	
-                    sub_item_text_value = subElement;
-                }else{
-                    sub_item_text_value = textboxes[counter][1];
-                    isHidden = checkboxes[counter][1];
-                }	
-                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_child'><div style=\"float:left\"><a tabindex=\"-1\" href=\"javascript:void(0)\" style=\"font-weight:bold;\"title=\""+topElement+" submenu: "+subElement+"\"><span style=\"font-weight:normal\">submenu: </span>"+subElement+"</a></div><div style=\"float:right\"><input type=\"checkbox\" title=\"Remove "+topElement+" submenu: "+subElement+" from menu\" class=\""+subElement+" agca-checkbox\" "+booleanToChecked(isHidden)+"  name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></div></td><td class='ag_admin_menu_child2' ><input type=\"text\" title=\"Rename submenu item "+subElement+" with this value\" class=\""+subElement+"\" size=\"47\" value=\""+sub_item_text_value+"\" name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></td></tr>");
+        //submenus
+        var subs = agca_menu[url]['submenus'];
+        if(subs){
+            for(var ind in subs){
+                //console.log('--- '+ subs[ind]['name'], subs[ind]['new']);
+                jQuery('#ag_edit_adminmenu').append(editMenuSubrow(ind, agca_menu[url]['name'],url, subs[ind]['url'], subs[ind]['name'], subs[ind]['new'], subs[ind]['remove']));
             }
-            //if top element
-            else{
-                topElement = jQuery(this).children('a').clone().children().remove().end().text();		
-                topElement = jQuery.trim(topElement);
-                var top_item_text_value;
-                var isHidden = "";
-                if(textboxes ==""){	
-                    top_item_text_value = topElement;
-                }else{
-                    top_item_text_value = textboxes[counter][1];
-                    isHidden = checkboxes[counter][1];					
-                }	
-                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_parent'><br /><span class=\"agcaMenuEditorPlusMinus\"><span class=\"plus\">+</span><span class=\"minus\">-</span></span><a tabindex=\"0\" href=\"javascript:void(0)\" >" + topElement +"</a><div style=\"float:right\"><input title=\"Remove "+topElement+" from menu\" class=\""+jQuery(this).attr("id")+" agca-checkbox\" type=\"checkbox\" "+booleanToChecked(isHidden)+" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></div></td><td class='ag_admin_menu_parent2' ><input title=\"Rename "+topElement+" with this value\" type=\"text\" class=\""+jQuery(this).attr("id")+"\" size=\"47\" value=\""+top_item_text_value+"\" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></td></tr>");
-            }			
-            counter++;
-        }		
+        }
+    }
+
+    prettyEditMenuPage();
+    hideShowSubmenus();
+
+    var parent = null;
+    var subs = 0;
+    jQuery('#ag_edit_adminmenu tr').each(function(){
+        if(jQuery(this).find('td').hasClass('ag_admin_menu_parent')){
+            //jQuery(this).css('color','#ffffff');
+            if(parent != null){
+                if(subs == 0){
+                    jQuery(parent).find('.agcaMenuEditorPlusMinus').html('<span>&nbsp;&nbsp;&nbsp;</span>');
+                }
+            }
+            subs = 0;
+            parent = jQuery(this);
+        }else{
+            subs++;
+        }
+
     });
-	 
-    //console.log(checkboxes.replace('<-TOP->','')+"|"+textboxes.replace('<-TOP->',''));	  
-    prettyEditMenuPage();   
     agcaChangeCheckBoxStyles();
 }
 
-function createEditMenuPageV32(checkboxes,textboxes){		
-    /*Create menu page in AGCA settings*/	
-	
-    var counter = 0;
-    var TBlength = textboxes.length;
-    if(textboxes==""){
-        TBlength = 9999999;
-    }
-	
-    var topElement="";
-    jQuery('ul#adminmenu li').each(function(){  
-        if(!jQuery(this).hasClass("wp-menu-separator") && !jQuery(this).hasClass("wp-menu-separator-last") && !jQuery(this).hasClass("ag-custom-button") && (jQuery(this).attr('id') !="collapse-menu") && (counter < TBlength )){	
-			
-            //if subelement
-            if(jQuery(this).parent().parent().parent().hasClass('wp-submenu')){	
-                subElement = jQuery(this).find('a').text();
-                //console.log(jQuery(this));
-                //console.log(subElement);
-                var isHidden = "";
-                var sub_item_text_value;
-                if(textboxes ==""){	
-                    sub_item_text_value = subElement;
-                }else{
-                    sub_item_text_value = textboxes[counter][1];
-                    isHidden = checkboxes[counter][1];					
-                }	
-                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_child'><div style=\"float:left\"><a tabindex=\"-1\" href=\"javascript:void(0)\" style=\"font-weight:bold;\"title=\""+topElement+" submenu: "+subElement+"\"><span style=\"font-weight:normal\">submenu: </span>"+subElement+"</a></div><div style=\"float:right\"><input type=\"checkbox\" title=\"Remove "+topElement+" submenu: "+subElement+" from menu\" class=\""+subElement+" agca-checkbox\" "+booleanToChecked(isHidden)+"  name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></div></td><td class='ag_admin_menu_child2' ><input type=\"text\" title=\"Rename submenu item "+subElement+" with this value\" class=\""+subElement+"\" size=\"47\" value=\""+sub_item_text_value+"\" name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></td></tr>");
-            }
-            //if top element
-            else{
-                topElement = jQuery(this).children('a').clone().children().remove().end().text();		
-                topElement = jQuery.trim(topElement);
-                var top_item_text_value;
-                var isHidden = "";
-                if(textboxes ==""){	
-                    top_item_text_value = topElement;
-                }else{
-                    top_item_text_value = textboxes[counter][1];
-                    isHidden = checkboxes[counter][1];
-                }	
-                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_parent'><br /><span class=\"agcaMenuEditorPlusMinus\"><span class=\"plus\">+</span><span class=\"minus\">-</span></span><a tabindex=\"0\" href=\"javascript:void(0)\" >" + topElement +"</a><div style=\"float:right\"><input title=\"Remove "+topElement+" from menu\" class=\""+jQuery(this).attr("id")+" agca-checkbox\" type=\"checkbox\" "+booleanToChecked(isHidden)+" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></div></td><td class='ag_admin_menu_parent2' ><input title=\"Rename "+topElement+" with this value\" type=\"text\" class=\""+jQuery(this).attr("id")+"\" size=\"47\" value=\""+top_item_text_value+"\" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></td></tr>");
-            }			
-            counter++;
-        }else if(jQuery(this).attr('id') =="collapse-menu"){
-            jQuery(this).remove();
-        }
-    });
-	 
-    //console.log(checkboxes.replace('<-TOP->','')+"|"+textboxes.replace('<-TOP->',''));	  
-    prettyEditMenuPage();
-    
-    var parent = null;
-    var subs = 0;
-    jQuery('#ag_edit_adminmenu tr').each(function(){
-        if(jQuery(this).find('td').hasClass('ag_admin_menu_parent')){
-            //jQuery(this).css('color','#ffffff');
-            if(parent != null){
-                if(subs == 0){
-                    jQuery(parent).find('.agcaMenuEditorPlusMinus').html('<span>&nbsp;&nbsp;&nbsp;</span>');
+function applyAdminMenuCustomizations(){
+    jQuery('ul#adminmenu > li').each(function() {
+        var $o = jQuery(this);
+        if (!$o.hasClass("wp-menu-separator") && !$o.hasClass("wp-menu-separator-last") && $o.attr('id') !== 'collapse-menu') {
+            var topUrl = $o.find('a:first').attr('href');
+            var t = agca_admin_menu[topUrl];
+            if(t){
+                if(t.remove){
+                    $o.remove();
+                } else if(c.new){
+                    $o.find('a:first .wp-menu-name').text(c.new);
                 }
-            }
-            subs = 0;
-            parent = jQuery(this);
-        }else{
-            subs++;
-        }        
-      
-    });
-	agcaChangeCheckBoxStyles();
-}
+                var s = t.submenu;
+                if(s){
+                    for(var ind in s){
+                        var cs = s[ind];
+                        var subUrl = cs.url;
+                        var $s = $o.find('.wp-submenu a[href="'+subUrl+'"]:first');
+                        if(cs.remove){
+                            $s.remove();
+                        } else if(cs.new){
+                            $s.text(cs.new);
+                        }
+                    }
+                }
 
-function createEditMenuPageV35(checkboxes,textboxes){		
-    /*Create menu page in AGCA settings*/	
-	//console.log(checkboxes);
-    var counter = 0;
-    var TBlength = textboxes.length;
-    if(textboxes==""){
-        TBlength = 9999999;
-    }
-	
-    var topElement="";
-    jQuery('ul#adminmenu li').each(function(){  
-        if(!jQuery(this).hasClass("wp-menu-separator") && !jQuery(this).hasClass("wp-menu-separator-last") && !jQuery(this).hasClass("ag-custom-button") && (jQuery(this).attr('id') !="collapse-menu") && (counter < TBlength )){	
-			
-                //console.log(jQuery(this).text());        
-            //if subelement
-            if(jQuery(this).parent().hasClass('wp-submenu') && !jQuery(this).hasClass('wp-submenu-head')){	
-                //console.log(jQuery(this).find('a').text());
-                var el = jQuery(this).find('a').clone();
-                el.find('span').remove();               
-                subElement = el.html();
-                //console.log(jQuery(this));
-               //console.log(subElement);
-                var isHidden = "";
-                var sub_item_text_value;
-                if(textboxes ==""){	
-                    sub_item_text_value = subElement;
-                }else{
-                    sub_item_text_value = textboxes[counter][1];
-                    isHidden = checkboxes[counter][1];					
-                }	
-                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_child'><div style=\"float:left\"><a tabindex=\"-1\" href=\"javascript:void(0)\" style=\"font-weight:bold;\"title=\""+topElement+" submenu: "+subElement+"\"><span style=\"font-weight:normal\">submenu: </span>"+subElement+"</a></div><div style=\"float:right\"><input type=\"checkbox\" title=\"Remove "+topElement+" submenu: "+subElement+" from menu\" class=\""+subElement+" agca-checkbox\" "+booleanToChecked(isHidden)+"  name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></div></td><td class='ag_admin_menu_child2' ><input type=\"text\" title=\"Rename submenu item "+subElement+" with this value\" class=\""+subElement+"\" size=\"47\" value=\""+agca_escapeHTMLChars(sub_item_text_value)+"\" name=\"ag_edit_adminmenu_item_sub_"+counter+"\" /></td></tr>");
-                counter++;
             }
-            //if top element
-            else if(jQuery(this).parent().attr('id') == 'adminmenu'){
-                //console.log(jQuery(this).attr('id'));
-                var el = jQuery(this).find('.wp-menu-name').clone();
-                    el.find('span').remove();		                
-                topElement = el.text();
-                //console.log(topElement);
-                var top_item_text_value;
-                var isHidden = "";
-                if(textboxes ==""){	
-                    top_item_text_value = topElement;
-                }else{
-                    top_item_text_value = textboxes[counter][1];					
-                    isHidden = checkboxes[counter][1];
-                }					
-                jQuery('#ag_edit_adminmenu').append("<tr><td class='ag_admin_menu_parent'><br /><span class=\"agcaMenuEditorPlusMinus\"><span class=\"plus\">+</span><span class=\"minus\">-</span></span><a tabindex=\"0\" href=\"javascript:void(0)\" >" + topElement +"</a><div style=\"float:right\"><input title=\"Remove "+topElement+" from menu\" class=\""+jQuery(this).attr("id")+" agca-checkbox\" type=\"checkbox\" "+booleanToChecked(isHidden)+" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></div></td><td class='ag_admin_menu_parent2' ><input title=\"Rename "+topElement+" with this value\" type=\"text\" class=\""+jQuery(this).attr("id")+"\" size=\"47\" value=\""+agca_escapeHTMLChars(top_item_text_value)+"\" name=\"ag_edit_adminmenu_item_top_"+counter+"\" /></td></tr>");
-                counter++;
-            }			
-            
-        }else if(jQuery(this).attr('id') =="collapse-menu"){
-            jQuery(this).remove();
+            console.log(topUrl);
         }
     });
-	 
-    //console.log(checkboxes.replace('<-TOP->','')+"|"+textboxes.replace('<-TOP->',''));	  
-    prettyEditMenuPage();
-    
-    var parent = null;
-    var subs = 0;
-    jQuery('#ag_edit_adminmenu tr').each(function(){
-        if(jQuery(this).find('td').hasClass('ag_admin_menu_parent')){
-            //jQuery(this).css('color','#ffffff');
-            if(parent != null){
-                if(subs == 0){
-                    jQuery(parent).find('.agcaMenuEditorPlusMinus').html('<span>&nbsp;&nbsp;&nbsp;</span>');
-                }
-            }
-            subs = 0;
-            parent = jQuery(this);
-        }else{
-            subs++;
-        }       
-      
-    });
-	agcaChangeCheckBoxStyles();
 }
 
 function showHideSection(text) {	
     switch(text)
     {
+        case 'General':
+            jQuery('#section_general').show();
+            jQuery('#section_general .section_title').trigger('focus');
+            break;
         case 'Admin Bar':
             jQuery('#section_admin_bar').show();
             jQuery('#section_admin_bar .section_title').trigger('focus');						
@@ -359,39 +234,26 @@ function createTargetCombo(target,clas){
 
     var combo = ""
 	
-    combo+= "<select";
+    combo+= "&nbsp;open&nbsp;in:<select";
     if( clas != null){
         combo+=" class=\"editTarget\" ";
     }
     combo+= ">";
-    combo+= "<option value=\"_blank\"";
-    if(target == "_blank"){
-        combo+= " selected ";
-    }
-    combo+= ">blank</option>";
     combo+= "<option value=\"_self\"";
-    if(target == "_self"){
+    if(target === "_self"){
         combo+= " selected ";
     }
-    combo+= ">self</option>";
-    combo+= "<option value=\"_parent\"";
-    if(target == "_parent"){
+    combo+= ">same tab</option>";
+    combo+= "<option value=\"_blank\"";
+    if(target === "_blank"){
         combo+= " selected ";
     }
-    combo+= ">parent</option>";
-    combo+= "<option value=\"_top\"";
-    if(target == "_top"){
-        combo+= " selected ";
-    }
-    combo+= ">top</option>";
+    combo+= ">new tab</option>";
     combo+= "</select>";
     return combo;
 }
 
 function exportSettings(){
-    if(jQuery('#export_settings_additional').css("display") == "none"){
-        jQuery('#export_settings_additional').show("slide");
-    }else{
         jQuery('#agca_form').attr('action','tools.php?page=ag-custom-admin/plugin.php');
         jQuery('#agca_form #_agca_import_settings').val("false");
         jQuery('#agca_form #_agca_export_settings').val("true");
@@ -399,10 +261,10 @@ function exportSettings(){
         
         jQuery('#ag_add_adminmenu_json').val('');
         jQuery('#ag_edit_adminmenu_json').val('');
+        jQuery('#ag_edit_adminmenu_json_new').val('');
         
         
         jQuery('#agca_form').submit();
-    }    
 }
 
 function importSettings(){
@@ -479,17 +341,19 @@ function agcaApplyTooltip(){
                jQuery(this).mousemove(function(e) {			
                 var tipY = e.pageY + 16; 
                 var tipX = e.pageX - 236;	
-                var type = '#fee6e6';
-                var border = '1px solid red';
+                var type = '#f08080';
                 if(jQuery(this).hasClass('positive')) {
-                    type = '#eafee6';
-                    border = '1px solid green';
+                    type = '#ACC491';
                 }
                 jQuery("#AGToolTipDiv").css({
                     'top': tipY, 
                     'left': tipX,
                     'background': type,
-                    'border': border
+                    'border': 'none',
+                    'padding': '10px',
+                    'color':'#fff',
+                    'font-weight':'bold',
+                    'border-radius': '5px'
                 });
             }); 
             }else{
@@ -547,8 +411,8 @@ jQuery(document).ready(function(){
         url = url.replace(/["']{1}/gi,"");		
         jQuery('#ag_add_adminmenu_name').val("");
         jQuery('#ag_add_adminmenu_url').val("");
-        jQuery('#ag_add_adminmenu_target').val("_none");
-        jQuery('#ag_add_adminmenu').append('<tr><td colspan="2"><button target="'+target+'" title="'+url+'" type="button">'+name+'</button>&nbsp;(<a style="cursor:pointer" class="button_edit">edit</a>)&nbsp;(<a style="cursor:pointer" class="button_remove">remove</a>)</td><td></td></tr>');
+        jQuery('#ag_add_adminmenu_target').val("_self");
+        jQuery('#ag_add_adminmenu').append('<tr><td colspan="2"><button target="'+target+'" title="'+url+'" type="button">'+name+'</button>&nbsp;<a style="cursor:pointer;" title="Edit" class="button_edit"><span class="dashicons dashicons-edit"></span></a>&nbsp;<a style="cursor:pointer" title="Delete" class="button_remove"><span class="dashicons dashicons-no"></span></a></td><td></td></tr>');
         reloadRemoveButtonEvents();
     });	
 	
@@ -570,70 +434,79 @@ jQuery(document).ready(function(){
 	  
 });
 
-/*CLICKING ON ITEMS HANDLING*/
-jQuery(document).ready(function(){	
-    jQuery('#agca_footer').change(function(){
-        });
-});
-
-/*Admin menu*/
-jQuery(document).ready(function(){	
+jQuery(function($){
+    /*Admin menu*/
     jQuery('#adminmenu').css('display','block');
-});
 
-/*FORM SUBMITTED*/
-jQuery(document).ready(function(){
-    jQuery('#agca_form').submit(function(){	
+    /*FORM SUBMITTED*/
+    jQuery('#agca_form').submit(function(){
         processData();
-        return true;                
+        return true;
     });
+
+    //on radio button text click
+    jQuery('.agca-radio-text').on('click', function(){
+        var $o = jQuery(this);
+        var type = 'off';
+        if($o.hasClass('on')){
+            type='on';
+        }
+        $o.parent().find('.agca-radiobox[value='+type+']').trigger('click');
+    });
+
+    //Colorizer update input text colors
+    colorizerColorizeTextboxes();
 });
 
+
+function processEditAdminMenu(){
+    var array = {};
+
+    //top menus
+    jQuery('#ag_edit_adminmenu tr.top').each(function(){
+        var $tr = jQuery(this);
+        var originalText = $tr.find('.ag_admin_menu_parent a').text();
+        var newText = $tr.find('.ag_admin_menu_parent2 input').val();
+        var remove = $tr.find('.agca-checkbox').is(':checked');
+        var url = $tr.data('url');
+        array[url]={
+            'name': originalText,
+            'new': newText || "",
+            'remove':remove,
+            'url':url,
+            'submenus':{}
+        };
+    });
+
+    //submenus
+    jQuery('#ag_edit_adminmenu tr.sub').each(function(){
+        var $tr = jQuery(this);
+        var newText = $tr.find('.ag_admin_menu_child2 input').val();
+        var remove = $tr.find('.agca-checkbox').is(':checked');
+        var url = $tr.data('url');
+        var index = $tr.data('index');
+        var parentIndex = $tr.data('parent');
+        var originalName = $tr.data('name');
+        array[parentIndex]['submenus'][index]={
+            'name': originalName,
+            'new': newText || "",
+            'remove':remove,
+            'url':url
+        };
+    });
+    return array;
+}
 
 function processData(){
-    /*Serialize checkboxes*/
-    var array = "{";
-    var firstElement = true;
-    var topMarker = "";
-	jQuery('#ag_edit_adminmenu input').removeClass('agca-checkbox');
-    jQuery('#ag_edit_adminmenu :checkbox').each(function(){		
-        if(firstElement != true){
-            array += ", ";				
-        }
-        topMarker = "";
-        if(jQuery(this).parent().parent().hasClass('ag_admin_menu_parent')){
-            topMarker="<-TOP->"; 
-        }
-        array += "\"" + topMarker + jQuery(this).attr('class') + "\" : ";
-        array += "\"" + jQuery(this).attr('checked') + "\"";
-        firstElement = false;			
-    });
-    array += "}|";
-		
-    /*Serialize textboxes*/
-    array += "{";
-    firstElement = true;
-    jQuery('#ag_edit_adminmenu :text').each(function(){		
-        if(firstElement != true){
-            array += ", ";				
-        }
-        topMarker = "";
-        if(jQuery(this).parent().hasClass('ag_admin_menu_parent2')){
-            topMarker="<-TOP->";
-        }
-        array += "\"" + topMarker + jQuery(this).attr('class') + "\" : ";
-        array += "\"" + agca_escapeChars(jQuery(this).val()) + "\"";
-        firstElement = false;			
-    });
-    array += "}";
-		
+
+    //serialize admin menu edit configuration
+    var array = processEditAdminMenu();
     if(afterFormClickCreateJson == true){
-        jQuery('#ag_edit_adminmenu_json').val(array);		
+        jQuery('#ag_edit_adminmenu_json_new').val(JSON.stringify(array));
     }else{
-        jQuery('#ag_edit_adminmenu_json').val('');						
+        jQuery('#ag_edit_adminmenu_json_new').val('');
     }
-	//console.clear();
-    //console.log(array);
+
     //serialize buttons
     array = "{";
     var element = 0;
@@ -691,7 +564,7 @@ function agca_escapeChars(str){
 }
 
 /*C O L O R I Z E R*/
-function updateTargetColor(id, color){ 
+function updateTargetColor(id, color){
     switch(id)
     { 
         case 'color_background':		
@@ -978,7 +851,6 @@ function agcaRadioBoxOnClick(obj){
 	}
 }
 function agcaChangeCheckBoxStyles(){
-	
 	/*checkbox*/
 	jQuery('.agca-checkbox-box-checked').remove();
 	jQuery('.agca-checkbox-box').remove();
@@ -988,6 +860,9 @@ function agcaChangeCheckBoxStyles(){
 		if(jQuery(this).is(':checked')){
 			cls = "agca-checkbox-box-checked";
 		}
+        if(jQuery(this).hasClass('visibility')){
+            cls +=' visibility';
+        }
 		jQuery(this).after('<div onClick="agcaCheckBoxOnClick(jQuery(this));" class="' + cls + '" title="'+jQuery(this).attr('title')+'"><div/>');		
 	});
 	
@@ -1016,6 +891,19 @@ function isWPHigherOrEqualThan(targetVersion){
 	return (wpversion >= targetVersion);    
 }
 
+function colorizerColorizeTextboxes(){
+    jQuery('#section_ag_colorizer_settings .color_picker').each(function(){
+        var $o = jQuery(this);
+        $o.css('background-color', $o.val());
+        $o.lightOrDark();
+        if($o.hasClass('dark')){
+            $o.css('color','#fff');
+        }else{
+            $o.css('color','#000');
+        }
+    });
+}
+
 
 //VALIDATION
 jQuery(document).ready(function() {
@@ -1041,3 +929,37 @@ jQuery(document).ready(function() {
         }
     });
 });
+
+(function($){
+
+    $.fn.lightOrDark = function(){
+        var r,b,g,hsp
+            , a = this.css('background-color');
+
+        if (a.match(/^rgb/)) {
+            a = a.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
+            r = a[1];
+            g = a[2];
+            b = a[3];
+        } else {
+            a = +("0x" + a.slice(1).replace( // thanks to jed : http://gist.github.com/983661
+                    a.length < 5 && /./g, '$&$&'
+                )
+            );
+            r = a >> 16;
+            b = a >> 8 & 255;
+            g = a & 255;
+        }
+        hsp = Math.sqrt( // HSP equation from http://alienryderflex.com/hsp.html
+            0.299 * (r * r) +
+            0.587 * (g * g) +
+            0.114 * (b * b)
+        );
+        if (hsp>127.5) {
+            this.addClass('light');
+        } else {
+            this.addClass('dark');
+        }
+    }
+
+})(jQuery);

@@ -470,11 +470,11 @@ function agca_activateTemplate(template){
 				});
             }
      });
-}							
+}
 
 function agca_removeAllTemplates(){
 	agcaDebug('FN:agca_removeAllTemplates()');
-	yesnoPopup("Confirm","Are you sure? All installed themes will be removed completely?",agca_removeAllTemplatesConfirmed);										
+	yesnoPopup("Confirm","All installed themes will be uninstalled completely. You would need to re-activate your purchased themes with valid license keys in order to install them again. Are you sure?",agca_removeAllTemplatesConfirmed);
 }
 
 function agca_removeAllTemplatesConfirmed(){
@@ -638,7 +638,7 @@ function checkIfTemplatesAreLoaded(pass){
 	else if(pass == 4){
 		agcaLoadingTimeOut = window.setTimeout(function(){
 		if(jQuery('#agca_templates p:first').hasClass('initialLoader')){
-			jQuery('#agca_templates p:first').html('Sorry, unable to load themes right now. Please try again later.</br>We recommend using only latest browsers for theme management.');
+			jQuery('#agca_templates p:first').html('Sorry, unable to load themes right now. Please try again later.');
 			agcaDebug('ERR:Unable to load themes');
 		}
 		},10000);

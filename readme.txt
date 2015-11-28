@@ -126,16 +126,16 @@ If this does not work, try to find JavaScript error in browser's console and pos
 If you see blank page or login form is disappeared, it's most likely that you have some errors thrown in your WordPress site. This is caused by JavaScript error thrown by this or some other plugin. If you want to deactivate plugin, but you can't access admin panel, turn off JavaScript in your browser and then log in back and deactivate plugin (This works only for administrator). Try also to clear browser's cache. If this does not work, try to find JavaScript error in browser's console and post it to plugin's support page.
 
 = Plugin does not work after upgrading to new version. What should I do? =
-Try to clear browser's cache, and reload page. You can try to download fresh copy of plugin and to re-install it again. Make sure to have latest plugin and WordPress versions installed. If nothing of these solutions help, please contact our support.
+Try to clear browser's cache, and reload the page. Make sure to have latest plugin and WordPress versions installed. If nothing of these solutions help, please contact support.
 
 = Something is wrong with Admin Menu buttons =
-Please use 'Reset Settings' button on Admin Menu page to reset menu configuration to defaults. Remember that you should postpone admin menu configuration to the very end of admin page customization, because, any changes made from other plugins to admin menu (e.g adding new button of plugin that is activated, or removing that button when plugin is deactivated) could corrupt admin menu configuration.
+Please use 'Reset Settings' button on Admin Menu page to reset menu configuration to defaults. Make sure to use latest plugin version with latest patches.
 
 = Errors appear on admin/login pages =
 Go to browser's console and see if there are any errors. Try to locate them. If you can't fix error by yourself, post it back to plugin's support page.
 
 = Some options are not working =
-Plugin should be always up-to-date with latest WordPress release. If you have found out that something is not working in the latest WordPress, please contact us and let us know. If you're using older WordPress version, some options could be deprecated. In that case, please check our [COMPATIBILITY](http://wordpressadminpanel.com/agca-support/news/recommended-ag-custom-admin-version-for-your-wordpress-version/) page to find the best AG Custom Admin version for your WordPress.
+If you have found that something is not working correctly, and you have the latest WordPress and plugin versions, please contact us and report the issue.
  
 
 == Screenshots ==
@@ -151,6 +151,13 @@ Plugin should be always up-to-date with latest WordPress release. If you have fo
 9. Army - commercial theme.
 
 == Changelog ==
+
+= 1.5 =
+* Improved UX with new icons and styles
+* Fixed admin menu issues when menu is updated outside of AGCA
+* Code reorganizing
+* Using dashboard icons instead of images
+* Updated option names
 
 = 1.4.9 =
 * Issues fixed
@@ -440,6 +447,13 @@ Plugin should be always up-to-date with latest WordPress release. If you have fo
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.5 =
+* Improved UX with new icons and styles
+* Fixed admin menu issues when menu is updated outside of AGCA
+* Code reorganizing
+* Using dashboard icons instead of images
+* Updated option names
 
 = 1.4.9 =
 * Issues fixed
