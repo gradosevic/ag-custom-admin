@@ -41,10 +41,11 @@ class AGCA{
 		$this->checkPOST();
 		$this->checkGET();		
             
-                if(function_exists("add_filter")){
-                    add_filter('admin_title', array(&$this,'change_title'), 10, 2); 		
-                    add_filter('plugin_row_meta', array(&$this,'jk_filter_plugin_links'), 10, 2);
-                }		
+		if(function_exists("add_filter")){
+			add_filter('admin_title', array(&$this,'change_title'), 10, 2);
+			add_filter('plugin_row_meta', array(&$this,'jk_filter_plugin_links'), 10, 2);
+		}
+
 		add_action('admin_init', array(&$this,'agca_register_settings'));
 		add_action('admin_init', array(&$this,'agca_init_session'));
 		add_action('admin_head', array(&$this,'print_admin_css'));		
@@ -61,7 +62,7 @@ class AGCA{
               
 		$this->agca_version = "1.5";
 		
-		//TODO:upload images programmaticaly
+		//TODO:upload images programmatically
 
 	}
 	// Add donate and support information
@@ -69,10 +70,10 @@ class AGCA{
 	{
 		if ( $file == plugin_basename(__FILE__) )
 		{
-		$links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php">' . __('Settings') . '</a>';
-		$links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php#ag-templates">' . __('Admin Themes') . '</a>';
-		$links[] = '<a href="http://wordpressadminpanel.com/agca-support/">' . __('Support') . '</a>';
-		$links[] = '<a href="http://wordpressadminpanel.com/agca-support/support-for-future-development">' . __('Donate') . '</a>';
+			$links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php">' . __('Settings') . '</a>';
+			$links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php#ag-templates">' . __('Admin Themes') . '</a>';
+			$links[] = '<a href="http://wordpressadminpanel.com/agca-support/">' . __('Support') . '</a>';
+			$links[] = '<a href="http://wordpressadminpanel.com/agca-support/support-for-future-development">' . __('Donate') . '</a>';
 		}
 		return $links;
 	}
