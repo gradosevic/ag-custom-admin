@@ -1037,6 +1037,8 @@ class AGCA{
 		if($selectedValue == ""){
 			$selectedValue = "edit_dashboard";
 		}
+		/*echo $selectedValue;
+		die;*/
 		ksort($capabs);
 		foreach($capabs as $k=>$v){
 				$selected = "";
@@ -1044,7 +1046,9 @@ class AGCA{
 				if($selectedValue == $k){
 					$selected = " selected=\"selected\" ";
 				}
-				$capabilitySelector .="<option val=\"$k\" $selected >".str_replace(' ', ' ', ucwords(str_replace('_', ' ', $k))) ."</option>\n";
+				//TODO:Find out why this does not work
+				//$capabilitySelector .="<option val=\"$k\" $selected >".str_replace(' ', ' ', ucwords(str_replace('_', ' ', $k))) ."</option>\n";
+				$capabilitySelector .="<option val=\"$k\" $selected >".$k."</option>\n";
 		}
 		
 		$this->admin_capabilities  = "<select class=\"agca-selectbox\" id=\"agca_admin_capability\"  name=\"agca_admin_capability\" val=\"upload_files\">".$capabilitySelector."</select>";
@@ -1278,6 +1282,7 @@ class AGCA{
 		foreach($menu as $top){
 			$name = $top[0];
 			$url = $top[2];
+			$cls = isset($top[5])?$top[5]:"";
 			$remove = false;
 			if($name == '') continue;
 			$pc = null;
@@ -1323,6 +1328,7 @@ class AGCA{
 				'remove'=>$remove,
 				'new'=>'',
 				'url'=>$url,
+				'cls'=>$cls,
 				'submenus'=>$s
 			];
 
@@ -1373,6 +1379,92 @@ class AGCA{
 				}
 			}
 		}
+	}
+
+	/**
+	 * Used only for removing admin menu customizations to AGCA 1.5 version or later
+	 * @param $checkboxes
+	 * @param $textboxes
+	 */
+	function migrate_menu_customizations($checkboxes, $textboxes){
+		$customizations = $this->get_menu_customizations();
+		global $menu;
+		/*print_r($menu);
+		print_r($customizations);
+		print_r($textboxes);*/
+
+		$oldTopValue = "";
+
+
+		//Migrate checkboxes
+		foreach($checkboxes as $key=>$value){
+			$isTop = false;
+			$oldSubValue = "";
+			if (strpos($key,'<-TOP->') !== false) {
+				$oldTopValue = str_replace('<-TOP->','',$key);
+				$isTop = true;
+			}else{
+				$oldSubValue = $key;
+			}
+			if($value == 'checked'){
+				$topIndex = "";
+				foreach($customizations as $k=>$c){
+					if($c['cls'] == $oldTopValue){
+						$topIndex = $k;
+						break;
+					}
+				}
+				if($topIndex == "") continue;
+				if($isTop){
+					$customizations[$topIndex]['remove'] = true;
+				}else{
+					if(is_array($customizations[$topIndex]['submenus'])){
+						foreach($customizations[$topIndex]['submenus'] as $skey=>$sval){
+							if($sval['name'] == $oldSubValue){
+								$customizations[$topIndex]['submenus'][$skey]['remove'] = true;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		//Migrate textboxes
+		foreach($textboxes as $key=>$value){
+			$isTop = false;
+			$oldSubValue = "";
+			if (strpos($key,'<-TOP->') !== false) {
+				$oldTopValue = str_replace('<-TOP->','',$key);
+				$isTop = true;
+			}else{
+				$oldSubValue = $key;
+			}
+			if($value != ''){
+				$topIndex = "";
+				foreach($customizations as $k=>$c){
+					if($c['cls'] == $oldTopValue){
+						$topIndex = $k;
+						break;
+					}
+				}
+				if($topIndex == "") continue;
+				if($isTop){
+					$customizations[$topIndex]['new'] = $value;
+				}else{
+					if(is_array($customizations[$topIndex]['submenus'])){
+						foreach($customizations[$topIndex]['submenus'] as $skey=>$sval){
+							if($sval['name'] == $oldSubValue){
+								if($customizations[$topIndex]['submenus'][$skey]['name'] != $value){
+									$customizations[$topIndex]['submenus'][$skey]['new'] = $value;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		update_option('ag_edit_adminmenu_json','');//remove previous admin menu configuration
+		update_option('ag_edit_adminmenu_json_new',json_encode($customizations));
 	}
 	function print_admin_css()
 	{	
@@ -1449,13 +1541,6 @@ try
 
 				//get saved onfigurations
 
-					<?php	$checkboxes = $this->jsonMenuArray(get_option('ag_edit_adminmenu_json'),'0'); //TODO:Obsolete	?>
-
-					var checkboxes = <?php echo "[".$checkboxes."]"; ?>;
-					
-					<?php	$textboxes = $this->jsonMenuArray(get_option('ag_edit_adminmenu_json'),'1'); //TODO:Obsolete	?>
-					var textboxes = <?php echo "[".$textboxes."]"; ?>;
-					
 					<?php	$buttons = $this->jsonMenuArray(get_option('ag_add_adminmenu_json'),'buttons');	?>
 					var buttons = '<?php echo $buttons; ?>';	
 					
@@ -1556,7 +1641,7 @@ try
 							}
 					<?php } ?>
 					<?php if(get_option('agca_dashboard_text')!=""){ ?>							
-							jQuery("#dashboard-widgets-wrap").parent().find("h2").html("<?php echo addslashes(get_option('agca_dashboard_text')); ?>");
+							jQuery("#dashboard-widgets-wrap").parent().find("h1").html("<?php echo addslashes(get_option('agca_dashboard_text')); ?>");
 					<?php } ?>
 					<?php if(get_option('agca_dashboard_text_paragraph')!=""){ 
                                                         require_once(ABSPATH . 'wp-includes/formatting.php');
@@ -1651,82 +1736,14 @@ try
 													
 							<?php /*EDIT MENU ITEMS*/?>
 							<?php if(get_option('ag_edit_adminmenu_json')!=""){
-									//TODO: Do migration from old admin menu settings to new
-									
-									?>
-	  									applyAdminMenuCustomizations();
-										var checkboxes_counter = 0;
-										var createAGCAbutton = false;
-									<?php //loop through original menu and hide and change elements according to user setttngs ?>
 
-										var topmenuitem;
-										jQuery('ul#adminmenu > li').each(function(){											
-											return;
-											if(!jQuery(this).hasClass("wp-menu-separator") && !jQuery(this).hasClass("wp-menu-separator-last")){
-												//alert(checkboxes[checkboxes_counter]);
-												
-												topmenuitem = jQuery(this).attr('id');
-												//console.log(jQuery(this));										
-												
-												var matchFound = false;
-												var subMenus = "";
-												
-												for(i=0; i< checkboxes.length ; i++){
-												
-													if(checkboxes[i][0].indexOf("<-TOP->") >=0){ //if it is top item													
-														if(checkboxes[i][0].replace('<-TOP->','') == topmenuitem){//if found match in menu, with top item in array															
-															matchFound = true;		
-															//console.log(checkboxes[i][0]);
-                                                                                                                        //console.log(jQuery(this).find('.wp-menu-name').text());															
-															
-                                                                                                                        <?php if($wpversion >=3.5 ){ ?>
-                                                                                                                            jQuery(this).find('.wp-menu-name').html(textboxes[i][1]);
-                                                                                                                        <?php }else{ ?>
-                                                                                                                            jQuery(this).find('a').eq(1).html(textboxes[i][1]);
-                                                                                                                        <?php } ?>
-                                                                                                                        
-															if((checkboxes[i][1] == "true") || (checkboxes[i][1] == "checked")){
-																jQuery(this).addClass('noclass');
-															}
-															
-															i++;
-															var selector = '#' + topmenuitem + ' ul li';
-															var hoverPopupSelector = '#' + topmenuitem + ' .wp-submenu.wp-submenu-wrap';
-															//console.log(i+" "+checkboxes);	
-																var allSubmenuItemsHidden = true;															
-																while((i<checkboxes.length) && (checkboxes[i][0].indexOf("<-TOP->") < 0)){															
-																	jQuery(selector).each(function(){ //loop through all submenus	
-                                                                                                                                            var currentItemText = "";                                                                                                                                           
-                                                                                                                                            
-                                                                                                                                             <?php if($wpversion >=3.5 ){ ?>
-                                                                                                                                                currentItemText = jQuery(this).clone();
-                                                                                                                                                jQuery(currentItemText).find("span").remove();
-                                                                                                                                                currentItemText = currentItemText.text();
-                                                                                                                                            <?php }else{ ?>
-                                                                                                                                                currentItemText = jQuery(this).text();
-                                                                                                                                            <?php } ?>
-                                                                                                                                         
-																		if(checkboxes[i][0] == ((typeof currentItemText !== "undefined")?currentItemText.trim():currentItemText)){
-                                                                                                                                                   
-																			if((checkboxes[i][1] == "true") || (checkboxes[i][1] == "checked")){
-																				jQuery(this).addClass('noclass');
-																			}else{
-																				allSubmenuItemsHidden = false;
-																			}
-																			jQuery(this).find('a').text(textboxes[i][1]);																			
-																		}
-																	});
-																	i++;
-																}
-																if(allSubmenuItemsHidden){
-																	jQuery(hoverPopupSelector).hide();
-																}																
-														};
-													}												
-												}
-											}
-										});								
-									<?php
+							  $arr = explode("|",get_option('ag_edit_adminmenu_json'));
+
+							  $checkboxes = json_decode($arr[0]);
+							  $textboxes = json_decode($arr[1]);
+
+							  $this->migrate_menu_customizations($checkboxes, $textboxes);
+
 							 } ?>
 
 	  <?php if(get_option('ag_edit_adminmenu_json_new')!=""){
@@ -2143,6 +2160,13 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 
 					$this->print_checkbox([
 						'hide'=>true,
+						'title'=>'Hides WordPress context menu on WordPress logo icon from admin bar',
+						'name'=>'agca_remove_top_bar_dropdowns',
+						'label'=>'WordPress logo context menu'
+					]);
+
+					$this->print_checkbox([
+						'hide'=>true,
 						'title'=>'Hides site name link from the admin bar',
 						'name'=>'agca_remove_site_link',
 						'label'=>'Site name'
@@ -2150,9 +2174,9 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 
 					$this->print_checkbox([
 						'hide'=>true,
-						'title'=>'Hides WordPress context menu on WordPress logo icon from admin bar',
-						'name'=>'agca_remove_top_bar_dropdowns',
-						'label'=>'WordPress context menu'
+						'title'=>'Hides update notifications from admin bar',
+						'name'=>'agca_admin_bar_update_notifications',
+						'label'=>'Update notifications'
 					]);
 
 					$this->print_checkbox([
@@ -2222,13 +2246,6 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 						'title'=>'Hides "Media" sub-menu from "+ New" block on admin bar',
 						'name'=>'agca_admin_bar_new_content_media',
 						'label'=>'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ New" -> Media sub-menu'
-					]);
-
-					$this->print_checkbox([
-						'hide'=>true,
-						'title'=>'Hides update notifications from admin bar',
-						'name'=>'agca_admin_bar_update_notifications',
-						'label'=>'Update notifications'
 					]);
 
 					$this->print_checkbox([
@@ -2438,7 +2455,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								$this->print_input([
 									'title'=>'Put here custom link to a web location, that will be triggered on image click',
 									'name'=>'agca_login_photo_href',
-									'label'=>'Change hyperlink on Login image',
+									'label'=>'Change link on login image',
 									'hint'=>'For blog URL use %BLOG%'
 								]);
 
@@ -2485,7 +2502,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									],
 									'title'=>'Change register link on login page to point to your custom registration page.',
 									'name'=>'agca_login_register_href',
-									'label'=>'Change register hyperlink',
+									'label'=>'Change register link',
 								]);
 
 								$this->print_checkbox([
@@ -2606,12 +2623,11 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									'label'=>'"Collapse menu" button',
 								]);
 
-								$this->print_input([
+								$this->print_checkbox([
 									'title'=>'Rounds submenu pop-up box',
 									'name'=>'agca_admin_menu_submenu_round',
 									'label'=>'Round sub-menu pop-up box',
 									'input-class'=>'has-dependant',
-									'input-attributes'=>'data-dependant="#agca_admin_menu_submenu_round_block',
 								]);
 
 								$this->print_input([
@@ -2636,7 +2652,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 								$this->print_input([
 									'title'=>'Change branding logo link</br></br>Use:</br><strong>%BLOG%</strong> - for blog URL',
 									'name'=>'agca_admin_menu_brand_link',
-									'label'=>'Change branding logo link',
+									'label'=>'Branding logo link',
 									'hint'=>'Branding image URL'
 								]);
 								?>
@@ -2820,7 +2836,8 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 				<label title="<?= $data['title'] ?>" for="<?= $data['name'] ?>"><?= $data['label'] ?></label>
 			</th>
 			<td>
-				<input id="<?= $data['name'] ?>" title="<?= $data['title'] ?>" type="text" size="47" name="<?= $data['name'] ?>" value="<?php echo get_option($data['name']); ?>" /><input type="button" class="agca_button" onClick="jQuery('#<?= $data['name'] ?>').val('');" value="Clear" /><?= $suffix ?>
+				<input id="<?= $data['name'] ?>" title="<?= $data['title'] ?>" type="text" size="47" name="<?= $data['name'] ?>" value="<?php echo get_option($data['name']); ?>" />
+				<a title="Clear" class="agca_button clear" onClick="jQuery('#<?= $data['name'] ?>').val('');"><span class="dashicons clear dashicons-no-alt"></span></a><?= $suffix ?>
 				<?= $strHint ?>
 			</td>
 		</tr>

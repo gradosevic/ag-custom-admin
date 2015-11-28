@@ -259,6 +259,14 @@ td.ag_admin_menu_parent:hover{
     padding: 3px 10px;
     background-color:#ffffff;
 }    */
+#agca_form .agca_button.clear span:before{
+	color: #f08080;
+	cursor:pointer;
+	font-size: 30px;
+}
+#agca_form .agca_button.clear span:hover:before{
+	color: red;
+}
 #agca_form input[type=button],button{    
 	background-color: #ACC491;
     border: 1px solid #ACC491;
@@ -574,6 +582,9 @@ td.ag_admin_menu_parent:hover{
 #section_ag_colorizer_settings .color .agca_button span:hover{
 	color: #659957;
 }
-#section_ag_colorizer_settings .color .agca_button span.clear:hover{
+#section_ag_colorizer_settings .color .agca_button span.clear{
 	color: #f08080;
+}
+#section_ag_colorizer_settings .color .agca_button span.clear:hover{
+	color: red;
 }
