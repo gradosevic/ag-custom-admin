@@ -22,8 +22,8 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 
 
 = Admin Bar Options =
-* Hide admin bar completely 
-* Hide admin bar completely, but show only Log Out button
+* Hide admin bar
+* Hide admin bar, but show only Log Out button
 * Remove admin bar on site pages
 * Replace WordPress logo with custom image
 * Change link on admin bar logo
