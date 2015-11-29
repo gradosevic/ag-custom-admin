@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: WAP
-Version: 1.5.1
+Version: 1.5.2
 Author URI: http://www.wordpressadminpanel.com/
 
 	Copyright 2015. WAP (email : info@wordpressadminpanel.com)
@@ -24,7 +24,7 @@ Author URI: http://www.wordpressadminpanel.com/
 */
 	
 $agca = new AGCA();
-//phpinfo();exit;
+
 class AGCA{
 	private $colorizer="";	
 	private $active_plugin;
@@ -60,7 +60,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
               
-		$this->agca_version = "1.5.1";
+		$this->agca_version = "1.5.2";
 		
 		//TODO:upload images programmatically
 
@@ -1855,7 +1855,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 					<?php if(get_option('agca_login_banner_text')==true){ ?>
 							jQuery("#backtoblog").html('<?php echo addslashes(get_option('agca_login_banner_text')); ?>');
 					<?php } ?>
-					<?php if(get_option('agca_login_photo_url')==true){ ?>								
+					<?php if(get_option('agca_login_photo_url')==true && get_option('agca_login_photo_remove')!=true){ ?>
 							advanced_url = "<?php echo get_option('agca_login_photo_url'); ?>";
 							var $url = "url(" + advanced_url + ")";
 							jQuery("#login h1 a").css("background",$url+' no-repeat');	
@@ -2093,14 +2093,15 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 						'title'=>'Hides admin bar completely from the admin panel',
 						'name'=>'agca_header',
 						'label'=>'<strong>Admin bar</strong>',
-						'onchange'=>"if(jQuery('#agca_header').is(':checked')){jQuery('#agca_header_show_logout_content').show('slide');}else{jQuery('#agca_header_show_logout_content').hide('slide');};"
+						'input-attributes'=>'data-dependant="#agca_header_show_logout_content"',
+						'input-class'=>'has-dependant',
 					));
 
 					$this->print_checkbox(array(
 						'attributes'=>array(
 							'class'=>'ag_table_major_options',
+							'style'=> ((get_option('agca_header')!='true')?'display:none':''),
 							'id'=>'agca_header_show_logout_content',
-							'style'=>(get_option('agca_header')==true)?"":"display:none"
 						),
 						'title'=>'Check this if you want to show Log Out button in top right corner of the admin page',
 						'name'=>'agca_header_show_logout',
@@ -2485,7 +2486,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									'name'=>'agca_login_round_box_size',
 									'label'=>'Round box corners - size',
 									'input-class'=>'validateNumber',
-									'suffix'=>'&nbsp;(px)'
+									'hint'=>'(Size in px)'
 								));
 
 								$this->print_checkbox(array(
@@ -2505,6 +2506,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									'title'=>'Change register link on login page to point to your custom registration page.',
 									'name'=>'agca_login_register_href',
 									'label'=>'Change register link',
+									'hint'=>'Link to new registration page'
 								));
 
 								$this->print_checkbox(array(
@@ -2629,19 +2631,20 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									'title'=>'Rounds submenu pop-up box',
 									'name'=>'agca_admin_menu_submenu_round',
 									'label'=>'Round sub-menu pop-up box',
+									'input-attributes'=>'data-dependant="#agca_admin_menu_submenu_round_size"',
 									'input-class'=>'has-dependant',
 								));
 
 								$this->print_input(array(
 									'attributes'=>array(
-										'style'=> ((get_option('agca_admin_menu_submenu_round')=='true')?'display:none':''),
-										'id'=>'agca_admin_menu_submenu_round_block'
+										'style'=> ((get_option('agca_admin_menu_submenu_round')!='true')?'display:none':''),
+										'id'=>'agca_admin_menu_submenu_round_size'
 									),
 									'title'=>'Size of rounded box curve',
 									'name'=>'agca_admin_menu_submenu_round_size',
 									'label'=>'Round sub-menu pop-up box - size',
 									'input-class'=>'validateNumber',
-									'suffix'=>'&nbsp;(px)'
+									'hint'=>'(Size in px)'
 								));
 
 								$this->print_input(array(
@@ -2815,7 +2818,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 				<label tabindex="0" title='<?= $data['title'] ?>' for="<?= $data['name'] ?>" ><?= $data['label'] ?></label>
 			</th>
 			<td>
-				<input type="checkbox" class="agca-checkbox <?= $strInputClass ?> "  <?= $strOnchange ?>  <?= $strInputAttributes ?> title='<?= $data['title'] ?>' name="<?= $data['name'] ?>" value="true" <?= ($isChecked)?' checked="checked"':'' ?> />
+				<input type="checkbox" class="agca-checkbox <?= $strInputClass ?> "  <?= $strOnchange ?>  <?= $strInputAttributes ?> title='Toggle on/off' name="<?= $data['name'] ?>" value="true" <?= ($isChecked)?' checked="checked"':'' ?> />
 			</td>
 		</tr>
 		<?php
@@ -2823,6 +2826,8 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 	function print_input($data){
 		$strHint = '';
 		$suffix ='';
+		$strAttributes = '';
+		$parentAttr = '';
 		if(isset($data['hint'])){
 			$strHint = '&nbsp;<p><i>'.$data['hint'].'</i></p>';
 		}
@@ -2832,8 +2837,13 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 		if(isset($data['suffix'])){
 			$suffix = $data['suffix'];
 		}
+		if(isset($data['attributes'])){
+			foreach($data['attributes'] as $key=>$val){
+				$strAttributes.=' '.$key.'="'.$val.'"';
+			}
+		}
 		?>
-		<tr valign="center">
+		<tr valign="center" <?= $strAttributes ?> >
 			<th >
 				<label title="<?= $data['title'] ?>" for="<?= $data['name'] ?>"><?= $data['label'] ?></label>
 			</th>
