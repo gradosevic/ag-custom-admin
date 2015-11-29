@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: WAP
-Version: 1.5
+Version: 1.5.1
 Author URI: http://www.wordpressadminpanel.com/
 
 	Copyright 2015. WAP (email : info@wordpressadminpanel.com)
@@ -60,7 +60,7 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
               
-		$this->agca_version = "1.5";
+		$this->agca_version = "1.5.1";
 		
 		//TODO:upload images programmatically
 
