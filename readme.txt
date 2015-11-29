@@ -93,12 +93,15 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 * Add custom JavaScript
 * Export/import customization settings
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 = Admin Themes =
 AG Custom Admin plugin contains specially created professional and responsive themes for admin panel and login page, that can be applied easily within AG Custom Admin plugin with only few clicks!
 We will add more themes with better styles and theme options in future. 
 =======
 >>>>>>> 4084d2d584f5d25ec943d1a4759984f833fa4481
+=======
+>>>>>>> c148a494bb546408caf2fafac0e73bda1ae31764
 
 = Premium Features =
 
@@ -129,6 +132,7 @@ For more information about the plugin please check [PLUGIN WEBSITE](http://wordp
 == Frequently Asked Questions ==
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 = I see only blank page. What can I do? =
 This is caused by JavaScript error thrown by this or some other plugin. Please open browser's console and try to find JavaScript errors. Try to find the source of the error, it is probably thrown by some plugin. If you can find the source, please try to disable that plugin or theme and post that error on their support page. You could try also disabling plugins one-by-one to see when this problem occurs. If you can't access login page, please temporary disable JavaScript in your browser and refresh the page.
 If this does not work, try to find JavaScript error in browser's console and post it to our support page.
@@ -136,6 +140,8 @@ If this does not work, try to find JavaScript error in browser's console and pos
 = I cannot log in to admin panel =
 If you see blank page or login form is disappeared, it's most likely that you have some errors thrown in your WordPress site. This is caused by JavaScript error thrown by this or some other plugin. If you want to deactivate plugin, but you can't access admin panel, turn off JavaScript in your browser and then log in back and deactivate plugin (This works only for administrator). Try also to clear browser's cache. If this does not work, try to find JavaScript error in browser's console and post it to plugin's support page.
 =======
+=======
+>>>>>>> c148a494bb546408caf2fafac0e73bda1ae31764
 = I see errors on my page. What can I do? =
 Please follow these steps:
 * Open browser's console and try to find JavaScript errors.
@@ -143,7 +149,10 @@ Please follow these steps:
 * Try disabling plugins one-by-one to see when this problem occurs. If you can't access login page, please temporary disable JavaScript in your browser and refresh the page.
 * Try updating WordPress core and plugins
 * If problem still persists, please contact the support
+<<<<<<< HEAD
 >>>>>>> 4084d2d584f5d25ec943d1a4759984f833fa4481
+=======
+>>>>>>> c148a494bb546408caf2fafac0e73bda1ae31764
 
 = Plugin does not work after upgrading to new version. What should I do? =
 Make sure to have latest WordPress version installed. If nothing of these solutions help, please contact support.
@@ -156,7 +165,6 @@ Please use 'Reset Settings' button on Admin Menu page to reset menu configuratio
 
 = Some options are not working =
 If you have the latest WordPress and plugin versions and you still experience some issues, please contact us and report the issue.
-
 
 == Screenshots ==
 
@@ -335,7 +343,7 @@ If you have the latest WordPress and plugin versions and you still experience so
 * added WP filter to remove admin bar on front page
 * applying admin bar colors on front page
 * fixed blank space in admin panel when admin bar is removed
-* fixed some bugs in colorizer, better updating of input box colors, triggering colors on input box change, improved realtime color updating
+* fixed some bugs in Colorizer, better updating of input box colors, triggering colors on input box change, improved realtime color updating
 * adding jQuery script on login page only if it is not already loaded
 * fixed background-size issue on login page image in chrome and some other browsers
 * updated important message on admin menu tab
@@ -348,7 +356,7 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Fixed bug on loading news
 
 = 1.2.6.3 =
-* Included colorizer ON/OFF option to exported settings
+* Included Colorizer ON/OFF option to exported settings
 * Automatically saving settings after importing
 * Fixed issue with admin bar on site pages
 * Added option for switching between admin and site pages(on WP logo, top left corner on admin bar)
@@ -379,7 +387,7 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Added custom branding field above the admin menu for adding custom brand images
 * Rounding admin menu popups and login page
 * Option for removing Welcome dashboard widget
-* New colorizer options for admin menu, top bar
+* New Colorizer options for admin menu, top bar
 * New AGCA info area
 * Fixed caching issues on updates
 
@@ -389,12 +397,17 @@ If you have the latest WordPress and plugin versions and you still experience so
 = 1.2.5.3 =
 * Fixed issues related to WP 3.3.1 version
 <<<<<<< HEAD
+<<<<<<< HEAD
 * Fixed bug: Hiding/changing top admin bar WP icon
 * Advanced customization of admin top bar 
 =======
 * Fixed bug: Hidding/changing top admin bar WP icon
 * Advanced customization of admin top bar
 >>>>>>> 4084d2d584f5d25ec943d1a4759984f833fa4481
+=======
+* Fixed bug: Hiding/changing top admin bar WP icon
+* Advanced customization of admin top bar 
+>>>>>>> c148a494bb546408caf2fafac0e73bda1ae31764
 * Added options for hiding admin top bar elements
 * Login page background same as admin background
 * Added target options for custom admin buttons
@@ -591,22 +604,22 @@ Bug fixes. Removing admin bar site title. Custom page titles in WP admin.
 Plugin prepared for WordPress 3.5. Few additional improvements.
 
 = 1.2.6.5 =
-New features and bug fixes. Improved colorizer, fixed admin bar issues, using capabilities to define admin users, added new options for login page, options to remove AGCA scripts on front-end. Using collapsed menus.
+New features and bug fixes. Improved Colorizer, fixed admin bar issues, using capabilities to define admin users, added new options for login page, options to remove AGCA scripts on front-end. Using collapsed menus.
 
 = 1.2.6.4 =
 Bug fixes. Removing plugin's option on uninstall, not on deactivation.
 
 = 1.2.6.3 =
-Fixed several bugs: Admin bar issues, not saving settings after import, changing Howdy text in other languages, colorizer ON/OFF option in settings export.
+Fixed several bugs: Admin bar issues, not saving settings after import, changing Howdy text in other languages, Colorizer ON/OFF option in settings export.
 
 = 1.2.6.2 =
- Ready for WordPress 3.4. A lot of improvements in 1.2.6 series, fixed issues with top bar, caching on updates, better styles...  and new features: export/import new colorizer options, better admin menu styles, custom css, custom js, admin bar on site pages.. Fixed bugs since 1.2.6 version. Wrapped up 1.2.6 series release.
+ Ready for WordPress 3.4. A lot of improvements in 1.2.6 series, fixed issues with top bar, caching on updates, better styles...  and new features: export/import new Colorizer options, better admin menu styles, custom css, custom js, admin bar on site pages.. Fixed bugs since 1.2.6 version. Wrapped up 1.2.6 series release.
 
 = 1.2.6.1 =
 Fixing bugs from 1.2.6 version
 
 = 1.2.6 =
-A lot of improvements in 1.2.6, fixed issues with top bar, caching on updates, better styles, etc.  and new features: export/import new colorizer options, better admin menu styles, custom css, custom js, admin bar on site pages etc.
+A lot of improvements in 1.2.6, fixed issues with top bar, caching on updates, better styles, etc.  and new features: export/import new Colorizer options, better admin menu styles, custom css, custom js, admin bar on site pages etc.
 
 = 1.2.5.4 =
 Fixed fatal error from version 1.2.5.3
@@ -627,7 +640,7 @@ Improved compatibility with other plugins. Tested with Ozh' Admin Drop Down Menu
 This plugin version is ready for WordPress release 3.2, and fully compatible with it. Added few new options, and improved plugin stability.
 
 = 1.2.3 =
-Fixed 'White screen of death' bug, and few other improvements. Added colorizer options for widgets. Added support for changing admin bar logo with custom image.
+Fixed 'White screen of death' bug, and few other improvements. Added Colorizer options for widgets. Added support for changing admin bar logo with custom image.
 
 = 1.2.2 =
 Added demo Colorizer for adding custom colors in admin and login pages. Fixed bug for slow computers, default settings should not be visible before custom settings. Added support for excluding administrator from settings. Added option for removing icons from admin menu buttons.
@@ -642,10 +655,14 @@ Added settings for fully customization of admin menus.
 
 = 1.0.1 =
 <<<<<<< HEAD
+<<<<<<< HEAD
 Better explanations in Settings page. No changes in functionality. 
 =======
 Better explainations in Settings page. No changes in functionality.
 >>>>>>> 4084d2d584f5d25ec943d1a4759984f833fa4481
+=======
+Better explanations in Settings page. No changes in functionality.
+>>>>>>> c148a494bb546408caf2fafac0e73bda1ae31764
 
 = 1.0 =
 Initial version.
