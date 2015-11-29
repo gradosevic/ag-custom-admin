@@ -102,16 +102,16 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 > For more info about AG Custom Admin themes, please go to [WordPress Admin Panel Themes](http://wordpressadminpanel.com/themes/home) site.
 
 > <strong>Custom Admin Menu Icons</strong><br>
-> AGL Custom Admin Menu Icons plugin, can be used to add change admin menu icons, add custom colors and icons, and even draw custom icons
+> AGL Custom Admin Menu Icons plugin, can be used to add or change admin menu icons, add custom colors and icons, and even draw custom icons
 >
-> For more information about advanced admin menu icons management, please check [Admin Menu Icons Management](http://wordpressadminpanel.com/aglcami/home
+> For more information about advanced admin menu icons management, please check [Admin Menu Icons Management](http://wordpressadminpanel.com/aglcami/home)
 
 = Contact =
 If you are unable to login or you have any other problems, please check our [FAQ](http://wordpress.org/extend/plugins/ag-custom-admin/faq/) and [SUPPORT](http://wordpress.org/support/plugin/ag-custom-admin) page.
 
-For more information about the plugin please check [PLUGIN WEBSITE](http://wordpressadminpanel.com/ag-custom-admin/) and for more information about admin themes please check [THEMES WEBSITE](http://wordpressadminpanel.com/themes/home)
+For more information about the plugin please check [OFFICIAL PLUGIN'S SITE](http://wordpressadminpanel.com/ag-custom-admin/) <br>For more information about admin themes please check [THEMES SITE](http://wordpressadminpanel.com/themes/home)
 
-**Important**: It's recommended to always updated AG Custom Admin plugin before updating WordPress.
+**Important**: It's recommended to always update AG Custom Admin plugin before updating WordPress.
 
 == Installation ==
 
