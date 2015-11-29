@@ -95,13 +95,13 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 
 = Premium Features =
 
-> = Admin Themes =
+> <strong>Admin Themes</strong><br>
 > AG Custom Admin plugin contains specially created professional and responsive themes for admin panel and login page, that can be applied easily within AG Custom Admin plugin with only few clicks!
 > We will add more themes with better styles and theme options in future.
 >
 > For more info about AG Custom Admin themes, please go to [WordPress Admin Panel Themes](http://wordpressadminpanel.com/themes/home) site.
 
-> = Custom Admin Menu Icons
+> <strong>Custom Admin Menu Icons</strong><br>
 > AGL Custom Admin Menu Icons plugin, can be used to add change admin menu icons, add custom colors and icons, and even draw custom icons
 >
 > For more information about advanced admin menu icons management, please check [Admin Menu Icons Management](http://wordpressadminpanel.com/aglcami/home
@@ -123,11 +123,11 @@ For more information about the plugin please check [PLUGIN WEBSITE](http://wordp
 
 = I see errors on my page. What can I do? =
 Please follow these steps:
-* Open browser's console and try to find JavaScript errors.
-* Check if you can locate the plugin that throws the error, if so, try disabling that plugin and contacting their support.
-* Try disabling plugins one-by-one to see when this problem occurs. If you can't access login page, please temporary disable JavaScript in your browser and refresh the page.
-* Try updating WordPress core and plugins
-* If problem still persists, please contact the support
+<br>* Open browser's console and try to find JavaScript errors.
+<br>* Check if you can locate the plugin that throws the error, if so, try disabling that plugin and contacting their support.
+<br>* Try disabling plugins one-by-one to see when this problem occurs. If you can't access login page, please temporary disable JavaScript in your browser and refresh the page.
+<br>* Try updating WordPress core and plugins
+<br>* If problem still persists, please contact the support
 
 = Plugin does not work after upgrading to new version. What should I do? =
 Make sure to have latest WordPress version installed. If nothing of these solutions help, please contact support.
