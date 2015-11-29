@@ -11,44 +11,44 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 
 == Description ==
-With this plugin you can easily customize WordPress **admin panel**, **login page**, **admin menu**, **admin bar** etc. in tiny details and apply free responsive **admin themes**.
+With this plugin you can easily customize WordPress **admin panel**, **login page**, **admin menu**, **admin bar** etc. in tiny details and apply free responsive and commercial **admin themes**.
 
 * **ADMIN BAR**: Hide or change admin bar items. Remove WordPress traces from admin bar. Brand it with custom colors.
 * **ADMIN MENU**: Change and remove existing and add custom admin menu items. Brand it with custom colors. 
-* **ADMIN THEMES**: it was never been so easy to apply free and responsive admin panel themes with just few clicks.
-* **COLORIZER**: This tool is integrated with AG Custom Admin panel and can be used to change default WordPress admin panel colors, admin bar, admin menu, login page, backgrounds and fonts.
+* **ADMIN THEMES**: It have never been so easy to apply free and commercial responsive admin panel themes with just few clicks.
+* **COLORIZER**: This tool is integrated with AG Custom Admin panel and can be used to change default WordPress admin panel colors, admin bar, admin menu, login page, backgrounds and text.
 * **BRANDING**: Brand your admin panel pages with custom content, colors, images and text.
-* **ADMIN PANEL OPTIONS**: There are also dozens of many other admin panel options used to hide or change existing WordPress admin panel and login page items like Dashboard widgets, Help and Screen options, WordPress logos, links, menus etc. See the full list down below. 
+* **ADMIN PANEL OPTIONS**: There are dozens of other admin panel options used to improve WordPress UX on admin and login pages items like Dashboard widgets, Help and Screen options, WordPress logos, links, menus etc. See the full list down below.
 
+= General Settings =
+* Hide "Screen Options" menu
+* Hide "Help" menu
 
-= Admin Bar Options =
-* Hide admin bar
-* Hide admin bar, but show only Log Out button
-* Remove admin bar on site pages
-* Replace WordPress logo with custom image
+= Admin Bar Settings =
+* Hide admin bar completely
+* Show Log out button only if admin bar is completely hidden
+* Hide admin bar on site pages only
+* Replace WordPress logo with custom branding image
 * Change link on admin bar logo
-* Change page title (html title tag) of all admin pages
-* Add custom branding image between admin bar and content on all pages
-* Hide WordPress in from admin bar
-* Hide site name in admin bar
-* Hide admin bar context menus
-* Hide "Comments" menu
-* Hide "New" menu
+* Custom page title template on admin pages (change <head> => <title> tag)
+* Add custom branding image above the content in admin bar
+* Hide WordPress logo
+* Hide site name
+* Hide admin bar logo context menu
+* Hide update notifications block
+* Hide "Comments" block
+* Hide "New" menu block
 * Hide "New" -> "Post"
 * Hide "New" -> "Link"
 * Hide "New" -> "Page"
 * Hide "New" -> "User"
 * Hide "New" -> "Media"
-* Hide update notifications
-* Add custom heading to admin bar
+* Change site name to custom text
 * Hide yellow WordPress update notification
-* Hide Screen options menu
-* Hide Help menu
-* Hide Favorite Actions menu
 * Change Howdy text
 * Change Log Out text
 * Remove "Edit My Profile" option from context menu
-* Show "Log Out" button only
+* Show "Log Out" button only on the right
 
 = Admin Footer Options =
 * Hide footer completely
@@ -71,13 +71,13 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 * Change hyperlink on register button
 	
 = Admin Menu Options =
-* Rename menu and submenu items
-* Remove menu and submenu items
+* Rename menu and sub-menu items
+* Hide menu and sub-menu items
 * Add new buttons with custom links
 * Remove icons from admin menu buttons
 * Remove spaces between admin menu buttons
-* Remove admin menu arrow on mouseover
-* Round admin submenu popups	
+* Remove admin menu arrow on hover
+* Round admin sub-menu popups
 * Remove "Collapse" button	
 * Add custom branding image above the admin menu
 * Add custom link to branding image
@@ -94,7 +94,7 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 * Export/import customization settings
 	
 = Admin Themes =
-AG Custom Admin plugin contains specialy created professional and responsive themes for admin panel and login page, that can be applied easily within AG Custom Admin plugin with only few clicks!
+AG Custom Admin plugin contains specially created professional and responsive themes for admin panel and login page, that can be applied easily within AG Custom Admin plugin with only few clicks!
 We will add more themes with better styles and theme options in future. 
 
 For more info about AG Custom Admin themes, please go to [WordPress Admin Panel Themes](http://wordpressadminpanel.com/themes/home) site.
