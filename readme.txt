@@ -92,16 +92,6 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 * Add custom CSS
 * Add custom JavaScript
 * Export/import customization settings
-<<<<<<< HEAD
-<<<<<<< HEAD
-	
-= Admin Themes =
-AG Custom Admin plugin contains specially created professional and responsive themes for admin panel and login page, that can be applied easily within AG Custom Admin plugin with only few clicks!
-We will add more themes with better styles and theme options in future. 
-=======
->>>>>>> 4084d2d584f5d25ec943d1a4759984f833fa4481
-=======
->>>>>>> c148a494bb546408caf2fafac0e73bda1ae31764
 
 = Premium Features =
 
@@ -131,17 +121,6 @@ For more information about the plugin please check [PLUGIN WEBSITE](http://wordp
 
 == Frequently Asked Questions ==
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-= I see only blank page. What can I do? =
-This is caused by JavaScript error thrown by this or some other plugin. Please open browser's console and try to find JavaScript errors. Try to find the source of the error, it is probably thrown by some plugin. If you can find the source, please try to disable that plugin or theme and post that error on their support page. You could try also disabling plugins one-by-one to see when this problem occurs. If you can't access login page, please temporary disable JavaScript in your browser and refresh the page.
-If this does not work, try to find JavaScript error in browser's console and post it to our support page.
-
-= I cannot log in to admin panel =
-If you see blank page or login form is disappeared, it's most likely that you have some errors thrown in your WordPress site. This is caused by JavaScript error thrown by this or some other plugin. If you want to deactivate plugin, but you can't access admin panel, turn off JavaScript in your browser and then log in back and deactivate plugin (This works only for administrator). Try also to clear browser's cache. If this does not work, try to find JavaScript error in browser's console and post it to plugin's support page.
-=======
-=======
->>>>>>> c148a494bb546408caf2fafac0e73bda1ae31764
 = I see errors on my page. What can I do? =
 Please follow these steps:
 * Open browser's console and try to find JavaScript errors.
@@ -149,10 +128,6 @@ Please follow these steps:
 * Try disabling plugins one-by-one to see when this problem occurs. If you can't access login page, please temporary disable JavaScript in your browser and refresh the page.
 * Try updating WordPress core and plugins
 * If problem still persists, please contact the support
-<<<<<<< HEAD
->>>>>>> 4084d2d584f5d25ec943d1a4759984f833fa4481
-=======
->>>>>>> c148a494bb546408caf2fafac0e73bda1ae31764
 
 = Plugin does not work after upgrading to new version. What should I do? =
 Make sure to have latest WordPress version installed. If nothing of these solutions help, please contact support.
@@ -179,6 +154,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 9. Army - commercial theme.
 
 == Change Log ==
+
+= 1.5.2 =
+* Small UX improvements on options
 
 = 1.5.1 =
 * Added support for older PHP versions, starting from 5.2
@@ -396,18 +374,8 @@ If you have the latest WordPress and plugin versions and you still experience so
 
 = 1.2.5.3 =
 * Fixed issues related to WP 3.3.1 version
-<<<<<<< HEAD
-<<<<<<< HEAD
 * Fixed bug: Hiding/changing top admin bar WP icon
-* Advanced customization of admin top bar 
-=======
-* Fixed bug: Hidding/changing top admin bar WP icon
 * Advanced customization of admin top bar
->>>>>>> 4084d2d584f5d25ec943d1a4759984f833fa4481
-=======
-* Fixed bug: Hiding/changing top admin bar WP icon
-* Advanced customization of admin top bar 
->>>>>>> c148a494bb546408caf2fafac0e73bda1ae31764
 * Added options for hiding admin top bar elements
 * Login page background same as admin background
 * Added target options for custom admin buttons
@@ -488,6 +456,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.5.2 =
+* Small UX improvements on options
 
 = 1.5.1 =
 * Added support for older PHP versions, starting from 5.2
@@ -654,15 +625,7 @@ Settings are styled in better way and some attractive interactions are added to 
 Added settings for fully customization of admin menus.
 
 = 1.0.1 =
-<<<<<<< HEAD
-<<<<<<< HEAD
 Better explanations in Settings page. No changes in functionality. 
-=======
-Better explainations in Settings page. No changes in functionality.
->>>>>>> 4084d2d584f5d25ec943d1a4759984f833fa4481
-=======
-Better explanations in Settings page. No changes in functionality.
->>>>>>> c148a494bb546408caf2fafac0e73bda1ae31764
 
 = 1.0 =
 Initial version.
