@@ -119,7 +119,7 @@ For more information about the plugin please check [PLUGIN WEBSITE](http://wordp
 == Frequently Asked Questions ==
 
 = I see only blank page. What can I do? =
-This is caused by JavaScript error thrown by this or some other plugin. Please open browser's console and try to find JavaScript errors. Try to find the source of the error, it is probably thrown by some plugin. If you can find the source, please try to disable that plugin or theme and post that error on their support page. You could try also disabling plugins one-by-one to see when this problem occures. If you can't access login page, please temporary disable JavaScript in your browser and refresh the page.
+This is caused by JavaScript error thrown by this or some other plugin. Please open browser's console and try to find JavaScript errors. Try to find the source of the error, it is probably thrown by some plugin. If you can find the source, please try to disable that plugin or theme and post that error on their support page. You could try also disabling plugins one-by-one to see when this problem occurs. If you can't access login page, please temporary disable JavaScript in your browser and refresh the page.
 If this does not work, try to find JavaScript error in browser's console and post it to our support page.
 
 = I cannot log in to admin panel =
@@ -147,10 +147,10 @@ If you have found that something is not working correctly, and you have the late
 5. Free and commercial predefined WP admin panel themes.
 6. Orange - free theme - login page.
 7. Dunes - commercial theme.
-8. Wasteland - commerical theme.
+8. Wasteland - commercial theme.
 9. Army - commercial theme.
 
-== Changelog ==
+== Change Log ==
 
 = 1.5.1 =
 * Added support for older PHP versions, starting from 5.2
@@ -256,7 +256,7 @@ If you have found that something is not working correctly, and you have the late
 
 = 1.2.7.7 =
 * Updated options labels
-* Better checkbox and radiobox styles
+* Better checkbox and radio box styles
 * Some additional style improvements
 * Updated option for auto folding admin menu on mobile devices
 * Fixed AGCA error popup on reset password page
@@ -282,14 +282,14 @@ If you have found that something is not working correctly, and you have the late
 = 1.2.7.2 =
 * Escaping characters (like single quote) in footer text
 * Fixed AGCA alert message issue
-* Prepared for 3.6. WordPress releas
+* Prepared for 3.6. WordPress release
 * Other bug fixes.
 
 = 1.2.7.1 =
-* Removed AGCA script on site pages automaticaly, if user is not logged in
+* Removed AGCA script on site pages automatically, if user is not logged in
 * Custom WordPress admin title. Using custom title templates
 * Added option for removing blog title from top bar
-* Fixed missaligned menu when using custom content types plugins
+* Fixed misaligned menu when using custom content types plugins
 * Fixed bug "Save button does not work" caused by unescaped characters in footer text and custom button names
 * Updated AGCA buttons styles
 
@@ -297,8 +297,8 @@ If you have found that something is not working correctly, and you have the late
 * WordPress 3.5 compatible
 * Added login page background color
 * Resolving jQuery script
-* Added feedback buttons (postitive/negative)
-* Better user's experience (updated form buttons and textboxes)
+* Added feedback buttons (positive/negative)
+* Better user's experience (updated form buttons and textbooks)
 * Fixed problem with Howdy renaming
 
 = 1.2.6.5 =
@@ -313,10 +313,10 @@ If you have found that something is not working correctly, and you have the late
 * option to show/hide collapse button on admin menu
 * added styles for collapsed menu
 * added WP filter to remove admin bar on front page
-* appling admin bar colors on front page
+* applying admin bar colors on front page
 * fixed blank space in admin panel when admin bar is removed
-* fixed some bugs in colorizer, better updating of input box colors, trigering colors on input box change, improved realtime color updating
-* adding jquery script on login page only if it is not already loaded
+* fixed some bugs in colorizer, better updating of input box colors, triggering colors on input box change, improved realtime color updating
+* adding jQuery script on login page only if it is not already loaded
 * fixed background-size issue on login page image in chrome and some other browsers
 * updated important message on admin menu tab
 
@@ -329,10 +329,10 @@ If you have found that something is not working correctly, and you have the late
 
 = 1.2.6.3 =
 * Included colorizer ON/OFF option to exported settings
-* Automaticaly saving settings after importing
+* Automatically saving settings after importing
 * Fixed issue with admin bar on site pages
-* Added option for switching between admin and site pages(on wp logo, top left corner on admin bar)
-* Fixed custom Howdy text for other languanges than English.
+* Added option for switching between admin and site pages(on WP logo, top left corner on admin bar)
+* Fixed custom Howdy text for other languages than English.
 
 = 1.2.6.2 =
 * Added custom brand logo url
@@ -344,14 +344,14 @@ If you have found that something is not working correctly, and you have the late
 * Added +/- indicators to admin menu editor
 * Custom top bar logo can be of any width. Height is expanded to 28px
 * Saving custom scripts to database instead of saving to files
-* Fixed error message on wordpress thickbox window
+* Fixed error message on WordPress thick-box window
 * Removed About WordPress message on top bar logo(on mouseover)
 * Using %BLOG% variable as hyperlink on login page image
 * Few other fixes on WordPress top bar
 * Fixed color bug on admin menu hover()
 
 = 1.2.6 =
-* Fixed hidding top bar issue for site pages
+* Fixed hiding top bar issue for site pages
 * Fixed issues with custom content on Dashboard page. Any custom HTML can be used now.
 * Custom CSS script support
 * Custom JAvaScript support
@@ -368,7 +368,7 @@ If you have found that something is not working correctly, and you have the late
 
 = 1.2.5.3 =
 * Fixed issues related to WP 3.3.1 version
-* Fixed bug: Hidding/changing top admin bar WP icon
+* Fixed bug: Hiding/changing top admin bar WP icon
 * Advanced customization of admin top bar 
 * Added options for hiding admin top bar elements
 * Login page background same as admin background
@@ -376,7 +376,7 @@ If you have found that something is not working correctly, and you have the late
 
 = 1.2.5.2 =
 * Fixed several issues with WP 3.3
-* Added options for hidding "comments" and "new" from admin bar
+* Added options for hiding "comments" and "new" from admin bar
 * Support for custom admin bar images
 * Support for custom Log Out text
 * Hide everything except Log Out button works now
@@ -439,12 +439,12 @@ If you have found that something is not working correctly, and you have the late
 * Added settings for hiding/showing Dashboard widgets:"Recent Comments", "Incoming Links", "Plugins", "Quick Press", "Right Now", "Recent Drafts", primary widget area, secondary widget area.
 * Added option "(but show 'Log Out' button)" for displaying 'Log Out' button if admin top bar is completely removed.
 * Added option "Hide footer text".
-* Added support for hidding new WordPress release notification.
+* Added support for hiding new WordPress release notification.
 
 = 1.0.1 =
 * Changed text in Settings page to be more clearer.
 * Updated list of options on plugin page
-* Removed blank characters in textareas
+* Removed blank characters in text areas
 
 = 1.0 =
 * Initial version
@@ -590,7 +590,7 @@ Fixed fatal error from version 1.2.5.3
 Fixed issues related to WordPress version 3.3.1
 
 = 1.2.5.2 =
-Full compatibility with WP 3.3. Fixed several issues with this version. Removed obsolete options for old WP versions, added new options to fit 3.3 version. Update is highly recommonded for WP 3.3 users.
+Full compatibility with WP 3.3. Fixed several issues with this version. Removed obsolete options for old WP versions, added new options to fit 3.3 version. Update is highly recommended for WP 3.3 users.
 
 = 1.2.5.1 =
 Plugin is ready for 3.3. WordPress version. Major issues with WP 3.3 are fixed. However, some options are not fully functional, yet. Recommended only for users with 3.3. WP version. Fixed bug with custom admin menu buttons.
@@ -616,7 +616,7 @@ Settings are styled in better way and some attractive interactions are added to 
 Added settings for fully customization of admin menus.
 
 = 1.0.1 =
-Better explainations in Settings page. No changes in functionality. 
+Better explanations in Settings page. No changes in functionality. 
 
 = 1.0 =
 Initial version.
