@@ -1,10 +1,10 @@
 === AG Custom Admin ===
-Contributors: argonius
+Contributors: wap
 Donate link: http://wordpressadminpanel.com/ag-custom-admin/
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
 Tested up to: 4.4
-Stable tag: 1.5
+Stable tag: 1.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
  
@@ -151,6 +151,9 @@ If you have found that something is not working correctly, and you have the late
 9. Army - commercial theme.
 
 == Changelog ==
+
+= 1.5.1 =
+* Added support for older PHP versions, starting from 5.2
 
 = 1.5 =
 * Improved UX with new icons and styles
@@ -447,6 +450,9 @@ If you have found that something is not working correctly, and you have the late
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.5.1 =
+* Added support for older PHP versions, starting from 5.2
 
 = 1.5 =
 * Improved UX with new icons and styles
