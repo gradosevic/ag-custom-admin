@@ -92,51 +92,55 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 * Add custom CSS
 * Add custom JavaScript
 * Export/import customization settings
-	
-= Admin Themes =
-AG Custom Admin plugin contains specially created professional and responsive themes for admin panel and login page, that can be applied easily within AG Custom Admin plugin with only few clicks!
-We will add more themes with better styles and theme options in future. 
 
-For more info about AG Custom Admin themes, please go to [WordPress Admin Panel Themes](http://wordpressadminpanel.com/themes/home) site.
+= Premium Features =
 
-= Additional Features = 
-* [Admin Panel Themes](http://wordpressadminpanel.com/themes/home)
-* [Admin Menu Icons Management](http://wordpressadminpanel.com/aglcami/home)
+> = Admin Themes =
+> AG Custom Admin plugin contains specially created professional and responsive themes for admin panel and login page, that can be applied easily within AG Custom Admin plugin with only few clicks!
+> We will add more themes with better styles and theme options in future.
+>
+> For more info about AG Custom Admin themes, please go to [WordPress Admin Panel Themes](http://wordpressadminpanel.com/themes/home) site.
+
+> = Custom Admin Menu Icons
+> AGL Custom Admin Menu Icons plugin, can be used to add change admin menu icons, add custom colors and icons, and even draw custom icons
+>
+> For more information about advanced admin menu icons management, please check [Admin Menu Icons Management](http://wordpressadminpanel.com/aglcami/home
 
 = Contact =
 If you are unable to login or you have any other problems, please check our [FAQ](http://wordpress.org/extend/plugins/ag-custom-admin/faq/) and [SUPPORT](http://wordpress.org/support/plugin/ag-custom-admin) page.
 
 For more information about the plugin please check [PLUGIN WEBSITE](http://wordpressadminpanel.com/ag-custom-admin/) and for more information about admin themes please check [THEMES WEBSITE](http://wordpressadminpanel.com/themes/home)
 
-**Important**: AG Custom Admin should always be updated before updating WordPress. 
+**Important**: It's recommended to always updated AG Custom Admin plugin before updating WordPress.
 
 == Installation ==
 
 1. Upload `ag-custom-admin` directory to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Activated plugin appears in 'Tools' menu
+3. Navigate to plugin's settings page: 'Tools => AG Custom Admin'
 
 == Frequently Asked Questions ==
 
-= I see only blank page. What can I do? =
-This is caused by JavaScript error thrown by this or some other plugin. Please open browser's console and try to find JavaScript errors. Try to find the source of the error, it is probably thrown by some plugin. If you can find the source, please try to disable that plugin or theme and post that error on their support page. You could try also disabling plugins one-by-one to see when this problem occurs. If you can't access login page, please temporary disable JavaScript in your browser and refresh the page.
-If this does not work, try to find JavaScript error in browser's console and post it to our support page.
-
-= I cannot log in to admin panel =
-If you see blank page or login form is disappeared, it's most likely that you have some errors thrown in your WordPress site. This is caused by JavaScript error thrown by this or some other plugin. If you want to deactivate plugin, but you can't access admin panel, turn off JavaScript in your browser and then log in back and deactivate plugin (This works only for administrator). Try also to clear browser's cache. If this does not work, try to find JavaScript error in browser's console and post it to plugin's support page.
+= I see errors on my page. What can I do? =
+Please follow these steps:
+* Open browser's console and try to find JavaScript errors.
+* Check if you can locate the plugin that throws the error, if so, try disabling that plugin and contacting their support.
+* Try disabling plugins one-by-one to see when this problem occurs. If you can't access login page, please temporary disable JavaScript in your browser and refresh the page.
+* Try updating WordPress core and plugins
+* If problem still persists, please contact the support
 
 = Plugin does not work after upgrading to new version. What should I do? =
-Try to clear browser's cache, and reload the page. Make sure to have latest plugin and WordPress versions installed. If nothing of these solutions help, please contact support.
+Make sure to have latest WordPress version installed. If nothing of these solutions help, please contact support.
 
-= Something is wrong with Admin Menu buttons =
+= I use older version of WordPress, can I still use this plugin? =
+Yes, just make sure to install older version of AGCA that works for you.
+
+= Admin Menu buttons are misaligned =
 Please use 'Reset Settings' button on Admin Menu page to reset menu configuration to defaults. Make sure to use latest plugin version with latest patches.
 
-= Errors appear on admin/login pages =
-Go to browser's console and see if there are any errors. Try to locate them. If you can't fix error by yourself, post it back to plugin's support page.
-
 = Some options are not working =
-If you have found that something is not working correctly, and you have the latest WordPress and plugin versions, please contact us and report the issue.
- 
+If you have the latest WordPress and plugin versions and you still experience some issues, please contact us and report the issue.
+
 
 == Screenshots ==
 
@@ -150,7 +154,7 @@ If you have found that something is not working correctly, and you have the late
 8. Wasteland - commercial theme.
 9. Army - commercial theme.
 
-== Change Log ==
+== Changelog ==
 
 = 1.5.1 =
 * Added support for older PHP versions, starting from 5.2
@@ -186,7 +190,7 @@ If you have found that something is not working correctly, and you have the late
 * Removed obsolete Colorizer's border options
 * Removed obsolete code
 * Changed some options labels/descriptions
-* Handling user's errors caused by mistake in Custom JS 
+* Handling user's errors caused by mistake in Custom JS
 * Removed first and second menu item separator options, replaced with remove all separators option
 
 = 1.4.5 =
@@ -256,13 +260,13 @@ If you have found that something is not working correctly, and you have the late
 
 = 1.2.7.7 =
 * Updated options labels
-* Better checkbox and radio box styles
+* Better checkbox and radiobox styles
 * Some additional style improvements
 * Updated option for auto folding admin menu on mobile devices
 * Fixed AGCA error popup on reset password page
 
 = 1.2.7.6 =
-* Better style for close button 
+* Better style for close button
 * Fixed bugs when adding new admin menu buttons
 
 = 1.2.7.5 =
@@ -282,14 +286,14 @@ If you have found that something is not working correctly, and you have the late
 = 1.2.7.2 =
 * Escaping characters (like single quote) in footer text
 * Fixed AGCA alert message issue
-* Prepared for 3.6. WordPress release
+* Prepared for 3.6. WordPress releas
 * Other bug fixes.
 
 = 1.2.7.1 =
-* Removed AGCA script on site pages automatically, if user is not logged in
+* Removed AGCA script on site pages automaticaly, if user is not logged in
 * Custom WordPress admin title. Using custom title templates
 * Added option for removing blog title from top bar
-* Fixed misaligned menu when using custom content types plugins
+* Fixed missaligned menu when using custom content types plugins
 * Fixed bug "Save button does not work" caused by unescaped characters in footer text and custom button names
 * Updated AGCA buttons styles
 
@@ -297,8 +301,8 @@ If you have found that something is not working correctly, and you have the late
 * WordPress 3.5 compatible
 * Added login page background color
 * Resolving jQuery script
-* Added feedback buttons (positive/negative)
-* Better user's experience (updated form buttons and textbooks)
+* Added feedback buttons (postitive/negative)
+* Better user's experience (updated form buttons and textboxes)
 * Fixed problem with Howdy renaming
 
 = 1.2.6.5 =
@@ -313,10 +317,10 @@ If you have found that something is not working correctly, and you have the late
 * option to show/hide collapse button on admin menu
 * added styles for collapsed menu
 * added WP filter to remove admin bar on front page
-* applying admin bar colors on front page
+* appling admin bar colors on front page
 * fixed blank space in admin panel when admin bar is removed
-* fixed some bugs in colorizer, better updating of input box colors, triggering colors on input box change, improved realtime color updating
-* adding jQuery script on login page only if it is not already loaded
+* fixed some bugs in colorizer, better updating of input box colors, trigering colors on input box change, improved realtime color updating
+* adding jquery script on login page only if it is not already loaded
 * fixed background-size issue on login page image in chrome and some other browsers
 * updated important message on admin menu tab
 
@@ -329,10 +333,10 @@ If you have found that something is not working correctly, and you have the late
 
 = 1.2.6.3 =
 * Included colorizer ON/OFF option to exported settings
-* Automatically saving settings after importing
+* Automaticaly saving settings after importing
 * Fixed issue with admin bar on site pages
-* Added option for switching between admin and site pages(on WP logo, top left corner on admin bar)
-* Fixed custom Howdy text for other languages than English.
+* Added option for switching between admin and site pages(on wp logo, top left corner on admin bar)
+* Fixed custom Howdy text for other languanges than English.
 
 = 1.2.6.2 =
 * Added custom brand logo url
@@ -344,14 +348,14 @@ If you have found that something is not working correctly, and you have the late
 * Added +/- indicators to admin menu editor
 * Custom top bar logo can be of any width. Height is expanded to 28px
 * Saving custom scripts to database instead of saving to files
-* Fixed error message on WordPress thick-box window
+* Fixed error message on wordpress thickbox window
 * Removed About WordPress message on top bar logo(on mouseover)
 * Using %BLOG% variable as hyperlink on login page image
 * Few other fixes on WordPress top bar
 * Fixed color bug on admin menu hover()
 
 = 1.2.6 =
-* Fixed hiding top bar issue for site pages
+* Fixed hidding top bar issue for site pages
 * Fixed issues with custom content on Dashboard page. Any custom HTML can be used now.
 * Custom CSS script support
 * Custom JAvaScript support
@@ -368,15 +372,15 @@ If you have found that something is not working correctly, and you have the late
 
 = 1.2.5.3 =
 * Fixed issues related to WP 3.3.1 version
-* Fixed bug: Hiding/changing top admin bar WP icon
-* Advanced customization of admin top bar 
+* Fixed bug: Hidding/changing top admin bar WP icon
+* Advanced customization of admin top bar
 * Added options for hiding admin top bar elements
 * Login page background same as admin background
 * Added target options for custom admin buttons
 
 = 1.2.5.2 =
 * Fixed several issues with WP 3.3
-* Added options for hiding "comments" and "new" from admin bar
+* Added options for hidding "comments" and "new" from admin bar
 * Support for custom admin bar images
 * Support for custom Log Out text
 * Hide everything except Log Out button works now
@@ -439,12 +443,12 @@ If you have found that something is not working correctly, and you have the late
 * Added settings for hiding/showing Dashboard widgets:"Recent Comments", "Incoming Links", "Plugins", "Quick Press", "Right Now", "Recent Drafts", primary widget area, secondary widget area.
 * Added option "(but show 'Log Out' button)" for displaying 'Log Out' button if admin top bar is completely removed.
 * Added option "Hide footer text".
-* Added support for hiding new WordPress release notification.
+* Added support for hidding new WordPress release notification.
 
 = 1.0.1 =
 * Changed text in Settings page to be more clearer.
 * Updated list of options on plugin page
-* Removed blank characters in text areas
+* Removed blank characters in textareas
 
 = 1.0 =
 * Initial version
@@ -590,7 +594,7 @@ Fixed fatal error from version 1.2.5.3
 Fixed issues related to WordPress version 3.3.1
 
 = 1.2.5.2 =
-Full compatibility with WP 3.3. Fixed several issues with this version. Removed obsolete options for old WP versions, added new options to fit 3.3 version. Update is highly recommended for WP 3.3 users.
+Full compatibility with WP 3.3. Fixed several issues with this version. Removed obsolete options for old WP versions, added new options to fit 3.3 version. Update is highly recommonded for WP 3.3 users.
 
 = 1.2.5.1 =
 Plugin is ready for 3.3. WordPress version. Major issues with WP 3.3 are fixed. However, some options are not fully functional, yet. Recommended only for users with 3.3. WP version. Fixed bug with custom admin menu buttons.
@@ -611,12 +615,12 @@ Added demo Colorizer for adding custom colors in admin and login pages. Fixed bu
 This is minor upgrade from 1.2 to 1.2.1 version. Mostly it is based on optimization for screen readers and improving accessibility. You definitly need to upgrade this plugin if you have version older than 1.2.
 
 = 1.2 =
-This is major milestone of this plugin. All elements are grouped and organized into small pages for better navigation. 
+This is major milestone of this plugin. All elements are grouped and organized into small pages for better navigation.
 Settings are styled in better way and some attractive interactions are added to make using of this plugin very easy.
 Added settings for fully customization of admin menus.
 
 = 1.0.1 =
-Better explanations in Settings page. No changes in functionality. 
+Better explainations in Settings page. No changes in functionality.
 
 = 1.0 =
 Initial version.
