@@ -4,7 +4,7 @@ Donate link: http://wordpressadminpanel.com/ag-custom-admin/
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
 Tested up to: 4.4
-Stable tag: 1.5.2
+Stable tag: 1.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
  
@@ -154,6 +154,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 9. Army - commercial theme.
 
 == Change Log ==
+
+= 1.5.3 =
+* Fixed issue on PHP 5.3 when short PHP tags are not supported
 
 = 1.5.2 =
 * Small UX improvements on options
@@ -456,6 +459,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.5.3 =
+* Fixed issue on PHP 5.3 when short PHP tags are not supported
 
 = 1.5.2 =
 * Small UX improvements on options
