@@ -1485,7 +1485,7 @@ class AGCA{
 			var agca_context = "admin";
 			var roundedSidberSize = 0;		
 			var agca_installed_templates = <?php echo $this->get_installed_agca_templates(); ?>;
-			var agca_admin_menu = <?= json_encode($this->get_menu_customizations()) ?>;
+			var agca_admin_menu =  <?php echo json_encode($this->get_menu_customizations()) ?>;
 		</script>
 		<?php
 		$this->prepareAGCAAdminTemplates();
@@ -2813,12 +2813,12 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 			$isChecked = get_option($data['name'])==true;
 		}
 		?>
-		<tr valign="center" <?= $strAttributes ?> >
+		<tr valign="center"  <?php echo $strAttributes ?> >
 			<th>
-				<label tabindex="0" title='<?= $data['title'] ?>' for="<?= $data['name'] ?>" ><?= $data['label'] ?></label>
+				<label tabindex="0" title=' <?php echo $data['title'] ?>' for=" <?php echo $data['name'] ?>" > <?php echo $data['label'] ?></label>
 			</th>
 			<td>
-				<input type="checkbox" class="agca-checkbox <?= $strInputClass ?> "  <?= $strOnchange ?>  <?= $strInputAttributes ?> title='Toggle on/off' name="<?= $data['name'] ?>" value="true" <?= ($isChecked)?' checked="checked"':'' ?> />
+				<input type="checkbox" class="agca-checkbox  <?php echo $strInputClass ?> "   <?php echo $strOnchange ?>   <?php echo $strInputAttributes ?> title='Toggle on/off' name=" <?php echo $data['name'] ?>" value="true"  <?php echo ($isChecked)?' checked="checked"':'' ?> />
 			</td>
 		</tr>
 		<?php
@@ -2843,14 +2843,14 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 			}
 		}
 		?>
-		<tr valign="center" <?= $strAttributes ?> >
+		<tr valign="center"  <?php echo $strAttributes ?> >
 			<th >
-				<label title="<?= $data['title'] ?>" for="<?= $data['name'] ?>"><?= $data['label'] ?></label>
+				<label title=" <?php echo $data['title'] ?>" for=" <?php echo $data['name'] ?>"> <?php echo $data['label'] ?></label>
 			</th>
 			<td>
-				<input id="<?= $data['name'] ?>" title="<?= $data['title'] ?>" type="text" size="47" name="<?= $data['name'] ?>" value="<?php echo get_option($data['name']); ?>" />
-				<a title="Clear" class="agca_button clear" onClick="jQuery('#<?= $data['name'] ?>').val('');"><span class="dashicons clear dashicons-no-alt"></span></a><?= $suffix ?>
-				<?= $strHint ?>
+				<input id=" <?php echo $data['name'] ?>" title=" <?php echo $data['title'] ?>" type="text" size="47" name=" <?php echo $data['name'] ?>" value="<?php echo get_option($data['name']); ?>" />
+				<a title="Clear" class="agca_button clear" onClick="jQuery('# <?php echo $data['name'] ?>').val('');"><span class="dashicons clear dashicons-no-alt"></span></a> <?php echo $suffix ?>
+				 <?php echo $strHint ?>
 			</td>
 		</tr>
 		<?php
@@ -2866,11 +2866,11 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 		?>
 		<tr valign="center">
 			<th scope="row">
-				<label title="<?= $data['title'] ?>" for="<?= $data['name'] ?>"><?= $data['label'] ?></label>
+				<label title=" <?php echo $data['title'] ?>" for=" <?php echo $data['name'] ?>"> <?php echo $data['label'] ?></label>
 			</th>
 			<td>
-				<textarea title="<?= $data['title'] ?>" rows="5" name="<?= $data['name'] ?>" cols="40"><?php echo htmlspecialchars(get_option($data['name'])); ?></textarea>
-				<?= $strHint ?>
+				<textarea title=" <?php echo $data['title'] ?>" rows="5" name=" <?php echo $data['name'] ?>" cols="40"><?php echo htmlspecialchars(get_option($data['name'])); ?></textarea>
+				 <?php echo $strHint ?>
 			</td>
 		</tr>
 		<?php
@@ -2878,10 +2878,10 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 	function print_color($name, $label, $title){
 		?>
 		<tr valign="center" class="color">
-			<th><label title="<?= $title ?>" for="<?= $name ?>"><?= $label ?></label></th>
-			<td><input type="text" id="<?= $name ?>" name="<?= $name ?>" class="color_picker" value="<?php echo $this->getAGCAColor($name); ?>" />
-				<a title="Pick Color" alt="<?= $name ?>" class="pick_color_button agca_button"><span class="dashicons dashicons-art"></span></a>
-				<a title="Clear" alt="<?= $name ?>" class="pick_color_button_clear agca_button" ><span class="dashicons clear dashicons-no-alt"></span></a>
+			<th><label title=" <?php echo $title ?>" for=" <?php echo $name ?>"> <?php echo $label ?></label></th>
+			<td><input type="text" id=" <?php echo $name ?>" name=" <?php echo $name ?>" class="color_picker" value="<?php echo $this->getAGCAColor($name); ?>" />
+				<a title="Pick Color" alt=" <?php echo $name ?>" class="pick_color_button agca_button"><span class="dashicons dashicons-art"></span></a>
+				<a title="Clear" alt=" <?php echo $name ?>" class="pick_color_button_clear agca_button" ><span class="dashicons clear dashicons-no-alt"></span></a>
 			</td>
 		</tr>
 		<?php
@@ -2890,7 +2890,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 		?>
 		<tr valign="center">
 			<td colspan="2">
-				<div class="ag_table_heading"><h3 tabindex="0"><?= $title ?></h3></div>
+				<div class="ag_table_heading"><h3 tabindex="0"> <?php echo $title ?></h3></div>
 			</td>
 			<td></td>
 		</tr>
