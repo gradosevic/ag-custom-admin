@@ -155,8 +155,11 @@ If you have the latest WordPress and plugin versions and you still experience so
 
 == Change Log ==
 
+= 1.5.3.1 =
+* Fixed issue in PHP 5.3 when short PHP tags are not supported
+
 = 1.5.3 =
-* Fixed issue on PHP 5.3 when short PHP tags are not supported
+* Fixed issue in PHP 5.3
 
 = 1.5.2 =
 * Small UX improvements on options
@@ -460,8 +463,11 @@ If you have the latest WordPress and plugin versions and you still experience so
 
 == Upgrade Notice ==
 
+= 1.5.3.1 =
+* Fixed issue in PHP 5.3 when short PHP tags are not supported
+
 = 1.5.3 =
-* Fixed issue on PHP 5.3 when short PHP tags are not supported
+* Fixed issue in PHP 5.3
 
 = 1.5.2 =
 * Small UX improvements on options
