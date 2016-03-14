@@ -1493,6 +1493,7 @@ class AGCA{
 		$wpversion = $this->get_wp_version();	
 		$this->context = "admin";
 		$this->error_check();
+        $currentScreen = get_current_screen();
 		?>
 		<script type="text/javascript">
 			var wpversion = "<?php echo $wpversion; ?>";
@@ -1510,8 +1511,7 @@ class AGCA{
 		$this->prepareAGCAAdminTemplates();
 		$this->agca_get_includes();
 		$this->admin_capabilities();		
-		get_currentuserinfo() ;		
-				
+		get_currentuserinfo() ;
 	?>	
 <?php
 	//in case that javaScript is disabled only admin can access admin menu
@@ -1536,7 +1536,21 @@ if(isset($_POST['_agca_import_settings']) && $_POST['_agca_import_settings']=='t
 		.wp-has-current-submenu:after{border:none !important;}
 		#adminmenu li.wp-has-submenu.wp-not-current-submenu.opensub:hover:after{border:none !important;}
 	</style>										
-<?php } ?>
+<?php }
+
+        if($currentScreen->id == 'tools_page_ag-custom-admin/plugin'){
+            ?>
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) return;
+                    js = d.createElement(s); js.id = id;
+                    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=765552763482314";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));</script>
+            <?php
+        }
+        ?>
 <script type="text/javascript">
   /* <![CDATA[ */
 jQuery(document).ready(function() {
@@ -1989,6 +2003,9 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 		<?php //includes ?>
 		<div class="wrap">
 			<h1 id="agca-title">AG Custom Admin Settings <span style="font-size:15px;">(v<?php echo $this->agca_version; ?>)</span></h1>
+            <div id="agca-social" style="float:right; margin-top: -35px;">
+                <div class="fb-like" data-href="https://www.facebook.com/AG-Custom-Admin-892218404232342/timeline" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>
+            </div>
 			<div id="agca_error_placeholder"></div>
 										<div id="agca_news">&nbsp;</div><br />								
 			<form method="post" id="agca_form" action="options.php">
