@@ -155,6 +155,16 @@ If you have the latest WordPress and plugin versions and you still experience so
 
 == Change Log ==
 
+= 1.5.4 =
+* Patched security issues
+* Added support for custom CSS on public pages
+* Fixed appearance issus for custom admin bar icon and log out button on mobile devices and smaller screens
+* Fixed missing link issue with Back to blog link when custom name is used
+* Added AGCA social buttons
+* Fixed broken links in admin bar and plugins page on multisite network site
+* Removed php short tags that are not supported in older PHP versions
+* Updated license to GPLv3
+
 = 1.5.2 =
 * Small UX improvements on options
 
@@ -456,6 +466,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.5.4 =
+* Fixed several very important issues. Highly recommended upgrade.
 
 = 1.5.2 =
 * Small UX improvements on options
