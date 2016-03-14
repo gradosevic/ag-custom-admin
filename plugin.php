@@ -64,12 +64,12 @@ class AGCA{
         
         //TODO:upload images programmaticaly
 
-    }
-    // Add donate and support information
-    function jk_filter_plugin_links($links, $file)
-    {
-        if ( $file == plugin_basename(__FILE__) )
-        {
+	}
+	// Add donate and support information
+	function jk_filter_plugin_links($links, $file)
+	{
+		if ( $file == plugin_basename(__FILE__) )
+		{
             $base = '';
             if(is_network_admin()){
                 $base = '/wp-admin/';
@@ -77,44 +77,44 @@ class AGCA{
 
             $links[] = '<a href="'.$base.'tools.php?page=ag-custom-admin/plugin.php">' . __('Settings') . '</a>';
             $links[] = '<a href="'.$base.'tools.php?page=ag-custom-admin/plugin.php#ag-templates">' . __('Admin Themes') . '</a>';
-            $links[] = '<a href="http://wordpressadminpanel.com/agca-support/">' . __('Support') . '</a>';
+			$links[] = '<a href="http://wordpressadminpanel.com/agca-support/">' . __('Support') . '</a>';
             $links[] = '<a href="https://cusmin.com">' . __('Upgrade') . '</a>';
-            $links[] = '<a href="http://wordpressadminpanel.com/agca-support/support-for-future-development">' . __('Donate') . '</a>';
-        }
-        return $links;
-    }
-    
-    function change_admin_color(){
-        return 'default';
-    }
-    
-    function agca_customizer_php(){
-        $this->agca_get_includes();
-    }
-    
-    function agca_init_session(){
-        if (!session_id())
-        session_start();
-    }
-    
-    function checkGET(){
-        if(isset($_GET['agca_action'])){
-            if($_GET['agca_action'] =="remove_templates"){
-                $this->delete_template_images_all();
-                update_option('agca_templates', "");
-                update_option('agca_selected_template', "");
-            }
-        }
-        if(isset($_GET['agca_debug'])){
-            if($_GET['agca_debug'] =="true"){
-                $this->agca_debug = true;           
-            }else{
-                $this->agca_debug = false;          
-            }           
-        }
-    }
-    
-    function checkPOST(){
+			$links[] = '<a href="http://wordpressadminpanel.com/agca-support/support-for-future-development">' . __('Donate') . '</a>';
+		}
+		return $links;
+	}
+	
+	function change_admin_color(){
+		return 'default';
+	}
+	
+	function agca_customizer_php(){
+		$this->agca_get_includes();
+	}
+	
+	function agca_init_session(){
+		if (!session_id())
+		session_start();
+	}
+	
+	function checkGET(){
+		if(isset($_GET['agca_action'])){
+			if($_GET['agca_action'] =="remove_templates"){
+				$this->delete_template_images_all();
+				update_option('agca_templates', "");
+				update_option('agca_selected_template', "");
+			}
+		}
+		if(isset($_GET['agca_debug'])){
+			if($_GET['agca_debug'] =="true"){
+				$this->agca_debug = true;			
+			}else{
+				$this->agca_debug = false;			
+			}			
+		}
+	}
+	
+	function checkPOST(){
         $this->checkIfUserAdmin();
         if(isset($_POST['_agca_save_template'])){
           //print_r($_POST);                      
@@ -226,107 +226,108 @@ class AGCA{
             }
         }
     }
-    
-    function admin_bar_changes(){
-        if( current_user_can( 'manage_options' )){
-            global $wp_admin_bar;
+	
+	function admin_bar_changes(){
+		if( current_user_can( 'manage_options' )){
+			global $wp_admin_bar;
             $href = 'tools.php?page=ag-custom-admin/plugin.php#ag-templates';
             if(is_network_admin()){
                 $href = '/wp-admin/'.$href;
             }
-            $wp_admin_bar->add_menu( array(
-                'id'    => 'agca-admin-themes',
-                'title' => '<span class="ab-icon"></span>'.__( 'Admin Themes', 'agca-admin-themes' ),
-                'href'  => $href
-            ) );
-        }       
-    }
-    
-    function delete_template_images_all(){
-        $templates = get_option('agca_templates');          
-            if($templates != null && $templates != ""){
-                foreach($templates as $template){
-                    if($template != null && $template['images'] != null && $template['images'] != ""){
-                        //print_r($template['images']);
-                        $imgs = explode(',',$template['images']);
-                        foreach($imgs as $imageSrc){
-                            $this->delete_attachment_by_src($imageSrc);
-                        }
-                        //print_r($imgs);
-                    }
-                }           
-            }
-        //print_r($templates);
-    }
-    
-    function delete_template_images($template_name){
-        $templates = get_option('agca_templates');          
-            if($templates != null && $templates != ""){
-                $template = $templates[$template_name];
-                if($template != null && $template['images'] != null && $template['images'] != ""){
-                    //print_r($template['images']); exit;
-                    $imgs = explode(',',$template['images']);
-                    foreach($imgs as $imageSrc){
-                        $this->delete_attachment_by_src($imageSrc);
-                    }
-                    //print_r($imgs);
-                }
-            }
-        //print_r($templates);
-    }
-    
-    function delete_attachment_by_src ($image_src) {
-          global $wpdb;
-          $query = "SELECT ID FROM {$wpdb->posts} WHERE guid='$image_src'";
-          $id = $wpdb->get_var($query);
-          wp_delete_attachment( $id, $true );
-    }
-    
-    function get_installed_agca_templates(){
-        $templates = get_option( 'agca_templates' );
-        if($templates == "")return '[]';
-        $results = array();
-        foreach($templates as $key=>$val){
-            $results[]=$key;
-        }
-        return json_encode($results);       
-    }
-    
-    function isGuest(){
-        global $user_login;
-        if($user_login) {
-            return false;
-        }else{
-            return true;
-        }
-    }
-    function check_active_plugin(){
-        
-        $ozh = false;           
-            
-        if (is_plugin_active('ozh-admin-drop-down-menu/wp_ozh_adminmenu.php')) {        
-            $ozh = true;
-        }       
-        
-        $this->active_plugin = array(
-            "ozh" => $ozh
-        );
-    }
-    function change_title($admin_title, $title){        
-    //return get_bloginfo('name').' - '.$title;
-        if(get_option('agca_custom_title')!=""){
-            $blog = get_bloginfo('name');
-            $page = $title;
-            $customTitle = get_option('agca_custom_title');             
-            $customTitle = str_replace('%BLOG%',$blog,$customTitle);
-            $customTitle = str_replace('%PAGE%',$page,$customTitle);
-            return $customTitle;
-        }else{
-            return $admin_title;
-        }   
-    }
-    function agca_get_includes() {            
-            ?>      
+
+			$wp_admin_bar->add_menu( array(
+				'id'    => 'agca-admin-themes',
+				'title' => '<span class="ab-icon"></span>'.__( 'Admin Themes', 'agca-admin-themes' ),
+				'href'  => $href
+			) );
+		}		
+	}
+	
+	function delete_template_images_all(){
+		$templates = get_option('agca_templates');			
+			if($templates != null && $templates != ""){
+				foreach($templates as $template){
+					if($template != null && $template['images'] != null && $template['images'] != ""){
+						//print_r($template['images']);
+						$imgs = explode(',',$template['images']);
+						foreach($imgs as $imageSrc){
+							$this->delete_attachment_by_src($imageSrc);
+						}
+						//print_r($imgs);
+					}
+				}			
+			}
+		//print_r($templates);
+	}
+	
+	function delete_template_images($template_name){
+		$templates = get_option('agca_templates');			
+			if($templates != null && $templates != ""){
+				$template = $templates[$template_name];
+				if($template != null && $template['images'] != null && $template['images'] != ""){
+					//print_r($template['images']); exit;
+					$imgs = explode(',',$template['images']);
+					foreach($imgs as $imageSrc){
+						$this->delete_attachment_by_src($imageSrc);
+					}
+					//print_r($imgs);
+				}
+			}
+		//print_r($templates);
+	}
+	
+	function delete_attachment_by_src ($image_src) {
+		  global $wpdb;
+		  $query = "SELECT ID FROM {$wpdb->posts} WHERE guid='$image_src'";
+		  $id = $wpdb->get_var($query);
+		  wp_delete_attachment( $id, $true );
+	}
+	
+	function get_installed_agca_templates(){
+		$templates = get_option( 'agca_templates' );
+		if($templates == "")return '[]';
+		$results = array();
+		foreach($templates as $key=>$val){
+			$results[]=$key;
+		}
+		return json_encode($results);		
+	}
+	
+	function isGuest(){
+		global $user_login;
+		if($user_login) {
+			return false;
+		}else{
+			return true;
+		}
+	}
+	function check_active_plugin(){
+		
+		$ozh = false;			
+			
+		if (is_plugin_active('ozh-admin-drop-down-menu/wp_ozh_adminmenu.php')) {		
+			$ozh = true;
+		}		
+		
+		$this->active_plugin = array(
+			"ozh" => $ozh
+		);
+	}
+	function change_title($admin_title, $title){		
+	//return get_bloginfo('name').' - '.$title;
+		if(get_option('agca_custom_title')!=""){
+			$blog = get_bloginfo('name');
+			$page = $title;
+			$customTitle = get_option('agca_custom_title');				
+			$customTitle = str_replace('%BLOG%',$blog,$customTitle);
+			$customTitle = str_replace('%PAGE%',$page,$customTitle);
+			return $customTitle;
+		}else{
+			return $admin_title;
+		}	
+	}
+	function agca_get_includes() {            
+            ?>		
                         <script type="text/javascript">
                             <?php 
                                 //AGCA GLOBALS                            
@@ -1515,7 +1516,7 @@ class AGCA{
 			var agca_context = "admin";
 			var roundedSidberSize = 0;		
 			var agca_installed_templates = <?php echo $this->get_installed_agca_templates(); ?>;
-			var agca_admin_menu = <?= json_encode($this->get_menu_customizations()) ?>;
+			var agca_admin_menu = <?php echo json_encode($this->get_menu_customizations()) ?>;
 		</script>
 		<?php
 		$this->prepareAGCAAdminTemplates();
@@ -1523,7 +1524,6 @@ class AGCA{
 		$this->admin_capabilities();		
 		get_currentuserinfo() ;
 	?>	
->>>>>>> added fb social
 <?php
     //in case that javaScript is disabled only admin can access admin menu
     if(!current_user_can($this->admin_capability())){
@@ -2014,7 +2014,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 		<?php //includes ?>
 		<div class="wrap">
 			<h1 id="agca-title">AG Custom Admin Settings <span style="font-size:15px;">(v<?php echo $this->agca_version; ?>)</span></h1>
-            <div id="agca-social" style="float:right; margin-top: -35px;">
+            <div id="agca-social" style="float:right; margin-top: -23px;">
                 <div class="fb-like" data-href="https://www.facebook.com/AG-Custom-Admin-892218404232342/timeline" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>
             </div>
 			<div id="agca_error_placeholder"></div>
@@ -2824,127 +2824,126 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
         <?php
     }
 
-    #region PRIVATE METHODS
-    function print_checkbox($data){
-        $strAttributes = '';
-        $strOnchange = '';
-        $strInputClass='';
-        $strInputAttributes='';
-        $isChecked = false;
+	#region PRIVATE METHODS
+	function print_checkbox($data){
+		$strAttributes = '';
+		$strOnchange = '';
+		$strInputClass='';
+		$strInputAttributes='';
+		$isChecked = false;
 
-        if(isset($data['attributes'])){
-            foreach($data['attributes'] as $key=>$val){
-                $strAttributes.=' '.$key.'="'.$val.'"';
-            }
-        }
-        if(isset($data['input-class'])){
-            $strInputClass = $data['input-class'];
-        }
-        if(isset($data['hide'])){
-            $strInputClass .= " visibility";
-        }
-        if(isset($data['input-attributes'])){
-            $strInputAttributes = $data['input-attributes'];
-        }
-        if(isset($data['onchange'])){
-            $strOnchange = $data['onchange'];
-        }
-        if(!isset($data['title'])){
-            $data['title'] = $data['label'];
-        }
-        if(isset($data['checked'])){
-            $isChecked = $data['checked'];
-        }else{
-            //use default check with the option
-            $isChecked = get_option($data['name'])==true;
-        }
-        ?>
-        <tr valign="center" <?php echo $strAttributes ?> >
-            <th>
-                <label tabindex="0" title='<?php echo $data['title'] ?>' for="<?php echo $data['name'] ?>" ><?php echo $data['label'] ?></label>
-            </th>
-            <td>
-                <input type="checkbox" class="agca-checkbox <?php echo $strInputClass ?> "  <?php echo $strOnchange ?>  <?php echo $strInputAttributes ?> title='Toggle on/off' name="<?php echo $data['name'] ?>" value="true" <?php echo ($isChecked)?' checked="checked"':'' ?> />
-            </td>
-        </tr>
-        <?php
-    }
-    function print_input($data){
-        $strHint = '';
-        $suffix ='';
-        $strAttributes = '';
-        $parentAttr = '';
-        if(isset($data['hint'])){
-            $strHint = '&nbsp;<p><i>'.$data['hint'].'</i></p>';
-        }
-        if(!isset($data['title'])){
-            $data['title'] = $data['label'];
-        }
-        if(isset($data['suffix'])){
-            $suffix = $data['suffix'];
-        }
-        if(isset($data['attributes'])){
-            foreach($data['attributes'] as $key=>$val){
-                $strAttributes.=' '.$key.'="'.$val.'"';
-            }
-        }
-        ?>
-        <tr valign="center" <?php echo $strAttributes ?> >
-            <th >
-                <label title="<?php echo $data['title'] ?>" for="<?php echo $data['name'] ?>"><?php echo $data['label'] ?></label>
-            </th>
-            <td>
-                <input id="<?php echo $data['name'] ?>" title="<?php echo $data['title'] ?>" type="text" size="47" name="<?php echo $data['name'] ?>" value="<?php echo get_option($data['name']); ?>" />
-                <a title="Clear" class="agca_button clear" onClick="jQuery('#<?php echo $data['name'] ?>').val('');"><span class="dashicons clear dashicons-no-alt"></span></a><?php echo $suffix ?>
-                <?php echo $strHint ?>
-            </td>
-        </tr>
-        <?php
-    }
-    function print_textarea($data){
-        $strHint = '';
-        if(isset($data['hint'])){
-            $strHint = '&nbsp;<p><i>'.$data['hint'].'</i>.</p>';
-        }
-        if(!isset($data['title'])){
-            $data['title'] = $data['label'];
-        }
-        ?>
-        <tr valign="center">
-            <th scope="row">
-                <label title="<?php echo $data['title'] ?>" for="<?php echo $data['name'] ?>"><?php echo $data['label'] ?></label>
-            </th>
-            <td>
-                <textarea title="<?php echo $data['title'] ?>" rows="5" name="<?php echo $data['name'] ?>" cols="40"><?php echo htmlspecialchars(get_option($data['name'])); ?></textarea>
-                <?php echo $strHint ?>
-            </td>
-        </tr>
-        <?php
-    }
-    function print_color($name, $label, $title){
-        ?>
-        <tr valign="center" class="color">
-            <th><label title="<?php echo $title ?>" for="<?php echo $name ?>"><?php echo $label ?></label></th>
-            <td><input type="text" id="<?php echo $name ?>" name="<?php echo $name ?>" class="color_picker" value="<?php echo $this->getAGCAColor($name); ?>" />
-                <a title="Pick Color" alt="<?php echo $name ?>" class="pick_color_button agca_button"><span class="dashicons dashicons-art"></span></a>
-                <a title="Clear" alt="<?php echo $name ?>" class="pick_color_button_clear agca_button" ><span class="dashicons clear dashicons-no-alt"></span></a>
-            </td>
-        </tr>
-        <?php
-    }
-    function print_options_h3($title){
-        ?>
-        <tr valign="center">
-            <td colspan="2">
-                <div class="ag_table_heading"><h3 tabindex="0"><?php echo $title ?></h3></div>
-            </td>
-            <td></td>
-        </tr>
-        <?php
-    }
-    function print_option_tr(){ 
-        
-        ?>
+		if(isset($data['attributes'])){
+			foreach($data['attributes'] as $key=>$val){
+				$strAttributes.=' '.$key.'="'.$val.'"';
+			}
+		}
+		if(isset($data['input-class'])){
+			$strInputClass = $data['input-class'];
+		}
+		if(isset($data['hide'])){
+			$strInputClass .= " visibility";
+		}
+		if(isset($data['input-attributes'])){
+			$strInputAttributes = $data['input-attributes'];
+		}
+		if(isset($data['onchange'])){
+			$strOnchange = $data['onchange'];
+		}
+		if(!isset($data['title'])){
+			$data['title'] = $data['label'];
+		}
+		if(isset($data['checked'])){
+			$isChecked = $data['checked'];
+		}else{
+			//use default check with the option
+			$isChecked = get_option($data['name'])==true;
+		}
+		?>
+		<tr valign="center" <?php echo $strAttributes ?> >
+			<th>
+				<label tabindex="0" title='<?php echo $data['title'] ?>' for="<?php echo $data['name'] ?>" ><?php echo $data['label'] ?></label>
+			</th>
+			<td>
+				<input type="checkbox" class="agca-checkbox <?php echo $strInputClass ?> "  <?php echo $strOnchange ?>  <?php echo $strInputAttributes ?> title='Toggle on/off' name="<?php echo $data['name'] ?>" value="true" <?php echo ($isChecked)?' checked="checked"':'' ?> />
+			</td>
+		</tr>
+		<?php
+	}
+	function print_input($data){
+		$strHint = '';
+		$suffix ='';
+		$strAttributes = '';
+		$parentAttr = '';
+		if(isset($data['hint'])){
+			$strHint = '&nbsp;<p><i>'.$data['hint'].'</i></p>';
+		}
+		if(!isset($data['title'])){
+			$data['title'] = $data['label'];
+		}
+		if(isset($data['suffix'])){
+			$suffix = $data['suffix'];
+		}
+		if(isset($data['attributes'])){
+			foreach($data['attributes'] as $key=>$val){
+				$strAttributes.=' '.$key.'="'.$val.'"';
+			}
+		}
+		?>
+		<tr valign="center" <?php echo $strAttributes ?> >
+			<th >
+				<label title="<?php echo $data['title'] ?>" for="<?php echo $data['name'] ?>"><?php echo $data['label'] ?></label>
+			</th>
+			<td>
+				<input id="<?php echo $data['name'] ?>" title="<?php echo $data['title'] ?>" type="text" size="47" name="<?php echo $data['name'] ?>" value="<?php echo get_option($data['name']); ?>" />
+				<a title="Clear" class="agca_button clear" onClick="jQuery('#<?php echo $data['name'] ?>').val('');"><span class="dashicons clear dashicons-no-alt"></span></a><?php echo $suffix ?>
+				<?php echo $strHint ?>
+			</td>
+		</tr>
+		<?php
+	}
+	function print_textarea($data){
+		$strHint = '';
+		if(isset($data['hint'])){
+			$strHint = '&nbsp;<p><i>'.$data['hint'].'</i>.</p>';
+		}
+		if(!isset($data['title'])){
+			$data['title'] = $data['label'];
+		}
+		?>
+		<tr valign="center">
+			<th scope="row">
+				<label title="<?php echo $data['title'] ?>" for="<?php echo $data['name'] ?>"><?php echo $data['label'] ?></label>
+			</th>
+			<td>
+				<textarea title="<?php echo $data['title'] ?>" rows="5" name="<?php echo $data['name'] ?>" cols="40"><?php echo htmlspecialchars(get_option($data['name'])); ?></textarea>
+				<?php echo $strHint ?>
+			</td>
+		</tr>
+		<?php
+	}
+	function print_color($name, $label, $title){
+		?>
+		<tr valign="center" class="color">
+			<th><label title="<?php echo $title ?>" for="<?php echo $name ?>"><?php echo $label ?></label></th>
+			<td><input type="text" id="<?php echo $name ?>" name="<?php echo $name ?>" class="color_picker" value="<?php echo $this->getAGCAColor($name); ?>" />
+				<a title="Pick Color" alt="<?php echo $name ?>" class="pick_color_button agca_button"><span class="dashicons dashicons-art"></span></a>
+				<a title="Clear" alt="<?php echo $name ?>" class="pick_color_button_clear agca_button" ><span class="dashicons clear dashicons-no-alt"></span></a>
+			</td>
+		</tr>
+		<?php
+	}
+	function print_options_h3($title){
+		?>
+		<tr valign="center">
+			<td colspan="2">
+				<div class="ag_table_heading"><h3 tabindex="0"><?php echo $title ?></h3></div>
+			</td>
+			<td></td>
+		</tr>
+		<?php
+	}
+	function print_option_tr(){
+		?>
 
         <tr valign="center">
             <th><label title="Change submenu item background color" for="color_admin_menu_submenu_background">Submenu button background color:</label></th>
