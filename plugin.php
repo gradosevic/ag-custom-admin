@@ -4,10 +4,10 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: WAP
-Version: 1.5.2
+Version: 1.5.4
 Author URI: http://www.wordpressadminpanel.com/
 
-	Copyright 2015. WAP (email : info@wordpressadminpanel.com)
+	Copyright 2016. WAP (email : info@wordpressadminpanel.com)
  
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -60,9 +60,9 @@ class AGCA{
 		/*Initialize properties*/		
 		$this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
               
-		$this->agca_version = "1.5.2";
+		$this->agca_version = "1.5.4";
 		
-		//TODO:upload images programmatically
+		//TODO:upload images programmaticaly
 
 	}
 	// Add donate and support information
@@ -109,7 +109,7 @@ class AGCA{
 	}
 	
 	function checkPOST(){
-	
+        $this->checkIfUserAdmin();
 		if(isset($_POST['_agca_save_template'])){
 		  //print_r($_POST);					  
 		  $data = $_POST['templates_data'];
@@ -207,6 +207,19 @@ class AGCA{
 			exit;
 		}
 	}
+
+    function checkIfUserAdmin(){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if(!is_admin()){
+                exit;
+            }
+
+            include_once(ABSPATH . 'wp-includes/pluggable.php');
+            if(!is_user_logged_in() || !current_user_can( 'manage_options' )){
+                exit;
+            }
+        }
+    }
 	
 	function admin_bar_changes(){
 		if( current_user_can( 'manage_options' )){
@@ -457,7 +470,7 @@ class AGCA{
              
                 
                 if(!empty($_POST)){
-                 // fb($_POST);
+                    $this->checkIfUserAdmin();
                     if(isset($_POST['_agca_import_settings']) && $_POST['_agca_import_settings']=="true"){                            
                             if(isset($_FILES) && isset($_FILES['settings_import_file']) ){
                                 if($_FILES["settings_import_file"]["error"] > 0){                                      
@@ -778,6 +791,9 @@ class AGCA{
 	if($this->isGuest() && get_option('agca_admin_bar_frontend_hide')){
 		return false;
 	}
+    if(!$this->isGuest()){
+        ?><style type="text/css"><?php echo get_option('agca_custom_css'); ?></style><?php
+    }
 	
 	if(get_option('agca_admin_bar_frontend_hide')==true){
 		add_filter( 'show_admin_bar', '__return_false' );
@@ -927,7 +943,8 @@ class AGCA{
                                          jQuery("li#wp-admin-bar-wp-logo a.ab-item span.ab-icon").css('width','auto');										 									 
                                          jQuery("li#wp-admin-bar-wp-logo a.ab-item").attr('href',"<?php echo get_bloginfo('wpurl'); ?>");                                       
                                          jQuery("#wpadminbar #wp-admin-bar-root-default > #wp-admin-bar-wp-logo .ab-item:before").attr('title','');    
-										 jQuery('body #wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon').attr('class','ab-icon2');	
+										 jQuery('body #wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon').attr('class','ab-icon2');
+                                         jQuery("#wp-admin-bar-wp-logo").show();
                 <?php }?>
 				<?php if(get_option('agca_remove_site_link')==true){ ?>
                                 jQuery("#wp-admin-bar-site-name").css("display","none");							                            
@@ -1000,7 +1017,9 @@ class AGCA{
                     <?php } ?>						
                     <?php if(get_option('agca_logout_only')==true){ ?>	                                    
 								var logout_content = jQuery("li#wp-admin-bar-logout").html();
-								jQuery("ul#wp-admin-bar-top-secondary").html('<li id="wp-admin-bar-logout">'+ logout_content +'</li>');
+								jQuery("ul#wp-admin-bar-top-secondary").html('<li id="wp-admin-bar-logout" style="display:block;">'+ logout_content +'</li>');
+                                jQuery("#wp-admin-bar-logout a").css('padding','0 8px');
+
                                     						
                     <?php } ?>
                 
@@ -1853,7 +1872,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 							jQuery("#backtoblog").css("display","none");
 					<?php } ?>	
 					<?php if(get_option('agca_login_banner_text')==true){ ?>
-							jQuery("#backtoblog").html('<?php echo addslashes(get_option('agca_login_banner_text')); ?>');
+							jQuery("#backtoblog a").html('<?php echo "← " . addslashes(get_option('agca_login_banner_text')); ?>');
 					<?php } ?>
 					<?php if(get_option('agca_login_photo_url')==true && get_option('agca_login_photo_remove')!=true){ ?>
 							advanced_url = "<?php echo get_option('agca_login_photo_url'); ?>";
@@ -2016,7 +2035,7 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 						$this->print_checkbox(array(
 							'name'=>'agca_role_allbutadmin',
 							'label'=>'Exclude AGCA admin from customizations',
-							'title'=>'<h3>Applying customizations</h3><br><strong>Checked</strong> - apply to all users, except admin<br><strong>Not checked</strong> - apply to everyone</br></br><strong>Q</strong>: Who is AGCA administrator?</br><strong>A</strong>: Go to <i>Advanced</i> tab and change capability option to define administrators. Only the users with selected capability will be AGCA administrators.</br>'
+							'title'=>'<h3>Applying customizations</h3><br><strong>Checked</strong> - apply to all users, except admin<br><strong>Not checked</strong> - apply to everyone</br></br><strong>Q</strong>: Who is AGCA administrator?</br><strong>A</strong>: Go to <i>General -> Security -> AGCA admin capability</i> and change capability option to define administrators. Only the users with selected capability will be AGCA administrators.</br>'
 						));
 
 						$this->print_options_h3('Pages');
@@ -2441,11 +2460,10 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
 									'label'=>'Back to blog text'
 								));
 
-								$this->print_textarea(array(
+								$this->print_input(array(
 									'name'=>'agca_login_banner_text',
 									'title'=>"Changes '<- Back to ...' text in top bar on Login page",
-									'label'=>'Change back to blog text',
-									'hint'=>'Should be wrapped with an anchor tag &lt;a&gt;&lt;/a&gt;'
+									'label'=>'Change back to blog text'
 								));
 
 								$this->print_input(array(
