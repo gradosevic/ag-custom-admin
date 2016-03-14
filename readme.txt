@@ -467,7 +467,6 @@ If you have the latest WordPress and plugin versions and you still experience so
 
 == Upgrade Notice ==
 
-
 = 1.5.4 =
 * Fixed several very important issues. Highly recommended upgrade.
 
