@@ -70,13 +70,10 @@ class AGCA{
     {
         if ( $file == plugin_basename(__FILE__) )
         {
-            $base = '';
-            if(is_network_admin()){
-                $base = '/wp-admin/';
+            if(!is_network_admin()){
+                $links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php">' . __('Settings') . '</a>';
+                $links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php#ag-templates">' . __('Admin Themes') . '</a>';
             }
-
-            $links[] = '<a href="'.$base.'tools.php?page=ag-custom-admin/plugin.php">' . __('Settings') . '</a>';
-            $links[] = '<a href="'.$base.'tools.php?page=ag-custom-admin/plugin.php#ag-templates">' . __('Admin Themes') . '</a>';
             $links[] = '<a href="http://wordpressadminpanel.com/agca-support/">' . __('Support') . '</a>';
             $links[] = '<a href="https://cusmin.com">' . __('Upgrade') . '</a>';
             $links[] = '<a href="http://wordpressadminpanel.com/agca-support/support-for-future-development">' . __('Donate') . '</a>';
@@ -230,15 +227,13 @@ class AGCA{
     function admin_bar_changes(){
         if( current_user_can( 'manage_options' )){
             global $wp_admin_bar;
-            $href = 'tools.php?page=ag-custom-admin/plugin.php#ag-templates';
-            if(is_network_admin()){
-                $href = '/wp-admin/'.$href;
+            if(!is_network_admin()){
+                $wp_admin_bar->add_menu( array(
+                    'id'    => 'agca-admin-themes',
+                    'title' => '<span class="ab-icon"></span>'.__( 'Admin Themes', 'agca-admin-themes' ),
+                    'href'  => 'tools.php?page=ag-custom-admin/plugin.php#ag-templates'
+                ));
             }
-            $wp_admin_bar->add_menu( array(
-                'id'    => 'agca-admin-themes',
-                'title' => '<span class="ab-icon"></span>'.__( 'Admin Themes', 'agca-admin-themes' ),
-                'href'  => $href
-            ) );
         }       
     }
     
