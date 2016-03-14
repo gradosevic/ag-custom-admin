@@ -4,7 +4,7 @@ Donate link: http://wordpressadminpanel.com/ag-custom-admin/
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
 Tested up to: 4.4.2
-Stable tag: 1.5.4
+Stable tag: 1.5.4.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
  
@@ -154,6 +154,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 9. Army - commercial theme.
 
 == Change Log ==
+
+= 1.5.4.1 =
+* Fixed new post blank page issue
 
 = 1.5.4 =
 * Patched security issues
@@ -466,6 +469,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.5.4.1 =
+* Fixed new post blank page issue.
 
 = 1.5.4 =
 * Fixed several very important issues. Highly recommended upgrade.

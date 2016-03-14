@@ -112,8 +112,8 @@ class AGCA{
     }
     
     function checkPOST(){
-        $this->checkIfUserAdmin();
         if(isset($_POST['_agca_save_template'])){
+          $this->checkIfUserAdmin();
           //print_r($_POST);                      
           $data = $_POST['templates_data'];
           $parts = explode("|||",$data);
@@ -150,7 +150,8 @@ class AGCA{
             
             $_POST = array();
             
-        }else if(isset($_POST['_agca_templates_session'])){         
+        }else if(isset($_POST['_agca_templates_session'])){    
+            $this->checkIfUserAdmin();     
             $this->agcaAdminSession();
             if($_POST['template'] !="")
                 $_SESSION["AGCA"]["Templates"][$_POST['template']] = array("license"=>$_POST['license']);           
@@ -158,7 +159,8 @@ class AGCA{
             print_r($_SESSION);
             echo "_agca_templates_session:OK";
             exit;
-        }else if(isset($_POST['_agca_templates_session_remove_license'])){          
+        }else if(isset($_POST['_agca_templates_session_remove_license'])){  
+            $this->checkIfUserAdmin();        
             $this->agcaAdminSession();
             if($_POST['template'] !="")
                 $_SESSION["AGCA"]["Templates"][$_POST['template']] = null;                      
@@ -166,6 +168,7 @@ class AGCA{
             echo "_agca_templates_session_remove_license:OK";
             exit;
         }else if(isset($_POST['_agca_get_templates'])){
+            $this->checkIfUserAdmin();
             $templates = get_option( 'agca_templates' );
             if($templates == "") $templates = array();  
             $results = array();
@@ -175,11 +178,13 @@ class AGCA{
             echo json_encode($results);
             exit;
         }else if(isset($_POST['_agca_activate_template'])){
+            $this->checkIfUserAdmin();
             update_option('agca_selected_template', $_POST['_agca_activate_template']);
             $_POST = array();
             //unset($_POST);
             exit;
         }else if(isset($_POST['_agca_template_settings'])){
+            $this->checkIfUserAdmin();
             $settings = $_POST['_agca_template_settings'];
             
             $templates = get_option( 'agca_templates' );            
@@ -194,7 +199,8 @@ class AGCA{
             $_POST = array();           
             //print_r($templates);
             exit;
-        }else if(isset($_POST['_agca_upload_image'])){      
+        }else if(isset($_POST['_agca_upload_image'])){  
+            $this->checkIfUserAdmin();    
             function my_sideload_image() {
                 $remoteurl = $_POST['_agca_upload_image'];          
                 $file = media_sideload_image( $remoteurl, 0 ,"AG Custom Admin Template Image (do not delete)"); 
@@ -205,7 +211,8 @@ class AGCA{
             }
             add_action( 'admin_init', 'my_sideload_image' );
         
-        }else if(isset($_POST['_agca_remove_template_images'])){        
+        }else if(isset($_POST['_agca_remove_template_images'])){   
+            $this->checkIfUserAdmin();     
             $this->delete_template_images($_POST['_agca_remove_template_images']);          
             exit;
         }
@@ -475,8 +482,8 @@ class AGCA{
              
                 
                 if(!empty($_POST)){
-                    $this->checkIfUserAdmin();
-                    if(isset($_POST['_agca_import_settings']) && $_POST['_agca_import_settings']=="true"){                            
+                    if(isset($_POST['_agca_import_settings']) && $_POST['_agca_import_settings']=="true"){  
+                        $this->checkIfUserAdmin();                          
                             if(isset($_FILES) && isset($_FILES['settings_import_file']) ){
                                 if($_FILES["settings_import_file"]["error"] > 0){                                      
                                 }else{                                     
@@ -495,6 +502,7 @@ class AGCA{
                                 }                                
                             }
                     }else if(isset($_POST['_agca_export_settings']) && $_POST['_agca_export_settings']=="true"){
+                            $this->checkIfUserAdmin();
                             $this->exportSettings();  
                     }    
                 }
