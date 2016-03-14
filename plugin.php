@@ -32,14 +32,14 @@ class AGCA{
     private $agca_debug = false;    
     private $admin_capabilities;        
     private $context = "";
-    private $saveAfterImport = false;   
-    private $templateCustomizations = "";
-    private $templates_ep = "http://wordpressadminpanel.com/configuration.php"; 
-    public function __construct()
-    {                           
-        $this->reloadScript();      
-        $this->checkPOST();
-        $this->checkGET();
+    private $saveAfterImport = false;	
+	private $templateCustomizations = "";
+	private $templates_ep = "http://wordpressadminpanel.com/configuration.php";	
+	public function __construct()
+	{   	        			
+        $this->reloadScript();		
+		$this->checkPOST();
+		$this->checkGET();
             
         if(function_exists("add_filter")){
             add_filter('admin_title', array(&$this,'change_title'), 10, 2);
