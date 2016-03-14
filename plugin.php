@@ -39,7 +39,7 @@ class AGCA{
 	{   	        			
         $this->reloadScript();		
 		$this->checkPOST();
-		$this->checkGET();		
+		$this->checkGET();
             
 		if(function_exists("add_filter")){
 			add_filter('admin_title', array(&$this,'change_title'), 10, 2);
