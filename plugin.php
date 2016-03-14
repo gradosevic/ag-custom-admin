@@ -1281,248 +1281,249 @@ class AGCA{
             <?php
         }
 
-    function menu_item_cleartext($name){
-        if(strpos($name,' <span') !== false){
-            $parts = explode(' <span', $name);
-            $name = $parts[0];
-        }
-        $name = trim($name);
-        return $name;
-    }
+	function menu_item_cleartext($name){
+		if(strpos($name,' <span') !== false){
+			$parts = explode(' <span', $name);
+			$name = $parts[0];
+		}
+		$name = trim($name);
+		return $name;
+	}
 
-    /**
-     * Loops through all original menu items, and creates customizations array
-     * applies previous customizations if set
-     * @return array|mixed|object
-     */
-    function get_menu_customizations(){
-        global $menu;
-        global $submenu;
+	/**
+	 * Loops through all original menu items, and creates customizations array
+	 * applies previous customizations if set
+	 * @return array|mixed|object
+	 */
+	function get_menu_customizations(){
+		global $menu;
+		global $submenu;
 
-        //var_dump($menu); die;
-        $previousCustomizations = json_decode(get_option('ag_edit_adminmenu_json_new'), true);
+		//var_dump($menu); die;
+		$previousCustomizations = json_decode(get_option('ag_edit_adminmenu_json_new'), true);
 
-        $customizationsSet = true;
-        if($previousCustomizations == null){
-            $customizationsSet = false;
-        }
+		$customizationsSet = true;
+		if($previousCustomizations == null){
+			$customizationsSet = false;
+		}
 
-        //set default menu configuration
-        //and apply previously saved customizations
-        $m = array();
-        foreach($menu as $top){
-            $name = $top[0];
-            $url = $top[2];
-            $cls = isset($top[5])?$top[5]:"";
-            $remove = false;
-            if($name == '') continue;
-            $pc = null;
-            $name = $this->menu_item_cleartext($name);
+		//set default menu configuration
+		//and apply previously saved customizations
+		$m = array();
+		foreach($menu as $top){
+			$name = $top[0];
+			$url = $top[2];
+			$cls = isset($top[5])?$top[5]:"";
+			$remove = false;
+			if($name == '') continue;
+			$pc = null;
+			$name = $this->menu_item_cleartext($name);
 
-            //apply previous submenu customizations
-            if($customizationsSet){
-                $pc = $previousCustomizations[$url];
-            }
+			//apply previous submenu customizations
+			if($customizationsSet){
+				$pc = $previousCustomizations[$url];
+			}
 
-            //get submenu
-            $s = array();
-            if(isset($submenu[$url])){
-                $sitems = $submenu[$url];
-                foreach($sitems as $key=>$sub){
-                    $nameSub = $sub[0];
-                    $urlSub = $sub[2];
-                    $removeSub = false;
-                    $nameSub = $this->menu_item_cleartext($nameSub);
-                    $s[$key]=array(
-                        'name'=>$nameSub,
-                        'new'=>'',
-                        'remove'=>$removeSub,
-                        'url'=>$urlSub
-                    );
+			//get submenu
+			$s = array();
+			if(isset($submenu[$url])){
+				$sitems = $submenu[$url];
+				foreach($sitems as $key=>$sub){
+					$nameSub = $sub[0];
+					$urlSub = $sub[2];
+					$removeSub = false;
+					$nameSub = $this->menu_item_cleartext($nameSub);
+					$s[$key]=array(
+						'name'=>$nameSub,
+						'new'=>'',
+						'remove'=>$removeSub,
+						'url'=>$urlSub
+					);
 
-                    if(isset($pc) && isset($pc['submenus'])){
-                        $s[$key]['new'] = $pc['submenus'][$key]['new'];
-                        $s[$key]['remove'] = $pc['submenus'][$key]['remove'];
+					if(isset($pc) && isset($pc['submenus'])){
+						$s[$key]['new'] = $pc['submenus'][$key]['new'];
+						$s[$key]['remove'] = $pc['submenus'][$key]['remove'];
 
-                        if($s[$key]['new'] == null){
-                            $s[$key]['new'] = '';
-                        }
-                        if($s[$key]['remove'] == null){
-                            $s[$key]['remove'] = false;
-                        }
-                    }
-                }
-            }
+						if($s[$key]['new'] == null){
+							$s[$key]['new'] = '';
+						}
+						if($s[$key]['remove'] == null){
+							$s[$key]['remove'] = false;
+						}
+					}
+				}
+			}
 
-            $m[$url]=array(
-                'name'=>$name,
-                'remove'=>$remove,
-                'new'=>'',
-                'url'=>$url,
-                'cls'=>$cls,
-                'submenus'=>$s
-            );
+			$m[$url]=array(
+				'name'=>$name,
+				'remove'=>$remove,
+				'new'=>'',
+				'url'=>$url,
+				'cls'=>$cls,
+				'submenus'=>$s
+			);
 
-            //apply previous top menu customizations
-            if($customizationsSet){
-                $pc = $previousCustomizations[$url];
-                if(isset($pc)){
-                    $m[$url]['remove'] = $pc['remove'];
-                    $m[$url]['new'] = $pc['new'];
-                }
-            }
-        }
-        return $m;
-    }
+			//apply previous top menu customizations
+			if($customizationsSet){
+				$pc = $previousCustomizations[$url];
+				if(isset($pc)){
+					$m[$url]['remove'] = $pc['remove'];
+					$m[$url]['new'] = $pc['new'];
+				}
+			}
+		}
+		return $m;
+	}
 
-    /**
-     * Applies customizations to admin menu
-     */
-    function customized_menu(){
-        $customizations = $this->get_menu_customizations();
-        global $menu;
-        global $submenu;
+	/**
+	 * Applies customizations to admin menu
+	 */
+	function customized_menu(){
+		$customizations = $this->get_menu_customizations();
+		global $menu;
+		global $submenu;
 
-        //print_r($submenu);die;
-        //apply customizations to original admin menu
-        foreach($menu as $key=>$top){
-            $url = $top[2];
-            if(isset($customizations[$url])){
-                $topCustomized = $customizations[$url];
-                if($topCustomized['new']) {
-                    $menu[$key][0] = $topCustomized['new'];
-                }
-                if($topCustomized['remove']){
-                    unset($menu[$key]);
-                }
-            }
-        }
-        foreach($submenu as $topkey=>$subs){
-            foreach($subs as $subkey=>$sub){
-                if(isset($customizations[$topkey]['submenus'][$subkey])){
-                    $cs = $customizations[$topkey]['submenus'][$subkey];
-                    if($cs['new']) {
-                        $submenu[$topkey][$subkey][0] = preg_replace("/".$cs['name']."/",$cs['new'], $submenu[$topkey][$subkey][0],1);
-                    }
-                    if($cs['remove']){
-                        unset($submenu[$topkey][$subkey]);
-                    }
-                }
-            }
-        }
-    }
+		//print_r($submenu);die;
+		//apply customizations to original admin menu
+		foreach($menu as $key=>$top){
+			$url = $top[2];
+			if(isset($customizations[$url])){
+				$topCustomized = $customizations[$url];
+				if($topCustomized['new']) {
+					$menu[$key][0] = $topCustomized['new'];
+				}
+				if($topCustomized['remove']){
+					unset($menu[$key]);
+				}
+			}
+		}
+		foreach($submenu as $topkey=>$subs){
+			foreach($subs as $subkey=>$sub){
+				if(isset($customizations[$topkey]['submenus'][$subkey])){
+					$cs = $customizations[$topkey]['submenus'][$subkey];
+					if($cs['new']) {
+						$submenu[$topkey][$subkey][0] = preg_replace("/".$cs['name']."/",$cs['new'], $submenu[$topkey][$subkey][0],1);
+					}
+					if($cs['remove']){
+						unset($submenu[$topkey][$subkey]);
+					}
+				}
+			}
+		}
+	}
 
-    /**
-     * Used only for removing admin menu customizations to AGCA 1.5 version or later
-     * @param $checkboxes
-     * @param $textboxes
-     */
-    function migrate_menu_customizations($checkboxes, $textboxes){
-        $customizations = $this->get_menu_customizations();
-        global $menu;
-        /*print_r($menu);
-        print_r($customizations);
-        print_r($textboxes);*/
+	/**
+	 * Used only for removing admin menu customizations to AGCA 1.5 version or later
+	 * @param $checkboxes
+	 * @param $textboxes
+	 */
+	function migrate_menu_customizations($checkboxes, $textboxes){
+		$customizations = $this->get_menu_customizations();
+		global $menu;
+		/*print_r($menu);
+		print_r($customizations);
+		print_r($textboxes);*/
 
-        $oldTopValue = "";
+		$oldTopValue = "";
 
 
-        //Migrate checkboxes
-        foreach($checkboxes as $key=>$value){
-            $isTop = false;
-            $oldSubValue = "";
-            if (strpos($key,'<-TOP->') !== false) {
-                $oldTopValue = str_replace('<-TOP->','',$key);
-                $isTop = true;
-            }else{
-                $oldSubValue = $key;
-            }
-            if($value == 'checked'){
-                $topIndex = "";
-                foreach($customizations as $k=>$c){
-                    if($c['cls'] == $oldTopValue){
-                        $topIndex = $k;
-                        break;
-                    }
-                }
-                if($topIndex == "") continue;
-                if($isTop){
-                    $customizations[$topIndex]['remove'] = true;
-                }else{
-                    if(is_array($customizations[$topIndex]['submenus'])){
-                        foreach($customizations[$topIndex]['submenus'] as $skey=>$sval){
-                            if($sval['name'] == $oldSubValue){
-                                $customizations[$topIndex]['submenus'][$skey]['remove'] = true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+		//Migrate checkboxes
+		foreach($checkboxes as $key=>$value){
+			$isTop = false;
+			$oldSubValue = "";
+			if (strpos($key,'<-TOP->') !== false) {
+				$oldTopValue = str_replace('<-TOP->','',$key);
+				$isTop = true;
+			}else{
+				$oldSubValue = $key;
+			}
+			if($value == 'checked'){
+				$topIndex = "";
+				foreach($customizations as $k=>$c){
+					if($c['cls'] == $oldTopValue){
+						$topIndex = $k;
+						break;
+					}
+				}
+				if($topIndex == "") continue;
+				if($isTop){
+					$customizations[$topIndex]['remove'] = true;
+				}else{
+					if(is_array($customizations[$topIndex]['submenus'])){
+						foreach($customizations[$topIndex]['submenus'] as $skey=>$sval){
+							if($sval['name'] == $oldSubValue){
+								$customizations[$topIndex]['submenus'][$skey]['remove'] = true;
+							}
+						}
+					}
+				}
+			}
+		}
 
-        //Migrate textboxes
-        foreach($textboxes as $key=>$value){
-            $isTop = false;
-            $oldSubValue = "";
-            if (strpos($key,'<-TOP->') !== false) {
-                $oldTopValue = str_replace('<-TOP->','',$key);
-                $isTop = true;
-            }else{
-                $oldSubValue = $key;
-            }
-            if($value != ''){
-                $topIndex = "";
-                foreach($customizations as $k=>$c){
-                    if($c['cls'] == $oldTopValue){
-                        $topIndex = $k;
-                        break;
-                    }
-                }
-                if($topIndex == "") continue;
-                if($isTop){
-                    $customizations[$topIndex]['new'] = $value;
-                }else{
-                    if(is_array($customizations[$topIndex]['submenus'])){
-                        foreach($customizations[$topIndex]['submenus'] as $skey=>$sval){
-                            if($sval['name'] == $oldSubValue){
-                                if($customizations[$topIndex]['submenus'][$skey]['name'] != $value){
-                                    $customizations[$topIndex]['submenus'][$skey]['new'] = $value;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        update_option('ag_edit_adminmenu_json','');//remove previous admin menu configuration
-        update_option('ag_edit_adminmenu_json_new',json_encode($customizations));
-    }
-    function print_admin_css()
-    {   
-        $agcaTemplateSession = $this->agcaAdminSession();
-        $wpversion = $this->get_wp_version();   
-        $this->context = "admin";
-        $this->error_check();
+		//Migrate textboxes
+		foreach($textboxes as $key=>$value){
+			$isTop = false;
+			$oldSubValue = "";
+			if (strpos($key,'<-TOP->') !== false) {
+				$oldTopValue = str_replace('<-TOP->','',$key);
+				$isTop = true;
+			}else{
+				$oldSubValue = $key;
+			}
+			if($value != ''){
+				$topIndex = "";
+				foreach($customizations as $k=>$c){
+					if($c['cls'] == $oldTopValue){
+						$topIndex = $k;
+						break;
+					}
+				}
+				if($topIndex == "") continue;
+				if($isTop){
+					$customizations[$topIndex]['new'] = $value;
+				}else{
+					if(is_array($customizations[$topIndex]['submenus'])){
+						foreach($customizations[$topIndex]['submenus'] as $skey=>$sval){
+							if($sval['name'] == $oldSubValue){
+								if($customizations[$topIndex]['submenus'][$skey]['name'] != $value){
+									$customizations[$topIndex]['submenus'][$skey]['new'] = $value;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		update_option('ag_edit_adminmenu_json','');//remove previous admin menu configuration
+		update_option('ag_edit_adminmenu_json_new',json_encode($customizations));
+	}
+	function print_admin_css()
+	{	
+		$agcaTemplateSession = $this->agcaAdminSession();
+		$wpversion = $this->get_wp_version();	
+		$this->context = "admin";
+		$this->error_check();
         $currentScreen = get_current_screen();
-        ?>
-        <script type="text/javascript">
-            var wpversion = "<?php echo $wpversion; ?>";
-            var agca_debug = <?php echo ($this->agca_debug)?"true":"false"; ?>;
-            var agca_version = "<?php echo $this->agca_version; ?>";
-            var agcaTemplatesSession = <?php echo ($agcaTemplateSession==null)?"[]":$agcaTemplateSession; ?>;
-            var errors = false;
-            var isSettingsImport = false;
-            var agca_context = "admin";
-            var roundedSidberSize = 0;      
-            var agca_installed_templates = <?php echo $this->get_installed_agca_templates(); ?>;
-            var agca_admin_menu = <?php echo json_encode($this->get_menu_customizations()) ?>;
-        </script>
-        <?php
-        $this->prepareAGCAAdminTemplates();
-        $this->agca_get_includes();
-        $this->admin_capabilities();        
-        get_currentuserinfo() ;
-    ?>  
+		?>
+		<script type="text/javascript">
+			var wpversion = "<?php echo $wpversion; ?>";
+			var agca_debug = <?php echo ($this->agca_debug)?"true":"false"; ?>;
+			var agca_version = "<?php echo $this->agca_version; ?>";
+			var agcaTemplatesSession = <?php echo ($agcaTemplateSession==null)?"[]":$agcaTemplateSession; ?>;
+			var errors = false;
+			var isSettingsImport = false;
+			var agca_context = "admin";
+			var roundedSidberSize = 0;		
+			var agca_installed_templates = <?php echo $this->get_installed_agca_templates(); ?>;
+			var agca_admin_menu = <?= json_encode($this->get_menu_customizations()) ?>;
+		</script>
+		<?php
+		$this->prepareAGCAAdminTemplates();
+		$this->agca_get_includes();
+		$this->admin_capabilities();		
+		get_currentuserinfo() ;
+	?>	
+>>>>>>> added fb social
 <?php
     //in case that javaScript is disabled only admin can access admin menu
     if(!current_user_can($this->admin_capability())){
@@ -1541,11 +1542,11 @@ if(isset($_POST['_agca_import_settings']) && $_POST['_agca_import_settings']=='t
 }
 ?>    
 </script>
-<?php if(get_option('agca_admin_menu_arrow') == true){ ?>                                           
-    <style type="text/css">
-        .wp-has-current-submenu:after{border:none !important;}
-        #adminmenu li.wp-has-submenu.wp-not-current-submenu.opensub:hover:after{border:none !important;}
-    </style>                                        
+<?php if(get_option('agca_admin_menu_arrow') == true){ ?>											
+	<style type="text/css">
+		.wp-has-current-submenu:after{border:none !important;}
+		#adminmenu li.wp-has-submenu.wp-not-current-submenu.opensub:hover:after{border:none !important;}
+	</style>										
 <?php }
 
         if($currentScreen->id == 'tools_page_ag-custom-admin/plugin'){
@@ -2009,17 +2010,17 @@ jQuery('#ag_add_adminmenu').append(buttonsJq);
              var templates_ep = "<?php echo $this->templates_ep; ?>"; 
              var template_selected = '<?php echo get_option('agca_selected_template'); ?>';          
             </script>
-            <script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/agca_tmpl.js?ver=<?php echo $wpversion; ?>"></script>                                        
-        <?php //includes ?>
-        <div class="wrap">
-            <h1 id="agca-title">AG Custom Admin Settings <span style="font-size:15px;">(v<?php echo $this->agca_version; ?>)</span></h1>
-            <div id="agca-social" style="float:right; margin-top: -23px;">
+			<script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/agca_tmpl.js?ver=<?php echo $wpversion; ?>"></script>                  						
+		<?php //includes ?>
+		<div class="wrap">
+			<h1 id="agca-title">AG Custom Admin Settings <span style="font-size:15px;">(v<?php echo $this->agca_version; ?>)</span></h1>
+            <div id="agca-social" style="float:right; margin-top: -35px;">
                 <div class="fb-like" data-href="https://www.facebook.com/AG-Custom-Admin-892218404232342/timeline" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>
             </div>
-            <div id="agca_error_placeholder"></div>
-                                        <div id="agca_news">&nbsp;</div><br />                              
-            <form method="post" id="agca_form" action="options.php">
-                <?php settings_fields( 'agca-options-group' ); ?>
+			<div id="agca_error_placeholder"></div>
+										<div id="agca_news">&nbsp;</div><br />								
+			<form method="post" id="agca_form" action="options.php">
+				<?php settings_fields( 'agca-options-group' ); ?>
                         <div id="agca-your-feedback">
                             <strong>
                                 <span style="color:#005B69">Your feedback:</span>
