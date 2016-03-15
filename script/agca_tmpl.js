@@ -415,13 +415,12 @@ function agca_saveTemplateSettingsFromForm(template){
 function agca_saveTemplateSettingsCore(template, settings, callback){
 	agcaDebug('FN:agca_saveTemplateSettingsCore()');
 	var url = window.location;					
-	jQuery.post(url,{"_agca_template_settings": JSON.stringify(settings),"_agca_current_template":template},	
-	 callback
-	)
-	.fail(
-	function(){
-		console.log('AGCA Error: agca_saveTemplateSettingsCore()');
-	});
+	agca_POST(url,{"_agca_template_settings": JSON.stringify(settings),"_agca_current_template":template},
+	 callback,
+		function(){
+			console.log('AGCA Error: agca_saveTemplateSettingsCore()');
+		}
+	);
 }
 
 /*function agca_saveTemplateSettingsCore(template, settings){
@@ -454,20 +453,20 @@ function agca_activateTemplate(template){
 		
 	//ajax submit form	
 	var frm = jQuery('#agca_form');
+	var data = frm.serialize();
 	jQuery.ajax({
             type: frm.attr('method'),
             url: frm.attr('action'),
-            data: frm.serialize(),
+            data: data,
             success: function (data) {
-                var url = window.location;								
-				jQuery.post(url,{"_agca_activate_template":template},
-				function(data){																				
-					window.location = 'tools.php?page=ag-custom-admin/plugin.php';
-				})
-				.fail(
-				function(){
-					console.log('AGCA Error: agca_activateTemplate()');
-				});
+                var url = window.location;
+				agca_POST(url, {"_agca_activate_template":template},
+					function(data){
+						window.location = 'tools.php?page=ag-custom-admin/plugin.php';
+					},
+					function(){
+						console.log('AGCA Error: agca_activateTemplate()');
+					});
             }
      });
 }
@@ -516,22 +515,21 @@ function agca_updateInstallProgress(){
 }
 function agca_removeTemplateImages(template_name, callBack){
 	agcaDebug('FN:agca_removeTemplateImages()');
-	var url = window.location;								
-	jQuery.post(url,{"_agca_remove_template_images":template_name},
+	var url = window.location;
+	agca_POST(url,{"_agca_remove_template_images":template_name},
 		function(data){																				
 		  console.log(data);
 			if(callBack != null){
 				callBack();
 			}
-	})
-	.fail(
-		function(e){
+	},
+	function(e){
 		console.log('AGCA Error: agca_removeTemplateImages()');
 		console.log(e);
 		if(callBack != null){
-				callBack();
+			callBack();
 		}
-	});	
+	});
 }
 function agca_startUploadingRemoteImages(){	
 	agcaDebug('FN:agca_startUploadingRemoteImages()');
@@ -568,15 +566,14 @@ function agca_uploadRemoteImages(){
 function agca_uploadRemoteImage(remoteUrl, tag){
 	agcaDebug('FN:agca_uploadRemoteImage('+remoteUrl+', '+tag+')');
 	var url = window.location;								
-	jQuery.post(url,{"_agca_upload_image":remoteUrl},
+	agca_POST(url,{"_agca_upload_image":remoteUrl},
 	function(data){																				
-	console.log(data);										
-	agca_local_images[tag] = data;
-	delete agca_remote_images[tag];
-	agca_uploadRemoteImages();
+		console.log(data);
+		agca_local_images[tag] = data;
+		delete agca_remote_images[tag];
+		agca_uploadRemoteImages();
 		//window.location = 'tools.php?page=ag-custom-admin/plugin.php';
-	})
-	.fail(
+	},
 	function(){
 		console.log('AGCA Error: agca_activateTemplate()');
 	});
@@ -585,15 +582,16 @@ function agca_uploadRemoteImage(remoteUrl, tag){
 function agca_getLocalTemplates(){
 	agcaDebug("FN:agca_getLocalTemplates()");
 	var url = window.location;
-	jQuery.post(url,{"_agca_get_templates":true},
-	function(data){										
-		//console.log(data);
-		templates_installed = JSON.parse(data);
+	agca_POST(url,{"_agca_get_templates":true},
+	function(data){
+		try{
+			templates_installed = JSON.parse(data);
+		}catch(e){
+			templates_installed = [];
+		};
 		//agca_getTemplates();
 		agca_getConfiguration();
-		
-	})
-	.fail(
+	},
 	function(){
 		console.log('AGCA Error: agca_getLocalTemplates()');
 	});
@@ -668,16 +666,11 @@ function agcaTemplatesSessionAdd(template, license, callback){
 	}	
 	agcaTemplatesSession[template] = {};
 	agcaTemplatesSession[template]["license"] = license;
-	jQuery.ajax({
-	  type: "POST",
-	  url: window.location,
-	  data: {
+	agca_POST(window.location, {
 		"_agca_templates_session" : "true",
 		"template":template,
 		"license":license
-		},
-	  success: callback	  
-	});	
+	}, callback);
 }
 
 function agcaTemplatesSessionRemove(template, callback){
@@ -686,15 +679,27 @@ function agcaTemplatesSessionRemove(template, callback){
 		callback = function(){};
 	}	
 	agcaTemplatesSession[template]["license"] = null;
-	jQuery.ajax({
-	  type: "POST",
-	  url: window.location,
-	  data: {
+	agca_POST(window.location,{
 		"_agca_templates_session_remove_license" : "true",
-		"template":template		
-		},
-	  success: callback	  
-	});	
+		"template":template
+	}, callback);
+}
+
+function agca_POST(url, data, onSuccess, onError){
+	data['_agca_token'] = jQuery('[name=_agca_token]').val();
+	data['_wp_http_referer'] = jQuery('[name=_wp_http_referer]').val();
+	jQuery.post(url, data,
+		function(data){
+			if(onSuccess){
+				onSuccess(data);
+			}
+		})
+		.fail(
+		function(a,b,c){
+			if(onError){
+				onError(a,b,c);
+			}
+		});
 }
 
 
@@ -735,4 +740,4 @@ var diff = expire - now;
 	timer = setInterval(function(){
 		showRemaining(diff);
 	}, 1000);	
-}	
+}
