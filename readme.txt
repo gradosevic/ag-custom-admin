@@ -155,6 +155,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 
 == Change Log ==
 
+= 1.5.4.3 =
+* Patched security issues.
+
 = 1.5.4.2 =
 * Fixed new post blank page issue
 
@@ -469,6 +472,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.5.4.3 =
+* Patched security issues.
 
 = 1.5.4.2 =
 * Fixed new post blank page issue.
