@@ -663,7 +663,6 @@ function agcaTemplatesSessionAdd(template, license, callback){
 	agcaDebug("FN:agcaTemplatesSessionAdd(" + template + ", " + license + ", callback)");
 	if(callback == null){
 		callback = function(data){
-			console.log('tetmplate session cb', data);
 		};
 	}
 	agcaTemplatesSession[template] = {};

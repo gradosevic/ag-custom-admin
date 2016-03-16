@@ -434,7 +434,9 @@ jQuery(document).ready(function(){
     if(isCusminActive){
         hideAllSections();
         jQuery('#section_templates, #section-cusmin').show();
-        agca_client_init();
+        if(typeof agca_client_init === 'function'){
+            agca_client_init();
+        }
     }
 
 });
