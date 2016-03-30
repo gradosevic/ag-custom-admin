@@ -1864,6 +1864,10 @@ class AGCA{
     }
 
     function print_login_head(){
+        if($this->isCusminActive()){
+            return false;
+        }
+
         $this->context = "login";
         $this->error_check();
         $wpversion = $this->get_wp_version();
@@ -2059,7 +2063,7 @@ class AGCA{
                     </ul>
                 </div>
                 <div class="agca-clear"></div>
-                <div id="section-cusmin" style="display:none;">All AG Custom Admin plugin's settings, except admin themes, are disabled. Please use <a href="options-general.php?page=cusmin">Cusmin</a> plugin to change these settings.</div>
+                <div id="section-cusmin" style="display:none;">All AG Custom Admin plugin's settings, except admin themes, are disabled. Please use <a href="options-general.php?page=cusmin">Cusmin</a> plugin to manage these settings.</div>
                 <div id="section_general" style="display:none" class="ag_section">
                     <h2 class="section_title">General Settings</h2>
                     <p tabindex="0" class="agca-clear agca-tip"><i><strong>Tip: </strong>Move mouse cursor over the option label to see more information about an option</i></p>
