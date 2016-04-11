@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: WAP
-Version: 1.5.4.4
+Version: 5.5
 Author URI: http://www.wordpressadminpanel.com/
 
     Copyright 2016. WAP (email : info@wordpressadminpanel.com)
@@ -60,7 +60,7 @@ class AGCA{
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 
-        $this->agca_version = "1.5.4.4";
+        $this->agca_version = "5.5";
 
         //TODO:upload images programmaticaly
 
@@ -371,12 +371,27 @@ class AGCA{
         wp_enqueue_script('jquery');
     }
 
+    function WPSPluginIsLoginPage(){
+        if(!$this->isPluginActive('wps-hide-login/wps-hide-login.php')){
+            return '';
+        }
+        if ( $slug = get_option( 'whl_page' ) ) {
+            return $slug;
+        } else if ( ( is_multisite() && is_plugin_active_for_network( $this->basename() ) && ( $slug = get_site_option( 'whl_page', 'login' ) ) ) ) {
+            return $slug;
+        } else if ( $slug = 'login' ) {
+            return $slug;
+        }
+        $requestURI = $_SERVER['REQUEST_URI'];
+        return $this->startsWith('/'.$slug.'/', $requestURI);
+    }
+
     function reloadScript(){
         $isAdmin = false;
         if(defined('WP_ADMIN') && WP_ADMIN == 1){
             $isAdmin = true;
         }
-        if(in_array((isset($GLOBALS['pagenow'])?$GLOBALS['pagenow']:""), array('wp-login.php', 'wp-register.php')) || $isAdmin){
+        if(in_array((isset($GLOBALS['pagenow'])?$GLOBALS['pagenow']:""), array('wp-login.php', 'wp-register.php')) || $isAdmin || $this->WPSPluginIsLoginPage()){
             add_action('init', array(&$this,'agca_enqueue_scripts'));
         }
     }
