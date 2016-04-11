@@ -41,7 +41,7 @@ if(window.location.href.indexOf(encodeURIComponent('ag-custom-admin/plugin.php')
         localStorage.setItem('agca-page', window.location.hash);
         if(jQuery('#ag_main_menu a.selected').attr('href') !== window.location.hash){
             if(window.location.hash !== ""){
-                jQuery('#ag_main_menu a[href='+window.location.hash+']').trigger('click');
+              //  jQuery("#ag_main_menu a[href='"+window.location.hash+"']").trigger('click');
             }
         }
     };
@@ -428,10 +428,10 @@ jQuery(document).ready(function(){
 
     //check hashtag
     if(document.location.hash !== ""){
-        jQuery('#ag_main_menu a[href='+document.location.hash+']').trigger('click');
+        jQuery("#ag_main_menu a[href='"+window.location.hash+"']").trigger('click')
     };
 
-    if(isCusminActive){
+    if(typeof isCusminActive !== 'undefined' && isCusminActive){
         hideAllSections();
         jQuery('#section_templates, #section-cusmin').show();
         if(typeof agca_client_init === 'function'){
