@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: WAP
-Version: 5.5
+Version: 5.6
 Author URI: http://www.wordpressadminpanel.com/
 
     Copyright 2016. WAP (email : info@wordpressadminpanel.com)
@@ -60,7 +60,7 @@ class AGCA{
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 
-        $this->agca_version = "5.5";
+        $this->agca_version = "5.6";
 
         //TODO:upload images programmaticaly
 
@@ -222,16 +222,37 @@ class AGCA{
 
     function verifyPostRequest(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if(!is_admin()){
+            if (!is_admin()) {
+                echo 'User is not admin. ';
                 exit;
             }
-
+            //In case of problems with saving AGCA settings on MS disable verification temporary
+            if(get_option('agca_disable_postver')){
+                return;
+            }
             include_once(ABSPATH . 'wp-includes/pluggable.php');
-            if(!is_user_logged_in() || !current_user_can( 'manage_options' )){
-                exit;
+            if (!is_user_logged_in() || !current_user_can('manage_options')) {
+                if (is_multisite()) {
+                    $blog_id = get_current_blog_id();
+                    $user_id = get_current_user_id();
+                    $msError = 'Please try temporary disabling POST verification. Go to AG Custom Admin -> Advanced -> Temporary disable POST verification. Do not forget to un-check this option once you are done with customizations.';
+                    if (is_user_member_of_blog($user_id, $blog_id)) {
+                        if (!current_user_can('manage_options')) {
+                            echo 'Multisite: Current user is not recognized as administrator. ' . $msError;
+                            exit;
+                        }
+                    } else {
+                        echo 'Multisite: User (' . $user_id . ') does not have access to this blog (' . $blog_id . '). ' . $msError;
+                        exit;
+                    }
+                } else {
+                    echo !is_user_logged_in() ? 'User is not logged in. ' : '';
+                    echo !current_user_can('manage_options') ? 'User cannot manage options. ' : '';
+                    exit;
+                }
             }
-
-            if(!wp_verify_nonce($_POST['_agca_token'],'agca_form')){
+            if (!wp_verify_nonce($_POST['_agca_token'], 'agca_form')) {
+                echo 'Nonce verification failed. ';
                 exit;
             }
         }
@@ -488,6 +509,8 @@ class AGCA{
 
         register_setting( 'agca-options-group', 'agca_custom_js' );
         register_setting( 'agca-options-group', 'agca_custom_css' );
+        register_setting( 'agca-options-group', 'agca_disable_postver' );
+        register_setting( 'agca-options-group', 'agca_menu_remove_client_profile' );
 
 
         if(!empty($_POST)){
@@ -608,6 +631,8 @@ class AGCA{
             'agca_custom_css',
             'agca_colorizer_turnonoff',
             'agca_disablewarning',
+            'agca_disable_postver',
+            'agca_menu_remove_client_profile',
             'agca_selected_template',
             'agca_templates',
         );
@@ -1581,6 +1606,10 @@ class AGCA{
                     fjs.parentNode.insertBefore(js, fjs);
                 }(document, 'script', 'facebook-jssdk'));</script>
             <?php
+        }
+
+        if(get_option('agca_menu_remove_client_profile')){
+            remove_menu_page('profile.php');
         }
         ?>
         <script type="text/javascript">
@@ -2631,6 +2660,13 @@ class AGCA{
                             <td></td>
                         </tr>
                         <?php
+                        $this->print_checkbox(array(
+                            'title'=>'Removes Profile menu item for non-admin users.',
+                            'name'=>'agca_menu_remove_client_profile',
+                            'label'=>'Remove Profile button from user menu',
+                        ));
+                        ?>
+                        <?php
                         $this->print_options_h3('Add New Menu Items');
                         ?>
                         <tr>
@@ -2821,6 +2857,13 @@ class AGCA{
                                 <textarea style="width:100%;height:200px" title="Add additional custom JavaScript" rows="5" name="agca_custom_js"  id="agca_custom_js" cols="40"><?php echo htmlspecialchars(get_option('agca_custom_js')); ?></textarea>
                             </td>
                         </tr>
+                        <?php
+                        $this->print_checkbox(array(
+                            'title'=>'Temporary enable this option if you are experiencing any problems with saving AGCA options. Please turn it off after you are done with your customizations.',
+                            'name'=>'agca_disable_postver',
+                            'label'=>'Temporary disable POST verification',
+                        ));
+                        ?>
                         <tr valign="center">
                             <th scope="row">
                                 <label title="Export / import settings" for="agca_export_import">Export / import settings</label>

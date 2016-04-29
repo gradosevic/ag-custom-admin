@@ -84,6 +84,7 @@
 				
 		delete_option( 'agca_selected_template' );
         delete_option( 'agca_templates' );
-		delete_option( 'agca_disablewarning' );	
-				
+		delete_option( 'agca_disablewarning' );
+		delete_option( 'agca_disable_postver' );
+        delete_option( 'agca_menu_remove_client_profile' );
 ?>
