@@ -249,11 +249,11 @@ class AGCA{
                 if (is_multisite()) {
                     $blog_id = get_current_blog_id();
                     $user_id = get_current_user_id();
-                    $msError = __(' Please try temporary disabling POST verification. Go to AG Custom Admin -> Advanced -> Temporary disable POST verification. Do not forget to un-check this option once you are done with customizations.', 'ag-custom-admin');
+                    $msError = __('Please try temporary disabling POST verification. Go to AG Custom Admin -> Advanced -> Temporary disable POST verification. Do not forget to un-check this option once you are done with customizations.', 'ag-custom-admin');
                     if (is_user_member_of_blog($user_id, $blog_id)) {
                         if (!current_user_can('manage_options')) {
                             _e('Multi-site: Current user is not recognized as administrator.', 'ag-custom-admin');
-                            echo $msError;
+                            echo ' '.$msError;
                             exit;
                         }
                     } else {
@@ -263,7 +263,7 @@ class AGCA{
                             $user_id,
                             $blog_id
                         );
-                        echo $msError;
+                        echo ' '. $msError;
                         exit;
                     }
                 } else {
@@ -281,9 +281,7 @@ class AGCA{
 
     function get_language_strings() {
         $strings = array(
-            'example' => __( 'My Example String', 'ag-custom-admin' ),
-            'foo'   => __( 'My foo string', 'ag-custom-admin' ),
-            'bar'   => __( 'My bar', 'ag-custom-admin' )
+
         );
         return $strings;
     }
