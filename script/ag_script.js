@@ -96,10 +96,10 @@ function prettyEditMenuPage(){
     });
 };
 function editMenuRow(url, originalName, newName, removed){
-    return '<tr class="top" data-url="'+url+'" style="background-color: rgb(216, 234, 216);"><td class="ag_admin_menu_parent"><br><span class=\"agcaMenuEditorPlusMinus\"><span class="dashicons plus dashicons-arrow-down-alt2"></span><span class="dashicons minus dashicons-arrow-up-alt2"></span></span><a tabindex="0" href="javascript:void(0)">'+originalName+'</a><div style="float:right"><input title="Remove Home from menu" class=" agca-checkbox visibility" type="checkbox" '+(removed?' checked=\"checked\" ':'')+' name="ag_edit_adminmenu_item_top_2" style="display: none;"><div onclick="agcaCheckBoxOnClick(jQuery(this));" class="agca-checkbox-box" title="Remove '+originalName+' from menu"><div></div></div></div></td><td class="ag_admin_menu_parent2"><input title="Rename '+originalName+' with this value" type="text" class="undefined" size="47" value="'+newName+'" name="ag_edit_adminmenu_item_top_2"></td></tr>';
+    return '<tr class="top" data-url="'+url+'" style="background-color: rgb(216, 234, 216);"><td class="ag_admin_menu_parent"><br><span class=\"agcaMenuEditorPlusMinus\"><span class="dashicons plus dashicons-arrow-down-alt2"></span><span class="dashicons minus dashicons-arrow-up-alt2"></span></span><a tabindex="0" href="javascript:void(0)">'+originalName+'</a><div style="float:right"><input title="Remove Home from menu" class=" agca-checkbox visibility" type="checkbox" '+(removed?' checked=\"checked\" ':'')+' name="ag_edit_adminmenu_item_top_2" style="display: none;"><div onclick="agcaCheckBoxOnClick(jQuery(this));" class="agca-checkbox-box" title="'+agca_string.remove+' '+originalName+' '+agca_string.frommenu+'"><div></div></div></div></td><td class="ag_admin_menu_parent2"><input title="'+agca_string.rename+' '+originalName+' '+agca_string.withthisvalue+'" type="text" class="undefined" size="47" value="'+newName+'" name="ag_edit_adminmenu_item_top_2"></td></tr>';
 }
 function editMenuSubrow(index, parentName, parentIndex, url, originalName, newName, removed){
-    return '<tr class="sub" data-index="'+index+'" data-parent="'+parentIndex+'" data-name="'+originalName+'" data-url="'+url+'"><td class="ag_admin_menu_child"><div style="float:left"><a tabindex="-1" href="javascript:void(0)" style="font-weight:bold;" title="Dashboard submenu: '+originalName+'"><span style="font-weight:normal">sub-menu: </span>'+originalName+'</a></div><div style="float:right"><input type="checkbox" title="Remove '+parentName+' submenu: '+originalName+' from menu" class="Home agca-checkbox visibility" '+(removed?' checked=\"checked\" ':'')+' name="ag_edit_adminmenu_item_sub_1" style="display: none;"><div onclick="agcaCheckBoxOnClick(jQuery(this));" class="agca-checkbox-box" title="Remove '+parentName+' submenu: '+originalName+' from menu"><div></div></div></div></td><td class="ag_admin_menu_child2"><input type="text" title="Rename submenu item '+originalName+' with this value" class="'+originalName+'" size="47" value="'+newName+'" name="ag_edit_adminmenu_item_sub_1"></td></tr>';
+    return '<tr class="sub" data-index="'+index+'" data-parent="'+parentIndex+'" data-name="'+originalName+'" data-url="'+url+'"><td class="ag_admin_menu_child"><div style="float:left"><a tabindex="-1" href="javascript:void(0)" style="font-weight:bold;" title="Dashboard submenu: '+originalName+'"><span style="font-weight:normal">sub-menu: </span>'+originalName+'</a></div><div style="float:right"><input type="checkbox" title="'+agca_string.remove+' '+parentName+' submenu: '+originalName+' from menu" class="Home agca-checkbox visibility" '+(removed?' checked=\"checked\" ':'')+' name="ag_edit_adminmenu_item_sub_1" style="display: none;"><div onclick="agcaCheckBoxOnClick(jQuery(this));" class="agca-checkbox-box" title="'+agca_string.remove+' '+parentName+' sub-menu: '+originalName+' from menu"><div></div></div></div></td><td class="ag_admin_menu_child2"><input type="text" title="'+agca_string.rename+' '+agca_string.submenuitem+' '+originalName+' '+agca_string.withthisvalue+'" class="'+originalName+'" size="47" value="'+newName+'" name="ag_edit_adminmenu_item_sub_1"></td></tr>';
 }
 function createEditMenuPageNew(agca_menu){
     for(var url in agca_menu){
@@ -174,35 +174,35 @@ function applyAdminMenuCustomizations(){
 function showHideSection(text) {
     switch(text)
     {
-        case 'General':
+        case agca_string.menu_general:
             jQuery('#section_general').show();
             jQuery('#section_general .section_title').trigger('focus');
             break;
-        case 'Admin Bar':
+        case agca_string.menu_admin_bar:
             jQuery('#section_admin_bar').show();
             jQuery('#section_admin_bar .section_title').trigger('focus');
             break;
-        case 'Admin Footer':
+        case agca_string.menu_footer:
             jQuery('#section_admin_footer').show();
             jQuery('#section_admin_footer .section_title').trigger('focus');
             break;
-        case 'Dashboard Page':
+        case agca_string.menu_dashb:
             jQuery('#section_dashboard_page').show();
             jQuery('#section_dashboard_page .section_title').trigger('focus');
             break;
-        case 'Login Page':
+        case agca_string.menu_login:
             jQuery('#section_login_page').show();
             jQuery('#section_login_page .section_title').trigger('focus');
             break;
-        case 'Admin Menu':
+        case agca_string.menu_admin_menu:
             jQuery('#section_admin_menu').show();
             jQuery('#section_admin_menu .section_title').trigger('focus');
             break;
-        case 'Colorizer':
+        case agca_string.menu_colorizer:
             jQuery('#section_ag_colorizer_settings').show();
             jQuery('#section_ag_colorizer_settings .section_title').trigger('focus');
             break;
-        case 'Admin Themes':
+        case agca_string.menu_themes:
             if(!jQuery('#section_templates').hasClass("loaded")){
                 jQuery('#section_templates').addClass('loaded');
                 agca_client_init();
@@ -210,7 +210,7 @@ function showHideSection(text) {
             jQuery('#section_templates').show();
             jQuery('#section_templates .section_title').trigger('focus');
             break;
-        case 'Advanced':
+        case agca_string.menu_advanced:
             jQuery('#section_advanced').show();
             jQuery('#section_advanced .section_title').trigger('focus');
             break;
@@ -234,7 +234,7 @@ function createTargetCombo(target,clas){
 
     var combo = ""
 
-    combo+= "&nbsp;open&nbsp;in:<select";
+    combo+= "&nbsp;"+agca_string.open+"&nbsp;"+agca_string.in+":<select";
     if( clas != null){
         combo+=" class=\"editTarget\" ";
     }
@@ -278,7 +278,7 @@ function importSettings(){
             jQuery('#agca_form').attr('enctype','multipart/form-data');
             jQuery('#agca_form').submit();
         }else{
-            alert("File for import is not selected!");
+            alert(agca_string.file_imp_not_sel);
         }
     }
 
@@ -300,7 +300,7 @@ jQuery(document).ready(function(){
             var target = jQuery(this).parent().find('button').attr('target');
             //console.log(target);
             editingButtonNow = name;
-            jQuery(this).parent().append('<div id="temporary_button_edit">name:<input type="text" size="47" value="'+name+'" id="ag_add_adminmenu_name_edit" name="ag_add_adminmenu_name_edit" />url:<input type="text" size="47" value="'+url+'" id="ag_add_adminmenu_url_edit" name="ag_add_adminmenu_url_edit" />' + createTargetCombo(target,"edit")+ '<input type="button" id="ag_add_adminmenu_button_edit" name="ag_add_adminmenu_button_edit" value="Save changes" /></div>');
+            jQuery(this).parent().append('<div id="temporary_button_edit">name:<input type="text" size="47" value="'+name+'" id="ag_add_adminmenu_name_edit" name="ag_add_adminmenu_name_edit" />url:<input type="text" size="47" value="'+url+'" id="ag_add_adminmenu_url_edit" name="ag_add_adminmenu_url_edit" />' + createTargetCombo(target,"edit")+ '<input type="button" id="ag_add_adminmenu_button_edit" name="ag_add_adminmenu_button_edit" value="'+agca_string.save_changes+'" /></div>');
             reloadRemoveButtonEvents();
         }
     });/*Save editing changes*/
@@ -411,7 +411,7 @@ jQuery(document).ready(function(){
         jQuery('#ag_add_adminmenu_name').val("");
         jQuery('#ag_add_adminmenu_url').val("");
         jQuery('#ag_add_adminmenu_target').val("_self");
-        jQuery('#ag_add_adminmenu').append('<tr><td colspan="2"><button target="'+target+'" title="'+url+'" type="button">'+name+'</button>&nbsp;<a style="cursor:pointer;" title="Edit" class="button_edit"><span class="dashicons dashicons-edit"></span></a>&nbsp;<a style="cursor:pointer" title="Delete" class="button_remove"><span class="dashicons dashicons-no"></span></a></td><td></td></tr>');
+        jQuery('#ag_add_adminmenu').append('<tr><td colspan="2"><button target="'+target+'" title="'+url+'" type="button">'+name+'</button>&nbsp;<a style="cursor:pointer;" title="Edit" class="button_edit"><span class="dashicons dashicons-edit"></span></a>&nbsp;<a style="cursor:pointer" title="'+agca_string.delete+'" class="button_remove"><span class="dashicons dashicons-no"></span></a></td><td></td></tr>');
         reloadRemoveButtonEvents();
     });
 
