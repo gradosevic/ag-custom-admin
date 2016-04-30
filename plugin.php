@@ -1387,7 +1387,7 @@ class AGCA{
             $name = $this->menu_item_cleartext($name);
 
             //apply previous submenu customizations
-            if($customizationsSet){
+            if($customizationsSet && isset($previousCustomizations[$url])){
                 $pc = $previousCustomizations[$url];
             }
 
@@ -1407,7 +1407,7 @@ class AGCA{
                         'url'=>$urlSub
                     );
 
-                    if(isset($pc) && isset($pc['submenus'])){
+                    if(isset($pc['submenus'][$key])){
                         $s[$key]['new'] = $pc['submenus'][$key]['new'];
                         $s[$key]['remove'] = $pc['submenus'][$key]['remove'];
 
@@ -1431,7 +1431,7 @@ class AGCA{
             );
 
             //apply previous top menu customizations
-            if($customizationsSet){
+            if($customizationsSet && isset($previousCustomizations[$url])){
                 $pc = $previousCustomizations[$url];
                 if(isset($pc)){
                     $m[$url]['remove'] = $pc['remove'];
@@ -1607,7 +1607,7 @@ class AGCA{
                 remove: '<?php _e('Remove', 'ag-custom-admin'); ?>',
                 frommenu:'<?php _e('from menu', 'ag-custom-admin'); ?>',
                 rename:'<?php _e('Rename', 'ag-custom-admin'); ?>',
-                withthisvalue:'<?php _e('with this value', 'ag-custom-admin'); ?>'
+                withthisvalue:'<?php _e('with this value', 'ag-custom-admin'); ?>',
                 submenuitem:'<?php _e('sub-menu item', 'ag-custom-admin'); ?>',
                 open:'<?php _e('open', 'ag-custom-admin'); ?>',
                 'delete':'<?php _e('Delete', 'ag-custom-admin'); ?>',
@@ -1619,7 +1619,7 @@ class AGCA{
         $this->prepareAGCAAdminTemplates();
         $this->agca_get_includes();
         $this->admin_capabilities();
-        get_currentuserinfo() ;
+        wp_get_current_user() ;
         ?>
         <?php
         //in case that javaScript is disabled only admin can access admin menu
