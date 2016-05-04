@@ -29,7 +29,6 @@ $agca = new AGCA();
 
 class AGCA{
     private $colorizer="";
-    private $active_plugins = null;
     private $agca_version;
     private $agca_debug = false;
     private $admin_capabilities;
@@ -1568,10 +1567,10 @@ class AGCA{
         return $this->isPluginActive('cusmin/cusmin.php');
     }
     function isPluginActive($plugin){
-        if(!$this->active_plugins){
-            $this->active_plugins = get_option( 'active_plugins');
+        if(!is_admin()){
+            return false;
         }
-        return in_array( $plugin , $this->active_plugins);
+        return is_plugin_active($plugin);
     }
     function print_admin_css()
     {
