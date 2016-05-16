@@ -75,7 +75,7 @@ class AGCA{
 
         $this->agca_version = "5.6";
 
-        //TODO:upload images programmaticaly
+        //TODO:upload images programmatically
 	}
 
     function load_plugin_textdomain() {
@@ -458,7 +458,7 @@ class AGCA{
             $isAdmin = true;
         }
         if(in_array((isset($GLOBALS['pagenow'])?$GLOBALS['pagenow']:""), array('wp-login.php', 'wp-register.php')) || $isAdmin || $this->WPSPluginIsLoginPage()){
-            add_action('init', array(&$this,'agca_enqueue_scripts'));
+           $this->agca_enqueue_scripts();
         }
     }
 
@@ -700,6 +700,7 @@ class AGCA{
     function importSettings($settings){
         $exploaded = explode("|^|^|", $settings);
         // $str = "EEE: ";
+        $str = '';
 
         $savedOptions = array();
 
@@ -1023,7 +1024,7 @@ class AGCA{
             var img_url = '<?php echo addslashes(get_option('agca_header_logo_custom')); ?>';
 
             advanced_url = img_url;
-            image = jQuery("<img />").attr("src",advanced_url);
+            image = jQuery("<img style='max-width:98%;position:relative;'/>").attr("src",advanced_url);
             jQuery(image).load(function() {
             jQuery("#wpbody-content").prepend(image);
             });
