@@ -3,8 +3,8 @@ Contributors: wap
 Donate link: http://wordpressadminpanel.com/ag-custom-admin/
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
-Tested up to: 4.5
-Stable tag: 5.5
+Tested up to: 4.5.2
+Stable tag: 5.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
  
@@ -158,6 +158,16 @@ If you have the latest WordPress and plugin versions and you still experience so
 9. Army - commercial theme.
 
 == Change Log ==
+
+= 5.6 =
+* Internationalization, ready for translation
+* Added option for removing Profile menu item from user's menu
+* Added patch for network admin dashboard notices
+* Code refactoring
+* Resolved save issues in multi-site environment (POST validation failing)
+* Added patch for WPS Hide Login compatibility in multi-site environment
+* Added max width for custom admin header image
+* Removed "sub-menu" text from sub menu items in admin menu editor
 
 = 5.5 =
 * Resolved JavaScript error on AGCA page in WP 4.5 version
@@ -482,6 +492,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 5.6 =
+* Internationalization. Support for removing admin menu Profile button. Other patches and compatibility fixes.
 
 = 5.5 =
 * Compatibility updates with WP 4.5 and some other plugins
