@@ -38,12 +38,16 @@ class AGCA{
     private $templates_ep = "http://wordpressadminpanel.com/configuration.php";
 	
     public function __construct()
-    {
-        $this->reloadScript();
+    {        
+	 	add_action('init', array(&$this,'init'));
+    }
+	
+	function init(){
+		$this->reloadScript();
         $this->checkPOST();
         $this->checkGET();
-
-        if(function_exists("add_filter")){
+		
+		if(function_exists("add_filter")){
             add_filter('admin_title', array(&$this,'change_title'), 10, 2);
             add_filter('plugin_row_meta', array(&$this,'jk_filter_plugin_links'), 10, 2);
         }
@@ -72,8 +76,7 @@ class AGCA{
         $this->agca_version = "5.6";
 
         //TODO:upload images programmaticaly
-
-    }
+	}
 
     function load_plugin_textdomain() {
         load_plugin_textdomain( 'ag-custom-admin', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
@@ -233,45 +236,45 @@ class AGCA{
             exit;
         }
     }
-
+	
     function verifyPostRequest(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!is_admin()) {
-                _e('User is not administrator.', 'ag-custom-admin');
+                _e('Not allowed. This action is allowed exclusively in admin panel', 'ag-custom-admin');
                 exit;
             }
             //In case of problems with saving AGCA settings on MS disable verification temporary
             if(get_option('agca_disable_postver')){
                 return;
             }
-            include_once(ABSPATH . 'wp-includes/pluggable.php');
-            if (!is_user_logged_in() || !current_user_can('manage_options')) {
-                if (is_multisite()) {
-                    $blog_id = get_current_blog_id();
-                    $user_id = get_current_user_id();
-                    $msError = __('Please try temporary disabling POST verification. Go to AG Custom Admin -> Advanced -> Temporary disable POST verification. Do not forget to un-check this option once you are done with customizations.', 'ag-custom-admin');
-                    if (is_user_member_of_blog($user_id, $blog_id)) {
-                        if (!current_user_can('manage_options')) {
-                            _e('Multi-site: Current user is not recognized as administrator.', 'ag-custom-admin');
-                            echo ' '.$msError;
-                            exit;
-                        }
-                    } else {
-                        printf(
-                            /*translators: 1: User Id 2: Blog Id*/
-                            __('Multi-site: User (%1$s) does not have access to this blog (%2$s).', 'ag-custom-admin'),
-                            $user_id,
-                            $blog_id
-                        );
-                        echo ' '. $msError;
-                        exit;
-                    }
-                } else {
-                    echo !is_user_logged_in() ? __('User is not logged in.', 'ag-custom-admin').' ' : '';
-                    echo !current_user_can('manage_options') ? __('User can not manage options.', 'ag-custom-admin').' ' : '';
-                    exit;
-                }
-            }
+			if (is_multisite()) {
+				$blog_id = get_current_blog_id();
+				$user_id = get_current_user_id(); 
+				$msError = __('Please try temporary disabling POST verification. Go to AG Custom Admin -> Advanced -> Temporary disable POST verification. Do not forget to un-check this option once you are done with customizations.', 'ag-custom-admin');
+				if (is_user_member_of_blog($user_id, $blog_id)) {
+					if (!current_user_can('manage_options')) {
+						_e('Multi-site: Current user is not recognized as administrator.', 'ag-custom-admin');
+						echo ' '.$msError;
+						exit;
+					}
+				} else {
+					printf(
+						/*translators: 1: User Id 2: Blog Id*/
+						__('Multi-site: User (%1$s) does not have access to this blog (%2$s).', 'ag-custom-admin'),
+						$user_id,
+						$blog_id
+					);
+					echo ' '. $msError;
+					exit;
+				}
+			} else {
+				include_once(ABSPATH . 'wp-includes/pluggable.php');
+				if (!is_user_logged_in() || !current_user_can('manage_options')) {
+					echo !is_user_logged_in() ? __('User is not logged in.', 'ag-custom-admin').' ' : '';
+					echo !current_user_can('manage_options') ? __('User can not manage options.', 'ag-custom-admin').' ' : '';
+					exit;
+				}
+			}
             if (!wp_verify_nonce($_POST['_agca_token'], 'agca_form')) {
                 echo __('Nonce verification failed.', 'ag-custom-admin');
                 exit;
@@ -423,12 +426,24 @@ class AGCA{
     }
 
     function WPSPluginIsLoginPage(){
-        if(!$this->isPluginActive('wps-hide-login/wps-hide-login.php')){
-            return '';
-        }
+	
+		$WPSPluginName = 'wps-hide-login/wps-hide-login.php';
+		if(is_multisite()){
+			if ( ! function_exists( 'is_plugin_active_for_network' ) )
+			require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+			
+			if(!$this->isPluginActiveForNetwork($WPSPluginName)){
+				return '';
+			}
+		}else{
+			if(!$this->isPluginActive($WPSPluginName)){
+				return '';
+			}
+		}
+        
         if ( $slug = get_option( 'whl_page' ) ) {
             return $slug;
-        } else if ( ( is_multisite() && is_plugin_active_for_network( $this->basename() ) && ( $slug = get_site_option( 'whl_page', 'login' ) ) ) ) {
+        } else if ( ( is_multisite() && $this->isPluginActiveForNetwork($WPSPluginName) && ( $slug = get_site_option( 'whl_page', 'login' ) ) ) ) {
             return $slug;
         } else if ( $slug = 'login' ) {
             return $slug;
@@ -1572,6 +1587,9 @@ class AGCA{
             return false;
         }
         return is_plugin_active($plugin);
+    }
+	function isPluginActiveForNetwork($plugin){
+		return is_plugin_active_for_network($plugin);
     }
     function print_admin_css()
     {
@@ -2939,7 +2957,7 @@ class AGCA{
                 </p>
 
             </form>
-            <form id="agca_templates_form" name="agca_templates_form" action="<?php echo $_SERVER['PHP_SELF'];?>?page=ag-custom-admin/plugin.php" method="post">
+            <form id="agca_templates_form" name="agca_templates_form" action="<?php echo get_site_url().$_SERVER['PHP_SELF'];?>?page=ag-custom-admin/plugin.php" method="post">
                 <?php wp_nonce_field('agca_form','_agca_token'); ?>
                 <input type="hidden" name="_agca_save_template" value="true" />
                 <input type="hidden" id="templates_data" name="templates_data" value="" />
