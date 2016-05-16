@@ -3,8 +3,8 @@ Contributors: wap
 Donate link: http://wordpressadminpanel.com/ag-custom-admin/
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
-Tested up to: 4.5
-Stable tag: 5.5
+Tested up to: 4.5.2
+Stable tag: 5.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
  
@@ -95,6 +95,12 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 
 = Premium Features =
 
+> <strong>Cusmin</strong><br>
+> Cusmin is premium version of AG Custom Admin that is currently still in active development and not yet available for purchase.
+> If you are interested to try it out for FREE, before it is officially released, please check our [Early Access Program](https://cusmin.com/eap).
+>
+> For more info about Cusmin, please go to [Cusmin](https://cusmin.com) site.
+
 > <strong>Admin Themes</strong><br>
 > AG Custom Admin plugin contains specially created professional and responsive themes for admin panel and login page, that can be applied easily within AG Custom Admin plugin with only few clicks!
 > We will add more themes with better styles and theme options in future.
@@ -110,8 +116,6 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 If you are unable to login or you have any other problems, please check our [FAQ](http://wordpress.org/extend/plugins/ag-custom-admin/faq/) and [SUPPORT](http://wordpress.org/support/plugin/ag-custom-admin) page.
 
 For more information about the plugin please check [OFFICIAL PLUGIN'S SITE](http://wordpressadminpanel.com/ag-custom-admin/) <br>For more information about admin themes please check [THEMES SITE](http://wordpressadminpanel.com/themes/home)
-
-**Important**: It's recommended to always update AG Custom Admin plugin before updating WordPress.
 
 == Installation ==
 
@@ -154,6 +158,16 @@ If you have the latest WordPress and plugin versions and you still experience so
 9. Army - commercial theme.
 
 == Change Log ==
+
+= 5.6 =
+* Internationalization, ready for translation
+* Added option for removing Profile menu item from user's menu
+* Added patch for network admin dashboard notices
+* Code refactoring
+* Resolved save issues in multi-site environment (POST validation failing)
+* Added patch for WPS Hide Login compatibility in multi-site environment
+* Added max width for custom admin header image
+* Removed "sub-menu" text from sub menu items in admin menu editor
 
 = 5.5 =
 * Resolved JavaScript error on AGCA page in WP 4.5 version
@@ -478,6 +492,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 5.6 =
+* Internationalization. Support for removing admin menu Profile button. Other patches and compatibility fixes.
 
 = 5.5 =
 * Compatibility updates with WP 4.5 and some other plugins
