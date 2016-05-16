@@ -95,6 +95,12 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 
 = Premium Features =
 
+> <strong>Cusmin</strong><br>
+> Cusmin is premium version of AG Custom Admin that is currently still in active development and not yet available for purchase.
+> If you are interested to try it out for FREE, before it is officially released, please check our [Early Access Program](https://cusmin.com/eap).
+>
+> For more info about Cusmin, please go to [Cusmin](https://cusmin.com) site.
+
 > <strong>Admin Themes</strong><br>
 > AG Custom Admin plugin contains specially created professional and responsive themes for admin panel and login page, that can be applied easily within AG Custom Admin plugin with only few clicks!
 > We will add more themes with better styles and theme options in future.
@@ -110,8 +116,6 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 If you are unable to login or you have any other problems, please check our [FAQ](http://wordpress.org/extend/plugins/ag-custom-admin/faq/) and [SUPPORT](http://wordpress.org/support/plugin/ag-custom-admin) page.
 
 For more information about the plugin please check [OFFICIAL PLUGIN'S SITE](http://wordpressadminpanel.com/ag-custom-admin/) <br>For more information about admin themes please check [THEMES SITE](http://wordpressadminpanel.com/themes/home)
-
-**Important**: It's recommended to always update AG Custom Admin plugin before updating WordPress.
 
 == Installation ==
 

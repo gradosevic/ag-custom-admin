@@ -374,22 +374,22 @@ class AGCA{
         <script type="text/javascript">
             <?php
                 //AGCA GLOBALS
-                echo "var agca_global_plugin_url = '".trailingslashit(plugins_url(basename(dirname(__FILE__))))."';";
+                echo "var agca_global_plugin_url = '".$this->pluginUrl()."';";
             ?>
         </script>
-        <link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/ag_style.css?ver=<?php echo $this->agca_version; ?>" />
-        <link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>require/dynamic.php?type=css&context=<?php echo $this->context; ?>&ver=<?php echo "changed_theme"; ?>" />
-        <script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>
-        <script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>require/dynamic.php?type=js&context=<?php echo $this->context; ?>&ver=<?php echo "changed_theme"; ?>"></script>
+        <link rel="stylesheet" type="text/css" href="<?php echo $this->pluginUrl(); ?>style/ag_style.css?ver=<?php echo $this->agca_version; ?>" />
+        <link rel="stylesheet" type="text/css" href="<?php echo $this->pluginUrl(); ?>require/dynamic.php?type=css&context=<?php echo $this->context; ?>&ver=<?php echo "changed_theme"; ?>" />
+        <script type="text/javascript" src="<?php echo $this->pluginUrl(); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->pluginUrl(); ?>require/dynamic.php?type=js&context=<?php echo $this->context; ?>&ver=<?php echo "changed_theme"; ?>"></script>
 
         <?php
         if($this->context == "login"){
             ?>
-            <link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/login.min.css" />
+            <link rel="stylesheet" type="text/css" href="<?php echo $this->pluginUrl(); ?>style/login.min.css" />
             <?php
         }else{
             ?>
-            <link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/admin.min.css" />
+            <link rel="stylesheet" type="text/css" href="<?php echo $this->pluginUrl(); ?>style/admin.min.css" />
             <?php
         }
         ?>
@@ -925,9 +925,9 @@ class AGCA{
                 initJQuery();
             </script>
             <script type="text/javascript">
-                <?php echo "var agca_global_plugin_url = '".trailingslashit(plugins_url(basename(dirname(__FILE__))))."';"; ?>
+                <?php echo "var agca_global_plugin_url = '".$this->pluginUrl()."';"; ?>
             </script>
-            <script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>
+            <script type="text/javascript" src="<?php echo $this->pluginUrl(); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>
             <script type="text/javascript">
                 jQuery(document).ready(function(){
                     <?php if(get_option('agca_colorizer_turnonoff') == 'on' && (get_option('agca_admin_bar_frontend_hide')!=true)){
@@ -2096,26 +2096,30 @@ class AGCA{
         <?php
     }
 
+    function pluginUrl(){
+        return trailingslashit(plugins_url(basename(dirname(__FILE__))));
+    }
+
     function agca_admin_page() {
 
         $wpversion = $this->get_wp_version();
         $this->agca_error_check();
         ?>
         <?php //includes ?>
-        <link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/farbtastic.css?ver=<?php echo $wpversion; ?>" />
-        <script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/farbtastic.js?ver=<?php echo $wpversion; ?>"></script>
+        <link rel="stylesheet" type="text/css" href="<?php echo $this->pluginUrl();  ?>style/farbtastic.css?ver=<?php echo $wpversion; ?>" />
+        <script type="text/javascript" src="<?php echo $this->pluginUrl(); ?>script/farbtastic.js?ver=<?php echo $wpversion; ?>"></script>
 
-        <link rel="stylesheet" type="text/css" href="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>style/agca_farbtastic.css?ver=<?php echo $wpversion; ?>" />
-        <script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/agca_farbtastic.js?ver=<?php echo $wpversion; ?>"></script>
-        <script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/xd.js?ver=<?php echo $wpversion; ?>"></script>
+        <link rel="stylesheet" type="text/css" href="<?php echo $this->pluginUrl(); ?>style/agca_farbtastic.css?ver=<?php echo $wpversion; ?>" />
+        <script type="text/javascript" src="<?php echo $this->pluginUrl(); ?>script/agca_farbtastic.js?ver=<?php echo $wpversion; ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->pluginUrl(); ?>script/xd.js?ver=<?php echo $wpversion; ?>"></script>
         <script type="text/javascript">
             var templates_ep = "<?php echo $this->templates_ep; ?>";
             var template_selected = '<?php echo get_option('agca_selected_template'); ?>';
         </script>
-        <script type="text/javascript" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>script/agca_tmpl.js?ver=<?php echo $wpversion; ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->pluginUrl(); ?>script/agca_tmpl.js?ver=<?php echo $wpversion; ?>"></script>
         <?php //includes ?>
         <div class="wrap">
-            <h1 id="agca-title">AG Custom Admin Settings <span style="font-size:15px;">(v<?php echo $this->agca_version; ?>)</span></h1>
+            <h1 id="agca-title">AG Custom Admin <?php _e('Settings', 'ag-custom-admin'); ?> <span style="font-size:15px;">(v<?php echo $this->agca_version; ?>)</span></h1>
             <div id="agca-social" style="float:right; margin-top: -23px;">
                 <div class="fb-like" data-href="https://www.facebook.com/AG-Custom-Admin-892218404232342/timeline" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>
             </div>
@@ -2137,7 +2141,7 @@ class AGCA{
                 </div>
                 <br />
                 <ul id="ag_main_menu" style="<?php echo $this->isCusminActive()?'display:none':''; ?>">
-                    <li class="selected"><a href="#general-settings" title="<?php _e('General Settings', 'ag-custom-admin')?>" ><?php _e('General', 'ag-custom-admin')?></a></li>
+                    <li class="selected" style="border-top-left-radius: 10px; "><a href="#general-settings" title="<?php _e('General Settings', 'ag-custom-admin')?>" ><?php _e('General', 'ag-custom-admin')?></a></li>
                     <li class="normal"><a href="#admin-bar-settings" title="<?php _e('Settings for admin bar', 'ag-custom-admin')?>" ><?php _e('Admin Bar', 'ag-custom-admin')?></a></li>
                     <li class="normal"><a href="#admin-footer-settings" title="<?php _e('Settings for admin footer', 'ag-custom-admin')?>" ><?php _e('Admin Footer', 'ag-custom-admin')?></a></li>
                     <li class="normal"><a href="#dashboad-page-settings" title="<?php _e('Settings for Dashboard page', 'ag-custom-admin')?>"><?php _e('Dashboard Page', 'ag-custom-admin')?></a></li>
@@ -2146,8 +2150,9 @@ class AGCA{
                     <li class="normal"><a href="#ag-colorizer-setttings" title="<?php _e('Colorizer settings', 'ag-custom-admin')?>"><?php _e('Colorizer', 'ag-custom-admin')?></a></li>
                     <li class="normal"><a href="#ag-advanced" title="<?php _e('My custom scripts', 'ag-custom-admin')?>"><?php _e('Advanced', 'ag-custom-admin')?></a></li>
                     <li class="normal" style=""><a style="color:#DB6014;font-weight:bolder;" href="#ag-templates" title="<?php _e('AG Custom Admin Themes', 'ag-custom-admin')?>"><?php _e('Admin Themes', 'ag-custom-admin')?></a></li>
+                    <li class="normal" style="background-color:#aaa;border-top-right-radius: 10px; border-bottom: 2px solid#aaa;"><a style="color:#fff;font-weight:bolder;" href="https://cusmin.com/" target="_blank" title="<?php _e('Upgrate to Cusmin', 'ag-custom-admin')?>"><?php _e('Upgrade', 'ag-custom-admin')?></a></li>
 
-                    <li style="background:none;border:none;padding:0;"><a id="agca_donate_button" target="_blank" style="margin-left:8px" title="<?php _e('Do you like this plugin? You can support its future development by giving a donation by your choice', 'ag-custom-admin')?> " href="http://wordpressadminpanel.com/agca-support/support-for-future-development/"><img alt="<?php _e('Donate', 'ag-custom-admin')?>" src="<?php echo trailingslashit(plugins_url(basename(dirname(__FILE__)))); ?>images/btn_donate_LG.gif" /></a>
+                    <li style="background:none;border:none;padding:0;"><a id="agca_donate_button" target="_blank" style="margin-left:8px" title="<?php _e('Do you like this plugin? You can support its future development by giving a donation by your choice', 'ag-custom-admin')?> " href="http://wordpressadminpanel.com/agca-support/support-for-future-development/"><img alt="<?php _e('Donate', 'ag-custom-admin')?>" src="<?php echo $this->pluginUrl(); ?>images/btn_donate_LG.gif" /></a>
                     </li>
                     <li style="background:none;border:none;padding:0;padding-left:10px;margin-top:-7px"></li>
                 </ul>
