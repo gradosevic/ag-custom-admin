@@ -4,7 +4,7 @@ Donate link: http://wordpressadminpanel.com/ag-custom-admin/
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
 Tested up to: 4.5.3
-Stable tag: 5.6.1
+Stable tag: 5.6.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
  
@@ -144,17 +144,23 @@ If you have the latest WordPress and plugin versions and you still experience so
 
 == Screenshots ==
 
-1. AG Custom Admin provides most of the options for admin panel customization, and it's pretty easy to use it.
+1. AG Custom Admin provides many options for admin panel customization, and it's quite easy to use it.
 2. Login page can be customized and styled with custom branding logo or image, rounded borders, background colors.
-3. Admin menu is completely customizable. You can rename or remove the items from them menu and submenu, or add brand new buttons with custom links.
-4. Default WP grey colors can be refreshed with any colors! There are a lot of Colorizer's options that can be used to style the text, background, login, widgets, admin menu, top bar, footer, almost everything!
-5. Free and commercial predefined WP admin panel themes.
-6. Orange - free theme - login page.
-7. Dunes - commercial theme.
-8. Wasteland - commercial theme.
-9. Army - commercial theme.
+3. Admin bar settings preview.
+4. Colorizer options for branding with custom colors.
+5. Admin menu editor.
+6. Admin menu is completely customizable. You can rename or remove the items from them menu and submenu, or add brand new buttons with custom links.
+7. Default WP grey colors can be refreshed with any colors! There are a lot of Colorizer's options that can be used to style the text, background, login, widgets, admin menu, top bar, footer, almost everything!
+8. Free and commercial predefined WP admin panel themes.
+9. Orange - free theme - login page.
+10. Dunes - commercial theme.
+11. Wasteland - commercial theme.
+12. Army - commercial theme.
 
 == Change Log ==
+
+= 5.6.2 =
+* Updated readme.txt
 
 = 5.6.1 =
 * Added branding images for AGCA
@@ -494,6 +500,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 5.6.2 =
+* Updated readme
 
 = 5.6.1 =
 * Minor plugin changes
