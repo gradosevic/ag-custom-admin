@@ -158,6 +158,11 @@ If you have the latest WordPress and plugin versions and you still experience so
 
 == Change Log ==
 
+= 5.6.1 =
+* Added branding images for AGCA
+* Protocol agnostic jQuery script url on login page
+* Updated upgrade options
+
 = 5.6 =
 * Internationalization, ready for translation
 * Added option for removing Profile menu item from user's menu
@@ -491,6 +496,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 5.6.1 =
+* Minor plugin changes
 
 = 5.6 =
 * Internationalization. Support for removing admin menu Profile button. Other patches and compatibility fixes.
