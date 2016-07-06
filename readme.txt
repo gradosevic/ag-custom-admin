@@ -3,7 +3,7 @@ Contributors: wap
 Donate link: http://wordpressadminpanel.com/ag-custom-admin/
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
-Tested up to: 4.5.2
+Tested up to: 4.6
 Stable tag: 5.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
@@ -94,19 +94,18 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 * Export/import customization settings
 
 = Premium Features =
-
+=
 > <strong>Cusmin</strong><br>
-> Cusmin is premium version of AG Custom Admin that is currently still in active development and not yet available for purchase.
-> If you are interested to try it out for FREE, before it is officially released, please check our [Early Access Program](https://cusmin.com/eap).
+> Cusmin is premium version of AG Custom Admin that gives you more advanced features for customization and branding.
 >
 > For more info about Cusmin, please go to [Cusmin](https://cusmin.com) site.
-
+=
 > <strong>Admin Themes</strong><br>
 > AG Custom Admin plugin contains specially created professional and responsive themes for admin panel and login page, that can be applied easily within AG Custom Admin plugin with only few clicks!
 > We will add more themes with better styles and theme options in future.
 >
 > For more info about AG Custom Admin themes, please go to [WordPress Admin Panel Themes](http://wordpressadminpanel.com/themes/home) site.
-
+=
 > <strong>Custom Admin Menu Icons</strong><br>
 > AGL Custom Admin Menu Icons plugin, can be used to add or change admin menu icons, add custom colors and icons, and even draw custom icons
 >

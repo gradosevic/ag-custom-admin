@@ -222,7 +222,7 @@ function showHideSection(text) {
 
 function hideAllSections(){
     jQuery('#ag_main_menu li').each(function(){
-        jQuery(this).attr("class","normal");
+        jQuery(this).addClass("normal").removeClass("selected");
     });
     jQuery('.ag_section').each(function(){
         jQuery(this).hide();
@@ -376,7 +376,14 @@ function agcaApplyTooltip(){
         }, function() {
             jQuery("#AGToolTipDiv")
                 .stop(true,true)
-                .fadeOut("fast");
+                .fadeOut("fast", function(){
+                    jQuery(this).css({
+                        'color': '',
+                        'border': '',
+                        'font-weight':''
+                    });
+                })
+
             jQuery(this).attr('title', jQuery("#AGToolTipDiv").html());
         });
     }
@@ -391,7 +398,7 @@ jQuery(document).ready(function(){
         };
         hideAllSections();
         var text = jQuery(this).text();
-        jQuery(this).attr("class","selected");
+        jQuery(this).removeClass('normal').addClass("selected");
         showHideSection(text);
     });
 

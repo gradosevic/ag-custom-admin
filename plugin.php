@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: WAP
-Version: 5.6 
+Version: 5.6.1
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: http://www.wordpressadminpanel.com/
@@ -73,7 +73,7 @@ class AGCA{
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 
-        $this->agca_version = "5.6";
+        $this->agca_version = "5.6.1";
 
         //TODO:upload images programmatically
 	}
@@ -92,7 +92,7 @@ class AGCA{
                 $links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php#ag-templates">' . __('Admin Themes', 'ag-custom-admin') . '</a>';
             }
             $links[] = '<a href="http://wordpressadminpanel.com/agca-support/">' . __('Support', 'ag-custom-admin') . '</a>';
-            $links[] = '<a href="https://cusmin.com">' . __('Upgrade', 'ag-custom-admin') . '</a>';
+            $links[] = '<a href="https://cusmin.com/upgrade-to-cusmin">' . __('Upgrade', 'ag-custom-admin') . '</a>';
             $links[] = '<a href="http://wordpressadminpanel.com/agca-support/support-for-future-development">' . __('Donate', 'ag-custom-admin') . '</a>';
         }
         return $links;
@@ -923,7 +923,7 @@ class AGCA{
                             //only output the script once..
                             jQueryScriptOutputted = true;
                             //output the script (load it from google api)
-                            document.write("<scr" + "ipt type=\"text/javascript\" src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js\"></scr" + "ipt>");
+                            document.write("<scr" + "ipt type=\"text/javascript\" src=\"//ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js\"></scr" + "ipt>");
                         }
                         setTimeout("initJQuery()", 50);
                     } else {
@@ -1616,12 +1616,13 @@ class AGCA{
                 file_imp_not_sel: '<?php _e('File for import is not selected!', 'ag-custom-admin'); ?>',
                 menu_general: '<?php _e('General', 'ag-custom-admin'); ?>',
                 menu_admin_bar: '<?php _e('Admin Bar', 'ag-custom-admin'); ?>',
-                menu_footer: '<?php _e('Admin Footer', 'ag-custom-admin'); ?>',
-                menu_dashb: '<?php _e('Dashboard Page', 'ag-custom-admin'); ?>',
+                menu_footer: '<?php _e('Footer', 'ag-custom-admin'); ?>',
+                menu_dashb: '<?php _e('Dashboard', 'ag-custom-admin'); ?>',
                 menu_login: '<?php _e('Login Page', 'ag-custom-admin'); ?>',
                 menu_admin_menu: '<?php _e('Admin Menu', 'ag-custom-admin'); ?>',
                 menu_colorizer: '<?php _e('Colorizer', 'ag-custom-admin'); ?>',
-                menu_themes: '<?php _e('Admin Themes', 'ag-custom-admin'); ?>',
+                menu_themes: '<?php _e('Themes', 'ag-custom-admin'); ?>',
+                menu_upgrade: '<?php _e('Upgrade', 'ag-custom-admin'); ?>',
                 menu_advanced: '<?php _e('Advanced', 'ag-custom-admin'); ?>',
                 remove: '<?php _e('Remove', 'ag-custom-admin'); ?>',
                 frommenu:'<?php _e('from menu', 'ag-custom-admin'); ?>',
@@ -2139,7 +2140,7 @@ class AGCA{
         <script type="text/javascript" src="<?php echo $this->pluginUrl(); ?>script/agca_tmpl.js?ver=<?php echo $wpversion; ?>"></script>
         <?php //includes ?>
         <div class="wrap">
-            <h1 id="agca-title">AG Custom Admin <?php _e('Settings', 'ag-custom-admin'); ?> <span style="font-size:15px;">(v<?php echo $this->agca_version; ?>)</span></h1>
+            <h1 id="agca-title"><img src="<?php echo plugins_url( 'images/agca.png', __FILE__ ) ?>" /><span class="title">AG Custom Admin <?php _e('Settings', 'ag-custom-admin'); ?></span> <span class="version">(v<?php echo $this->agca_version; ?>)</span></h1>
             <div id="agca-social" style="float:right; margin-top: -23px;">
                 <div class="fb-like" data-href="https://www.facebook.com/AG-Custom-Admin-892218404232342/timeline" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>
             </div>
@@ -2163,14 +2164,14 @@ class AGCA{
                 <ul id="ag_main_menu" style="<?php echo $this->isCusminActive()?'display:none':''; ?>">
                     <li class="selected" style="border-top-left-radius: 10px; "><a href="#general-settings" title="<?php _e('General Settings', 'ag-custom-admin')?>" ><?php _e('General', 'ag-custom-admin')?></a></li>
                     <li class="normal"><a href="#admin-bar-settings" title="<?php _e('Settings for admin bar', 'ag-custom-admin')?>" ><?php _e('Admin Bar', 'ag-custom-admin')?></a></li>
-                    <li class="normal"><a href="#admin-footer-settings" title="<?php _e('Settings for admin footer', 'ag-custom-admin')?>" ><?php _e('Admin Footer', 'ag-custom-admin')?></a></li>
-                    <li class="normal"><a href="#dashboad-page-settings" title="<?php _e('Settings for Dashboard page', 'ag-custom-admin')?>"><?php _e('Dashboard Page', 'ag-custom-admin')?></a></li>
+                    <li class="normal"><a href="#admin-footer-settings" title="<?php _e('Settings for admin footer', 'ag-custom-admin')?>" ><?php _e('Footer', 'ag-custom-admin')?></a></li>
+                    <li class="normal"><a href="#dashboad-page-settings" title="<?php _e('Settings for Dashboard page', 'ag-custom-admin')?>"><?php _e('Dashboard', 'ag-custom-admin')?></a></li>
                     <li class="normal"><a href="#login-page-settings" title="<?php _e('Settings for Login page', 'ag-custom-admin')?>"><?php _e('Login Page', 'ag-custom-admin')?></a></li>
                     <li class="normal" ><a href="#admin-menu-settings" title="<?php _e('Settings for main admin menu', 'ag-custom-admin')?>"><?php _e('Admin Menu', 'ag-custom-admin')?></a></li>
                     <li class="normal"><a href="#ag-colorizer-setttings" title="<?php _e('Colorizer settings', 'ag-custom-admin')?>"><?php _e('Colorizer', 'ag-custom-admin')?></a></li>
                     <li class="normal"><a href="#ag-advanced" title="<?php _e('My custom scripts', 'ag-custom-admin')?>"><?php _e('Advanced', 'ag-custom-admin')?></a></li>
-                    <li class="normal" style=""><a style="color:#DB6014;font-weight:bolder;" href="#ag-templates" title="<?php _e('AG Custom Admin Themes', 'ag-custom-admin')?>"><?php _e('Admin Themes', 'ag-custom-admin')?></a></li>
-                    <li class="normal" style="background-color:#aaa;border-top-right-radius: 10px; border-bottom: 2px solid#aaa;"><a style="color:#fff;font-weight:bolder;" href="https://cusmin.com/" target="_blank" title="<?php _e('Upgrate to Cusmin', 'ag-custom-admin')?>"><?php _e('Upgrade', 'ag-custom-admin')?></a></li>
+                    <li class="normal" style=""><a style="color:#DB6014;font-weight:bolder;" href="#ag-templates" title="<?php _e('AG Custom Admin Themes', 'ag-custom-admin')?>"><?php _e('Themes', 'ag-custom-admin')?></a></li>
+                    <li class="normal upgrade"><a href="https://cusmin.com/upgrade-to-cusmin" target="_blank" title="<?php _e('Upgrade to Cusmin', 'ag-custom-admin')?>"><img src="<?php echo plugins_url( 'images/cusminlogo.png', __FILE__ ) ?>" /><?php _e('Upgrade', 'ag-custom-admin')?></a></li>
 
                     <li style="background:none;border:none;padding:0;"><a id="agca_donate_button" target="_blank" style="margin-left:8px" title="<?php _e('Do you like this plugin? You can support its future development by giving a donation by your choice', 'ag-custom-admin')?> " href="http://wordpressadminpanel.com/agca-support/support-for-future-development/"><img alt="<?php _e('Donate', 'ag-custom-admin')?>" src="<?php echo $this->pluginUrl(); ?>images/btn_donate_LG.gif" /></a>
                     </li>
@@ -2249,6 +2250,11 @@ class AGCA{
                                     </ul>
                                     <ul>
                                         <li><a href="http://wordpressadminpanel.com/agca-support/support-for-future-development/" target="_blank"><span class="dashicons dashicons-palmtree"></span>&nbsp;&nbsp;<?php _e('Donate', 'ag-custom-admin'); ?></a> - <?php _e('only if you find this plugin helpful for your needs', 'ag-custom-admin'); ?> </li>
+                                    </ul>
+                                    <ul class="upgrade">
+                                        <li><a href="https://cusmin.com/upgrade-to-cusmin" target="_blank">
+                                                <img src="<?php echo plugins_url( 'images/cusminlogo.png', __FILE__ ) ?>" />
+                                                &nbsp;&nbsp;<span><?php _e('Upgrade to Cusmin', 'ag-custom-admin'); ?></span></a><span><?php _e('&nbsp;- unlock the ultimate customizing experience', 'ag-custom-admin'); ?></span></li>
                                     </ul>
                                 </div>
                             </td>
