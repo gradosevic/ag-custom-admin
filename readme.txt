@@ -3,8 +3,8 @@ Contributors: wap
 Donate link: http://wordpressadminpanel.com/ag-custom-admin/
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
-Tested up to: 4.6
-Stable tag: 5.6
+Tested up to: 4.5.3
+Stable tag: 5.6.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
  
