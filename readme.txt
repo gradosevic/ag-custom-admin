@@ -97,13 +97,13 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 > <strong>CUSMIN</strong><br>
 > Cusmin is premium version of AG Custom Admin that gives you more advanced features for customization and branding.<br><br>
 > For more info about Cusmin, please go to [Cusmin](https://cusmin.com) site.
-<br>
+ 
 > <strong>ADMIN THEMES</strong><br>
 > AG Custom Admin plugin contains specially created professional and responsive themes for admin panel and login page, that can be applied easily within AG Custom Admin plugin with only few clicks!
 > We will add more themes with better styles and theme options in future.
 
 > For more info about AG Custom Admin themes, please go to [WordPress Admin Panel Themes](http://wordpressadminpanel.com/themes/home) site.
-> <br>
+ <br>
 > <br><strong>CUSTOM ADMIN MENU ICONS</strong><br>
 > AGL Custom Admin Menu Icons plugin, can be used to add or change admin menu icons, add custom colors and icons, and even draw custom icons<br>
 > For more information about advanced admin menu icons management, please check [Admin Menu Icons Management](http://wordpressadminpanel.com/aglcami/home)
