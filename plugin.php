@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: WAP
-Version: 5.6.2
+Version: 5.6.3
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: http://www.wordpressadminpanel.com/
@@ -73,7 +73,7 @@ class AGCA{
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 
-        $this->agca_version = "5.6.2";
+        $this->agca_version = "5.6.3";
 
         //TODO:upload images programmatically
 	}
@@ -805,7 +805,7 @@ class AGCA{
 
         $href = $arr["value"];
         $target =$arr["target"];
-        $button ="<li class=\"wp-not-current-submenu menu-top menu-top-last\" id=\"menu-$name\"><a href=\"$href\" target=\"$target\" class=\"wp-not-current-submenu menu-top\"><div class=\"wp-menu-arrow\"><div></div></div><div class=\"wp-menu-image dashicons-before dashicons-admin-$name\"><br></div><div class=\"wp-menu-name\">$name</div></a></li>";
+        $button ="<li class=\"wp-not-current-submenu menu-top menu-top-last\" id=\"menu-$name\"><a href=\"$href\" target=\"$target\" class=\"wp-not-current-submenu menu-top\"><div class=\"wp-menu-arrow\"><div></div></div><div class=\"wp-menu-image dashicons-before dashicons-admin-$name\" style=\"width:15px\"><br></div><div class=\"wp-menu-name\">$name</div></a></li>";
 
         return $button;
     }
@@ -1031,10 +1031,13 @@ class AGCA{
 
         <?php } ?>
         <?php if(get_option('agca_wp_logo_custom')!=""){ ?>
-            jQuery("li#wp-admin-bar-wp-logo a.ab-item span.ab-icon").html("<img style=\"height:28px;margin-top:-4px\" src=\"<?php echo get_option('agca_wp_logo_custom'); ?>\" />");
-            jQuery("li#wp-admin-bar-wp-logo a.ab-item span.ab-icon").css('background-image','none');
-            jQuery("li#wp-admin-bar-wp-logo a.ab-item span.ab-icon").css('width','auto');
-            jQuery("li#wp-admin-bar-wp-logo a.ab-item").attr('href',"<?php echo get_bloginfo('wpurl'); ?>");
+            jQuery("li#wp-admin-bar-wp-logo a.ab-item span.ab-icon")
+            .html("<img style=\"height:32px;margin-top:0\" src=\"<?php echo get_option('agca_wp_logo_custom'); ?>\" />")
+            .css('background-image','none')
+            .css('width','auto');
+            jQuery("li#wp-admin-bar-wp-logo > a.ab-item")
+            .attr('href',"<?php echo get_bloginfo('wpurl'); ?>")
+            .css('padding', 0);
             jQuery("#wpadminbar #wp-admin-bar-root-default > #wp-admin-bar-wp-logo .ab-item:before").attr('title','');
             jQuery('body #wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon').attr('class','ab-icon2');
             jQuery("#wp-admin-bar-wp-logo").show();
@@ -2311,7 +2314,7 @@ class AGCA{
                             'title'=>__('Change default WordPress logo with custom image.', 'ag-custom-admin'),
                             'name'=>'agca_wp_logo_custom',
                             'label'=>__('Admin bar logo', 'ag-custom-admin'),
-                            'hint' =>__('Image URL (maximum height is 28px)', 'ag-custom-admin')
+                            'hint' =>__('Image URL', 'ag-custom-admin')
                         ));
 
                         $this->print_input(array(
@@ -2338,16 +2341,16 @@ class AGCA{
 
                         $this->print_checkbox(array(
                             'hide'=>true,
-                            'title'=>__('Hides small Wordpress logo from the admin bar', 'ag-custom-admin'),
+                            'title'=>__('Hides small Wordpress logo or custom logo from the admin bar', 'ag-custom-admin'),
                             'name'=>'agca_header_logo',
-                            'label'=>__('WordPress logo', 'ag-custom-admin')
+                            'label'=>__('Admin bar logo', 'ag-custom-admin')
                         ));
 
                         $this->print_checkbox(array(
                             'hide'=>true,
-                            'title'=>__('Hides WordPress context menu on WordPress logo icon from admin bar', 'ag-custom-admin'),
+                            'title'=>__('Hides WordPress context menu on admin bar logo from admin bar', 'ag-custom-admin'),
                             'name'=>'agca_remove_top_bar_dropdowns',
-                            'label'=>__('WordPress logo context menu', 'ag-custom-admin')
+                            'label'=>__('Admin bar logo context menu', 'ag-custom-admin')
                         ));
 
                         $this->print_checkbox(array(
@@ -2440,7 +2443,7 @@ class AGCA{
                             'label'=>__('"Admin themes"', 'ag-custom-admin')
                         ));
 
-                        $this->print_textarea(array(
+                        $this->print_input(array(
                             'title'=>__('Adds custom text in admin top bar.', 'ag-custom-admin'),
                             'name'=>'agca_custom_site_heading',
                             'label'=>__('Custom blog heading', 'ag-custom-admin'),
