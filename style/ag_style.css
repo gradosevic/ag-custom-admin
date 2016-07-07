@@ -770,3 +770,7 @@ td.ag_admin_menu_parent:hover {
 #section_ag_colorizer_settings .color .agca_button span.clear:hover {
     color: red;
 }
+/*Hide dashboard empty box containers*/
+#dashboard-widgets div.empty-container{
+    display: none;
+}

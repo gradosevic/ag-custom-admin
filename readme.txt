@@ -3,8 +3,8 @@ Contributors: wap
 Donate link: http://wordpressadminpanel.com/ag-custom-admin/
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
-Tested up to: 4.5.3
-Stable tag: 5.6.2
+Tested up to: 4.6
+Stable tag: 5.6.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
  
@@ -157,6 +157,13 @@ If you have the latest WordPress and plugin versions and you still experience so
 12. Army - commercial theme.
 
 == Change Log ==
+
+= 5.6.3 =
+* Compatibility with WordPress 4.6
+* Resolved styling issue for AGCA admin menu button, when default menu is hidden
+* Improved styling of admin bar logo
+* A couple of visual improvements on input fields and text
+* Removed dashboard empty box placeholders
 
 = 5.6.2 =
 * Updated readme.txt
@@ -499,6 +506,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 5.6.3 =
+* Compatibility with WordPress 4.6
 
 = 5.6.2 =
 * Updated readme
