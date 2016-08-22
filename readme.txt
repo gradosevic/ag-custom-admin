@@ -26,7 +26,7 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 > For more info about Cusmin, please go to [Cusmin](https://cusmin.com) site.
 = =
 > <strong>ADMIN THEMES</strong><br>
-> AG Custom Admin plugin contains specially created professional and responsive themes for admin panel and login page, that can be applied easily within AG Custom Admin plugin with only few clicks!
+> AG Custom Admin plugin contains specially created professional and responsive themes for admin panel and login page, that can be applied easily within AG Custom Admin plugin in a couple of clicks!
 > We will add more themes with better styles and theme options in future.<br><br>
 > For more info about AG Custom Admin themes, please go to [WordPress Admin Panel Themes](http://wordpressadminpanel.com/themes/home) site.
 
