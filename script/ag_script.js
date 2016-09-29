@@ -582,7 +582,7 @@ function updateTargetColor(id, color){
     switch(id)
     {
         case 'color_background':
-            jQuery('html, .wp-dialog').css({
+            jQuery('html, .wp-dialog, #wpwrap').css({
                 'background-color':color
             });
             break;
@@ -600,15 +600,12 @@ function updateTargetColor(id, color){
             //wp > 3.3
             jQuery('#wpadminbar').css({'background':color});
             jQuery('#wpadminbar .ab-top-menu').css({'background':color});
-
-            if(wpversion >= 3.2){
-                jQuery('#wphead').css({
-                    'margin':'0',
-                    'margin-left':'-14px',
-                    'padding-left':'15px'
-                });
-                jQuery("#backtoblog").attr("style","");
-            }
+            jQuery('#wphead').css({
+                'margin':'0',
+                'margin-left':'-14px',
+                'padding-left':'15px'
+            });
+            jQuery("#backtoblog").attr("style","");
             break;
         case 'color_admin_menu_top_button_background':
             jQuery('#adminmenu a.menu-top').css({
