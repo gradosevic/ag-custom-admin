@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: WAP
-Version: 5.6.4
+Version: 5.6.5
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: http://www.wordpressadminpanel.com/
@@ -53,6 +53,7 @@ class AGCA{
         }
 
         add_action('admin_init', array(&$this,'admin_init'));
+        add_action('login_init', array(&$this,'login_init'));
         add_action('admin_head', array(&$this,'print_admin_css'));
         add_action('login_head', array(&$this,'print_login_head'));
         add_action('admin_menu', array(&$this,'agca_create_menu'));
@@ -72,7 +73,7 @@ class AGCA{
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 
-        $this->agca_version = "5.6.4";
+        $this->agca_version = "5.6.5";
 
         //TODO:upload images programmatically
 	}
@@ -108,6 +109,10 @@ class AGCA{
     function admin_init(){
         $this->agca_register_settings();
         $this->agca_init_session();
+    }
+
+    function login_init(){
+        $this->agca_enqueue_scripts();
     }
 
     function agca_init_session(){
@@ -461,7 +466,7 @@ class AGCA{
         if(defined('WP_ADMIN') && WP_ADMIN == 1){
             $isAdmin = true;
         }
-        if(in_array((isset($GLOBALS['pagenow'])?$GLOBALS['pagenow']:""), array('wp-login.php', 'wp-register.php')) || $isAdmin || $this->WPSPluginIsLoginPage()){
+        if($isAdmin || $this->WPSPluginIsLoginPage()){
            $this->agca_enqueue_scripts();
         }
     }
@@ -914,16 +919,12 @@ class AGCA{
             </script>
             <?php
         }
-        if(get_option('agca_admin_bar_frontend')!=true){
+        if(get_option('agca_admin_bar_frontend')!=true && is_user_logged_in()){
 
             $this->context = "page";
-            $wpversion = $this->get_wp_version();
-
+            //$wpversion = $this->get_wp_version();
             ?>
-
-
             <script type="text/javascript">
-                var wpversion = "<?php echo $wpversion; ?>";
                 var agca_version = "<?php echo $this->agca_version; ?>";
                 var agca_debug = <?php echo ($this->agca_debug)?"true":"false"; ?>;
                 var jQueryScriptOutputted = false;
@@ -2001,7 +2002,7 @@ class AGCA{
 
         $this->context = "login";
         $this->error_check();
-        $wpversion = $this->get_wp_version();
+        //$wpversion = $this->get_wp_version();
 
         ?>
         <script type="text/javascript">
