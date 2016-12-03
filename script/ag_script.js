@@ -30,12 +30,12 @@ if(window.location.href.indexOf(encodeURIComponent('ag-custom-admin/plugin.php')
     jQuery(function(){
         var agcapage = localStorage.getItem('agca-page');
         if(!agcapage){
-            localStorage.setItem('agca-page', window.location.hash);
+            var hash = window.location.hash || 'general-settings';
+            localStorage.setItem('agca-page', hash);
             agcapage = localStorage.getItem('agca-page');
         }
         window.location.hash = window.location.hash || agcapage;
         localStorage.setItem('agca-page', window.location.hash);
-
     });
     window.onhashchange = function(){
         localStorage.setItem('agca-page', window.location.hash);
