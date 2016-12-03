@@ -89,6 +89,10 @@ table .agca-tip {
     color: #999;
 }
 
+#agca_form .save-button-upper{
+    padding-left: 20px;
+}
+
 #ag_main_menu li {
     display: block;
     background-color: #DEF7C3;
