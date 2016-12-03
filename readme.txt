@@ -158,6 +158,7 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Few other small improvements
 * Ready for WP 4.7
 * Resolved issue: QuotaExceededError due to LocalStorage when Private Browsing in Safari
+* Added acceptance test suite
 
 = 5.6.5 =
 * Resolved Colorizer backround color issue in WP 4.6
