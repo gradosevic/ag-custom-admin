@@ -88,7 +88,7 @@ class AGCA{
         if ( $file == plugin_basename(__FILE__) )
         {
             if(!is_network_admin()){
-                $links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php">' . __('Settings', 'ag-custom-admin') . '</a>';
+                $links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php#general-settings">' . __('Settings', 'ag-custom-admin') . '</a>';
                 $links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php#ag-templates">' . __('Admin Themes', 'ag-custom-admin') . '</a>';
             }
             $links[] = '<a href="http://wordpressadminpanel.com/agca-support/">' . __('Support', 'ag-custom-admin') . '</a>';
@@ -439,7 +439,7 @@ class AGCA{
 		$WPSPluginName = 'wps-hide-login/wps-hide-login.php';
 		if(is_multisite()){
 			if ( ! function_exists( 'is_plugin_active_for_network' ) )
-			require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+			require_once( ABSPATH . '/wp-admin/includes/plugin.php#general-settings' );
 			
 			if(!$this->isPluginActiveForNetwork($WPSPluginName)){
 				return '';
@@ -1910,7 +1910,7 @@ class AGCA{
                     });
                     <?php /*Only admin see button*/
                        if (current_user_can($this->admin_capability())){ ?>
-                    jQuery('#adminmenu').append('<?php echo $this->agca_create_admin_button('AG Custom Admin',array('value'=>'tools.php?page=ag-custom-admin/plugin.php','target'=>'_self')); ?>');
+                    jQuery('#adminmenu').append('<?php echo $this->agca_create_admin_button('AG Custom Admin',array('value'=>'tools.php?page=ag-custom-admin/plugin.php#general-settings','target'=>'_self')); ?>');
                     <?php } ?>
                     <?php } ?>
 
