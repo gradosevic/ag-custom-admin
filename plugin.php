@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: WAP
-Version: 5.6.5
+Version: 5.7
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: http://www.wordpressadminpanel.com/
@@ -73,7 +73,7 @@ class AGCA{
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 
-        $this->agca_version = "5.6.5";
+        $this->agca_version = "5.7";
 
         //TODO:upload images programmatically
 	}
@@ -88,7 +88,7 @@ class AGCA{
         if ( $file == plugin_basename(__FILE__) )
         {
             if(!is_network_admin()){
-                $links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php">' . __('Settings', 'ag-custom-admin') . '</a>';
+                $links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php#general-settings">' . __('Settings', 'ag-custom-admin') . '</a>';
                 $links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php#ag-templates">' . __('Admin Themes', 'ag-custom-admin') . '</a>';
             }
             $links[] = '<a href="http://wordpressadminpanel.com/agca-support/">' . __('Support', 'ag-custom-admin') . '</a>';
@@ -304,7 +304,7 @@ class AGCA{
             if(!is_network_admin()){
                 $wp_admin_bar->add_menu( array(
                     'id'    => 'agca-admin-themes',
-                    'title' => '<span class="ab-icon"></span>'.__( 'Admin Themes', 'agca-custom-admin' ),
+                    'title' => '<span class="ab-icon"></span>'.__( 'Admin Themes', 'ag-custom-admin' ),
                     'href'  => 'tools.php?page=ag-custom-admin/plugin.php#ag-templates'
                 ));
             }
@@ -439,7 +439,7 @@ class AGCA{
 		$WPSPluginName = 'wps-hide-login/wps-hide-login.php';
 		if(is_multisite()){
 			if ( ! function_exists( 'is_plugin_active_for_network' ) )
-			require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+			require_once( ABSPATH . '/wp-admin/includes/plugin.php#general-settings' );
 			
 			if(!$this->isPluginActiveForNetwork($WPSPluginName)){
 				return '';
@@ -1178,7 +1178,7 @@ class AGCA{
             }
             //TODO:Find out why this does not work
             //$capabilitySelector .="<option val=\"$k\" $selected >".str_replace(' ', ' ', ucwords(str_replace('_', ' ', $k))) ."</option>\n";
-            $capabilitySelector .="<option val=\"$k\" $selected >".$k."</option>\n";
+            $capabilitySelector .="<option value=\"$k\" $selected >".$k."</option>\n";
         }
 
         $this->admin_capabilities  = "<select class=\"agca-selectbox\" id=\"agca_admin_capability\"  name=\"agca_admin_capability\" val=\"upload_files\">".$capabilitySelector."</select>";
@@ -1910,7 +1910,7 @@ class AGCA{
                     });
                     <?php /*Only admin see button*/
                        if (current_user_can($this->admin_capability())){ ?>
-                    jQuery('#adminmenu').append('<?php echo $this->agca_create_admin_button('AG Custom Admin',array('value'=>'tools.php?page=ag-custom-admin/plugin.php','target'=>'_self')); ?>');
+                    jQuery('#adminmenu').append('<?php echo $this->agca_create_admin_button('AG Custom Admin',array('value'=>'tools.php?page=ag-custom-admin/plugin.php#general-settings','target'=>'_self')); ?>');
                     <?php } ?>
                     <?php } ?>
 
@@ -2185,7 +2185,7 @@ class AGCA{
                     <li class="normal"><a href="#dashboad-page-settings" title="<?php _e('Settings for Dashboard page', 'ag-custom-admin')?>"><?php _e('Dashboard', 'ag-custom-admin')?></a></li>
                     <li class="normal"><a href="#login-page-settings" title="<?php _e('Settings for Login page', 'ag-custom-admin')?>"><?php _e('Login Page', 'ag-custom-admin')?></a></li>
                     <li class="normal" ><a href="#admin-menu-settings" title="<?php _e('Settings for main admin menu', 'ag-custom-admin')?>"><?php _e('Admin Menu', 'ag-custom-admin')?></a></li>
-                    <li class="normal"><a href="#ag-colorizer-setttings" title="<?php _e('Colorizer settings', 'ag-custom-admin')?>"><?php _e('Colorizer', 'ag-custom-admin')?></a></li>
+                    <li class="normal"><a href="#ag-colorizer-settings" title="<?php _e('Colorizer settings', 'ag-custom-admin')?>"><?php _e('Colorizer', 'ag-custom-admin')?></a></li>
                     <li class="normal"><a href="#ag-advanced" title="<?php _e('My custom scripts', 'ag-custom-admin')?>"><?php _e('Advanced', 'ag-custom-admin')?></a></li>
                     <li class="normal" style=""><a style="color:#DB6014;font-weight:bolder;" href="#ag-templates" title="<?php _e('AG Custom Admin Themes', 'ag-custom-admin')?>"><?php _e('Themes', 'ag-custom-admin')?></a></li>
                     <li class="normal upgrade"><a href="https://cusmin.com/upgrade-to-cusmin?ref=menu" target="_blank" title="<?php _e('Upgrade to Cusmin', 'ag-custom-admin')?>"><img src="<?php echo plugins_url( 'images/cusminlogo.png', __FILE__ ) ?>" /><?php _e('Upgrade', 'ag-custom-admin')?></a></li>
@@ -2203,6 +2203,7 @@ class AGCA{
                 <div id="section-cusmin" style="display:none;"><?php _e('All AG Custom Admin plugin\'s settings, except admin themes, are disabled. Please use', 'ag-custom-admin')?> <a href="options-general.php?page=cusmin">Cusmin</a> <?php _e('plugin to manage these settings.', 'ag-custom-admin')?></div>
                 <div id="section_general" style="display:none" class="ag_section">
                     <h2 class="section_title"><?php _e('General Settings', 'ag-custom-admin')?></h2>
+                    <?php $this->show_save_button_upper(); ?>
                     <p tabindex="0" class="agca-clear agca-tip"><i><?php _e('<strong>Tip: </strong>Move mouse cursor over the option label to see more information about an option', 'ag-custom-admin')?></i></p>
                     <table class="agca-clear form-table" width="500px">
                         <?php
@@ -2281,6 +2282,7 @@ class AGCA{
                 </div>
                 <div id="section_admin_bar" style="display:none" class="ag_section">
                     <h2 class="section_title"><?php _e('Admin Bar Settings', 'ag-custom-admin'); ?></h2>
+                    <?php $this->show_save_button_upper(); ?>
                     <table class="form-table" width="500px">
 
                         <?php
@@ -2504,6 +2506,7 @@ class AGCA{
 
                 <div id="section_admin_footer" style="display:none" class="ag_section">
                     <h2 class="section_title"><?php _e('Admin Footer Settings', 'ag-custom-admin'); ?></h2>
+                    <?php $this->show_save_button_upper(); ?>
                     <table class="form-table" width="500px">
                         <?php
                         $this->print_checkbox(array(
@@ -2550,6 +2553,7 @@ class AGCA{
                 </div>
                 <div id="section_dashboard_page" style="display:none" class="ag_section">
                     <h2 class="section_title"><?php _e('Dashboard Page Settings', 'ag-custom-admin'); ?></h2>
+                    <?php $this->show_save_button_upper(); ?>
                     <table class="form-table" width="500px">
                         <?php
 
@@ -2628,6 +2632,7 @@ class AGCA{
                 </div>
                 <div id="section_login_page" style="display:none" class="ag_section">
                     <h2 class="section_title"><?php _e('Login Page Settings', 'ag-custom-admin'); ?></h2>
+                    <?php $this->show_save_button_upper(); ?>
                     <table class="form-table" width="500px">
                         <?php
 
@@ -2721,6 +2726,7 @@ class AGCA{
                 ?>
                 <div id="section_admin_menu" style="display:none" class="ag_section">
                     <h2 class="section_title"><?php _e('Admin Menu Settings', 'ag-custom-admin'); ?></h2>
+                    <?php $this->show_save_button_upper(); ?>
                     <table class="form-table" width="500px">
                         <tr valign="center" class="ag_table_major_options">
                             <td><label for="agca_admin_menu_turnonoff"><strong><?php _e('Apply admin menu customizations', 'ag-custom-admin'); ?></strong></label></td>
@@ -2878,6 +2884,7 @@ class AGCA{
                 </div>
                 <div id="section_ag_colorizer_settings" style="display:none" class="ag_section">
                     <h2 class="section_title"><?php _e('Colorizer Page', 'ag-custom-admin'); ?></h2>
+                    <?php $this->show_save_button_upper(); ?>
                     <table class="form-table" width="500px">
                         <tr valign="center" class="ag_table_major_options">
                             <td><label for="agca_colorizer_turnonoff"><strong><?php _e('Apply Colorizer settings', 'ag-custom-admin'); ?></strong></label></td>
@@ -2941,6 +2948,7 @@ class AGCA{
                 </div>
                 <div id="section_advanced" style="display:none" class="ag_section">
                     <h2 class="section_title"><?php _e('Advanced', 'ag-custom-admin'); ?></h2>
+                    <?php $this->show_save_button_upper(); ?>
                     <table class="form-table" width="500px">
                         <tr valign="center">
                             <td colspan="2">
@@ -2984,10 +2992,7 @@ class AGCA{
                         </tr>
                     </table>
                 </div>
-                <p class="submit">
-                    <input type="button" id="save_plugin_settings" style="padding:0px" title="<?php _e('Save AG Custom Admin configuration', 'ag-custom-admin'); ?>" class="button-primary" value="<?php _e('Save Changes') ?>" onClick="savePluginSettings()" />
-                </p>
-
+                <?php $this->show_save_button(); ?>
             </form>
             <form id="agca_templates_form" name="agca_templates_form" action="<?php echo get_site_url().$_SERVER['PHP_SELF'];?>?page=ag-custom-admin/plugin.php" method="post">
                 <?php wp_nonce_field('agca_form','_agca_token'); ?>
@@ -3000,6 +3005,21 @@ class AGCA{
     }
 
     #region PRIVATE METHODS
+    function show_save_button_upper(){
+        ?>
+        <div class="save-button-upper">
+            <?php $this->show_save_button() ?>
+        </div>
+        <?php
+    }
+    function show_save_button(){
+        ?>
+        <p class="submit agca-clear">
+            <input type="button" id="save_plugin_settings" style="padding:0px" title="<?php _e('Save AG Custom Admin configuration', 'ag-custom-admin'); ?>" class="button-primary" value="<?php _e('Save Changes') ?>" onClick="savePluginSettings()" />
+        </p>
+        <?php
+    }
+
     function print_checkbox($data){
         $strAttributes = '';
         $strOnchange = '';

@@ -28,16 +28,22 @@ function agcaDebugObj(obj){
 /*use only on agca page*/
 if(window.location.href.indexOf(encodeURIComponent('ag-custom-admin/plugin.php')) !== -1 || window.location.href.indexOf('ag-custom-admin/plugin.php') !== -1){
     jQuery(function(){
+        if(!isLocalStorageNameSupported()){
+            return false;
+        }
         var agcapage = localStorage.getItem('agca-page');
         if(!agcapage){
-            localStorage.setItem('agca-page', window.location.hash);
+            var hash = window.location.hash || 'general-settings';
+            localStorage.setItem('agca-page', hash);
             agcapage = localStorage.getItem('agca-page');
         }
         window.location.hash = window.location.hash || agcapage;
         localStorage.setItem('agca-page', window.location.hash);
-
     });
     window.onhashchange = function(){
+        if(!isLocalStorageNameSupported()){
+            return false;
+        }
         localStorage.setItem('agca-page', window.location.hash);
         if(jQuery('#ag_main_menu a.selected').attr('href') !== window.location.hash){
             if(window.location.hash !== ""){
@@ -45,6 +51,21 @@ if(window.location.href.indexOf(encodeURIComponent('ag-custom-admin/plugin.php')
             }
         }
     };
+}
+
+function isLocalStorageNameSupported()
+{
+    var testKey = 'test-storage', storage = window.localStorage;
+    try
+    {
+        storage.setItem(testKey, '1');
+        storage.removeItem(testKey);
+        return true;
+    }
+    catch (error)
+    {
+        return false;
+    }
 }
 
 function hideShowSubmenus(index){

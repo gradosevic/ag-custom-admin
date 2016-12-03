@@ -3,8 +3,8 @@ Contributors: wap
 Donate link: http://wordpressadminpanel.com/ag-custom-admin/
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
-Tested up to: 4.6
-Stable tag: 5.6.5
+Tested up to: 4.7
+Stable tag: 5.7
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
  
@@ -151,6 +151,14 @@ If you have the latest WordPress and plugin versions and you still experience so
 12. Army - commercial theme.
 
 == Change Log ==
+
+= 5.7 =
+* Added Save button on top
+* Resolved blank page issue on first time install
+* Few other small improvements
+* Ready for WP 4.7
+* Resolved issue: QuotaExceededError due to LocalStorage when Private Browsing in Safari
+* Added acceptance test suite
 
 = 5.6.5 =
 * Resolved Colorizer backround color issue in WP 4.6
@@ -511,6 +519,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 5.7 =
+* Bug fixes. Ready for WordPress 4.7.
 
 = 5.6.5 =
 * Compatibility improvements
