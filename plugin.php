@@ -1178,7 +1178,7 @@ class AGCA{
             }
             //TODO:Find out why this does not work
             //$capabilitySelector .="<option val=\"$k\" $selected >".str_replace(' ', ' ', ucwords(str_replace('_', ' ', $k))) ."</option>\n";
-            $capabilitySelector .="<option val=\"$k\" $selected >".$k."</option>\n";
+            $capabilitySelector .="<option value=\"$k\" $selected >".$k."</option>\n";
         }
 
         $this->admin_capabilities  = "<select class=\"agca-selectbox\" id=\"agca_admin_capability\"  name=\"agca_admin_capability\" val=\"upload_files\">".$capabilitySelector."</select>";
