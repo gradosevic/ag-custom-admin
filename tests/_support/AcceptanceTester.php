@@ -34,6 +34,34 @@ class AcceptanceTester extends \Codeception\Actor
         //$I->saveSessionSnapshot('login');
         //$I->loadSessionSnapshot('login');
 
+        $I->wait(1);
+
         $I->see('Dashboard');
+    }
+
+    public function checkAgcaOption($name){
+        try{
+            $this->click("#agca_form input.agca-checkbox[name=$name]:not(:checked) + div");
+        }catch (Exception $e){}
+    }
+
+    public function isAgcaOptionChecked($name){
+        return (bool) $this->executeJS(
+            'return jQuery("#agca_form input.agca-checkbox[name='.$name.']:checked").size()'
+        );
+    }
+
+    public function uncheckAgcaOption($name){
+        try{
+            $this->click("#agca_form input.agca-checkbox[name=$name]:checked + div");
+        }catch (Exception $e){}
+    }
+
+    public function getAGCAOptionLabel($name){
+        return $this->executeJS("return jQuery(\"label[for=$name]\").text();");
+    }
+
+    public function changeAgcaSelectOption($selector, $value){
+        $this->executeJS("jQuery(\"#agca_form $selector\").val('$value');");
     }
 }
