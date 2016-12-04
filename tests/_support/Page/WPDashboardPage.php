@@ -39,8 +39,14 @@ class WPDashboardPage
     }
 
     public function canSeeScreenOptions($shouldSee = true){
-        $text = 'Screen Options';
-        $selector = '#show-settings-link';
+        $this->canSeeTopRightDropdown('Screen Options', '#show-settings-link', $shouldSee);
+    }
+
+    public function canSeeHelpOptions($shouldSee = true){
+        $this->canSeeTopRightDropdown('Help', '#contextual-help-link', $shouldSee);
+    }
+
+    private function canSeeTopRightDropdown($text, $selector, $shouldSee = true){
         if($shouldSee){
             $this->I->canSee($text, $selector);
         }else{

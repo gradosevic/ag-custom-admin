@@ -62,34 +62,75 @@ class GeneralSettingsCest
         $page = new GeneralPage($I);
         $page->amOnGeneralPage();
 
+        $editDashboardOption = 'edit_dashboard';
+        $createUsersOption = 'create_users';
+
         //set new value
-        $I->selectOption(GeneralPage::$capabilityLabel, 'create_users');
-        $I->see('create_users', GeneralPage::$capabilitySelected);
+        $I->changeAgcaSelectOption(GeneralPage::$capabilityField, $createUsersOption);
+        $I->assertEquals($createUsersOption, $page->getAgcaSelectedOption(GeneralPage::$capabilityField));
         $page->saveSettings();
         $page->amOnGeneralPage();
-        $I->see('create_users', GeneralPage::$capabilitySelected);
+        $I->assertEquals($createUsersOption, $page->getAgcaSelectedOption(GeneralPage::$capabilityField));
 
         //Return to default
-        $I->selectOption(GeneralPage::$capabilityLabel, 'edit_dashboard');
+        $I->changeAgcaSelectOption(GeneralPage::$capabilityField, $editDashboardOption);
+        $I->assertEquals($editDashboardOption, $page->getAgcaSelectedOption(GeneralPage::$capabilityField));
         $page->saveSettings();
         $page->amOnGeneralPage();
-        $I->see('edit_dashboard', GeneralPage::$capabilitySelected);
+        $I->assertEquals($editDashboardOption, $page->getAgcaSelectedOption(GeneralPage::$capabilityField));
 
         //TODO: Test if this actually affects user that does not have that capability. Login with subscriber
+    }
 
+    public function test_help_menu(AcceptanceTester $I)
+    {
+        $page = new GeneralPage($I);
+        $page->amOnGeneralPage();
 
+        $option = 'agca_help_menu';
+        $label = '"Help" menu';
 
+        //Assert label is correct
+        $I->assertEquals($label, $I->getAGCAOptionLabel($option));
+
+        //Toggle hiding OFF
+        $I->uncheckAgcaOption($option);
+        $page->saveSettings();
+
+        $page->amOnGeneralPage();
+        $I->assertFalse($I->isAgcaOptionChecked($option));
+
+        $dashboardPage = new WPDashboardPage($I);
+        $dashboardPage->amOnDashboardPage();
+        $dashboardPage->canSeeHelpOptions();
+
+        //Toggle hiding ON;
+        $page->amOnGeneralPage();
+        $I->checkAgcaOption($option);
+        $page->saveSettings();
+        $page->amOnGeneralPage();
+        $I->assertTrue($I->isAgcaOptionChecked($option));
+
+        $dashboardPage->amOnDashboardPage();
+        $dashboardPage->canSeeHelpOptions(false);
     }
 
     public function test_screen_options(AcceptanceTester $I){
         $page = new GeneralPage($I);
         $page->amOnGeneralPage();
 
+        $option = 'agca_screen_options_menu';
+        $label = '"Screen Options" menu';
+
+        //Assert label is correct
+        $I->assertEquals($label, $I->getAGCAOptionLabel($option));
+
         //Toggle hiding OFF
-        $I->selectOption('agca_screen_options_menu', false);
+        $I->uncheckAgcaOption($option);
         $page->saveSettings();
+
         $page->amOnGeneralPage();
-        $I->selectOption('agca_screen_options_menu', false);
+        $I->assertFalse($I->isAgcaOptionChecked($option));
 
         $dashboardPage = new WPDashboardPage($I);
         $dashboardPage->amOnDashboardPage();
@@ -97,14 +138,12 @@ class GeneralSettingsCest
 
         //Toggle hiding ON;
         $page->amOnGeneralPage();
-        $I->selectOption('agca_screen_options_menu', true);
+        $I->checkAgcaOption($option);
         $page->saveSettings();
         $page->amOnGeneralPage();
-        $I->selectOption('agca_screen_options_menu', true);
+        $I->assertTrue($I->isAgcaOptionChecked($option));
 
         $dashboardPage->amOnDashboardPage();
-
-        //TODO: Does not work. Enable webdriver instead of PHPBrowser
-        //$dashboardPage->canSeeScreenOptions(false);
+        $dashboardPage->canSeeScreenOptions(false);
     }
 }
