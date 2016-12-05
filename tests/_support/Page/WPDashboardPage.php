@@ -33,9 +33,10 @@ class WPDashboardPage
         return static::$URL.$param;
     }
 
-    public function amOnDashboardPage(){
+    public function visit(){
         $this->I->amOnPage($this::$URL);
         $this->I->see('Dashboard', 'body h1:nth-child(1)');
+        return $this;
     }
 
     public function canSeeScreenOptions($shouldSee = true){
