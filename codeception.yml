@@ -16,9 +16,10 @@ modules:
     enabled: [Filesystem, Asserts]
     config:
         WebDriver: #run: phantomjs --webdriver=4444
-            url: 'http://wp47.
-            dev/'
+            url: 'http://wp47.dev/'
             browser: phantomjs
+            window_size: 1024x768
+            debug: true
             capabilities:
                 webStorageEnabled: true
         PhpBrowser:

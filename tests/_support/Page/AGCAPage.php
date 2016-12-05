@@ -56,4 +56,12 @@ class AGCAPage
     public function saveSettings(){
         $this->I->submitForm('#agca_form', []);
     }
+
+    public function agcaOptionChecked($name){
+        return $this->I->executeJS("return jQuery('[name=$name]:checked').size()");
+    }
+
+    public function getAgcaSelectedOption($selector){
+        return $this->I->executeJS("return jQuery(\"#agca_form $selector\").val();");
+    }
 }
