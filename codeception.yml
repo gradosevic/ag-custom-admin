@@ -19,7 +19,6 @@ modules:
             url: 'http://wp47.dev/'
             browser: phantomjs
             window_size: 1024x768
-            debug: true
             capabilities:
                 webStorageEnabled: true
         PhpBrowser:
