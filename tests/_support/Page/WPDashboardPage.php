@@ -33,14 +33,21 @@ class WPDashboardPage
         return static::$URL.$param;
     }
 
-    public function amOnDashboardPage(){
+    public function visit(){
         $this->I->amOnPage($this::$URL);
         $this->I->see('Dashboard', 'body h1:nth-child(1)');
+        return $this;
     }
 
     public function canSeeScreenOptions($shouldSee = true){
-        $text = 'Screen Options';
-        $selector = '#show-settings-link';
+        $this->canSeeTopRightDropdown('Screen Options', '#show-settings-link', $shouldSee);
+    }
+
+    public function canSeeHelpOptions($shouldSee = true){
+        $this->canSeeTopRightDropdown('Help', '#contextual-help-link', $shouldSee);
+    }
+
+    private function canSeeTopRightDropdown($text, $selector, $shouldSee = true){
         if($shouldSee){
             $this->I->canSee($text, $selector);
         }else{
