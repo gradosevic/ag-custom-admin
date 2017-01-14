@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: http://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: WAP
-Version: 5.7.1
+Version: 5.7.2
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: http://www.wordpressadminpanel.com/
@@ -73,7 +73,7 @@ class AGCA{
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 
-        $this->agca_version = "5.7.1";
+        $this->agca_version = "5.7.2";
 
         //TODO:upload images programmatically
 	}
@@ -96,6 +96,13 @@ class AGCA{
             $links[] = '<a href="http://wordpressadminpanel.com/agca-support/support-for-future-development">' . __('Donate', 'ag-custom-admin') . '</a>';
         }
         return $links;
+    }
+
+    function filePath($url){
+        $absPath = ABSPATH;
+        $absPath = rtrim($absPath, '/');
+        $url = ltrim($url, '/');
+        return $absPath.'/'.$url;
     }
 
     function change_admin_color(){
@@ -277,7 +284,7 @@ class AGCA{
 					exit;
 				}
 			} else {
-				include_once(ABSPATH . 'wp-includes/pluggable.php');
+				include_once($this->filePath('wp-includes/pluggable.php'));
 				if (!is_user_logged_in() || !current_user_can('manage_options')) {
 					echo !is_user_logged_in() ? __('User is not logged in.', 'ag-custom-admin').' ' : '';
 					echo !current_user_can('manage_options') ? __('User can not manage options.', 'ag-custom-admin').' ' : '';
@@ -439,7 +446,7 @@ class AGCA{
 		$WPSPluginName = 'wps-hide-login/wps-hide-login.php';
 		if(is_multisite()){
 			if ( ! function_exists( 'is_plugin_active_for_network' ) )
-			require_once( ABSPATH . '/wp-admin/includes/plugin.php#general-settings' );
+			require_once($this->filePath('wp-admin/includes/plugin.php#general-settings'));
 			
 			if(!$this->isPluginActiveForNetwork($WPSPluginName)){
 				return '';
@@ -1825,7 +1832,7 @@ class AGCA{
                     jQuery("#dashboard-widgets-wrap").parent().find("h1").html("<?php echo addslashes(get_option('agca_dashboard_text')); ?>");
                     <?php } ?>
                     <?php if(get_option('agca_dashboard_text_paragraph')!=""){
-                                                        require_once(ABSPATH . 'wp-includes/formatting.php');
+                                                        require_once($this->filePath('wp-includes/formatting.php'));
                                         ?>
                     jQuery("#wpbody-content #dashboard-widgets-wrap").before('<div id="agca_custom_dashboard_content"></div>');
 
