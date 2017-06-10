@@ -32,6 +32,7 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 = General Settings =
 * Hide "Screen Options" menu
 * Hide "Help" menu
+* Hide Color scheme on Profile page
 
 = Admin Bar Settings =
 * Hide admin bar completely
