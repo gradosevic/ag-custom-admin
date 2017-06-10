@@ -9,7 +9,7 @@ Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: http://www.wordpressadminpanel.com/
 
-    Copyright 2016. WAP (email : info@wordpressadminpanel.com)
+    Copyright 2017. WAP (email : info@wordpressadminpanel.com)
  
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -36,18 +36,18 @@ class AGCA{
     private $saveAfterImport = false;
     private $templateCustomizations = "";
     private $templates_ep = "http://wordpressadminpanel.com/configuration.php";
-	
+
     public function __construct()
-    {        
-	 	add_action('init', array(&$this,'init'));
+    {
+        add_action('init', array(&$this,'init'));
     }
-	
-	function init(){
-		$this->reloadScript();
+
+    function init(){
+        $this->reloadScript();
         $this->checkPOST();
         $this->checkGET();
-		
-		if(function_exists("add_filter")){
+
+        if(function_exists("add_filter")){
             add_filter('admin_title', array(&$this,'change_title'), 10, 2);
             add_filter('plugin_row_meta', array(&$this,'jk_filter_plugin_links'), 10, 2);
         }
@@ -64,11 +64,11 @@ class AGCA{
 
         add_action( 'customize_controls_enqueue_scripts',  array(&$this,'agca_customizer_php') );
 
-       /* wp_localize_script(
-            'agca-script',//use agca enqueued script
-            'agca_string',
-            $this->get_language_strings()
-        );*/
+        /* wp_localize_script(
+             'agca-script',//use agca enqueued script
+             'agca_string',
+             $this->get_language_strings()
+         );*/
 
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
@@ -76,7 +76,7 @@ class AGCA{
         $this->agca_version = "5.7.2";
 
         //TODO:upload images programmatically
-	}
+    }
 
     function load_plugin_textdomain() {
         load_plugin_textdomain( 'ag-custom-admin', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
@@ -98,6 +98,7 @@ class AGCA{
         return $links;
     }
 
+
     function filePath($url){
         $absPath = ABSPATH;
         $absPath = rtrim($absPath, '/');
@@ -116,6 +117,12 @@ class AGCA{
     function admin_init(){
         $this->agca_register_settings();
         $this->agca_init_session();
+        $isAdminUser = current_user_can($this->admin_capability());
+        if(!$isAdminUser || ($isAdminUser && !get_option('agca_role_allbutadmin'))){
+            if(get_option('agca_profile_color_scheme')){
+                remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' );
+            }
+        }
     }
 
     function login_init(){
@@ -252,7 +259,7 @@ class AGCA{
             exit;
         }
     }
-	
+
     function verifyPostRequest(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!is_admin()) {
@@ -263,34 +270,34 @@ class AGCA{
             if(get_option('agca_disable_postver')){
                 return;
             }
-			if (is_multisite()) {
-				$blog_id = get_current_blog_id();
-				$user_id = get_current_user_id(); 
-				$msError = __('Please try temporary disabling POST verification. Go to AG Custom Admin -> Advanced -> Temporary disable POST verification. Do not forget to un-check this option once you are done with customizations.', 'ag-custom-admin');
-				if (is_user_member_of_blog($user_id, $blog_id)) {
-					if (!current_user_can('manage_options')) {
-						_e('Multi-site: Current user is not recognized as administrator.', 'ag-custom-admin');
-						echo ' '.$msError;
-						exit;
-					}
-				} else {
-					printf(
-						/*translators: 1: User Id 2: Blog Id*/
-						__('Multi-site: User (%1$s) does not have access to this blog (%2$s).', 'ag-custom-admin'),
-						$user_id,
-						$blog_id
-					);
-					echo ' '. $msError;
-					exit;
-				}
-			} else {
-				include_once($this->filePath('wp-includes/pluggable.php'));
-				if (!is_user_logged_in() || !current_user_can('manage_options')) {
-					echo !is_user_logged_in() ? __('User is not logged in.', 'ag-custom-admin').' ' : '';
-					echo !current_user_can('manage_options') ? __('User can not manage options.', 'ag-custom-admin').' ' : '';
-					exit;
-				}
-			}
+            if (is_multisite()) {
+                $blog_id = get_current_blog_id();
+                $user_id = get_current_user_id();
+                $msError = __('Please try temporary disabling POST verification. Go to AG Custom Admin -> Advanced -> Temporary disable POST verification. Do not forget to un-check this option once you are done with customizations.', 'ag-custom-admin');
+                if (is_user_member_of_blog($user_id, $blog_id)) {
+                    if (!current_user_can('manage_options')) {
+                        _e('Multi-site: Current user is not recognized as administrator.', 'ag-custom-admin');
+                        echo ' '.$msError;
+                        exit;
+                    }
+                } else {
+                    printf(
+                    /*translators: 1: User Id 2: Blog Id*/
+                        __('Multi-site: User (%1$s) does not have access to this blog (%2$s).', 'ag-custom-admin'),
+                        $user_id,
+                        $blog_id
+                    );
+                    echo ' '. $msError;
+                    exit;
+                }
+            } else {
+                include_once($this->filePath('wp-includes/pluggable.php'));
+                if (!is_user_logged_in() || !current_user_can('manage_options')) {
+                    echo !is_user_logged_in() ? __('User is not logged in.', 'ag-custom-admin').' ' : '';
+                    echo !current_user_can('manage_options') ? __('User can not manage options.', 'ag-custom-admin').' ' : '';
+                    exit;
+                }
+            }
             if (!wp_verify_nonce($_POST['_agca_token'], 'agca_form')) {
                 echo __('Nonce verification failed.', 'ag-custom-admin');
                 exit;
@@ -442,21 +449,21 @@ class AGCA{
     }
 
     function WPSPluginIsLoginPage(){
-	
-		$WPSPluginName = 'wps-hide-login/wps-hide-login.php';
-		if(is_multisite()){
-			if ( ! function_exists( 'is_plugin_active_for_network' ) )
-			require_once($this->filePath('wp-admin/includes/plugin.php#general-settings'));
-			
-			if(!$this->isPluginActiveForNetwork($WPSPluginName)){
-				return '';
-			}
-		}else{
-			if(!$this->isPluginActive($WPSPluginName)){
-				return '';
-			}
-		}
-        
+
+        $WPSPluginName = 'wps-hide-login/wps-hide-login.php';
+        if(is_multisite()){
+            if ( ! function_exists( 'is_plugin_active_for_network' ) )
+                require_once($this->filePath('wp-admin/includes/plugin.php#general-settings'));
+
+            if(!$this->isPluginActiveForNetwork($WPSPluginName)){
+                return '';
+            }
+        }else{
+            if(!$this->isPluginActive($WPSPluginName)){
+                return '';
+            }
+        }
+
         if ( $slug = get_option( 'whl_page' ) ) {
             return $slug;
         } else if ( ( is_multisite() && $this->isPluginActiveForNetwork($WPSPluginName) && ( $slug = get_site_option( 'whl_page', 'login' ) ) ) ) {
@@ -474,7 +481,7 @@ class AGCA{
             $isAdmin = true;
         }
         if($isAdmin || $this->WPSPluginIsLoginPage()){
-           $this->agca_enqueue_scripts();
+            $this->agca_enqueue_scripts();
         }
     }
 
@@ -496,6 +503,7 @@ class AGCA{
         register_setting( 'agca-options-group', 'agca_wp_logo_custom' );
         register_setting( 'agca-options-group', 'agca_remove_site_link' );
         register_setting( 'agca-options-group', 'agca_wp_logo_custom_link' );
+        register_setting( 'agca-options-group', 'agca_profile_color_scheme' );
 
         register_setting( 'agca-options-group', 'agca_site_heading' );
         register_setting( 'agca-options-group', 'agca_custom_site_heading' );
@@ -637,6 +645,7 @@ class AGCA{
             'agca_remove_site_link',
             'agca_wp_logo_custom',
             'agca_wp_logo_custom_link',
+            'agca_profile_color_scheme',
             'agca_site_heading',
             'agca_custom_site_heading',
             'agca_update_bar',
@@ -1613,8 +1622,8 @@ class AGCA{
         }
         return is_plugin_active($plugin);
     }
-	function isPluginActiveForNetwork($plugin){
-		return is_plugin_active_for_network($plugin);
+    function isPluginActiveForNetwork($plugin){
+        return is_plugin_active_for_network($plugin);
     }
     function print_admin_css()
     {
@@ -2237,6 +2246,13 @@ class AGCA{
                             'title'=>__('Hides the menu from the admin pages (located on the top right corner of the page, below the admin bar)', 'ag-custom-admin')
                         ));
 
+                        $this->print_checkbox(array(
+                            'title'=>__('Hides colors scheme on profile page', 'ag-custom-admin'),
+                            'name'=>'agca_profile_color_scheme',
+                            'hide'=>true,
+                            'label'=>__('Profile Color Scheme', 'ag-custom-admin')
+                        ));
+
                         $this->print_options_h3(__('Security', 'ag-custom-admin'));
 
                         ?>
@@ -2559,12 +2575,12 @@ class AGCA{
                     </table>
                 </div>
                 <div id="section_dashboard_page" style="display:none" class="ag_section">
-                    <h2 class="section_title"><?php _e('Dashboard Page Settings', 'ag-custom-admin'); ?></h2>
+                    <h2 class="section_title"><?php _e('Dashboard Settings', 'ag-custom-admin'); ?></h2>
                     <?php $this->show_save_button_upper(); ?>
                     <table class="form-table" width="500px">
                         <?php
 
-                        $this->print_options_h3(__('Dashboard Page Options', 'ag-custom-admin'));
+                        $this->print_options_h3(__('Dashboard Options', 'ag-custom-admin'));
 
                         $this->print_input(array(
                             'title'=>__('Main heading (\'Dashboard\') on Dashboard page', 'ag-custom-admin'),
