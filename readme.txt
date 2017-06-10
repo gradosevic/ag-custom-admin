@@ -4,7 +4,7 @@ Donate link: http://wordpressadminpanel.com/ag-custom-admin/
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
 Tested up to: 4.8
-Stable tag: 5.7.2
+Stable tag: 5.7.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
  
@@ -153,7 +153,7 @@ If you have the latest WordPress and plugin versions and you still experience so
 
 == Change Log ==
 
-= 5.7.2 =
+= 5.7.3 =
 * Fix for ABSPATH value
 * Added option to hide profile color scheme
 
@@ -528,7 +528,7 @@ If you have the latest WordPress and plugin versions and you still experience so
 
 == Upgrade Notice ==
 
-= 5.7.2 =
+= 5.7.3 =
 * Fix for ABSPATH value, and added option to hide profile color scheme
 
 = 5.7.1 =
