@@ -766,7 +766,7 @@ jQuery(document).ready(function(){
     if(typeof isAGCAPage !== 'undefined'){
         if(isAGCAPage == true){
             //alert('admin page');
-            var url="http://wordpressadminpanel.com/ads/ep/ads/ads?jsoncallback=?";
+            var url="https://wordpressadminpanel.com/ads/ep/ads/ads?jsoncallback=?";
             jQuery.getJSON(
                 url,{
                     wp_ver: wpversion,
@@ -775,7 +775,7 @@ jQuery(document).ready(function(){
                 },
                 function(json){
                     jQuery.each(json,function(i,post){
-                        jQuery('#agca_advertising ul').append('<li><a target="_blank" href="http://wordpressadminpanel.com/ads/ep/ads/ad?id=' + post.id + '" ><img height=\"100px\" src=\"'+post.src+'\"  title=\"'+post.title+'\" /></a></li>');
+                        jQuery('#agca_advertising ul').append('<li><a target="_blank" href="https://wordpressadminpanel.com/ads/ep/ads/ad?id=' + post.id + '" ><img height=\"100px\" src=\"'+post.src+'\"  title=\"'+post.title+'\" /></a></li>');
                     });
                     jQuery('#agca_advertising').show();
 
@@ -788,7 +788,7 @@ jQuery(document).ready(function(){
     jQuery(document).ready(function(){
         if(typeof isAGCAPage !== 'undefined'){
             if(isAGCAPage == true){
-                var url="http://wordpressadminpanel.com/info/info?jsoncallback=?";
+                var url="https://wordpressadminpanel.com/info/info?jsoncallback=?";
                 jQuery.getJSON(
                     url,{
                         wp_ver: wpversion,

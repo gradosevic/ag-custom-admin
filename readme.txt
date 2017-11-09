@@ -1,10 +1,10 @@
 === AG Custom Admin ===
-Contributors: wap
-Donate link: http://wordpressadminpanel.com/ag-custom-admin/
+Contributors: wap, cusmin
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&item_name=Support+for+AG+Custom+Admin+Development
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
 Tested up to: 4.8
-Stable tag: 5.7.3
+Stable tag: 5.7.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
  
@@ -152,6 +152,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 12. Army - commercial theme.
 
 == Change Log ==
+
+= 5.7.4 =
+* Updated plugin links to secure links
 
 = 5.7.3 =
 * Fix for ABSPATH value
@@ -527,6 +530,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 5.7.4 =
+* Updated plugin links to secure links
 
 = 5.7.3 =
 * Fix for ABSPATH value, and added option to hide profile color scheme

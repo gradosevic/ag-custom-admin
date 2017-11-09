@@ -1,13 +1,13 @@
 <?php
 /*
 Plugin Name: AG Custom Admin
-Plugin URI: http://wordpressadminpanel.com/ag-custom-admin/
+Plugin URI: https://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: WAP
-Version: 5.7.3
+Version: 5.7.4
 Text Domain: ag-custom-admin
 Domain Path: /languages
-Author URI: http://www.wordpressadminpanel.com/
+Author URI: https://www.wordpressadminpanel.com/
 
     Copyright 2017. WAP (email : info@wordpressadminpanel.com)
  
@@ -35,7 +35,7 @@ class AGCA{
     private $context = "";
     private $saveAfterImport = false;
     private $templateCustomizations = "";
-    private $templates_ep = "http://wordpressadminpanel.com/configuration.php";
+    private $templates_ep = "https://wordpressadminpanel.com/configuration.php";
 
     public function __construct()
     {
@@ -58,7 +58,7 @@ class AGCA{
         add_action('login_head', array(&$this,'print_login_head'));
         add_action('admin_menu', array(&$this,'agca_create_menu'));
         add_action('wp_head', array(&$this,'print_page'));
-        add_action( 'wp_before_admin_bar_render', array(&$this,'admin_bar_changes') );
+        //add_action( 'wp_before_admin_bar_render', array(&$this,'admin_bar_changes') );
         add_action( 'plugins_loaded', array(&$this,'load_plugin_textdomain') );
         register_deactivation_hook(__FILE__, array(&$this,'agca_deactivate'));
 
@@ -73,7 +73,7 @@ class AGCA{
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 
-        $this->agca_version = "5.7.3";
+        $this->agca_version = "5.7.4";
 
         //TODO:upload images programmatically
     }
@@ -89,11 +89,11 @@ class AGCA{
         {
             if(!is_network_admin()){
                 $links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php#general-settings">' . __('Settings', 'ag-custom-admin') . '</a>';
-                $links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php#ag-templates">' . __('Admin Themes', 'ag-custom-admin') . '</a>';
+                //$links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php#ag-templates">' . __('Admin Themes', 'ag-custom-admin') . '</a>';
             }
-            $links[] = '<a href="http://wordpressadminpanel.com/agca-support/">' . __('Support', 'ag-custom-admin') . '</a>';
+            $links[] = '<a href="https://wordpressadminpanel.com/agca-support/">' . __('Support', 'ag-custom-admin') . '</a>';
             $links[] = '<a href="https://cusmin.com/upgrade-to-cusmin?ref=plugins">' . __('Upgrade', 'ag-custom-admin') . '</a>';
-            $links[] = '<a href="http://wordpressadminpanel.com/agca-support/support-for-future-development">' . __('Donate', 'ag-custom-admin') . '</a>';
+            $links[] = '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&item_name=Support+for+AG+Custom+Admin+Development">' . __('Donate', 'ag-custom-admin') . '</a>';
         }
         return $links;
     }
@@ -1354,7 +1354,7 @@ class AGCA{
                 var agca_error_details = "___________________________________________________<br/>";
                 agca_error_details += '<br/>' + msg +'<br/>source:' + url + '<br/>line:' + line + '<br/>';
                 agca_error_details += "___________________________________________________<br/>";
-                window.agca_error_details_text = agca_error_details + '<br/><?php _e('This JavaScript error can stop AG Custom Admin plugin to work properly. If everything still works, you can ignore this notification.', 'ag-custom-admin'); ?> <br/><br/><?php _e('Possible solutions', 'ag-custom-admin'); ?>:<br/><br/>1) <?php _e('Make sure to have everything up to date: WordPress site, plugins and themes.', 'ag-custom-admin'); ?><br/><br/>2) <?php _e('Try disabling plugins one by one to see if problem can be resolved this way. If so, one of disabled plugins caused this error.', 'ag-custom-admin'); ?><br/><br/>3) <?php _e('Check "source" path of this error. This could be indicator of the plugin/theme that caused the error.', 'ag-custom-admin'); ?><br/><br/>4) <?php _e('If it\\\'s obvious that error is thrown from a particular plugin/theme, please report this error to their support.', 'ag-custom-admin'); ?> <br/><br/>5) <?php _e('Try activating default WordPress theme instead of your current theme.', 'ag-custom-admin'); ?><br/><br/>6) <?php _e('Advanced: Try fixing this issue manually: Navigate to the link above in your browser and open the source of the page (right click -> view page source) and find the line in code where it fails. You should access this file via FTP and try to fix this error on that line.', 'ag-custom-admin') ?><br/><br/>7) <?php _e('Contact us if nothing above helps. Please do not post errors that are caused by other plugins/themes to our support page. Contact their support instead. If you think that error is somehow related to AG Custom Admin plugin, or something unexpected happens, please report that on our', 'ag-custom-admin'); ?> <a href="http://wordpressadminpanel.com/agca-support/ag_custom_admin/error-ocurred-javascript-error-caught/" target="_blank"><?php _e('SUPPORT PAGE', 'ag-custom-admin'); ?></a>';
+                window.agca_error_details_text = agca_error_details + '<br/><?php _e('This JavaScript error can stop AG Custom Admin plugin to work properly. If everything still works, you can ignore this notification.', 'ag-custom-admin'); ?> <br/><br/><?php _e('Possible solutions', 'ag-custom-admin'); ?>:<br/><br/>1) <?php _e('Make sure to have everything up to date: WordPress site, plugins and themes.', 'ag-custom-admin'); ?><br/><br/>2) <?php _e('Try disabling plugins one by one to see if problem can be resolved this way. If so, one of disabled plugins caused this error.', 'ag-custom-admin'); ?><br/><br/>3) <?php _e('Check "source" path of this error. This could be indicator of the plugin/theme that caused the error.', 'ag-custom-admin'); ?><br/><br/>4) <?php _e('If it\\\'s obvious that error is thrown from a particular plugin/theme, please report this error to their support.', 'ag-custom-admin'); ?> <br/><br/>5) <?php _e('Try activating default WordPress theme instead of your current theme.', 'ag-custom-admin'); ?><br/><br/>6) <?php _e('Advanced: Try fixing this issue manually: Navigate to the link above in your browser and open the source of the page (right click -> view page source) and find the line in code where it fails. You should access this file via FTP and try to fix this error on that line.', 'ag-custom-admin') ?><br/><br/>7) <?php _e('Contact us if nothing above helps. Please do not post errors that are caused by other plugins/themes to our support page. Contact their support instead. If you think that error is somehow related to AG Custom Admin plugin, or something unexpected happens, please report that on our', 'ag-custom-admin'); ?> <a href="https://wordpressadminpanel.com/agca-support/ag_custom_admin/error-ocurred-javascript-error-caught/" target="_blank"><?php _e('SUPPORT PAGE', 'ag-custom-admin'); ?></a>';
                 document.getElementsByTagName('html')[0].style.visibility = "visible";
                 var errorDivHtml = '<div style="background: #f08080;border-radius: 3px;color: #ffffff;height: auto; margin-right: 13px;padding: 6px 14px;width: 450px;z-index: 99999; position:absolute;">\
                         <?php _e('AG Custom Admin caught an error on your site!', 'ag-custom-admin'); ?>&nbsp;<a target="_blank" href="#" onclick="var aedt = document.getElementById(\'agca_error_details_text\'); if(aedt.style.display !== \'block\') {aedt.style.display = \'block\';} else{aedt.style.display = \'none\';} return false;"  style="color: #ffffff !important;float:right;font-weight: bold;text-decoration: none;">(<?php _e('show/hide more...', 'ag-custom-admin'); ?>)</a><div id="agca_error_details_text" style="display:none;margin: 10px 0;background:#ffffff;border-radius: 5px;padding:8px;color: #777;">'+agca_error_details_text+'</div></div>';
@@ -2186,10 +2186,10 @@ class AGCA{
                     <strong>
                         <span style="color:#005B69">Your feedback:</span>
                     </strong>
-                    <a class="feedback positive" target="_blank" title="<?php _e('POSITIVE FEEDBACK: I like this plugin!', 'ag-custom-admin'); ?>" href="http://wordpressadminpanel.com/agca-support/feedback/ag-custom-admin-positive-feedback/">
+                    <a class="feedback positive" target="_blank" title="<?php _e('POSITIVE FEEDBACK: I like this plugin!', 'ag-custom-admin'); ?>" href="https://wordpressadminpanel.com/agca-support/feedback/ag-custom-admin-positive-feedback/">
                         <span class="dashicons dashicons-thumbs-up"></span>
                     </a>
-                    <a class="feedback negative" target="_blank" title="<?php _e('NEGATIVE FEEDBACK: I don\'t like this plugin.', 'ag-custom-admin'); ?>" href="http://wordpressadminpanel.com/agca-support/feedback/ag-custom-admin-negative-feedback/">
+                    <a class="feedback negative" target="_blank" title="<?php _e('NEGATIVE FEEDBACK: I don\'t like this plugin.', 'ag-custom-admin'); ?>" href="https://wordpressadminpanel.com/agca-support/feedback/ag-custom-admin-negative-feedback/">
                         <span class="dashicons dashicons-thumbs-down"></span>
                     </a>
                 </div>
@@ -2206,7 +2206,7 @@ class AGCA{
                     <li class="normal" style=""><a style="color:#DB6014;font-weight:bolder;" href="#ag-templates" title="<?php _e('AG Custom Admin Themes', 'ag-custom-admin')?>"><?php _e('Themes', 'ag-custom-admin')?></a></li>
                     <li class="normal upgrade"><a href="https://cusmin.com/upgrade-to-cusmin?ref=menu" target="_blank" title="<?php _e('Upgrade to Cusmin', 'ag-custom-admin')?>"><img src="<?php echo plugins_url( 'images/cusminlogo.png', __FILE__ ) ?>" /><?php _e('Upgrade', 'ag-custom-admin')?></a></li>
 
-                    <li style="background:none;border:none;padding:0;"><a id="agca_donate_button" target="_blank" style="margin-left:8px" title="<?php _e('Do you like this plugin? You can support its future development by giving a donation by your choice', 'ag-custom-admin')?> " href="http://wordpressadminpanel.com/agca-support/support-for-future-development/"><img alt="<?php _e('Donate', 'ag-custom-admin')?>" src="<?php echo $this->pluginUrl(); ?>images/btn_donate_LG.gif" /></a>
+                    <li style="background:none;border:none;padding:0;"><a id="agca_donate_button" target="_blank" style="margin-left:8px" title="<?php _e('Do you like this plugin? You can support its future development by giving a donation by your choice', 'ag-custom-admin')?> " href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&item_name=Support+for+AG+Custom+Admin+Development"><img alt="<?php _e('Donate', 'ag-custom-admin')?>" src="<?php echo $this->pluginUrl(); ?>images/btn_donate_LG.gif" /></a>
                     </li>
                     <li style="background:none;border:none;padding:0;padding-left:10px;margin-top:-7px"></li>
                 </ul>
@@ -2275,22 +2275,22 @@ class AGCA{
                             <td colspan="2">
                                 <div class="agca-feedback-and-support">
                                     <ul>
-                                        <li><a href="http://wordpressadminpanel.com/agca-support/contact/?type=feature" target="_blank"><span class="dashicons dashicons-lightbulb"></span>&nbsp;&nbsp;<?php _e('Idea for improvement', 'ag-custom-admin'); ?></a> - <?php _e('submit your idea for improvement', 'ag-custom-admin'); ?> </li>
+                                        <li><a href="https://wordpressadminpanel.com/agca-support/contact/?type=feature" target="_blank"><span class="dashicons dashicons-lightbulb"></span>&nbsp;&nbsp;<?php _e('Idea for improvement', 'ag-custom-admin'); ?></a> - <?php _e('submit your idea for improvement', 'ag-custom-admin'); ?> </li>
                                     </ul>
                                     <ul>
-                                        <li><a href="http://wordpressadminpanel.com/agca-support/contact/?type=bug" target="_blank"><span class="dashicons dashicons-megaphone"></span>&nbsp;&nbsp;<?php _e('Report an issue', 'ag-custom-admin'); ?></a> - <?php _e('If plugin does not work as expected', 'ag-custom-admin'); ?> </li>
+                                        <li><a href="https://wordpressadminpanel.com/agca-support/contact/?type=bug" target="_blank"><span class="dashicons dashicons-megaphone"></span>&nbsp;&nbsp;<?php _e('Report an issue', 'ag-custom-admin'); ?></a> - <?php _e('If plugin does not work as expected', 'ag-custom-admin'); ?> </li>
                                     </ul>
                                     <ul>
-                                        <li><a href="http://wordpressadminpanel.com/agca-support/contact/?type=theme" target="_blank"><span class="dashicons dashicons-art"></span>&nbsp;&nbsp;<?php _e('Idea for admin theme', 'ag-custom-admin'); ?></a> - <?php _e('submit your idea for admin theme', 'ag-custom-admin'); ?> </li>
+                                        <li><a href="https://wordpressadminpanel.com/agca-support/contact/?type=theme" target="_blank"><span class="dashicons dashicons-art"></span>&nbsp;&nbsp;<?php _e('Idea for admin theme', 'ag-custom-admin'); ?></a> - <?php _e('submit your idea for admin theme', 'ag-custom-admin'); ?> </li>
                                     </ul>
                                     <ul>
                                         <li><a href="https://wordpress.org/support/view/plugin-reviews/ag-custom-admin" target="_blank"><span class="dashicons dashicons-awards"></span>&nbsp;&nbsp;<?php _e('Add a review on WordPress.org', 'ag-custom-admin'); ?></a> - <?php _e('add your review and rate us on WordPress.org', 'ag-custom-admin'); ?> </li>
                                     </ul>
                                     <ul>
-                                        <li><a href="http://wordpressadminpanel.com/agca-support/" target="_blank"><span class="dashicons dashicons-shield-alt"></span>&nbsp;&nbsp;<?php _e('Visit our support site', 'ag-custom-admin'); ?></a> - <?php _e('for any other questions, feel free to contact us', 'ag-custom-admin'); ?> </li>
+                                        <li><a href="https://wordpressadminpanel.com/agca-support/" target="_blank"><span class="dashicons dashicons-shield-alt"></span>&nbsp;&nbsp;<?php _e('Visit our support site', 'ag-custom-admin'); ?></a> - <?php _e('for any other questions, feel free to contact us', 'ag-custom-admin'); ?> </li>
                                     </ul>
                                     <ul>
-                                        <li><a href="http://wordpressadminpanel.com/agca-support/support-for-future-development/" target="_blank"><span class="dashicons dashicons-palmtree"></span>&nbsp;&nbsp;<?php _e('Donate', 'ag-custom-admin'); ?></a> - <?php _e('only if you find this plugin helpful for your needs', 'ag-custom-admin'); ?> </li>
+                                        <li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&item_name=Support+for+AG+Custom+Admin+Development" target="_blank"><span class="dashicons dashicons-palmtree"></span>&nbsp;&nbsp;<?php _e('Donate', 'ag-custom-admin'); ?></a> - <?php _e('only if you find this plugin helpful for your needs', 'ag-custom-admin'); ?> </li>
                                     </ul>
                                     <ul class="upgrade">
                                         <li><a href="https://cusmin.com/upgrade-to-cusmin?ref=page" target="_blank">
@@ -2475,12 +2475,12 @@ class AGCA{
                             'label'=>'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.__('"+ New" -> Media sub-menu', 'ag-custom-admin')
                         ));
 
-                        $this->print_checkbox(array(
+                     /*   $this->print_checkbox(array(
                             'hide'=>true,
                             'title'=>__('Hides "Admin themes" from admin bar', 'ag-custom-admin'),
                             'name'=>'agca_admin_bar_admin_themes',
                             'label'=>__('"Admin themes"', 'ag-custom-admin')
-                        ));
+                        ));*/
 
                         $this->print_input(array(
                             'title'=>__('Adds custom text in admin top bar.', 'ag-custom-admin'),
@@ -2960,7 +2960,7 @@ class AGCA{
                                 <div id="advanced_template_options" style="display:none">
                                     <div class="agca-feedback-and-support">
                                         <ul>
-                                            <li><a href="http://wordpressadminpanel.com/agca-support/contact/?type=theme" title="<?php _e('If you have any ideas for theme improvements, or you have new themes requests, please feel free to send us a message', 'ag-custom-admin'); ?>" target="_blank"><span class="dashicons dashicons-art"></span>&nbsp;&nbsp;<?php _e('Submit your admin themes ideas', 'ag-custom-admin'); ?></a></li>
+                                            <li><a href="https://wordpressadminpanel.com/agca-support/contact/?type=theme" title="<?php _e('If you have any ideas for theme improvements, or you have new themes requests, please feel free to send us a message', 'ag-custom-admin'); ?>" target="_blank"><span class="dashicons dashicons-art"></span>&nbsp;&nbsp;<?php _e('Submit your admin themes ideas', 'ag-custom-admin'); ?></a></li>
                                             <li><a style="background: #f08080;color:#fff;" href="javascript:agca_removeAllTemplates();" title="<?php _e('WARNING: All installed themes will be removed. To activate them again, you would need to install theme and activate using valid license keys. Free themes can be installed again.', 'ag-custom-admin'); ?>"><span style="color:#fff" class="dashicons dashicons-trash"></span>&nbsp;&nbsp;<?php _e('Uninstall all installed themes', 'ag-custom-admin'); ?></a></li>
                                         </ul>
                                     </div>
