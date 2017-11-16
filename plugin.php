@@ -4,7 +4,7 @@ Plugin Name: AG Custom Admin
 Plugin URI: https://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: WAP
-Version: 5.7.4
+Version: 5.7.4.1
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://www.wordpressadminpanel.com/
@@ -73,7 +73,7 @@ class AGCA{
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 
-        $this->agca_version = "5.7.4";
+        $this->agca_version = "5.7.4.1";
 
         //TODO:upload images programmatically
     }
@@ -1845,7 +1845,7 @@ class AGCA{
                                         ?>
                     jQuery("#wpbody-content #dashboard-widgets-wrap").before('<div id="agca_custom_dashboard_content"></div>');
 
-                    jQuery("#agca_custom_dashboard_content").html('<br /><?php echo preg_replace('/(\r\n|\r|\n)/', '\n', addslashes(wpautop(get_option('agca_dashboard_text_paragraph')))); ?>');
+                    jQuery("#agca_custom_dashboard_content").html('<br /><?php echo preg_replace('/(\r\n|\r|\n)/', '\n', addslashes(wpautop(do_shortcode(get_option('agca_dashboard_text_paragraph'))))); ?>');
                     <?php } ?>
 
                     <?php /*Remove Dashboard widgets*/ ?>
@@ -3175,4 +3175,4 @@ class AGCA{
     #endregion
 
 }
-?>
+//TODO: Add log out button to the admin menu
