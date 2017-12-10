@@ -117,7 +117,7 @@ function prettyEditMenuPage(){
     });
 };
 function editMenuRow(url, originalName, newName, removed){
-    return '<tr class="top" data-url="'+url+'" style="background-color: rgb(216, 234, 216);"><td class="ag_admin_menu_parent"><br><span class=\"agcaMenuEditorPlusMinus\"><span class="dashicons plus dashicons-arrow-down-alt2"></span><span class="dashicons minus dashicons-arrow-up-alt2"></span></span><a tabindex="0" href="javascript:void(0)">'+originalName+'</a><div style="float:right"><input title="Remove Home from menu" class=" agca-checkbox visibility" type="checkbox" '+(removed?' checked=\"checked\" ':'')+' name="ag_edit_adminmenu_item_top_2" style="display: none;"><div onclick="agcaCheckBoxOnClick(jQuery(this));" class="agca-checkbox-box" title="'+agca_string.remove+' '+originalName+' '+agca_string.frommenu+'"><div></div></div></div></td><td class="ag_admin_menu_parent2"><input title="'+agca_string.rename+' '+originalName+' '+agca_string.withthisvalue+'" type="text" class="undefined" size="47" value="'+newName+'" name="ag_edit_adminmenu_item_top_2"></td></tr>';
+    return '<tr class="top" data-url="'+url+'" ><td class="ag_admin_menu_parent"><br><span class=\"agcaMenuEditorPlusMinus\"><span class="dashicons plus dashicons-arrow-down-alt2"></span><span class="dashicons minus dashicons-arrow-up-alt2"></span></span><a tabindex="0" href="javascript:void(0)">'+originalName+'</a><div style="float:right"><input title="Remove Home from menu" class=" agca-checkbox visibility" type="checkbox" '+(removed?' checked=\"checked\" ':'')+' name="ag_edit_adminmenu_item_top_2" style="display: none;"><div onclick="agcaCheckBoxOnClick(jQuery(this));" class="agca-checkbox-box" title="'+agca_string.remove+' '+originalName+' '+agca_string.frommenu+'"><div></div></div></div></td><td class="ag_admin_menu_parent2"><input title="'+agca_string.rename+' '+originalName+' '+agca_string.withthisvalue+'" type="text" class="undefined" size="47" value="'+newName+'" name="ag_edit_adminmenu_item_top_2"></td></tr>';
 }
 function editMenuSubrow(index, parentName, parentIndex, url, originalName, newName, removed){
     return '<tr class="sub" data-index="'+index+'" data-parent="'+parentIndex+'" data-name="'+originalName+'" data-url="'+url+'"><td class="ag_admin_menu_child"><div style="float:left"><a tabindex="-1" href="javascript:void(0)" style="font-weight:bold;" title="Dashboard submenu: '+originalName+'"><span style="font-weight:normal"> </span>'+originalName+'</a></div><div style="float:right"><input type="checkbox" title="'+agca_string.remove+' '+parentName+' submenu: '+originalName+' from menu" class="Home agca-checkbox visibility" '+(removed?' checked=\"checked\" ':'')+' name="ag_edit_adminmenu_item_sub_1" style="display: none;"><div onclick="agcaCheckBoxOnClick(jQuery(this));" class="agca-checkbox-box" title="'+agca_string.remove+' '+parentName+' sub-menu: '+originalName+' from menu"><div></div></div></div></td><td class="ag_admin_menu_child2"><input type="text" title="'+agca_string.rename+' '+agca_string.submenuitem+' '+originalName+' '+agca_string.withthisvalue+'" class="'+originalName+'" size="47" value="'+newName+'" name="ag_edit_adminmenu_item_sub_1"></td></tr>';
@@ -384,8 +384,8 @@ function agcaApplyTooltip(){
                     jQuery("#AGToolTipDiv").css({
                         'top': tipY,
                         'left': tipX,
-                        'background': '#FFFFD4',
-                        'border': '1px solid #FFFF00'
+                        'background': '#efefef',
+                        'border': '1px solid #826c63'
                     });
                 });
             }

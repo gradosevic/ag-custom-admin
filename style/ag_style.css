@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700');
 /*color scheme*/
 /*
 -main
@@ -19,17 +20,20 @@
 }
 
 h1#agca-title {
-    color: #005B69;
+    color: #826c63;
     font-weight: bold;
     font-size: 30px;
 }
 h1#agca-title .title{
     float:left;
     padding: 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
 }
 h1#agca-title img{
-    width: 80px;
+    width: 128px;
     float: left;
+    margin-top: -40px;
 }
 h1#agca-title .version{
     font-size: 15px;
@@ -44,13 +48,16 @@ table .agca-tip {
 #ag_main_menu {
     display: block;
     height: 34px;
-    border-bottom: 3px solid #ACC491;
-    margin-top: 2px;
+    border-bottom: 3px solid #826c63;
+    margin-top: 10px;
+}
+#ag_main_menu li a:hover{
+    color: #fff;
 }
 #ag_main_menu li.upgrade{
     background-color:#fff;
     border-top-right-radius: 10px;
-    border-bottom: 2px solid #aaa;
+    border-bottom: 2px solid #826c63;
 }
 #ag_main_menu li.upgrade:hover{
     background: #fff !important;
@@ -71,11 +78,7 @@ table .agca-tip {
 }
 
 .ag_section {
-    background: #fff;
-}
-
-.ag_section h2 {
-    color: #005B69;
+    background: transparent;
 }
 
 #agca_form #section-cusmin {
@@ -89,29 +92,30 @@ table .agca-tip {
     color: #999;
 }
 
-#agca_form .save-button-upper{
-    padding-left: 20px;
-}
 
 #ag_main_menu li {
     display: block;
-    background-color: #DEF7C3;
+    background-color: #826c63;
     float: left;
-    color: #0B6138;
+    color: #fff;
     padding: 15px;
     padding-top: 8px;
     padding-bottom: 8px;
     font-weight: bold;
-    border-bottom: 3px solid #ACC491;
+    border-bottom: 3px solid #826c63;
 }
 
 #ag_main_menu li.selected {
-    background-color: #F9F9F9;
+    background-color: #efefef;
+    color: #826c63;
     cursor: default;
+}
+#ag_main_menu li.selected a{
+    color: #6d6764;
 }
 
 #ag_main_menu li.normal:hover {
-    background-color: #eef9d5;
+    background-color: #6d6764;
     cursor: pointer;
 }
 
@@ -122,7 +126,7 @@ table .agca-tip {
 
 #ag_main_menu li a {
     text-decoration: none;
-    color: #888888;
+    color: #fff;
     outline: none;
     border: 0;
 }
@@ -134,22 +138,25 @@ table .agca-tip {
     padding: 5px;
     padding-top: 0px;
     padding-bottom: 1px;
-    margin-top: 50px;
+    margin-top: 20px;
+    margin-bottom: 24px;
     margin-left: -10px;
     margin-right: -10px;
 }
 
 .ag_table_heading h3 {
-    color: #fff;
-    background: gray;
+    color: #826c63;
+    background: #efefef;
     margin-left: -15px;
-    padding: 3px 9px;
+    padding: 5px 15px;
     border: none;
+    border: 3px #826c63 solid;
     border-radius: 6px;
+    font-size: 15px;
 }
 
 .ag_table_major_options {
-    background-color: #f8f8f8;
+    background-color: #f9f8f8;
     width: 500px;
     margin-bottom: 2px;
 }
@@ -164,11 +171,11 @@ div#AGToolTipDiv {
     left: 200px;
     height: auto;
     border: 1px solid #FFFF00;
-    background-color: #FFFFD4;
+    background-color: #efefef;
+    color: #826c63;
     display: none;
-    padding: 3px;
-    padding-top: 7px;
-    padding-bottom: 5px;
+    padding: 5px 10px;
+    border-radius: 3px;
 }
 
 td.ag_admin_menu_parent {
@@ -206,10 +213,6 @@ td.ag_admin_menu_parent:hover {
     color: #444;
 }
 
-#ag_edit_adminmenu input[name=ag_edit_adminmenu_item_top_2]:hover {
-    background-color: grey !important;
-}
-
 .noclass {
     display: none;
 }
@@ -235,6 +238,7 @@ td.ag_admin_menu_parent:hover {
     position: absolute;
     margin-top: -22px;
     color: #005B69;
+    display: none;
 }
 
 #agca_news a {
@@ -268,9 +272,9 @@ td.ag_admin_menu_parent:hover {
 
 #agca_form .section_title {
     font-weight: bold;
-    background: #def7c3;
+    background: transparent;
     border-bottom-right-radius: 15px;
-    color: #acc491;
+    color: #e85e3a;
     float: left;
     font-size: 40px;
     padding: 20px 11px;
@@ -282,21 +286,33 @@ td.ag_admin_menu_parent:hover {
     margin-top: 0;
 }
 
+#agca_form select{
+    border:3px #826c63 solid;
+    color: #826c63;
+    display: inline-block;
+    font-weight: bold;
+    height: 35px !important;
+    width: auto;
+}
+#agca_form a{
+    font-weight: bold;
+    color: #826c63;
+}
+#agca_form a:hover{
+    color: #6d6764;
+}
 #agca_form h2.section_title {
 
 }
 
 #agca_form h2.section_title {
-    font-family: Helvetica, Arial, sans-serif;
     font-weight: bold;
     font-size: 45px;
     line-height: 1em;
 }
 
 #agca_form h2.section_title {
-    /* Shadows are visible under slightly transparent text color */
-    color: rgba(189, 193, 172, 0.71);
-    text-shadow: 1px 4px 6px #def7c3, 0 0 0 #000, 1px 4px 6px #def7c3;
+    color: #e85e3a;
 }
 
 /* Don't show shadows when selecting text */
@@ -313,14 +329,14 @@ td.ag_admin_menu_parent:hover {
 }
 
 #agca_form #templates_head_buttons input[type=button] {
-    background: #174F69;
+    background: #826c63;
     color: white;
     font-weight: bold;
 }
 
 #agca_form #templates_head_buttons input[type=button]:hover {
     background: white;
-    color: #174F69;
+    color: #6d6764;
 }
 
 .ag-custom-button {
@@ -355,14 +371,20 @@ td.ag_admin_menu_parent:hover {
     margin-right: 18px;
     cursor: default;
     width: 10px;
+    color: #816c64;
+    margin-top: -19px;
+    padding-top: 9px;
 }
 
 /*#agca_form input.agca_button,#agca_form #ag_add_adminmenu button{
     padding: 3px 10px;
     background-color:#ffffff;
 }    */
+#agca_form .agca_button.clear span{
+    margin-top: 5px;
+}
 #agca_form .agca_button.clear span:before {
-    color: #f08080;
+    color: #826c63;
     cursor: pointer;
     font-size: 30px;
 }
@@ -372,48 +394,68 @@ td.ag_admin_menu_parent:hover {
 }
 
 #agca_form input[type=button], button {
-    background-color: #ACC491;
-    border: 1px solid #ACC491;
+    background: #826c63;
+    border: 1px solid #826c63;
     border-radius: 3px;
     color: #FFFFFF;
     padding: 5px 10px;
 }
 
 #agca_form input[type=button]:hover {
-    background-color: #DEF7C3;
-    border: 1px solid #DEF7C3;
-    color: #444;
+    background-color: #6d6764;
+    border: 1px solid #6d6764;
+    color: #fff;
     cursor: pointer;
 }
 
 #agca_form input[type=text] {
     height: 28px;
     width: 400px;
+    border: 3px solid #eee;
+    box-shadow: none;
+    padding: 15px 10px;
+    background: #f5f2f2;
+    color: #816c64;
+    font-weight: bold;
+    border-radius: 5px;
 }
 
 #agca_form input.color_picker {
-    width: 77px;
+    width: 88px;
 }
 
-#agca_form input[type=text]:hover {
-    background-color: #efffef;
+#agca_form input.color_picker:placeholder-shown + .pick_color_button + .pick_color_button_clear{
+    display: none !important;
+}
+
+#agca_form input[type=text]:focus{
+    background-color: transparent;
+    border: 3px solid #826c63;
 }
 
 #agca_form textarea {
     width: 400px;
+    background: #f5f2f2;
+    border: 3px solid #eee;
+    color: #816c64;
+    font-weight: bold;
+    padding: 5px;
+}
+#agca_form textarea.one-line{
+    height: 35px;
 }
 
 #agca_form textarea.wp-editor-area {
     width: 100%;
 }
 
-#agca_form textarea:hover {
-    background-color: #efffef;
+#agca_form textarea:focus {
+    background-color: transparent;
+    border: 3px solid #826c63;
 }
 
-#agca_form #ag_edit_adminmenu input[type=text]:hover {
-    background-color: #444444;
-    color: #ffffff;
+#agca_form #ag_edit_adminmenu tr td{
+    line-height: 0;
 }
 
 #agca_form #ag_add_adminmenu input[type=text] {
@@ -423,7 +465,7 @@ td.ag_admin_menu_parent:hover {
 #agca_form #ag_add_adminmenu .button_edit span,
 #agca_form #ag_add_adminmenu .button_remove span {
     font-size: 25px;
-    color: #7A8A67;
+    color: #826c63;
 }
 
 #agca_form #ag_add_adminmenu .button_remove span {
@@ -431,20 +473,20 @@ td.ag_admin_menu_parent:hover {
 }
 
 #agca_form input#save_plugin_settings {
-    background: none repeat scroll 0 0 #acc491;
+    background: #826c63;
     font-weight: bold;
     height: 39px;
     padding: 4px;
-    width: 130px;
-    border: 1px solid #acc491 !important;
+    width: 100%;
+    border: 1px solid #826c63 !important;
     text-shadow: none !important;
     box-shadow: none !important;
     font-size: 16px;
+    color: #fff !important;
 }
 
 #agca_form input#save_plugin_settings:hover {
-    background-color: #DEF7C3 !important;
-    color: #005B69 !important;
+    background-color: #6d6764 !important;
 }
 
 #agca_form input#save_plugin_settings[type="button"]:hover {
@@ -533,7 +575,7 @@ td.ag_admin_menu_parent:hover {
 }
 
 .agca-selectbox:hover {
-    background-color: #efffef;
+    background-color: #eee;
 }
 
 #agca_form .agca-checkbox-box {
@@ -546,15 +588,10 @@ td.ag_admin_menu_parent:hover {
 }
 
 #agca_form .agca-checkbox-box:before {
-    content: "\f159";
-    font-size: 35px;
-    line-height: 35px;
-    color: #ACC491;
-    font-family: Dashicons;
-}
-
-#agca_form .agca-checkbox-box.visibility:before {
-    content: "\f177";
+    content: "●";
+    font-size: 45px;
+    line-height: 25px;
+    color: #ccc;
 }
 
 #agca_form .agca-checkbox-box-checked {
@@ -567,16 +604,13 @@ td.ag_admin_menu_parent:hover {
 }
 
 #agca_form .agca-checkbox-box-checked:before {
-    content: "\f502";
-    font-size: 35px;
-    line-height: 35px;
-    color: #659957;
-    font-family: Dashicons;
+    content: "●";
+    font-size: 45px;
+    line-height: 25px;
+    color: #826c63;
 }
 
 #agca_form .agca-checkbox-box-checked.visibility:before {
-    content: "\f530";
-    color: #f08080;
 }
 
 #agca_form .agca-checkbox-box-checked:hover:before,
@@ -591,9 +625,17 @@ td.ag_admin_menu_parent:hover {
 
 #agca_form .form-table th {
     width: 350px;
-    padding-left: 20px;
+    padding: 10px;
 }
-
+#agca_form .form-table th label{
+    font-weight: normal;
+}
+#agca_form .form-table td {
+    padding: 10px;
+}
+#agca_form .form-table td p{
+    color: #9c8a8a;
+}
 .ag_admin_menu_parent .agca-checkbox-box-checked, .ag_admin_menu_parent .agca-checkbox-box {
     margin-top: -15px;
 }
@@ -622,11 +664,11 @@ td.ag_admin_menu_parent:hover {
 }
 
 #agca_form .agca-radio-text.on {
-    color: #ACC491;
+    color: #ccc;
 }
 
 #agca_form .agca-radio-text.off {
-    color: #f08080;
+    color: #ccc;
 }
 
 #agca_form .agca-radiobox:before {
@@ -649,11 +691,11 @@ td.ag_admin_menu_parent:hover {
 }
 
 #agca_form .agca-radiobox[value=off]:before {
-    color: #f08080;
+    color: #ccc;
 }
 
 #agca_form #section_templates {
-    background: rgba(255, 255, 255, 0.95)
+    background: transparent;
 }
 
 #wp-admin-bar-agca-admin-themes a {
@@ -671,18 +713,20 @@ td.ag_admin_menu_parent:hover {
 .agca-feedback-and-support a {
     border: medium none;
     border-radius: 4px;
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     padding: 6px 20px;
     min-width: 240px;
-    background: rgb(216, 234, 216);
+    background: #826c63;
     display: inline-block;
+    font-weight: normal !important;
     text-decoration: none;
-    color: gray;
 }
 
 .agca-feedback-and-support .upgrade a{
     background: #f9f9f9;
+    color: #826c63 !important;
     float: left;
+    border: 1px solid #826c63;
     padding: 5px 30px 5px 9px;
 }
 .agca-feedback-and-support .upgrade span{
@@ -699,8 +743,7 @@ td.ag_admin_menu_parent:hover {
 }
 
 .agca-feedback-and-support a:hover {
-    background-color: #ACC491;
-    color: #fff;
+    background-color: #6d6764;
 }
 .agca-feedback-and-support .upgrade a:hover{
     background-color: #fff;
@@ -711,6 +754,7 @@ td.ag_admin_menu_parent:hover {
     float: right;
     width: 160px;
     margin-top: -10px;
+    display: none;
 }
 
 #agca-your-feedback .dashicons {
@@ -748,6 +792,10 @@ td.ag_admin_menu_parent:hover {
     margin-top: 3px;
     display: inline-block;
 }
+#agca_donate_button img{
+    width: 125px;
+    margin-top: -8px;
+}
 
 #section_ag_colorizer_settings .color input {
     border-radius: 5px;
@@ -760,15 +808,15 @@ td.ag_admin_menu_parent:hover {
 #section_ag_colorizer_settings .color .agca_button span {
     font-size: 35px;
     padding: 0 6px;
-    color: #ACC491;
+    color: #826c63;
 }
 
 #section_ag_colorizer_settings .color .agca_button span:hover {
-    color: #659957;
+    color: #6d6764;
 }
 
 #section_ag_colorizer_settings .color .agca_button span.clear {
-    color: #f08080;
+    color: #826c63;
 }
 
 #section_ag_colorizer_settings .color .agca_button span.clear:hover {
@@ -777,4 +825,56 @@ td.ag_admin_menu_parent:hover {
 /*Hide dashboard empty box containers*/
 #dashboard-widgets div.empty-container{
     display: none;
+}
+
+.tools_page_ag-custom-admin-plugin #wpwrap{
+    background: #fff;
+
+}
+.tools_page_ag-custom-admin-plugin #agca_form{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
+.tools_page_ag-custom-admin-plugin #agca_form *:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.agca_template_block h3,
+.agca_template_block span.price,
+.agca_template_block a{
+    color: inherit !important;
+}
+#agca_template_popup .agca_content{
+    background: #bbb !important;
+}
+
+.agca_template_block .template img{
+    box-shadow: none !important;
+}
+
+#agca_form #ag_edit_adminmenu tr.top td{
+    background: #f9f8f8;
+    padding-top: 10px;
+    padding-bottom: 0;
+}
+#agca_form #ag_edit_adminmenu tr.top td.ag_admin_menu_parent2{
+    padding-top: 2px;
+}
+#agca_form #ag_edit_adminmenu tr.top:nth-child(odd) td{
+    background: #f3f3f3;
+}
+#agca_form #ag_edit_adminmenu tr.sub td{
+    background: #fff;
+    padding: 0;
+    padding-left: 10px;
+}
+#agca_form #ag_edit_adminmenu tr.sub td div a{
+    padding: 17px;
+    display: inline-block;
+}
+
+#agca_form #ag_edit_adminmenu tr:first-child td{
+    background: #826c63;
 }

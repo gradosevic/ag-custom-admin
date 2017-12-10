@@ -1,10 +1,10 @@
-=== AG Custom Admin ===
-Contributors: wap, cusmin
+=== Absolutely Glamorous Custom Admin ===
+Contributors: cusmin, wap
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&item_name=Support+for+AG+Custom+Admin+Development
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
-Tested up to: 4.8
-Stable tag: 5.7.4
+Tested up to: 4.9.1
+Stable tag: 6.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
  
@@ -14,20 +14,15 @@ All-in-one tool for admin panel customization. Change almost everything: admin m
 With this plugin you can easily customize WordPress **admin panel**, **login page**, **admin menu**, **admin bar** etc. in tiny details and apply free responsive and commercial **admin themes**.
 
 * **ADMIN BAR**: Hide or change admin bar items. Remove WordPress traces from admin bar. Brand it with custom colors.
-* **ADMIN MENU**: Change and remove existing and add custom admin menu items. Brand it with custom colors. 
-* **ADMIN THEMES**: It have never been so easy to apply free and commercial responsive admin panel themes with just few clicks.
-* **COLORIZER**: This tool is integrated with AG Custom Admin panel and can be used to change default WordPress admin panel colors, admin bar, admin menu, login page, backgrounds and text.
+* **ADMIN MENU**: Change and remove existing and add custom admin menu items. Brand it with custom colors.
+* **COLORIZER**: This tool is integrated with Absolutely Glamorous Custom Admin panel and can be used to change default WordPress admin panel colors, admin bar, admin menu, login page, backgrounds and text.
 * **BRANDING**: Brand your admin panel pages with custom content, colors, images and text.
 * **ADMIN PANEL OPTIONS**: There are dozens of other admin panel options used to improve WordPress UX on admin and login pages items like Dashboard widgets, Help and Screen options, WordPress logos, links, menus etc. See the full list down below.
 
 = Premium Features =
 > <strong>CUSMIN</strong><br>
-> Cusmin is premium version of AG Custom Admin that gives you advanced features for customization and branding. It's perfect for professionals, but can be used on personal sites as well.<br><br>
+> Cusmin is the premium version of the Absolutely Glamorous Custom Admin that gives you advanced features for customization and branding. It's perfect for professionals, but can be used on personal sites as well.<br><br>
 > For more info about Cusmin, please go to [Cusmin](https://cusmin.com?ref=agca) site.<br><br>
-> <strong>ADMIN THEMES</strong><br>
-> AG Custom Admin plugin contains specially created professional and responsive themes for admin panel and login page, that can be applied easily within AG Custom Admin plugin in a couple of clicks!
-> We will add more themes with better styles and theme options in future.<br><br>
-> For more info about AG Custom Admin themes, please go to [WordPress Admin Panel Themes](http://wordpressadminpanel.com/themes/home?ref=agca) site.
 
 = General Settings =
 * Hide "Screen Options" menu
@@ -112,7 +107,7 @@ For more information about the plugin please check [OFFICIAL PLUGIN'S SITE](http
 
 1. Upload `ag-custom-admin` directory to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Navigate to plugin's settings page: 'Tools => AG Custom Admin'
+3. Navigate to plugin's settings page: 'Tools => AGCA'
 
 == Frequently Asked Questions ==
 
@@ -138,20 +133,23 @@ If you have the latest WordPress and plugin versions and you still experience so
 
 == Screenshots ==
 
-1. AG Custom Admin provides many options for admin panel customization, and it's quite easy to use it.
+1. Absolutely Glamorous Custom Admin provides many options for admin panel customization, and it's quite easy to use it.
 2. Login page can be customized and styled with custom branding logo or image, rounded borders, background colors.
-3. Admin bar settings preview.
-4. Colorizer options for branding with custom colors.
+3. Colorizer options for branding with custom colors.
+4. Custom Admin menu items.
 5. Admin menu editor.
-6. Admin menu is completely customizable. You can rename or remove the items from them menu and submenu, or add brand new buttons with custom links.
-7. Default WP grey colors can be refreshed with any colors! There are a lot of Colorizer's options that can be used to style the text, background, login, widgets, admin menu, top bar, footer, almost everything!
-8. Free and commercial predefined WP admin panel themes.
-9. Orange - free theme - login page.
-10. Dunes - commercial theme.
-11. Wasteland - commercial theme.
-12. Army - commercial theme.
+6. Add your own styles and JavaScript code.
+7. Style Example #1
+8. Style Example #2
+9. Style Example #3
+10. Style Example #4
+11. Login style example
 
 == Change Log ==
+
+= 6.0 =
+* AGCA Re-branding
+* Added support for shortcodes in custom dashboard content
 
 = 5.7.4 =
 * Updated plugin links to secure links
@@ -530,6 +528,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 6.0 =
+* AGCA Re-branding and improvements
 
 = 5.7.4 =
 * Updated plugin links to secure links
