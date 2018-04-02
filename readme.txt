@@ -1,14 +1,14 @@
 === Absolutely Glamorous Custom Admin ===
-Contributors: cusmin, wap
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&item_name=Support+for+AG+Custom+Admin+Development
+Contributors: cusmin
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&item_name=Support+for+AGCA+Development
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
 Tested up to: 4.9.1
-Stable tag: 6.0.1
+Stable tag: 6.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
  
-All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
+All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar, add custom scripts and more.
 
 == Description ==
 With this plugin you can easily customize WordPress **admin panel**, **login page**, **admin menu**, **admin bar** etc. in tiny details and apply free responsive and commercial **admin themes**.
@@ -101,8 +101,6 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 = Contact =
 If you are unable to login or you have any other problems, please check our [FAQ](http://wordpress.org/extend/plugins/ag-custom-admin/faq/) and [SUPPORT](http://wordpress.org/support/plugin/ag-custom-admin) page.
 
-For more information about the plugin please check [OFFICIAL PLUGIN'S SITE](http://wordpressadminpanel.com/ag-custom-admin/) <br>For more information about admin themes please check [THEMES SITE](http://wordpressadminpanel.com/themes/home)
-
 == Installation ==
 
 1. Upload `ag-custom-admin` directory to the `/wp-content/plugins/` directory
@@ -146,6 +144,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 11. Login style example
 
 == Change Log ==
+
+= 6.1 =
+* Fixed Log Out button issue
 
 = 6.0.1 =
 * Bug fixes.
@@ -531,6 +532,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 6.1 =
+* Fixed Log Out button issue
 
 = 6.0.1 =
 * Bug fixes
