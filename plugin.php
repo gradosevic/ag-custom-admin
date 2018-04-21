@@ -4,7 +4,7 @@ Plugin Name: Absolutely Glamorous Custom Admin
 Plugin URI: https://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Cusmin
-Version: 6.1
+Version: 6.2
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com
@@ -73,7 +73,7 @@ class AGCA{
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 
-        $this->agca_version = "6.1";
+        $this->agca_version = "6.2";
 
         //TODO:upload images programmatically
     }
@@ -449,11 +449,15 @@ class AGCA{
     }
 
     function WPSPluginIsLoginPage(){
-
         $WPSPluginName = 'wps-hide-login/wps-hide-login.php';
         if(is_multisite()){
-            if ( ! function_exists( 'is_plugin_active_for_network' ) )
-                require_once($this->filePath('wp-admin/includes/plugin.php#general-settings'));
+            if ( ! function_exists( 'is_plugin_active_for_network' ) ){
+                $pluginPhpFilePath = $this->filePath('wp-admin/includes/plugins.php');
+                if(!file_exists($pluginPhpFilePath)){
+                    return '';
+                }
+                require_once($pluginPhpFilePath);
+            }
 
             if(!$this->isPluginActiveForNetwork($WPSPluginName)){
                 return '';
@@ -2201,7 +2205,9 @@ class AGCA{
                     <li class="normal" ><a href="#admin-menu-settings" title="<?php _e('Settings for main admin menu', 'ag-custom-admin')?>"><?php _e('Admin Menu', 'ag-custom-admin')?></a></li>
                     <li class="normal"><a href="#ag-colorizer-settings" title="<?php _e('Colorizer settings', 'ag-custom-admin')?>"><?php _e('Colorizer', 'ag-custom-admin')?></a></li>
                     <li class="normal"><a href="#ag-advanced" title="<?php _e('My custom scripts', 'ag-custom-admin')?>"><?php _e('Advanced', 'ag-custom-admin')?></a></li>
+                    <?php if(defined('AGCA_THEMES')){ ?>
                     <li class="normal" style=""><a href="#ag-templates" title="<?php _e('AGCA Themes', 'ag-custom-admin')?>"><?php _e('Themes', 'ag-custom-admin')?></a></li>
+                    <?php } ?>
                     <li class="normal upgrade"><a href="https://cusmin.com/upgrade-to-cusmin?ref=menu" target="_blank" title="<?php _e('Upgrade to Cusmin', 'ag-custom-admin')?>"><img src="<?php echo plugins_url( 'images/cusminlogo.png', __FILE__ ) ?>" /><?php _e('Upgrade', 'ag-custom-admin')?></a></li>
 
                     <li style="background:none;border:none;padding:0;"><a id="agca_donate_button" target="_blank" style="margin-left:8px" title="<?php _e('Enjoying AGCA? Help us further develop it and support it!', 'ag-custom-admin')?> " href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&item_name=Support+for+AGCA+Development"><img alt="<?php _e('Donate', 'ag-custom-admin')?>" src="<?php echo $this->pluginUrl(); ?>images/donate-btn.png" /></a>
@@ -2941,6 +2947,7 @@ class AGCA{
                     <input type="hidden" size="47" id="ag_colorizer_json" name="ag_colorizer_json" value="<?php echo htmlspecialchars(get_option('ag_colorizer_json')); ?>" />
                     <div id="picker"></div>
                 </div>
+                <?php if(defined('AGCA_THEMES')){ ?>
                 <div id="section_templates" style="display:none" class="ag_section">
                     <h2 class="section_title"><span style="float:left"><?php _e('Admin Themes', 'ag-custom-admin'); ?></span></h2>
                     <table class="form-table" width="500px">
@@ -2964,6 +2971,7 @@ class AGCA{
                         </tr>
                     </table>
                 </div>
+                <?php } ?>
                 <div id="section_advanced" style="display:none" class="ag_section">
                     <h2 class="section_title"><?php _e('Advanced', 'ag-custom-admin'); ?></h2>
                     <?php $this->show_save_button_upper(); ?>
