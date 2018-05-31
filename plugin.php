@@ -4,7 +4,7 @@ Plugin Name: Absolutely Glamorous Custom Admin
 Plugin URI: https://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Cusmin
-Version: 6.2
+Version: 6.3
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com
@@ -73,7 +73,7 @@ class AGCA{
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 
-        $this->agca_version = "6.2";
+        $this->agca_version = "6.3";
 
         //TODO:upload images programmatically
     }
@@ -1121,12 +1121,12 @@ class AGCA{
             var alltext="";
             alltext="";
             jQuery('li#wp-admin-bar-my-account').css('cursor','default');
-            alltext = jQuery('li#wp-admin-bar-my-account').html();
+            alltext = jQuery('li#wp-admin-bar-my-account .ab-item:first').html();
             if(alltext!=null){
-            var parts = alltext.split(',');
-            alltext = "<?php echo get_option('agca_howdy'); ?>" + ", " + parts[1];
+            var parts = alltext.split(' <span class="display-name"');
+            alltext = "<?php echo get_option('agca_howdy'); ?>" + ', <span class="display-name"' + parts[1];
             }
-            jQuery("li#wp-admin-bar-my-account").html("<a href=\"#\" class=\"ab-item\">"+alltext+"</a>");
+            jQuery("li#wp-admin-bar-my-account .ab-item:first").html("<a href=\"#\" class=\"ab-item\">"+alltext+"</a>");
 
         <?php } ?>
         <?php
