@@ -4,7 +4,7 @@ Plugin Name: Absolutely Glamorous Custom Admin
 Plugin URI: https://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Cusmin
-Version: 6.4
+Version: 6.4.1
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com
@@ -1149,31 +1149,28 @@ class AGCA{
     }
 
     function wp_admin_bar_my_custom_account_menu( $wp_admin_bar ) {
+        if(get_option('agca_howdy')!=""){
+            $user_id = get_current_user_id();
+            $current_user = wp_get_current_user();
+            $profile_url = get_edit_profile_url( $user_id );
 
-        if(empty(get_option('agca_howdy'))){
-            return false;
-        }
+            if ( 0 != $user_id ) {
+                /* Add the "My Account" menu */
+                $avatar = get_avatar( $user_id, 28 );
+                $howdy = sprintf( __(get_option('agca_howdy').', %1$s'), $current_user->display_name );
+                $class = empty( $avatar ) ? '' : 'with-avatar';
 
-        $user_id = get_current_user_id();
-        $current_user = wp_get_current_user();
-        $profile_url = get_edit_profile_url( $user_id );
+                $wp_admin_bar->add_menu( array(
+                    'id' => 'my-account',
+                    'parent' => 'top-secondary',
+                    'title' => $howdy . $avatar,
+                    'href' => $profile_url,
+                    'meta' => array(
+                        'class' => $class,
+                    ),
+                ) );
 
-        if ( 0 != $user_id ) {
-            /* Add the "My Account" menu */
-            $avatar = get_avatar( $user_id, 28 );
-            $howdy = sprintf( __(get_option('agca_howdy').', %1$s'), $current_user->display_name );
-            $class = empty( $avatar ) ? '' : 'with-avatar';
-
-            $wp_admin_bar->add_menu( array(
-                'id' => 'my-account',
-                'parent' => 'top-secondary',
-                'title' => $howdy . $avatar,
-                'href' => $profile_url,
-                'meta' => array(
-                    'class' => $class,
-                ),
-            ) );
-
+            }
         }
     }
 
