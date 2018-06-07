@@ -75,7 +75,7 @@ class AGCA{
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 
-        $this->agca_version = "6.4";
+        $this->agca_version = "6.4.1";
 
         //TODO:upload images programmatically
     }
