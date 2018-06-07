@@ -4,7 +4,7 @@ Plugin Name: Absolutely Glamorous Custom Admin
 Plugin URI: https://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Cusmin
-Version: 6.3
+Version: 6.4
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com
@@ -64,6 +64,8 @@ class AGCA{
 
         add_action( 'customize_controls_enqueue_scripts',  array(&$this,'agca_customizer_php') );
 
+        add_action( 'admin_bar_menu', array(&$this,'wp_admin_bar_my_custom_account_menu'), 11 );
+
         /* wp_localize_script(
              'agca-script',//use agca enqueued script
              'agca_string',
@@ -73,7 +75,7 @@ class AGCA{
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 
-        $this->agca_version = "6.3";
+        $this->agca_version = "6.4";
 
         //TODO:upload images programmatically
     }
@@ -1117,18 +1119,6 @@ class AGCA{
 
 
         <?php } ?>
-        <?php if(get_option('agca_howdy')!=""){ ?>
-            var alltext="";
-            alltext="";
-            jQuery('li#wp-admin-bar-my-account').css('cursor','default');
-            alltext = jQuery('li#wp-admin-bar-my-account .ab-item:first').html();
-            if(alltext!=null){
-            var parts = alltext.split(' <span class="display-name"');
-            alltext = "<?php echo get_option('agca_howdy'); ?>" + ', <span class="display-name"' + parts[1];
-            }
-            jQuery("li#wp-admin-bar-my-account .ab-item:first").html("<a href=\"#\" class=\"ab-item\">"+alltext+"</a>");
-
-        <?php } ?>
         <?php
         if(get_option('agca_custom_title')!=""){
             //add_filter('admin_title', '$this->change_title', 10, 2);
@@ -1156,6 +1146,35 @@ class AGCA{
         <?php
 
 
+    }
+
+    function wp_admin_bar_my_custom_account_menu( $wp_admin_bar ) {
+
+        if(empty(get_option('agca_howdy'))){
+            return false;
+        }
+
+        $user_id = get_current_user_id();
+        $current_user = wp_get_current_user();
+        $profile_url = get_edit_profile_url( $user_id );
+
+        if ( 0 != $user_id ) {
+            /* Add the "My Account" menu */
+            $avatar = get_avatar( $user_id, 28 );
+            $howdy = sprintf( __(get_option('agca_howdy').', %1$s'), $current_user->display_name );
+            $class = empty( $avatar ) ? '' : 'with-avatar';
+
+            $wp_admin_bar->add_menu( array(
+                'id' => 'my-account',
+                'parent' => 'top-secondary',
+                'title' => $howdy . $avatar,
+                'href' => $profile_url,
+                'meta' => array(
+                    'class' => $class,
+                ),
+            ) );
+
+        }
     }
 
     function updateAllColors(){

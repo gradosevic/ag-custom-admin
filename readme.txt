@@ -4,10 +4,10 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cus
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
 Tested up to: 4.9.5
-Stable tag: 6.3
+Stable tag: 6.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
- 
+
 All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar, add custom scripts and more.
 
 == Description ==
@@ -147,6 +147,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 11. Login style example
 
 == Change Log ==
+
+= 6.4 =
+* Fixed custom Howdy issue
 
 = 6.3 =
 * Fixed custom Howdy for Netherland's WP
