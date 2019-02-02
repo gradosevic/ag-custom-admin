@@ -3,8 +3,8 @@ Contributors: cusmin
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&item_name=Support+for+AGCA+Development
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
-Tested up to: 4.9.5
-Stable tag: 6.4.1
+Tested up to: 5.0.3
+Stable tag: 6.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
@@ -147,6 +147,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 11. Login style example
 
 == Change Log ==
+
+= 6.5 =
+* French translation
 
 = 6.4.1 =
 * Fixed fatal error
@@ -547,6 +550,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 6.5 =
+* French translation
 
 = 6.4.1 =
 * Fixed fatal error

@@ -1,0 +1,1537 @@
+# Translation of Development (trunk) in Croatian
+# This file is distributed under the same license as the Development (trunk) package.
+msgid ""
+msgstr ""
+"Project-Id-Version: AG Custom Admin\n"
+"POT-Creation-Date: 2019-01-10 14:08+0100\n"
+"PO-Revision-Date: 2019-01-19 16:19+0100\n"
+"Last-Translator: FreePixel <contact@freepixel.net>\n"
+"Language-Team: FreePixel\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.1.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: ag-custom-admin\n"
+"X-Poedit-SearchPath-0: plugin.php\n"
+"X-Poedit-SearchPath-1: require/dynamic.php\n"
+"X-Poedit-SearchPath-2: tests/_bootstrap.php\n"
+"X-Poedit-SearchPath-3: uninstall.php\n"
+"X-Poedit-SearchPath-4: tests/_support/AcceptanceTester.php\n"
+"X-Poedit-SearchPath-5: tests/_support/FunctionalTester.php\n"
+"X-Poedit-SearchPath-6: tests/_support/UnitTester.php\n"
+"X-Poedit-SearchPath-7: tests/_support/Page/AGCAPage.php\n"
+"X-Poedit-SearchPath-8: tests/_support/Page/GeneralPage.php\n"
+"X-Poedit-SearchPath-9: tests/_support/Page/WPDashboardPage.php\n"
+"X-Poedit-SearchPath-10: tests/_support/Helper/Acceptance.php\n"
+"X-Poedit-SearchPath-11: tests/_support/Helper/Functional.php\n"
+"X-Poedit-SearchPath-12: tests/_support/Helper/Unit.php\n"
+"X-Poedit-SearchPath-13: tests/_support/_generated/AcceptanceTesterActions."
+"php\n"
+"X-Poedit-SearchPath-14: tests/_support/_generated/FunctionalTesterActions."
+"php\n"
+"X-Poedit-SearchPath-15: tests/_support/_generated/UnitTesterActions.php\n"
+
+#: plugin.php:93
+msgid "Settings"
+msgstr "Réglages"
+
+#: plugin.php:96
+msgid "Support"
+msgstr "Support"
+
+#: plugin.php:97 plugin.php:1676 plugin.php:2227
+msgid "Upgrade"
+msgstr "Mettre à niveau"
+
+#: plugin.php:98 plugin.php:2229 plugin.php:2316
+msgid "Donate"
+msgstr "Faire un don"
+
+#: plugin.php:248
+msgid "Absolutely Glamorous Custom Admin theme image (do not delete)"
+msgstr "Image du thème Admin AGCA (ne pas supprimer)"
+
+#: plugin.php:268
+msgid "Not allowed. This action is allowed exclusively in admin panel"
+msgstr ""
+"Interdit. Cette action n’est autorisée qu’exclusivement dans le panneau "
+"d’administration"
+
+#: plugin.php:278
+msgid ""
+"Please try temporary disabling POST verification. Go to Absolutely Glamorous "
+"Custom Admin -> Advanced -> Temporary disable POST verification. Do not "
+"forget to un-check this option once you are done with customizations."
+msgstr ""
+"Veuillez essayer de désactiver temporairement la vérification POST. Accédez "
+"à Admin personnalisé Absolutely Glamorous -> Avancé -> Désactivez "
+"temporairement la vérification POST. N’oubliez pas de désélectionner cette "
+"option une fois les personnalisations terminées."
+
+#: plugin.php:281
+msgid "Multi-site: Current user is not recognized as administrator."
+msgstr "Multi-site: Trenutni korisnik nije prepoznat kao administrator."
+
+#. translators: 1: User Id 2: Blog Id
+#: plugin.php:288
+#, php-format
+msgid "Multi-site: User (%1$s) does not have access to this blog (%2$s)."
+msgstr "Multi-site: Korisnik (%1$s) nema prava pristupa na blog (%2$s)."
+
+#: plugin.php:298
+msgid "User is not logged in."
+msgstr "Korisnik nije prijavljen."
+
+#: plugin.php:299
+msgid "User can not manage options."
+msgstr "Korisnik ne može upravljati opcijama."
+
+#: plugin.php:304
+msgid "Nonce verification failed."
+msgstr "Nonce provjera nije uspjela."
+
+#: plugin.php:323 plugin.php:2968
+msgid "Admin Themes"
+msgstr "Thèmes administration"
+
+#: plugin.php:439
+msgid "There is an error in your custom JS script. Please fix it:"
+msgstr "Došlo je do greške u prilagođenoj JS skripti. Molimo ispravite to:"
+
+#: plugin.php:439
+msgid "AGCA -> Advanced -> Custom JavaScript"
+msgstr "AGCA -> Avancé -> JavaScript personnalisé"
+
+#: plugin.php:815
+msgid "AGCA_Settings"
+msgstr "Réglages AGCA"
+
+#: plugin.php:1116
+msgid "Log Out"
+msgstr "Déconnexion"
+
+#: plugin.php:1160
+#, php-format
+msgid ", %1$s"
+msgstr ", %1$s"
+
+#: plugin.php:1375
+msgid ""
+"This JavaScript error can stop AGCA plugin to work properly. If everything "
+"still works, you can ignore this notification."
+msgstr ""
+"Cette erreur JavaScript peut empêcher l’extension AGCA de fonctionner "
+"correctement. Si tout fonctionne toujours, vous pouvez ignorer cette "
+"notification."
+
+#: plugin.php:1375
+msgid "Possible solutions"
+msgstr "Moguća rješenja"
+
+#: plugin.php:1375
+msgid ""
+"Make sure to have everything up to date: WordPress site, plugins and themes."
+msgstr "Budite sigurni da je sve ažurirano: WordPress stranica, dodaci i teme."
+
+#: plugin.php:1375
+msgid ""
+"Try disabling plugins one by one to see if problem can be resolved this way. "
+"If so, one of disabled plugins caused this error."
+msgstr ""
+"Pokušajte isključiti dodatke, jedan po jedan kako biste vidjeli da li se "
+"problem može riješiti na ovaj način. Ako može, jedan od isključenih dodataka "
+"je uzročnik problema."
+
+#: plugin.php:1375
+msgid ""
+"Check \"source\" path of this error. This could be indicator of the plugin/"
+"theme that caused the error."
+msgstr ""
+"Provjerite putanju do ove greške. To bi mogao biti pokazivač na temu ili "
+"dodatak koji je uzročnik ove greške."
+
+#: plugin.php:1375
+msgid ""
+"If it\\'s obvious that error is thrown from a particular plugin/theme, "
+"please report this error to their support."
+msgstr ""
+"U slučaju da je očigledno da je grešku prouzrokovao neki dodatak ili tema, "
+"molimo prijavite ovaj problem na stranici za podršku tog dodatka ili teme."
+
+#: plugin.php:1375
+msgid "Try activating default WordPress theme instead of your current theme."
+msgstr ""
+"Pokušajte aktivirati zadanu WordPress temu umjesto trenutno aktivne teme."
+
+#: plugin.php:1375
+msgid ""
+"Advanced: Try fixing this issue manually: Navigate to the link above in your "
+"browser and open the source of the page (right click -> view page source) "
+"and find the line in code where it fails. You should access this file via "
+"FTP and try to fix this error on that line."
+msgstr ""
+"Avancé : essayez de résoudre ce problème manuellement : naviguez jusqu’au "
+"lien ci-dessus dans votre navigateur et ouvrez la source de la page (clic "
+"droit -> afficher le code source de la page) et recherchez la ligne dans le "
+"code où elle a échoué. Vous devez accéder à ce fichier via FTP et essayer de "
+"corriger cette erreur sur cette ligne."
+
+#: plugin.php:1375
+msgid ""
+"Contact us if nothing above helps. Please do not post errors that are caused "
+"by other plugins/themes to our support page. Contact their support instead. "
+"If you think that error is somehow related to AGCA plugin, or something "
+"unexpected happens, please report that on our"
+msgstr ""
+"Contactez-nous si rien de ce qui précède ne vous aide. Merci de ne pas "
+"poster d’erreurs causées par d’autres extensions/thèmes sur notre page de "
+"support. Contactez leur support à la place. Si vous pensez que cette erreur "
+"est liée au plugin AGCA, ou si quelque chose d’inattendu se produit, merci "
+"de le signaler sur notre site."
+
+#: plugin.php:1375
+msgid "SUPPORT PAGE"
+msgstr "Stranici za podršku"
+
+#: plugin.php:1378
+msgid "AGCA plugin caught an error on your site!"
+msgstr "L’extension AGCA a eu une erreur sur votre site !"
+
+#: plugin.php:1378
+msgid "show/hide more..."
+msgstr "prikaži/sakrij više..."
+
+#: plugin.php:1404
+msgid "AGCA plugin caught a JavaScript on your site"
+msgstr "L’extension AGCA a rencontré un JavaScript sur votre site"
+
+#: plugin.php:1667
+msgid "File for import is not selected!"
+msgstr "Datoteka za uvoz nije odabrana!"
+
+#: plugin.php:1668 plugin.php:2216 plugin.php:2851
+msgid "General"
+msgstr "Général"
+
+#: plugin.php:1669 plugin.php:2217
+msgid "Admin Bar"
+msgstr "Barre d’administration"
+
+#: plugin.php:1670 plugin.php:2218
+msgid "Footer"
+msgstr "Pied de page"
+
+#: plugin.php:1671 plugin.php:2219
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+#: plugin.php:1672 plugin.php:2220
+msgid "Login Page"
+msgstr "Page de connexion"
+
+#: plugin.php:1673 plugin.php:2221
+msgid "Admin Menu"
+msgstr "Menu de l’administration"
+
+#: plugin.php:1674 plugin.php:2222
+msgid "Colorizer"
+msgstr "Bojanica"
+
+#: plugin.php:1675 plugin.php:2225
+msgid "Themes"
+msgstr "Thèmes"
+
+#: plugin.php:1677 plugin.php:2223 plugin.php:2992
+msgid "Advanced"
+msgstr "Avancé"
+
+#: plugin.php:1678
+msgid "Remove"
+msgstr "Supprimer"
+
+#: plugin.php:1679
+msgid "from menu"
+msgstr "du menu"
+
+#: plugin.php:1680
+msgid "Rename"
+msgstr "Renommer"
+
+#: plugin.php:1681
+msgid "with this value"
+msgstr "s ovom vrijednošću"
+
+#: plugin.php:1682
+msgid "sub-menu item"
+msgstr "pod-izbornik stavka"
+
+#: plugin.php:1683
+msgid "open"
+msgstr "ouvrir"
+
+#: plugin.php:1684
+msgid "Delete"
+msgstr "Suppirmer"
+
+#: plugin.php:1685
+msgid "in"
+msgstr "u"
+
+#: plugin.php:1686
+msgid "Save changes"
+msgstr "Sauvegarder les modifications"
+
+#: plugin.php:2207
+msgid "POSITIVE FEEDBACK: I like this plugin!"
+msgstr "POZITIVNA OCJENA: Volim ovaj dodatak!"
+
+#: plugin.php:2210
+msgid "NEGATIVE FEEDBACK: I don't like this plugin."
+msgstr "NEGATIVNA OCJENA: Ne sviđa mi se ovaj dodatak."
+
+#: plugin.php:2216 plugin.php:2241
+msgid "General Settings"
+msgstr "Réglages généraux"
+
+#: plugin.php:2217
+msgid "Settings for admin bar"
+msgstr "Réglages de la barre d’administration"
+
+#: plugin.php:2218
+msgid "Settings for admin footer"
+msgstr "Postavke admin podnožja"
+
+#: plugin.php:2219
+msgid "Settings for Dashboard page"
+msgstr "Postavke kontrolne ploče"
+
+#: plugin.php:2220
+msgid "Settings for Login page"
+msgstr "Postavke stranice za prijavu"
+
+#: plugin.php:2221
+msgid "Settings for main admin menu"
+msgstr "Postavke glavnog admin izbornika"
+
+#: plugin.php:2222
+msgid "Colorizer settings"
+msgstr "Postavke Bojanice"
+
+#: plugin.php:2223
+msgid "My custom scripts"
+msgstr "Mes scripts personnalisés"
+
+#: plugin.php:2225
+msgid "AGCA Themes"
+msgstr "Thèmes AGCA"
+
+#: plugin.php:2227 plugin.php:2321
+msgid "Upgrade to Cusmin"
+msgstr "Mise à niveau vers Cusmin"
+
+#: plugin.php:2229
+msgid "Enjoying AGCA? Help us further develop it and support it!"
+msgstr "Vous appréciez AGCA ? Aidez-nous à le développer et à le soutenir !"
+
+#: plugin.php:2239
+msgid ""
+"All AGCA plugin's settings, except admin themes, are disabled. Please use"
+msgstr ""
+"Tous les paramètres de l’extension AGCA, à l’exception des thèmes "
+"d’administration, sont désactivés. Veuillez utiliser"
+
+#: plugin.php:2239
+msgid "plugin to manage these settings."
+msgstr "extension pour gérer ces paramètres."
+
+#: plugin.php:2243
+msgid ""
+"<strong>Tip: </strong>Move mouse cursor over the option label to see more "
+"information about an option"
+msgstr ""
+"<strong>Astuce :</strong> déplacez le curseur de la souris sur le libellé de "
+"l’option pour obtenir plus d’informations sur cette option."
+
+#: plugin.php:2249
+msgid "Exclude AGCA admin from customizations"
+msgstr "Exclure l’administrateur AGCA des personnalisations"
+
+#: plugin.php:2250
+msgid ""
+"<h3>Applying customizations</h3><br><strong>Checked</strong> - apply to all "
+"users, except admin<br><strong>Not checked</strong> - apply to everyone</"
+"br></br><strong>Q</strong>: Who is AGCA administrator?</br><strong>A</"
+"strong>: Go to <i>General -> Security -> AGCA admin capability</i> and "
+"change capability option to define administrators. Only the users with "
+"selected capability will be AGCA administrators.</br>"
+msgstr ""
+"<h3>Appliquer des personnalisations</h3><br><strong>Vérifié</strong> - "
+"appliquer à tous les utilisateurs, sauf admin<br><strong>Non vérifié</"
+"strong> - appliquer à tout le monde</br></br><strong>Q</strong> : qui est "
+"l’administrateur AGCA ?</br><strong>A</strong> : allez dans <i>Général -> "
+"Sécurité -> Fonction d’administration AGCA</i> et changer l’option de "
+"capacité pour définir les administrateurs. Seuls les utilisateurs avec la "
+"capacité sélectionnée seront des administrateurs AGCA.</br>"
+
+#: plugin.php:2253
+msgid "Pages"
+msgstr "Pages"
+
+#: plugin.php:2258
+msgid "Hide \"Screen Options\" menu"
+msgstr "Masquer le menu \"Options d’écran\""
+
+#: plugin.php:2259 plugin.php:2266
+msgid ""
+"Hides the menu from the admin pages (located on the top right corner of the "
+"page, below the admin bar)"
+msgstr ""
+"Sakriva izbornik sa admin stranica (lociran na gornjem desnom uglu stranice, "
+"ispod admin trake)"
+
+#: plugin.php:2265
+msgid "Hide \"Help\" menu"
+msgstr "Masquer le menu \"Aide\""
+
+#: plugin.php:2270
+msgid "Hides colors scheme on profile page"
+msgstr "Masque les couleurs sur la page de profil"
+
+#: plugin.php:2273
+msgid "Hide User's Profile Color Scheme"
+msgstr "Masquer le schéma de couleurs du profil de l’utilisateur"
+
+#: plugin.php:2276
+msgid "Security"
+msgstr "Sécurité"
+
+#: plugin.php:2282
+msgid ""
+"Choose which WordPress capability will be used to distinguish AGCA admin "
+"users from other users.</br>AGCA admin users have access to AGCA settings. "
+"AGCA administrators can be excluded from customizations if that option is "
+"checked"
+msgstr ""
+"Odaberi koja WordPress osobnost će izdvajati AGCA administratore od ostalih "
+"korisnika.</br>Samo AGCA administratori imaju pristup AGCA postavkama. AGCA "
+"administratori mogu biti isključeni iz prilagodbi ako je ta postavka "
+"uključena"
+
+#: plugin.php:2282
+msgid "AGCA admin capability"
+msgstr "Capacité d’administration AGCA"
+
+#: plugin.php:2284
+msgid "default:&nbsp;<strong>edit_dashboard</strong>"
+msgstr "par défaut :&nbsp;<strong>edit_dashboard</strong>"
+
+#: plugin.php:2285
+msgid "Find more information about"
+msgstr "Trouvez plus d’informations sur"
+
+#: plugin.php:2285
+msgid "WordPress capabilities"
+msgstr "WordPress osobnosti"
+
+#: plugin.php:2291
+msgid "Feedback and Support"
+msgstr "Commentaires et support"
+
+#: plugin.php:2302
+msgid "Report an issue"
+msgstr "Signaler un problème"
+
+#: plugin.php:2302
+msgid "If plugin does not work as expected"
+msgstr "Ako dodatan ne radi kako se očekuje"
+
+#: plugin.php:2309
+msgid "Add a review on WordPress.org"
+msgstr "Ajouter un avis sur WordPress.org"
+
+#: plugin.php:2309
+msgid "add your review and rate us on WordPress.org"
+msgstr "ajoutez votre commentaire et évaluez nous sur WordPress.org"
+
+#: plugin.php:2316
+msgid "if you find this plugin helpful for your needs"
+msgstr "si vous trouvez cette extension utile pour vos besoins"
+
+#: plugin.php:2321
+msgid "&nbsp;- unlock the ultimate branding experience"
+msgstr "&nbsp; - déverrouillez l’expérience de marque"
+
+#: plugin.php:2330
+msgid "Admin Bar Settings"
+msgstr "Réglages de la barre d’administration"
+
+#: plugin.php:2340
+msgid "Hides admin bar completely from the admin panel"
+msgstr ""
+"Masque complètement la barre d’administration dans le panneau "
+"d’administration"
+
+#: plugin.php:2342
+msgid "<strong>Hide Admin bar</strong>"
+msgstr "<strong>Masquer la barre d’administration</strong>"
+
+#: plugin.php:2353
+msgid ""
+"Check this if you want to show Log Out button in top right corner of the "
+"admin page"
+msgstr ""
+"Odaberite ako želite da prikažete dugme Odjavi u gornjem desnom uglu "
+"administracijske ploče"
+
+#: plugin.php:2356
+msgid "<strong>(but show Log Out button)</strong>"
+msgstr "<strong>(mais afficher le bouton de déconnexion)</strong>"
+
+#: plugin.php:2360
+msgid ""
+"Removes admin bar customizations for authenticated users on site pages.</"
+"br>This option can be useful if you want to remove AGCA scripts (styles, "
+"JavaScript) on your website for any reason."
+msgstr ""
+"Uklanja prilagodbe sa admin trake za prijavljene korisnike na web stranicama."
+"</br>Ova postavka može biti korisna ako želite ukloniti AGCA skripte "
+"(stilovi i JavaScript) na vašoj web stranici iz bilo kojeg razloga."
+
+#: plugin.php:2363
+msgid "Site pages: Do not apply Admin bar customizations"
+msgstr ""
+"Pages du site : ne pas appliquer les personnalisations de la barre "
+"d’administration"
+
+#: plugin.php:2367
+msgid "Hides admin bar completely for authenticated users on site pages."
+msgstr ""
+"Masque la barre d’administration complètement pour les utilisateurs "
+"authentifiés sur les pages du site."
+
+#: plugin.php:2370
+msgid "Site pages: Hide Admin bar"
+msgstr "Pages du site : masquer la barre d’administration"
+
+#: plugin.php:2373
+msgid "Left Side"
+msgstr "Côté gauche"
+
+#: plugin.php:2376
+msgid "Change default WordPress logo with custom image."
+msgstr "Changer le logo WordPress par défaut avec une image personnalisée."
+
+#: plugin.php:2378
+msgid "Admin bar logo"
+msgstr "Logo de la barre d’administration"
+
+#: plugin.php:2379 plugin.php:2400 plugin.php:2706 plugin.php:2912
+msgid "Image URL"
+msgstr "URL slike"
+
+#: plugin.php:2383
+msgid "Custom link on admin bar logo."
+msgstr "Prilagođena poveznica na logu admin trake."
+
+#: plugin.php:2383
+msgid "for blog URL."
+msgstr "pour l’URL du blog."
+
+#: plugin.php:2383
+msgid "to switch betweent admin and site area"
+msgstr "za promjenu između admin i web dijela"
+
+#: plugin.php:2385
+msgid "Admin bar logo link"
+msgstr "Lien du logo de la barre d’administration"
+
+#: plugin.php:2386
+msgid "Link"
+msgstr "Lien"
+
+#: plugin.php:2390
+msgid ""
+"Customize WordPress title using custom title template.</br></br>Examples"
+msgstr ""
+"Prilagodi WordPress naslov korištenjem predloška prilagođenog naslova.</br></"
+"br>Primjeri"
+
+#: plugin.php:2390
+msgid "will be"
+msgstr "će biti"
+
+#: plugin.php:2392
+msgid "Page title template"
+msgstr "Modèle de titre de page"
+
+#: plugin.php:2393
+msgid "Please use"
+msgstr "Veuillez utiliser"
+
+#: plugin.php:2393
+msgid "and"
+msgstr "et"
+
+#: plugin.php:2393
+msgid "in your title template."
+msgstr "dans votre modèle de titre."
+
+#: plugin.php:2397
+msgid "Add custom image on the top of the admin content."
+msgstr ""
+"Ajoutez une image personnalisée en haut du contenu de l’administrateur."
+
+#: plugin.php:2399
+msgid "Header image"
+msgstr "Image d'en-tête"
+
+#: plugin.php:2406
+msgid "Hides small Wordpress logo or custom logo from the admin bar"
+msgstr ""
+"Cacher le petit logo WordPress ou le logo personnalisé de la barre "
+"d’administration"
+
+#: plugin.php:2408
+msgid "Hide Admin bar logo"
+msgstr "Masquer le logo de la barre d’administration"
+
+#: plugin.php:2413
+msgid "Hides WordPress context menu on admin bar logo from admin bar"
+msgstr ""
+"Cache le menu contextuel de WordPress sur le logo de la barre "
+"d’administration"
+
+#: plugin.php:2415
+msgid "Hide Admin bar logo context menu"
+msgstr "Masquer le menu contextuel du logo de la barre d’administration"
+
+#: plugin.php:2420
+msgid "Hides site name link from the admin bar"
+msgstr "Sakriva poveznicu na imenu stranice u admin traci"
+
+#: plugin.php:2422
+msgid "Hide Site name"
+msgstr "Masquer le nom du site"
+
+#: plugin.php:2427
+msgid "Hides update notifications from admin bar"
+msgstr "Sakriva obavijesti ažuriranja na admin traci"
+
+#: plugin.php:2429
+msgid "Remove update notifications"
+msgstr "Supprimer les notifications de mise à jour"
+
+#: plugin.php:2434
+msgid "Hides comments block from admin bar"
+msgstr "Sakriva blok komentara u admin traci"
+
+#: plugin.php:2436
+msgid "Hide \"Comments\" block"
+msgstr "Masquer le bloc \"Commentaires\""
+
+#: plugin.php:2444
+msgid "Hides \"+ New\" block and its context menu from admin bar"
+msgstr ""
+"Masque le bloc \"+ Nouveau\" et son menu contextuel dans la barre "
+"d’administration"
+
+#: plugin.php:2446
+msgid "Hide \"+ New\" block"
+msgstr "Masquer le bloc \"+ Nouveau\""
+
+#: plugin.php:2456
+msgid "Hides \"Post\" sub-menu from \"+ New\" block on admin bar"
+msgstr "Sakriva \"Objava\" pod-izbornik sa \"+ Novi\" bloka na admin traci"
+
+#: plugin.php:2458
+msgid "Hide \"+ New\" -> Post sub-menu"
+msgstr "Masquer \"+ Nouveau\" -> Sous-menu publier"
+
+#: plugin.php:2466
+msgid "Hides \"Link\" sub-menu from \"+ New\" block on admin bar"
+msgstr "Sakriva \"Veza\" pod-izbornik sa \"+ Novi\" bloka na admin traci"
+
+#: plugin.php:2468
+msgid "Hide \"+ New\" -> Link sub-menu"
+msgstr "Masquer \"+ Nouveau\" -> Sous-menu lien"
+
+#: plugin.php:2476
+msgid "Hides \"Page\" sub-menu from \"+ New\" block on admin bar"
+msgstr "Sakriva \"Stranica\" pod-izbornik sa \"+ Novi\" bloka na admin traci"
+
+#: plugin.php:2478
+msgid "Hide \"+ New\" -> Page sub-menu"
+msgstr "Masquer \"+ Nouveau\" -> Sous-menu de la page"
+
+#: plugin.php:2486
+msgid "Hides \"User\" sub-menu from \"+ New\" block on admin bar"
+msgstr "Sakriva \"Korisnik\" pod-izbornik sa \"+ Novi\" bloka na admin traci"
+
+#: plugin.php:2488
+msgid "Hide \"+ New\" -> User sub-menu"
+msgstr "Masquer \"+ Nouveau\" -> Sous-menu utilisateur"
+
+#: plugin.php:2496
+msgid "Hides \"Media\" sub-menu from \"+ New\" block on admin bar"
+msgstr ""
+"Sakriva \"Medijski zapisi\" pod-izbornik sa \"+ Novi\" bloka na admin traci"
+
+#: plugin.php:2498
+msgid "Hide \"+ New\" -> Media sub-menu"
+msgstr "Masquer \"+ Nouveau\" -> Sous-menu Média"
+
+#: plugin.php:2509
+msgid "Adds custom text in admin top bar."
+msgstr ""
+"Ajoute du texte personnalisé dans la barre supérieure de l’administrateur."
+
+#: plugin.php:2511
+msgid "Custom blog heading"
+msgstr "En-tête de blog personnalisé"
+
+#: plugin.php:2512
+msgid "<strong>Tip: </strong>You can use HTML tags like"
+msgstr "<strong>Astuce :</strong> vous pouvez utiliser des balises HTML comme"
+
+#: plugin.php:2512
+msgid "or"
+msgstr "ou"
+
+#: plugin.php:2518
+msgid ""
+"Hides the yellow bar with the information about the new WordPress release"
+msgstr ""
+"Masque la barre jaune avec les informations sur la nouvelle version de "
+"WordPress"
+
+#: plugin.php:2520
+msgid "Hide WordPress update notification"
+msgstr "Masquer la notification de mise à jour WordPress"
+
+#: plugin.php:2523
+msgid "Right Side"
+msgstr "Côté droit"
+
+#: plugin.php:2527
+msgid "Change Howdy text"
+msgstr "Changer le texte de bienvenue"
+
+#: plugin.php:2531
+msgid "Put 'Exit', for example"
+msgstr "Mettez 'Exit', par exemple"
+
+#: plugin.php:2533
+msgid "Change Log out text"
+msgstr "Changer le texte de déconnexion"
+
+#: plugin.php:2539
+msgid "Hide \"Edit My Profile\" link"
+msgstr "Masquer le lien \"Modifier mon profil\""
+
+#: plugin.php:2543
+msgid ""
+"If selected, hides all elements in top right corner, except Log Out button"
+msgstr ""
+"Ako je odabrano, sakriva sve elemente u gornjem desnom uglu, osim dugmeta za "
+"odjavu"
+
+#: plugin.php:2545
+msgid "Log out only"
+msgstr "Se déconnecter seulement"
+
+#: plugin.php:2554
+msgid "Admin Footer Settings"
+msgstr "Réglages du pied de page d’administration"
+
+#: plugin.php:2563
+msgid "Hides footer with all elements"
+msgstr "Cache le pied de page avec tous les éléments"
+
+#: plugin.php:2565
+msgid "<strong>Hide footer</strong>"
+msgstr "<strong>Masquer le pied de page</strong>"
+
+#: plugin.php:2568
+msgid "Footer Options"
+msgstr "Options du pied de page"
+
+#: plugin.php:2572
+msgid "Hides default text in footer"
+msgstr "Masque le texte par défaut dans le pied de page"
+
+#: plugin.php:2574
+msgid "Hide footer text"
+msgstr "Masquer le texte de pied de page"
+
+#: plugin.php:2578
+msgid "Replaces text 'Thank you for creating with WordPress' with custom text"
+msgstr ""
+"Mijenja tekst 'Hvala što kreirate sa WordPress-om' sa korisnikovim tekstom"
+
+#: plugin.php:2581
+msgid "Change footer text"
+msgstr "Changer le texte du pied de page"
+
+#: plugin.php:2586
+msgid "Hides text 'Get Version ...' on right"
+msgstr "Sakriva tekst 'Inačica..' u desnom uglu"
+
+#: plugin.php:2588
+msgid "Hide version text"
+msgstr "Masquer le texte de la version"
+
+#: plugin.php:2592
+msgid "Replaces text 'Get Version ...' with custom text"
+msgstr "Mijenja tekst 'Inačica..' sa korisnikovim tekstom"
+
+#: plugin.php:2595
+msgid "Change version text"
+msgstr "Changer le texte de version"
+
+#: plugin.php:2603
+msgid "Dashboard Settings"
+msgstr "Réglages du tableau de bord"
+
+#: plugin.php:2608
+msgid "Dashboard Options"
+msgstr "Options du Tableau de bord"
+
+#: plugin.php:2611
+msgid "Main heading ('Dashboard') on Dashboard page"
+msgstr "Titrage principal (\"Tableau de bord\") sur la page Tableau de bord"
+
+#: plugin.php:2613
+msgid "Change Dashboard heading text"
+msgstr "Changer le texte de titre du tableau de bord"
+
+#: plugin.php:2619
+msgid ""
+"Adds custom text (or HTML) between heading and widgets area on Dashboard page"
+msgstr ""
+"Ajoute un texte personnalisé (ou HTML) entre l’en-tête et la zone des "
+"widgets sur la page Tableau de bord"
+
+#: plugin.php:2619
+msgid "Add custom Dashboard content<br> <em>(text or HTML content)"
+msgstr ""
+"Ajouter un contenu de tableau de bord personnalisé<br><em>(texte ou contenu "
+"HTML)"
+
+#: plugin.php:2627
+msgid "Dashboard Widgets Options"
+msgstr "Options des widgets du tableau de bord"
+
+#: plugin.php:2632
+msgid "Note"
+msgstr "Note"
+
+#: plugin.php:2632
+msgid ""
+"These settings will override settings configured in the Screen options on "
+"Dashboard page."
+msgstr ""
+"Ces paramètres remplacent les paramètres configurés dans la page Options "
+"d’écran de la page Tableau de bord."
+
+#: plugin.php:2638
+msgid "Hides Welcome WordPress widget"
+msgstr "Sakriva Dobro došli u WordPress widget na početnoj stranici"
+
+#: plugin.php:2640
+msgid "Hide \"Welcome\" widget"
+msgstr "Masquer le widget \"Bienvenue\""
+
+#: plugin.php:2645
+msgid "Hides Activity dashboard widget"
+msgstr "Masque le widget \"Activité\" du tableau de bord"
+
+#: plugin.php:2647
+msgid "Hide \"Activity\" widget"
+msgstr "Masquer le widget \"Activité\""
+
+#: plugin.php:2652
+msgid "Hides Quick Draft dashboard widget"
+msgstr "Sakriva \"Brzi članak\" dodatak na kontrolnoj ploči"
+
+#: plugin.php:2654
+msgid "Hide \"Quick Draft\" widget"
+msgstr "Masquer le widget \"Brouillon rapide\""
+
+#: plugin.php:2659
+msgid "Hides At a Glance dashboard widget"
+msgstr "Sakriva \"Na prvi pogled\" dodatak na kontrolnoj ploči"
+
+#: plugin.php:2661
+msgid "Hide \"At a Glance\" widget"
+msgstr "Masquer le widget \"En bref\""
+
+#: plugin.php:2667
+msgid ""
+"This is 'WordPress News' or 'WordPress Development Blog' widget in older "
+"WordPress versions"
+msgstr ""
+"Ovo je \"WordPress novosti\" ili \"WordPress razvojni blog\" dodatak u "
+"starijim inačicama WordPess-a"
+
+#: plugin.php:2668
+msgid "Hide \"WordPress News\" widget"
+msgstr "Masquer le widget \"Évènements et nouveautés WordPress\""
+
+#: plugin.php:2674
+msgid "This is 'Other WordPress News' widget by default"
+msgstr "Ovo je 'Ostale novosti WordPress-a' zadani dodatak"
+
+#: plugin.php:2675
+msgid "Hide secondary widget area"
+msgstr "Masquer la zone du widget secondaire"
+
+#: plugin.php:2682
+msgid "Login Page Settings"
+msgstr "Réglages de la page de connexion"
+
+#: plugin.php:2687
+msgid "Login Page Options"
+msgstr "Options de la page de connexion"
+
+#: plugin.php:2692
+msgid "Hide back to blog block"
+msgstr "Masquer le bloc Retour au blog"
+
+#: plugin.php:2693
+msgid "Hide \"Back to blog\" text"
+msgstr "Masquer le texte \"Retour au blog\""
+
+#: plugin.php:2698
+msgid "Changes '<- Back to ...' text in top bar on Login page"
+msgstr "Mijenja '<- Natrag na ...' tekst na stranici za prijavu"
+
+#: plugin.php:2699
+msgid "Change back to blog text"
+msgstr "Changer le texte de Retour au blog"
+
+#: plugin.php:2703
+msgid ""
+"If this field is not empty, image from provided url will be visible on Login "
+"page"
+msgstr ""
+"Ako ovo polje nije prazno, slika sa URL lokacije će biti stavljena na "
+"stranicu za prijavu"
+
+#: plugin.php:2705
+msgid "Change Login header image"
+msgstr "Modifier l’image d’en-tête de connexion"
+
+#: plugin.php:2710
+msgid ""
+"Put here custom link to a web location, that will be triggered on image click"
+msgstr "Promjena poveznice na slici na stranici za prijavu"
+
+#: plugin.php:2712
+msgid "Change link on login image"
+msgstr "Changer le lien sur l’image de connexion"
+
+#: plugin.php:2713
+msgid "For blog URL use"
+msgstr "Pour l’utilisation de l’URL du blog"
+
+#: plugin.php:2718
+msgid "Hides login image completely"
+msgstr "Cache complètement l’image de connexion"
+
+#: plugin.php:2720
+msgid "Hide login header image"
+msgstr "Masquer l’image d’en-tête de connexion"
+
+#: plugin.php:2724
+msgid "Rounds box on login page"
+msgstr "Zaokružuje ivice na prozoru za prijavu"
+
+#: plugin.php:2736 plugin.php:2901
+msgid "Size of rounded box curve"
+msgstr "Veličina zakrivljenosti uglova"
+
+#: plugin.php:2738
+msgid "Round box corners - size"
+msgstr "Zakrivljenost uglova - veličina"
+
+#: plugin.php:2740 plugin.php:2905
+msgid "(Size in px)"
+msgstr "(Taille en px)"
+
+#: plugin.php:2745
+msgid "Hides register link on login page"
+msgstr "Sakriva poveznicu za registraciju na stranici za prijavu"
+
+#: plugin.php:2747
+msgid "Hide \"Register\" link"
+msgstr "Masquer le lien \"S’inscrire\""
+
+#: plugin.php:2757
+msgid ""
+"Change register link on login page to point to your custom registration page."
+msgstr ""
+"Promjena poveznice za registriranje na stranici za prijavu prema "
+"prilagođenoj stranici za registriranje."
+
+#: plugin.php:2759
+msgid "Change register link"
+msgstr "Changer le lien d’inscription"
+
+#: plugin.php:2760
+msgid "Link to new registration page"
+msgstr "Lien vers la nouvelle page d’inscription"
+
+#: plugin.php:2765
+msgid "Hides lost password link on login page"
+msgstr "Sakriva poveznicu za izgubljenu lozinku na stranici za prijavu"
+
+#: plugin.php:2767
+msgid "Hide \"Lost password\" link"
+msgstr "Masquer le lien \"Mot de passe perdu\""
+
+#: plugin.php:2776 plugin.php:2844
+msgid "Admin Menu Settings"
+msgstr "Réglages du menu administrateur"
+
+#: plugin.php:2780
+msgid "Apply admin menu customizations"
+msgstr "Appliquer les personnalisations au menu administrateur"
+
+#: plugin.php:2781 plugin.php:2785
+msgid "Hides admin menu completely (administrator can see 'AGCA' button)"
+msgstr ""
+"Cache le menu d’administration complètement (l’administrateur peut voir le "
+"bouton 'AGCA')"
+
+#: plugin.php:2784
+msgid "Admin menu"
+msgstr "Menu administrateur"
+
+#: plugin.php:2788
+msgid "Edit / Remove Menu Items"
+msgstr "Modifier/Supprimer des éléments de menu"
+
+#: plugin.php:2792
+msgid "Reset menu settings to default values"
+msgstr "Postavite postavke izbornika na zadane"
+
+#: plugin.php:2792
+msgid "Reset to default settings"
+msgstr "Postavljanje postavki na zadane"
+
+#: plugin.php:2793
+msgid "click on the top menu item to show its sub-menus"
+msgstr ""
+"kliknite na glavno dugme izbornika kako biste vidjeli dugmad pod-izbornika"
+
+#: plugin.php:2796
+msgid "Item"
+msgstr "Élément"
+
+#: plugin.php:2796
+msgid "Hide?"
+msgstr "Masquer ?"
+
+#: plugin.php:2796
+msgid "Change Text"
+msgstr "Changer le texte"
+
+#: plugin.php:2807
+msgid "Removes Profile menu item for non-admin users."
+msgstr ""
+"Uklanja Profil izborničku stavku za sve korisnike koji nisu administratori."
+
+#: plugin.php:2810
+msgid "Remove Profile button from user menu"
+msgstr "Sakriva Profil dugme sa korisničkog izbornika"
+
+#: plugin.php:2813
+msgid "Removes Customize button on front end for authenticated users."
+msgstr ""
+"Supprime le bouton Personnaliser sur le site en ligne pour les utilisateurs "
+"authentifiés."
+
+#: plugin.php:2816
+msgid "Front end: Remove Customize button"
+msgstr "Site en ligne : supprimer le bouton personnalisé"
+
+#: plugin.php:2821
+msgid "Add New Menu Items"
+msgstr "Ajouter de nouveaux éléments de menu"
+
+#: plugin.php:2828
+msgid "name"
+msgstr "nom"
+
+#: plugin.php:2828
+msgid "New button visible name"
+msgstr "Vidljivo ime novog dugmeta"
+
+#: plugin.php:2829
+msgid "url"
+msgstr "url"
+
+#: plugin.php:2829
+msgid "New button link"
+msgstr "Nova veza za dugme"
+
+#: plugin.php:2830
+msgid "open in"
+msgstr "ouvrir dans"
+
+#: plugin.php:2831
+msgid "the same tab"
+msgstr "le même onglet"
+
+#: plugin.php:2832
+msgid "a new tab"
+msgstr "un nouvel onglet"
+
+#: plugin.php:2834
+msgid "Add new item button\" name=\"ag_add_adminmenu_button"
+msgstr "Ajouter un nouveau bouton\" name=\"ag_add_adminmenu_button"
+
+#: plugin.php:2834
+msgid "Add new item"
+msgstr "Ajouter un nouvel élément"
+
+#: plugin.php:2848
+msgid "Choose how admin menu should behave on mobile devices / small screens"
+msgstr ""
+"Odaberite kako će se admin izbornik ponašati na mobilnim uređajima / malim "
+"zaslonima"
+
+#: plugin.php:2848
+msgid "Admin menu auto folding"
+msgstr "Repli automatique du menu Admin"
+
+#: plugin.php:2852
+msgid "Default"
+msgstr "Par défaut"
+
+#: plugin.php:2853
+msgid "Force admin menu auto-folding"
+msgstr "Forcer le pliage automatique du menu administrateur"
+
+#: plugin.php:2854
+msgid "Disable admin menu auto-folding"
+msgstr "Désactiver le pliage automatique du menu administrateur"
+
+#: plugin.php:2862
+msgid "Removes empty space between some top menu items"
+msgstr "Uklanja prazan prostor između ponekih glavnih dugmadi izbornika"
+
+#: plugin.php:2864
+msgid "Hide menu items separators"
+msgstr "Masquer les séparateurs d’éléments de menu"
+
+#: plugin.php:2869
+msgid "Removes icons from dmin menu buttons"
+msgstr "Sakriva ikonice sa dugmadi na admin izborniku"
+
+#: plugin.php:2871
+msgid "Hide menu icons"
+msgstr "Masquer les icônes de menu"
+
+#: plugin.php:2876
+msgid "Removes small arrow that appears on the top button hover"
+msgstr "Supprime la petite flèche qui apparaît au survol sur le bouton du haut"
+
+#: plugin.php:2878
+msgid "Hide sub-menu arrow"
+msgstr "Masquer la flèche du sous-menu"
+
+#: plugin.php:2883
+msgid "Removes collapse button at the end of admin menu"
+msgstr "Uklanja dugme za sužavanje admin izbornika na samom kraju izbornika"
+
+#: plugin.php:2885
+msgid "Hide \"Collapse menu\" button"
+msgstr "Masquer le bouton \"Réduire le menu\""
+
+#: plugin.php:2889
+msgid "Rounds submenu pop-up box"
+msgstr "Zaokružuje ivice pojavljujućeg pod-izbornika"
+
+#: plugin.php:2891
+msgid "Round sub-menu pop-up box"
+msgstr "Zaokružite ivice pojavljujućeg pod-izbornika"
+
+#: plugin.php:2903
+msgid "Round sub-menu pop-up box - size"
+msgstr "Veličina zaokruživanja ivica pod-izbornika"
+
+#: plugin.php:2909
+msgid "Adds custom logo above the admin menu"
+msgstr "Ajoute un logo personnalisé au-dessus du menu administrateur"
+
+#: plugin.php:2911
+msgid "Admin menu branding logo"
+msgstr "Logo de la marque dans le menu d’administration"
+
+#: plugin.php:2916
+msgid "Change branding logo link</br></br>Use:"
+msgstr "Promjena poveznice slike loga</br></br>Koristite:"
+
+#: plugin.php:2916
+msgid "for blog URL"
+msgstr "pour l’URL du blog"
+
+#: plugin.php:2918
+msgid "Branding logo link"
+msgstr "Lien du logo de la marque"
+
+#: plugin.php:2919
+msgid "Branding image URL"
+msgstr "URL de l’image de marque"
+
+#: plugin.php:2925
+msgid "Colorizer Page"
+msgstr "Bojanica"
+
+#: plugin.php:2929
+msgid "Apply Colorizer customizations"
+msgstr "Appliquer les personnalisations de colorisation"
+
+#: plugin.php:2933
+msgid "Global Color Options"
+msgstr "Options globales de couleur"
+
+#: plugin.php:2935 plugin.php:2959
+msgid "Background:"
+msgstr "Arrière-plan :"
+
+#: plugin.php:2935
+msgid "Change admin page background color"
+msgstr "Changer la couleur d’arrière-plan de la page d’administration"
+
+#: plugin.php:2936
+msgid "Login page background:"
+msgstr "Arrière-plan de la page de connexion :"
+
+#: plugin.php:2936
+msgid "Change login page background color"
+msgstr "Changer la couleur d’arrière-plan de la page de connexion"
+
+#: plugin.php:2937
+msgid "Admin bar:"
+msgstr "Barre d'administration :"
+
+#: plugin.php:2937
+msgid "Change admin bar (on top) color in admin panel"
+msgstr ""
+"Changer la couleur de la barre d’administration (en haut) dans le panneau "
+"d’administration"
+
+#: plugin.php:2939
+msgid "Admin Menu Color Options"
+msgstr "Options de couleur du menu Admin"
+
+#: plugin.php:2941
+msgid "Button background:"
+msgstr "Arrière-plan du bouton :"
+
+#: plugin.php:2941
+msgid "Change button background color"
+msgstr "Promjena pozadinske boje dugmeta"
+
+#: plugin.php:2942
+msgid "Button text:"
+msgstr "Texte du bouton :"
+
+#: plugin.php:2942
+msgid "Change button text color"
+msgstr "Promijeni boju teksta dugmeta"
+
+#: plugin.php:2943
+msgid "Selected button background:"
+msgstr "Arrière-plan du bouton sélectionné :"
+
+#: plugin.php:2943
+msgid "Change button background color for current button"
+msgstr "Promjena pozadinske boje trenutnog dugmeta"
+
+#: plugin.php:2944
+msgid "Hover button background:"
+msgstr "Arrière-plan au survol du bouton :"
+
+#: plugin.php:2944
+msgid "Change button background color on mouseover"
+msgstr "Promjena pozadinske boje dugmeta na prelaz mišem"
+
+#: plugin.php:2945
+msgid "Sub-menu button background:"
+msgstr "Arrière-plan du bouton de sous-menu :"
+
+#: plugin.php:2945 plugin.php:3190
+msgid "Change submenu item background color"
+msgstr "Changer la couleur d’arrière-plan de l’élément de sous-menu"
+
+#: plugin.php:2946
+msgid "Sub-menu hover button background:"
+msgstr "Arrière-plan du bouton de survol du sous-menu :"
+
+#: plugin.php:2946
+msgid "Change submenu item background color on mouseover"
+msgstr ""
+"Changer la couleur d’arrière-plan de l’élément de sous-menu au passage de la "
+"souris"
+
+#: plugin.php:2947
+msgid "Sub-menu text:"
+msgstr "Tekst pod-izbornika:"
+
+#: plugin.php:2947
+msgid "Sub-menu text color"
+msgstr "Boja teksta pod-izbornika"
+
+#: plugin.php:2948
+msgid "Wrapper background:"
+msgstr "Arrière-plan de l’enveloppe :"
+
+#: plugin.php:2948
+msgid "Change background color of element behind admin menu"
+msgstr "Changer la couleur d’arrière-plan de l’élément derrière le menu admin"
+
+#: plugin.php:2950
+msgid "Font Color Options"
+msgstr "Options de couleur de police"
+
+#: plugin.php:2952
+msgid "Content text:"
+msgstr "Texte du contenu :"
+
+#: plugin.php:2952
+msgid "Change color in content text"
+msgstr "Promjena boje teksta na stranici"
+
+#: plugin.php:2953
+msgid "Admin bar text:"
+msgstr "Texte de la barre d’administration :"
+
+#: plugin.php:2953
+msgid "Change color of admin bar text"
+msgstr "Changer la couleur du texte de la barre d’administration"
+
+#: plugin.php:2954
+msgid "Footer text:"
+msgstr "Texte de pied de page :"
+
+#: plugin.php:2954
+msgid "Change color in footer text"
+msgstr "Promijenite boju teksta u podnožju"
+
+#: plugin.php:2956
+msgid "Widgets Color Options"
+msgstr "Options de couleur des widgets"
+
+#: plugin.php:2958
+msgid "Title bar background:"
+msgstr "Arrière-plan du titre de la barre :"
+
+#: plugin.php:2958
+msgid "Change color in header text"
+msgstr "Promjena boje teksta u zaglavlju"
+
+#: plugin.php:2959
+msgid "Change widget background color"
+msgstr "Promjena pozadinske boje dodatka"
+
+#: plugin.php:2982
+msgid ""
+"WARNING: All installed themes will be removed. To activate them again, you "
+"would need to install theme and activate using valid license keys. Free "
+"themes can be installed again."
+msgstr ""
+"UPOZORENJE: Sve instalirane teme će biti uklonjene. Kako biste ih ponovno "
+"aktivirali, trebaćete imati validan ključ. Besplatne teme mogu biti ponovno "
+"instalirane bez ključa."
+
+#: plugin.php:2982
+msgid "Uninstall all installed themes"
+msgstr "Brisanje svih instaliranih tema"
+
+#: plugin.php:2997
+msgid ""
+"<strong>Note: </strong>These options will override existing customizations"
+msgstr ""
+"<strong>-Remarque :</strong> ces options remplaceront les personnalisations "
+"existantes"
+
+#: plugin.php:3002 plugin.php:3005
+msgid "Add custom CSS script to override existing styles"
+msgstr "Ajouter un script CSS personnalisé pour remplacer les styles existants"
+
+#: plugin.php:3002
+msgid "Custom CSS script"
+msgstr "Moja CSS skripta"
+
+#: plugin.php:3010 plugin.php:3013
+msgid "Add additional custom JavaScript"
+msgstr "Ajouter du JavaScript personnalisé additionnel"
+
+#: plugin.php:3010
+msgid "Custom JavaScript"
+msgstr "Moja JavaScript"
+
+#: plugin.php:3018
+msgid ""
+"Temporary enable this option if you are experiencing any problems with "
+"saving AGCA options. Please turn it off after you are done with your "
+"customizations."
+msgstr ""
+"Trenutačno uključite ovu opciju ako imate problema sa spašavanje AGCA "
+"opcija. Molimo isključite je ponovno nakon što završite podešavanja."
+
+#: plugin.php:3020
+msgid "Temporary disable POST verification"
+msgstr "Trenutačno isključite POST provjeru"
+
+#: plugin.php:3025
+msgid "Export / import settings"
+msgstr "Réglages d’exportation/importation"
+
+#: plugin.php:3028
+msgid "Export Settings"
+msgstr "Exporter les réglages"
+
+#: plugin.php:3032
+msgid "Import Settings"
+msgstr "Uvoz postavki"
+
+#: plugin.php:3060
+msgid "Save AGCA configuration"
+msgstr "Enregistrer la configuration AGCA"
+
+#: plugin.php:3060
+msgid "Save Changes"
+msgstr "Sauvegarder les modifications"
+
+#: plugin.php:3104
+msgid "Toggle on/off"
+msgstr "Uključi/isključi"
+
+#: plugin.php:3135 plugin.php:3171 plugin.php:3193
+msgid "Clear"
+msgstr "Effacer"
+
+#: plugin.php:3170
+msgid "Pick Color"
+msgstr "Odaberite boju"
+
+#: plugin.php:3190
+msgid "Submenu button background color:"
+msgstr "Couleur d’arrière-plan du bouton de sous-menu :"
+
+#: plugin.php:3192
+msgid "Pick color"
+msgstr "Odaberite boju"
+
+#~ msgid "User is not administrator."
+#~ msgstr "Korisnik nije administrator."
+
+#~ msgid "Admin Footer"
+#~ msgstr "Admin podnožje"
+
+#~ msgid "AG Custom Admin Themes"
+#~ msgstr "AG Custom Admin teme"
+
+#~ msgid ""
+#~ "Do you like this plugin? You can support its future development by giving "
+#~ "a donation by your choice"
+#~ msgstr ""
+#~ "Da li vam se sviđa ovaj dodatak? Možete podržati njegov budući razvoj "
+#~ "doniranjem po vašem izboru"
+
+#~ msgid "<strong>Edit Dashboard</strong> - selected by default"
+#~ msgstr "<strong>Izmijena nadzorne ploče</strong> - zadana postavka"
+
+#~ msgid "Idea for improvement"
+#~ msgstr "Ideja za unaprijeđenje"
+
+#~ msgid "submit your idea for improvement"
+#~ msgstr "pošaljite svoju ideju za unaprijeđenje"
+
+#~ msgid "Idea for admin theme"
+#~ msgstr "Ideja za admin temu"
+
+#~ msgid "submit your idea for admin theme"
+#~ msgstr "pošaljite svoju ideju za admin temu"
+
+#~ msgid "Visit our support site"
+#~ msgstr "Posjetite našu stranicu za podršku"
+
+#~ msgid "for any other questions, feel free to contact us"
+#~ msgstr "za sva ostala pitanja, slobodno nas kontaktirajte"
+
+#~ msgid "Image URL (maximum height is 28px)"
+#~ msgstr "Lokacija slike (maksimalna visina je 28px)"
+
+#~ msgid "WordPress logo"
+#~ msgstr "WordPress logo"
+
+#~ msgid "Hides \"Admin themes\" from admin bar"
+#~ msgstr "Sakriva \"Admin teme\" sa admin trake"
+
+#~ msgid "\"Admin themes\""
+#~ msgstr "\"Admin teme\""
+
+#~ msgid "\"Edit My Profile\" option from dropdown menu"
+#~ msgstr "\"Promjeni moj profil\" opcija na padajućem izborniku"
+
+#~ msgid "Version text"
+#~ msgstr "Tekst inačice"
+
+#~ msgid "YES"
+#~ msgstr "DA"
+
+#~ msgid "Do not apply admin menu customizations"
+#~ msgstr "Ne primjenjuj prilagodbe admin izbornika"
+
+#~ msgid "NO"
+#~ msgstr "NE"
+
+#~ msgid "Visibility"
+#~ msgstr "Vidljivost"
+
+#~ msgid "Apply Colorizer settings"
+#~ msgstr "Primjena postavki Bojanice"
+
+#~ msgid "Do not apply Colorizer customizations"
+#~ msgstr "Ne primjenjuj postavke Bojanice"
+
+#~ msgid ""
+#~ "If you have any ideas for theme improvements, or you have new themes "
+#~ "requests, please feel free to send us a message"
+#~ msgstr ""
+#~ "Ako imate bilo kakvu ideju za poboljšanje tema ili imate ideju za novu "
+#~ "temu, molimo kontaktirajte nas"
+
+#~ msgid "Submit your admin themes ideas"
+#~ msgstr "Pošaljite svoju ideju za admin temu"
+
+#~ msgid "AG Custom Admin"
+#~ msgstr "AG Custom Admin"
+
+#~ msgid "http://wordpressadminpanel.com/ag-custom-admin/"
+#~ msgstr "http://wordpressadminpanel.com/ag-custom-admin/"
+
+#~ msgid ""
+#~ "All-in-one tool for admin panel customization. Change almost everything: "
+#~ "admin menu, dashboard, login page, admin bar etc. Apply admin panel "
+#~ "themes."
+#~ msgstr ""
+#~ "\"Sve u jednom\" dodatak za prilagodbu stranice za administraciju. "
+#~ "Promjeniti možete gotovo sve: admin izbornik, kontrolnu ploču, stranicu "
+#~ "za prijavu, admin traku itd. Primijenite gotove teme panela za "
+#~ "administraciju."
+
+#~ msgid "WAP"
+#~ msgstr "WAP"
+
+#~ msgid "http://www.wordpressadminpanel.com/"
+#~ msgstr "http://www.wordpressadminpanel.com/"
