@@ -4,7 +4,7 @@ Plugin Name: Absolutely Glamorous Custom Admin
 Plugin URI: https://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Cusmin
-Version: 6.5
+Version: 6.5.1
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com
@@ -75,7 +75,7 @@ class AGCA{
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 
-        $this->agca_version = "6.5";
+        $this->agca_version = "6.5.1";
     }
 
     function load_plugin_textdomain() {
@@ -1370,7 +1370,7 @@ class AGCA{
                 var agca_error_details = "___________________________________________________<br/>";
                 agca_error_details += '<br/>' + msg +'<br/>source:' + url + '<br/>line:' + line + '<br/>';
                 agca_error_details += "___________________________________________________<br/>";
-                window.agca_error_details_text = agca_error_details + '<br/><?php _e('This JavaScript error can stop AGCA plugin to work properly. If everything still works, you can ignore this notification.', 'ag-custom-admin'); ?> <br/><br/><?php _e('Possible solutions', 'ag-custom-admin'); ?>:<br/><br/>1) <?php _e('Make sure to have everything up to date: WordPress site, plugins and themes.', 'ag-custom-admin'); ?><br/><br/>2) <?php _e('Try disabling plugins one by one to see if problem can be resolved this way. If so, one of disabled plugins caused this error.', 'ag-custom-admin'); ?><br/><br/>3) <?php _e('Check "source" path of this error. This could be indicator of the plugin/theme that caused the error.', 'ag-custom-admin'); ?><br/><br/>4) <?php _e('If it\\\'s obvious that error is thrown from a particular plugin/theme, please report this error to their support.', 'ag-custom-admin'); ?> <br/><br/>5) <?php _e('Try activating default WordPress theme instead of your current theme.', 'ag-custom-admin'); ?><br/><br/>6) <?php _e('Advanced: Try fixing this issue manually: Navigate to the link above in your browser and open the source of the page (right click -> view page source) and find the line in code where it fails. You should access this file via FTP and try to fix this error on that line.', 'ag-custom-admin') ?><br/><br/>7) <?php _e('Contact us if nothing above helps. Please do not post errors that are caused by other plugins/themes to our support page. Contact their support instead. If you think that error is somehow related to AGCA plugin, or something unexpected happens, please report that on our', 'ag-custom-admin'); ?> <a href="https://wordpressadminpanel.com/agca-support/ag_custom_admin/error-ocurred-javascript-error-caught/" target="_blank"><?php _e('SUPPORT PAGE', 'ag-custom-admin'); ?></a>';
+                window.agca_error_details_text = agca_error_details + '<br/><?php _e('This JavaScript error can stop AGCA plugin to work properly. If everything still works, you can ignore this notification.', 'ag-custom-admin'); ?> <br/><br/><?php _e('Possible solutions', 'ag-custom-admin'); ?>:<br/><br/>1) <?php _e('Make sure to have everything up to date: WordPress site, plugins and themes.', 'ag-custom-admin'); ?><br/><br/>2) <?php _e('Try disabling plugins one by one to see if problem can be resolved this way. If so, one of disabled plugins caused this error.', 'ag-custom-admin'); ?><br/><br/>3) <?php _e('Check "source" path of this error. This could be indicator of the plugin/theme that caused the error.', 'ag-custom-admin'); ?><br/><br/>4) <?php _e('If it\\\'s obvious that error is thrown from a particular plugin/theme, please report this error to their support.', 'ag-custom-admin'); ?> <br/><br/>5) <?php _e('Try activating default WordPress theme instead of your current theme.', 'ag-custom-admin'); ?><br/><br/>6) <?php _e('Advanced: Try fixing this issue manually: Navigate to the link above in your browser and open the source of the page (right click -> view page source) and find the line in code where it fails. You should access this file via FTP and try to fix this error on that line.', 'ag-custom-admin') ?><br/><br/>7) <?php _e('Contact us if nothing above helps. Please do not post errors that are caused by other plugins/themes to our support page. Contact their support instead. If you think that error is somehow related to AGCA plugin, or something unexpected happens, please report that on our', 'ag-custom-admin'); ?> <a href="https://wordpress.org/support/plugin/ag-custom-admin/" target="_blank"><?php _e('SUPPORT PAGE', 'ag-custom-admin'); ?></a>';
                 document.getElementsByTagName('html')[0].style.visibility = "visible";
                 var errorDivHtml = '<div style="background: #f08080;border-radius: 3px;color: #ffffff;height: auto; margin-right: 13px;padding: 6px 14px;width: 450px;z-index: 99999; position:absolute;">\
                         <?php _e('AGCA plugin caught an error on your site!', 'ag-custom-admin'); ?>&nbsp;<a target="_blank" href="#" onclick="var aedt = document.getElementById(\'agca_error_details_text\'); if(aedt.style.display !== \'block\') {aedt.style.display = \'block\';} else{aedt.style.display = \'none\';} return false;"  style="color: #ffffff !important;float:right;font-weight: bold;text-decoration: none;">(<?php _e('show/hide more...', 'ag-custom-admin'); ?>)</a><div id="agca_error_details_text" style="display:none;margin: 10px 0;background:#ffffff;border-radius: 5px;padding:8px;color: #777;">'+agca_error_details_text+'</div></div>';
@@ -2202,10 +2202,10 @@ class AGCA{
                     <strong>
                         <span style="color:#005B69">Your feedback:</span>
                     </strong>
-                    <a class="feedback positive" target="_blank" title="<?php _e('POSITIVE FEEDBACK: I like this plugin!', 'ag-custom-admin'); ?>" href="https://wordpressadminpanel.com/agca-support/feedback/ag-custom-admin-positive-feedback/">
+                    <a class="feedback positive" target="_blank" title="<?php _e('POSITIVE FEEDBACK: I like this plugin!', 'ag-custom-admin'); ?>" href="https://wordpress.org/support/plugin/ag-custom-admin/reviews/">
                         <span class="dashicons dashicons-thumbs-up"></span>
                     </a>
-                    <a class="feedback negative" target="_blank" title="<?php _e('NEGATIVE FEEDBACK: I don\'t like this plugin.', 'ag-custom-admin'); ?>" href="https://wordpressadminpanel.com/agca-support/feedback/ag-custom-admin-negative-feedback/">
+                    <a class="feedback negative" target="_blank" title="<?php _e('NEGATIVE FEEDBACK: I don\'t like this plugin.', 'ag-custom-admin'); ?>" href="https://wordpress.org/support/plugin/ag-custom-admin/reviews/">
                         <span class="dashicons dashicons-thumbs-down"></span>
                     </a>
                 </div>
@@ -2230,7 +2230,9 @@ class AGCA{
                 </ul>
                 <div id="agca_advertising">
                     <ul>
-                        <li style="min-height:105px;display: block"></li>
+                        <li style="min-height:105px;display: block">
+                            <a href="https://cusmin.com?ref=agca-ad" target="_blank"><img src="<?php echo $this->pluginUrl(); ?>images/advertising.jpg" /></a>
+                        </li>
                     </ul>
                 </div>
                 <div class="agca-clear"></div>
