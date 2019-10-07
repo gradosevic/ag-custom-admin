@@ -4,7 +4,7 @@ Plugin Name: Absolutely Glamorous Custom Admin
 Plugin URI: https://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Cusmin
-Version: 6.5.2
+Version: 6.5.3
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com
@@ -75,7 +75,7 @@ class AGCA{
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 
-        $this->agca_version = "6.5.2";
+        $this->agca_version = "6.5.3";
     }
 
     function load_plugin_textdomain() {
