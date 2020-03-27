@@ -1,25 +1,25 @@
 <?php  
  
- // If using the default WordPress file structure
- if (file_exists('../../../../wp-load.php')) {
- 	// Make WordPress functions and methods available
- 	require '../../../../wp-load.php';
+// If using the default WordPress file structure
+if (file_exists('../../../../wp-load.php')) {
+    // Make WordPress functions and methods available
+    require '../../../../wp-load.php';
 
- // If using alternative WordPress file structure like Roots' Bedrock
- } else {
- 	// WP's constant ABSPATH is not available, so use $_SERVER['DOCUMENT_ROOT'] to get the web root
- 	$directory = new RecursiveDirectoryIterator($_SERVER['DOCUMENT_ROOT']);
+// If using alternative WordPress file structure like Roots' Bedrock
+} else {
+    // WP's constant ABSPATH is not available, so use $_SERVER['DOCUMENT_ROOT'] to get the web root
+    $directory = new RecursiveDirectoryIterator($_SERVER['DOCUMENT_ROOT']);
 
- 	// Recursively search web root for wp-load.php
- 	foreach (new RecursiveIteratorIterator($directory) as $file) {
- 		// wp-load.php found, require and break loop
- 		if ($file->getFilename() === 'wp-load.php') {
- 			// Make WordPress functions and methods available
- 			require $file->getPathname();
- 			break;
- 		}
- 	}
- }
+    // Recursively search web root for wp-load.php
+    foreach (new RecursiveIteratorIterator($directory) as $file) {
+        // wp-load.php found, require and break loop
+        if ($file->getFilename() === 'wp-load.php') {
+            // Make WordPress functions and methods available
+            require $file->getPathname();
+            break;
+        }
+    }
+}
  
  $themes = get_option('agca_templates');	
  $selectedTheme = get_option('agca_selected_template');
