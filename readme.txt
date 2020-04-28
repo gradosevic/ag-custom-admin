@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cus
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
 Tested up to: 5.3.2
-Stable tag: 6.5.4
+Stable tag: 6.5.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
@@ -147,6 +147,10 @@ If you have the latest WordPress and plugin versions and you still experience so
 11. Login style example
 
 == Change Log ==
+
+= 6.5.5 =
+* Improved security
+* Small updates
 
 = 6.5.4 =
 * Compatibility w/ 5.3.2
@@ -562,6 +566,10 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 6.5.5 =
+* Improved security
+* Small updates
 
 = 6.5.4 =
 * Compatibility w/ 5.3.2
