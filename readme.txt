@@ -151,6 +151,7 @@ If you have the latest WordPress and plugin versions and you still experience so
 = 6.5.5 =
 * Improved security
 * Small updates
+* Updated dynamic.php script
 
 = 6.5.4 =
 * Compatibility w/ 5.3.2
