@@ -11,21 +11,18 @@ License URI: https://www.gnu.org/licenses/gpl.txt
 All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar, add custom scripts and more.
 
 == Description ==
-With this plugin you can easily customize WordPress **admin panel**, **login page**, **admin menu**, **admin bar** etc. in tiny details and apply free responsive and commercial **admin themes**.
+With this plugin you can easily customize WordPress **admin panel**, **login page**, **admin menu**, **admin bar** etc. in tiny details.
 
-* **ADMIN BAR**: Hide or change admin bar items. Remove WordPress traces from admin bar. Brand it with custom colors.
-* **ADMIN MENU**: Change and remove existing and add custom admin menu items. Brand it with custom colors.
+* **ADMIN BAR**: Hide or change admin bar items. Remove WordPress traces from the admin bar. Brand it with the custom colors.
+* **ADMIN MENU**: Change and remove the existing and add custom admin menu items. Brand it with the custom colors.
 * **COLORIZER**: This tool is integrated with Absolutely Glamorous Custom Admin panel and can be used to change default WordPress admin panel colors, admin bar, admin menu, login page, backgrounds and text.
 * **BRANDING**: Brand your admin panel pages with custom content, colors, images and text.
 * **ADMIN PANEL OPTIONS**: There are dozens of other admin panel options used to improve WordPress UX on admin and login pages items like Dashboard widgets, Help and Screen options, WordPress logos, links, menus etc. See the full list down below.
 
 = Recommended =
 > <strong>CUSMIN</strong><br>
-> Cusmin is the premium version of the Absolutely Glamorous Custom Admin that gives you advanced features for customization and branding. It's perfect for professionals, but can be used on personal sites as well.<br><br>
+> Cusmin is the premium version of the Absolutely Glamorous Custom Admin with the advanced features for customization and branding. It's perfect for professionals, but can be used on personal sites as well.<br><br>
 > For more info about Cusmin, please go to [Cusmin](https://cusmin.com?ref=agca) site.<br><br>
-> <strong>CUSMIN THEMES</strong><br>
-> Free themes for your admin panel and login page.<br><br>
-> For more info about Cusmin themes, please go to [Cusmin Themes](https://wordpress.org/plugins/cusmin-themes/).<br><br>
 
 = General Settings =
 * Hide "Screen Options" menu
