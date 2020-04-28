@@ -3,7 +3,7 @@ Contributors: cusmin
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&item_name=Support+for+AGCA+Development
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
-Tested up to: 5.3.2
+Tested up to: 5.4
 Stable tag: 6.5.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
