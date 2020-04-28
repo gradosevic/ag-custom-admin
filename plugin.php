@@ -4,7 +4,7 @@ Plugin Name: Absolutely Glamorous Custom Admin
 Plugin URI: https://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Cusmin
-Version: 6.5.4
+Version: 6.5.5
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com
@@ -75,7 +75,7 @@ class AGCA{
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 
-        $this->agca_version = "6.5.4";
+        $this->agca_version = "6.5.5";
     }
 
     function load_plugin_textdomain() {
@@ -2282,7 +2282,7 @@ class AGCA{
                                 <label title="<?php _e('Choose which WordPress capability will be used to distinguish AGCA admin users from other users.</br>AGCA admin users have access to AGCA settings. AGCA administrators can be excluded from customizations if that option is checked', 'ag-custom-admin'); ?>" for="agca_admin_capability"><?php _e('AGCA admin capability', 'ag-custom-admin'); ?>:</label>
                             </th>
                             <td><?php echo $this->admin_capabilities; ?>&nbsp;&nbsp;<i>(<?php _e('default:&nbsp;<strong>edit_dashboard</strong>', 'ag-custom-admin'); ?>)</i>
-                                <p style="margin-left:5px;"><i><?php _e('Find more information about', 'ag-custom-admin'); ?> <a href="https://codex.wordpress.org/Roles_and_Capabilities" target="_blank"><?php _e('WordPress capabilities', 'ag-custom-admin'); ?></a></i></p>
+                                <p style="margin-left:5px;"><i><?php _e('Find more information about', 'ag-custom-admin'); ?> <a href="https://wordpress.org/support/article/roles-and-capabilities/" target="_blank"><?php _e('WordPress capabilities', 'ag-custom-admin'); ?></a></i></p>
                             </td>
                             <td>
                             </td>
@@ -3036,7 +3036,7 @@ class AGCA{
                 </div>
                 <?php $this->show_save_button(); ?>
             </form>
-            <form id="agca_templates_form" name="agca_templates_form" action="<?php echo get_site_url().$_SERVER['PHP_SELF'];?>?page=ag-custom-admin/plugin.php" method="post">
+            <form id="agca_templates_form" name="agca_templates_form" action="<?php echo htmlentities(get_site_url().$_SERVER['PHP_SELF']);?>?page=ag-custom-admin/plugin.php" method="post">
                 <?php wp_nonce_field('agca_form','_agca_token'); ?>
                 <input type="hidden" name="_agca_save_template" value="true" />
                 <input type="hidden" id="templates_data" name="templates_data" value="" />
