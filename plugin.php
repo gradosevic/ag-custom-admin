@@ -4,7 +4,7 @@ Plugin Name: Absolutely Glamorous Custom Admin
 Plugin URI: https://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Cusmin
-Version: 6.6
+Version: 6.6.1
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com
@@ -75,7 +75,7 @@ class AGCA{
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 
-        $this->agca_version = "6.6";
+        $this->agca_version = "6.6.1";
     }
 
     function load_plugin_textdomain() {
@@ -2243,13 +2243,13 @@ class AGCA{
                 <div id="section_general" style="display:none" class="ag_section">
                     <h2 class="section_title"><?php _e('General Settings', 'ag-custom-admin')?></h2>
                     <?php $this->show_save_button_upper(); ?>
-                    <p tabindex="0" class="agca-clear agca-tip"><i><?php _e('<strong>Tip: </strong>Move mouse cursor over the option label to see more information about an option', 'ag-custom-admin')?></i></p>
+                    <p tabindex="0" class="agca-clear agca-tip"><i><?php _e('<strong>Tip: </strong>Move the cursor over an option label to see the more information about the option', 'ag-custom-admin')?></i></p>
                     <table class="agca-clear form-table" width="500px">
                         <?php
 
                         $this->print_checkbox(array(
                             'name'=>'agca_role_allbutadmin',
-                            'label'=>__('Exclude AGCA admin from customizations', 'ag-custom-admin'),
+                            'label'=>__('Exclude the AGCA admin from the customizations', 'ag-custom-admin'),
                             'title'=>__('<h3>Applying customizations</h3><br><strong>Checked</strong> - apply to all users, except admin<br><strong>Not checked</strong> - apply to everyone</br></br><strong>Q</strong>: Who is AGCA administrator?</br><strong>A</strong>: Go to <i>General -> Security -> AGCA admin capability</i> and change capability option to define administrators. Only the users with selected capability will be AGCA administrators.</br>', 'ag-custom-admin')
                         ));
 
@@ -2284,10 +2284,15 @@ class AGCA{
                             <th scope="row">
                                 <label title="<?php _e('Choose which WordPress capability will be used to distinguish AGCA admin users from other users.</br>AGCA admin users have access to AGCA settings. AGCA administrators can be excluded from customizations if that option is checked', 'ag-custom-admin'); ?>" for="agca_admin_capability"><?php _e('AGCA admin capability', 'ag-custom-admin'); ?>:</label>
                             </th>
-                            <td><?php echo $this->admin_capabilities; ?>&nbsp;&nbsp;<i>(<?php _e('default:&nbsp;<strong>edit_dashboard</strong>', 'ag-custom-admin'); ?>)</i>
+                            <td><?php echo $this->admin_capabilities; ?>&nbsp;&nbsp;<i>(<?php _e('default:&nbsp;<strong>Edit Dashboard</strong>', 'ag-custom-admin'); ?>)</i>
                                 <p style="margin-left:5px;"><i><?php _e('Find more information about', 'ag-custom-admin'); ?> <a href="https://wordpress.org/support/article/roles-and-capabilities/" target="_blank"><?php _e('WordPress capabilities', 'ag-custom-admin'); ?></a></i></p>
                             </td>
                             <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Need to apply multiple configurations to multiple user groups/roles? <a href="https://cusmin.com/docs/general/configuration-management?ref=agca" target="_blank">Upgrade to Cusmin</a></p>
                             </td>
                         </tr>
                         <?php
@@ -2340,7 +2345,7 @@ class AGCA{
                                 'class'=>'ag_table_major_options',
                             ),
                             'hide'=>true,
-                            'title'=>__('Hides admin bar completely from the admin panel', 'ag-custom-admin'),
+                            'title'=>__('Hides the admin bar completely from the admin panel', 'ag-custom-admin'),
                             'name'=>'agca_header',
                             'label'=>__('<strong>Hide Admin bar</strong>', 'ag-custom-admin'),
                             'input-attributes'=>'data-dependant="#agca_header_show_logout_content"',
@@ -2550,6 +2555,11 @@ class AGCA{
 
                         ?>
 
+                        <tr>
+                            <td>
+                                <p>Try the Cusmin admin bar editor instead: <a href="https://cusmin.com/docs/admin-bar/admin-bar-editor?ref=admin-bar" target="_blank"><br>Upgrade to Cusmin</a></p>
+                            </td>
+                        </tr>
                     </table>
                 </div>
 
@@ -2679,6 +2689,11 @@ class AGCA{
                         ));
 
                         ?>
+                        <tr>
+                            <td>
+                                <p>Create custom Dashboard Widgets<br><a href="https://cusmin.com/docs/dashboard/my-dashboard-widgets?ref=agca" target="_blank">Upgrade to Cusmin</a></p>
+                            </td>
+                        </tr>
                     </table>
                 </div>
                 <div id="section_login_page" style="display:none" class="ag_section">
@@ -2770,6 +2785,11 @@ class AGCA{
                             'label'=>__('Hide "Lost password" link', 'ag-custom-admin'),
                         ));
                         ?>
+                        <tr>
+                            <td>
+                                <p>Add a custom login background image and apply more login page options: <a href="https://cusmin.com/docs/login-page?ref=login-page" target="_blank">Upgrade to Cusmin</a></p>
+                            </td>
+                        </tr>
                     </table>
                 </div>
                 <?php
@@ -2819,6 +2839,11 @@ class AGCA{
                             'label'=>__('Front end: Remove Customize button', 'ag-custom-admin'),
                         ));
                         ?>
+                        <tr>
+                            <td>
+                                <p>Try the Cusmin admin menu editor instead: <a href="https://cusmin.com/docs/admin-menu/admin-menu-editor?ref=admin-menu-editor" target="_blank"><br>Upgrade to Cusmin</a></p>
+                            </td>
+                        </tr>
 
                         <?php
                         $this->print_options_h3(__('Add New Menu Items', 'ag-custom-admin'));
@@ -2960,9 +2985,10 @@ class AGCA{
 
                         $this->print_color('color_widget_bar',__('Title bar background:', 'ag-custom-admin'),__('Change color in header text', 'ag-custom-admin'));
                         $this->print_color('color_widget_background',__('Background:', 'ag-custom-admin'),__('Change widget background color', 'ag-custom-admin'));
-
                         ?>
+
                     </table>
+                    <p>Need more Colorizer options? <a href="https://cusmin.com/docs/colorizer?ref=agca" target="_blank">Upgrade to Cusmin</a></p>
                     <input type="hidden" size="47" id="ag_colorizer_json" name="ag_colorizer_json" value="<?php echo htmlspecialchars(get_option('ag_colorizer_json')); ?>" />
                     <div id="picker"></div>
                 </div>

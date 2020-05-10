@@ -264,7 +264,7 @@ msgid "<strong>Tip: </strong>Move mouse cursor over the option label to see more
 msgstr "<strong>Savjet: </strong>Postavite pokazivač preko imena postavke kako biste saznali više informacija o postavci"
 
 #: plugin.php:2170
-msgid "Exclude AGCA admin from customizations"
+msgid "Exclude the AGCA admin from the customizations"
 msgstr "Iskljućite AGCA administratora iz prilagodbi"
 
 #: plugin.php:2171
@@ -364,7 +364,7 @@ msgid "Admin Bar Settings"
 msgstr "Postavke admin trake"
 
 #: plugin.php:2245
-msgid "Hides admin bar completely from the admin panel"
+msgid "Hides the admin bar completely from the admin panel"
 msgstr "Uklanja admin traku sa administracijske ploče"
 
 #: plugin.php:2247

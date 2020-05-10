@@ -350,14 +350,14 @@ msgstr "extension pour gérer ces paramètres."
 
 #: plugin.php:2243
 msgid ""
-"<strong>Tip: </strong>Move mouse cursor over the option label to see more "
-"information about an option"
+"<strong>Tip: </strong>Move the cursor over an option label to see the more "
+"information about the option"
 msgstr ""
 "<strong>Astuce :</strong> déplacez le curseur de la souris sur le libellé de "
 "l’option pour obtenir plus d’informations sur cette option."
 
 #: plugin.php:2249
-msgid "Exclude AGCA admin from customizations"
+msgid "Exclude the AGCA admin from the customizations"
 msgstr "Exclure l’administrateur AGCA des personnalisations"
 
 #: plugin.php:2250
@@ -470,7 +470,7 @@ msgid "Admin Bar Settings"
 msgstr "Réglages de la barre d’administration"
 
 #: plugin.php:2340
-msgid "Hides admin bar completely from the admin panel"
+msgid "Hides the admin bar completely from the admin panel"
 msgstr ""
 "Masque complètement la barre d’administration dans le panneau "
 "d’administration"
