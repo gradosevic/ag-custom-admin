@@ -339,7 +339,7 @@ msgstr "Vous appréciez AGCA ? Aidez-nous à le développer et à le soutenir 
 
 #: plugin.php:2239
 msgid ""
-"All AGCA plugin's settings, except admin themes, are disabled. Please use"
+"All AGCA plugin's settings are disabled. Please use"
 msgstr ""
 "Tous les paramètres de l’extension AGCA, à l’exception des thèmes "
 "d’administration, sont désactivés. Veuillez utiliser"

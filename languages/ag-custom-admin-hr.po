@@ -252,7 +252,7 @@ msgid "Do you like this plugin? You can support its future development by giving
 msgstr "Da li vam se sviđa ovaj dodatak? Možete podržati njegov budući razvoj doniranjem po vašem izboru"
 
 #: plugin.php:2161
-msgid "All AG Custom Admin plugin's settings, except admin themes, are disabled. Please use"
+msgid "All AG Custom Admin plugin's settings are disabled. Please use"
 msgstr "Sve postavke AG Custom Admin dodatka, osim admin tema su isključene. Molimo koristite"
 
 #: plugin.php:2161

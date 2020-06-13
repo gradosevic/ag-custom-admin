@@ -9,7 +9,7 @@ Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com
 
-    Copyright 2020. WAP (email : info@wordpressadminpanel.com)
+    Copyright 2020. Cusmin (email : info@cusmin.com)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -2239,7 +2239,7 @@ class AGCA{
                     </ul>
                 </div>
                 <div class="agca-clear"></div>
-                <div id="section-cusmin" style="display:none;"><?php _e('All AGCA plugin\'s settings, except admin themes, are disabled. Please use', 'ag-custom-admin')?> <a href="options-general.php?page=cusmin">Cusmin</a> <?php _e('plugin to manage these settings.', 'ag-custom-admin')?></div>
+                <div id="section-cusmin" style="display:none;"><?php _e('All AGCA plugin\'s settings are disabled. Please use', 'ag-custom-admin')?> <a href="options-general.php?page=cusmin">Cusmin</a> <?php _e('plugin to manage these settings.', 'ag-custom-admin')?></div>
                 <div id="section_general" style="display:none" class="ag_section">
                     <h2 class="section_title"><?php _e('General Settings', 'ag-custom-admin')?></h2>
                     <?php $this->show_save_button_upper(); ?>
