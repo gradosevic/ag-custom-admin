@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cus
 Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
 Requires at least: 3.0
 Tested up to: 5.6.1
-Stable tag: 6.6.2
+Stable tag: 6.6.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
