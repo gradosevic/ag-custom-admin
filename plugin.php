@@ -4,12 +4,12 @@ Plugin Name: Absolutely Glamorous Custom Admin
 Plugin URI: https://wordpressadminpanel.com/ag-custom-admin/
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes.
 Author: Cusmin
-Version: 6.6.2
+Version: 6.6.3
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com
 
-    Copyright 2020. Cusmin (email : info@cusmin.com)
+    Copyright 2021. Cusmin (email : info@cusmin.com)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -75,7 +75,7 @@ class AGCA{
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 
-        $this->agca_version = "6.6.1";
+        $this->agca_version = "6.6.3";
     }
 
     function load_plugin_textdomain() {
@@ -528,6 +528,8 @@ class AGCA{
         register_setting( 'agca-options-group', 'agca_login_photo_href' );
         register_setting( 'agca-options-group', 'agca_login_round_box' );
         register_setting( 'agca-options-group', 'agca_login_round_box_size' );
+        register_setting( 'agca-options-group', 'agca_login_round_box_skip_logo' );
+
 
         register_setting( 'agca-options-group', 'agca_dashboard_icon' );
         register_setting( 'agca-options-group', 'agca_dashboard_text' );
@@ -667,6 +669,7 @@ class AGCA{
             'agca_login_photo_href',
             'agca_login_round_box',
             'agca_login_round_box_size',
+            'agca_login_round_box_skip_logo',
             'agca_dashboard_icon',
             'agca_dashboard_text',
             'agca_dashboard_text_paragraph',
@@ -2063,9 +2066,11 @@ class AGCA{
                 try{
                     <?php if(get_option('agca_login_round_box')==true){ ?>
                     jQuery("form#loginform").css("border-radius","<?php echo get_option('agca_login_round_box_size'); ?>px");
-                    jQuery("#login h1 a").css("border-radius","<?php echo get_option('agca_login_round_box_size'); ?>px");
-                    jQuery("#login h1 a").css("margin-bottom",'10px');
-                    jQuery("#login h1 a").css("padding-bottom",'0');
+                        <?php if(!get_option('agca_login_round_box_skip_logo')){ ?>
+                        jQuery("#login h1 a").css("border-radius","<?php echo get_option('agca_login_round_box_size'); ?>px");
+                        jQuery("#login h1 a").css("margin-bottom",'10px');
+                        jQuery("#login h1 a").css("padding-bottom",'0');
+                        <?php } ?>
                     jQuery("form#lostpasswordform").css("border-radius","<?php echo get_option('agca_login_round_box_size'); ?>px");
                     <?php } ?>
                     <?php if(get_option('agca_login_banner')==true){ ?>
@@ -2743,12 +2748,12 @@ class AGCA{
                             'name'=>'agca_login_round_box',
                             'label'=>'Round box corners',
                             'input-class'=>'has-dependant',
-                            'input-attributes'=>'data-dependant="#agca_login_round_box_size_block"'
+                            'input-attributes'=>'data-dependant="#agca_login_round_box_size_block, #agca_login_round_box_skip_logo"'
                         ));
 
                         $this->print_input(array(
                             'attributes'=>array(
-                                'style'=> ((get_option('agca_login_round_box')=='true')?'display:none':''),
+                                'style'=> ((get_option('agca_login_round_box') !== 'true' )?'display:none':''),
                                 'id'=>'agca_login_round_box_size_block'
                             ),
                             'title'=>__('Size of rounded box curve', 'ag-custom-admin'),
@@ -2756,6 +2761,18 @@ class AGCA{
                             'label'=>__('Round box corners - size', 'ag-custom-admin'),
                             'input-class'=>'validateNumber',
                             'hint'=>__('(Size in px)', 'ag-custom-admin')
+                        ));
+
+                        $this->print_checkbox(array(
+                            'attributes'=>array(
+                                'style'=> ((get_option('agca_login_round_box') !== 'true' )?'display:none':''),
+                                'id'=>'agca_login_round_box_skip_logo'
+                            ),
+                            //'hide'=>true,
+                            'title'=>__('Skip rounding logo on the login page', 'ag-custom-admin'),
+                            'name'=>'agca_login_round_box_skip_logo',
+                            'label'=>__('Don\'t round logo', 'ag-custom-admin'),
+                            'input-class'=>'',
                         ));
 
                         $this->print_checkbox(array(
@@ -2923,7 +2940,7 @@ class AGCA{
 
                         $this->print_input(array(
                             'attributes'=>array(
-                                'style'=> ((get_option('agca_admin_menu_submenu_round')!='true')?'display:none':''),
+                                'style'=> ((get_option('agca_admin_menu_submenu_round')!=='true')?'display:none':''),
                                 'id'=>'agca_admin_menu_submenu_round_size'
                             ),
                             'title'=>__('Size of rounded box curve', 'ag-custom-admin'),

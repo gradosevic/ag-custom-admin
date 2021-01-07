@@ -790,7 +790,7 @@ jQuery(document).ready(function(){
 function agcaCheckBoxOnClick(obj){
     var isNowChecked = false;
     var $input = jQuery(obj).prev();
-    if($input.is(':checked')){
+    if($input.attr('checked') === "checked"){
         $input.removeAttr('checked');
     }else{
         isNowChecked = true;
@@ -809,7 +809,7 @@ function agcaCheckBoxOnClick(obj){
     }
 
     //console.log(obj.prev());
-    if($input.is(':checked')){
+    if(isNowChecked){
         jQuery(obj).addClass('agca-checkbox-box-checked');
         jQuery(obj).removeClass('agca-checkbox-box');
     }else{

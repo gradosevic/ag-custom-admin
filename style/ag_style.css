@@ -293,6 +293,9 @@ td.ag_admin_menu_parent:hover {
     font-weight: bold;
     height: 35px !important;
     width: auto;
+    line-height: 1.5;
+    min-width: 130px;
+    padding-left: 7px !important;
 }
 #agca_form a{
     font-weight: bold;
@@ -877,4 +880,8 @@ td.ag_admin_menu_parent:hover {
 
 #agca_form #ag_edit_adminmenu tr:first-child td{
     background: #826c63;
+}
+
+#agca_form #import_file_area .agca_button{
+    margin-bottom: 5px;
 }

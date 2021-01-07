@@ -34,7 +34,9 @@
 		delete_option( 'agca_login_photo_url' );
 		delete_option( 'agca_login_photo_href' );
         delete_option( 'agca_login_round_box' );
-		delete_option( 'agca_login_round_box_size' );		
+		delete_option( 'agca_login_round_box_size' );
+        delete_option( 'agca_login_round_box_skip_logo' );
+
 	
 		delete_option(  'agca_dashboard_icon' );
 		delete_option(  'agca_dashboard_text' );
