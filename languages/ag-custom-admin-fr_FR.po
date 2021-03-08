@@ -1517,8 +1517,8 @@ msgstr "Odaberite boju"
 #~ msgid "AG Custom Admin"
 #~ msgstr "AG Custom Admin"
 
-#~ msgid "http://wordpressadminpanel.com/ag-custom-admin/"
-#~ msgstr "http://wordpressadminpanel.com/ag-custom-admin/"
+#~ msgid "https://cusmin.com/agca"
+#~ msgstr "https://cusmin.com/agca"
 
 #~ msgid ""
 #~ "All-in-one tool for admin panel customization. Change almost everything: "
@@ -1533,5 +1533,5 @@ msgstr "Odaberite boju"
 #~ msgid "WAP"
 #~ msgstr "WAP"
 
-#~ msgid "http://www.wordpressadminpanel.com/"
-#~ msgstr "http://www.wordpressadminpanel.com/"
+#~ msgid "https://cusmin.com/"
+#~ msgstr "https://cusmin.com/"

@@ -1280,8 +1280,8 @@ msgid "AG Custom Admin"
 msgstr "AG Custom Admin"
 
 #. Plugin URI of the plugin/theme
-msgid "http://wordpressadminpanel.com/ag-custom-admin/"
-msgstr "http://wordpressadminpanel.com/ag-custom-admin/"
+msgid "https://cusmin.com/agca"
+msgstr "https://cusmin.com/agca"
 
 #. Description of the plugin/theme
 msgid "All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar etc. Apply admin panel themes."
@@ -1292,5 +1292,5 @@ msgid "WAP"
 msgstr "WAP"
 
 #. Author URI of the plugin/theme
-msgid "http://www.wordpressadminpanel.com/"
-msgstr "http://www.wordpressadminpanel.com/"
+msgid "https://cusmin.com"
+msgstr "https://cusmin.com"

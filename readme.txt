@@ -1,10 +1,10 @@
 === Absolutely Glamorous Custom Admin ===
 Contributors: cusmin
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&item_name=Support+for+AGCA+Development
-Tags: admin, customize, hide, change admin, themes, admin themes, admin bar, login page
+Tags: admin, customize, hide, change admin, admin bar, login page, admin menu, colors
 Requires at least: 3.0
-Tested up to: 5.6.1
-Stable tag: 6.6.3
+Tested up to: 5.7
+Stable tag: 6.7
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
@@ -41,19 +41,19 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 * Hide site name
 * Hide admin bar logo context menu
 * Hide update notifications block
-* Hide "Comments" block
-* Hide "New" menu block
-* Hide "New" -> "Post"
-* Hide "New" -> "Link"
-* Hide "New" -> "Page"
-* Hide "New" -> "User"
-* Hide "New" -> "Media"
+* Hide **Comments** block
+* Hide **New** menu block
+* Hide **New** > **Post**
+* Hide **New** > **Link**
+* Hide **New** > **Page**
+* Hide **New** > **User**
+* Hide **New** > **Media**
 * Change site name to custom text
 * Hide yellow WordPress update notification
 * Change Howdy text
 * Change Log Out text
-* Remove "Edit My Profile" option from context menu
-* Show "Log Out" button only on the right
+* Remove **Edit My Profile** option from context menu
+* Show **Log Out** button only on the right
 
 = Admin Footer Options =
 * Hide footer completely
@@ -83,7 +83,7 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 * Remove spaces between admin menu buttons
 * Remove admin menu arrow on hover
 * Round admin sub-menu popups
-* Remove "Collapse" button	
+* Remove **Collapse** button
 * Add custom branding image above the admin menu
 * Add custom link to branding image
 * Change admin menu auto-folding settings
@@ -144,6 +144,11 @@ If you have the latest WordPress and plugin versions and you still experience so
 11. Login style example
 
 == Change Log ==
+
+= 6.7 =
+* WP 5.7 compatibility
+* New AGCA brand
+* Improved admin UX
 
 = 6.6.3 =
 * WP 5.6.1 compatibility
@@ -578,6 +583,10 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 6.7 =
+* WP 5.7 compatibility
+* New AGCA brand and improved admin UX
 
 = 6.6.3 =
 * WP 5.6 compatibility and rounding options improvements

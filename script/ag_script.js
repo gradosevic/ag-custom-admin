@@ -379,8 +379,14 @@ function agcaApplyTooltip(){
                 });
             }else{
                 jQuery(this).mousemove(function(e) {
+
                     var tipY = e.pageY + 16;
                     var tipX = e.pageX + 16;
+
+                    if(window.innerWidth - tipX < 300) {
+                        tipX -= 150;
+                    }
+
                     jQuery("#AGToolTipDiv").css({
                         'top': tipY,
                         'left': tipX,
@@ -447,7 +453,7 @@ jQuery(document).ready(function(){
     jQuery("body").append("<div id='AGToolTipDiv'></div>");
 
     /*ToolTip*/
-    jQuery("label[title],#agca_donate_button, a.feedback").each(agcaApplyTooltip);
+    jQuery("label[title],.agca-donate-btn, li.upgrade a, a.feedback").each(agcaApplyTooltip);
 
     /*SECTION FOCUS*/
     jQuery('.section_title').focus(function(){
@@ -767,7 +773,7 @@ jQuery(document).ready(function(){
         if(isAGCAPage == true){
             return false;
             //alert('admin page');
-            var url="https://wordpressadminpanel.com/ads/ep/ads/ads?jsoncallback=?";
+            var url="";
             jQuery.getJSON(
                 url,{
                     wp_ver: wpversion,
@@ -776,7 +782,7 @@ jQuery(document).ready(function(){
                 },
                 function(json){
                     jQuery.each(json,function(i,post){
-                        jQuery('#agca_advertising ul').append('<li><a target="_blank" href="https://wordpressadminpanel.com/ads/ep/ads/ad?id=' + post.id + '" ><img height=\"100px\" src=\"'+post.src+'\"  title=\"'+post.title+'\" /></a></li>');
+                        jQuery('#agca_advertising ul').append('<li><a target="_blank" href="https://cusmin.com/?id=' + post.id + '" ><img height=\"100px\" src=\"'+post.src+'\"  title=\"'+post.title+'\" /></a></li>');
                     });
                     jQuery('#agca_advertising').show();
 
