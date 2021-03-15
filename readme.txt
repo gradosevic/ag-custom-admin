@@ -147,6 +147,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 
 = 6.7.1 =
 * Removed support for AGCA themes
+* Added option to remove **Site Health** dashboard widget
+* Fixed issue not excluding AGCA admin when hiding admin bar on site pages
+* Styled AGCA on plugins page
 
 = 6.7 =
 * WP 5.7 compatibility
@@ -589,6 +592,7 @@ If you have the latest WordPress and plugin versions and you still experience so
 
 = 6.7.1 =
 * Removed support for AGCA themes. If you're using old AGCA themes, please don't upgrade AGCA.
+* Cleanup and improvements
 
 = 6.7 =
 * WP 5.7 compatibility
