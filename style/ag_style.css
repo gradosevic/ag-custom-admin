@@ -1098,12 +1098,12 @@ td.ag_admin_menu_parent:hover {
     display: inline-block;
 }
 
-.plugins-php .wp-list-table.plugins tr[data-slug=ag-custom-admin].active td a:hover{
+.plugins-php .wp-list-table.plugins tr[data-slug=ag-custom-admin].active:not(#ag-custom-admin-update) td a:hover{
     transform: scale(1.3);
 }
 
 .plugins-php .wp-list-table.plugins tr[data-slug=ag-custom-admin].active td.column-description a:hover{
-    transform: scaleY(1.1) scaleX(1);
+    transform: scaleY(1.1) scaleX(1) !important;
     letter-spacing: 0.1em;
     border-bottom: 3px solid;
     padding-bottom: 3px;
@@ -1143,4 +1143,26 @@ td.ag_admin_menu_parent:hover {
 }
 .plugins-php .wp-list-table.plugins tr[data-slug=ag-custom-admin].active .plugin-version-author-uri a:last-child:hover:after {
     opacity: 1;
+}
+
+
+.plugins-php #ag-custom-admin-update {
+    box-shadow: none;
+}
+.plugins-php #ag-custom-admin-update td{
+    border-left-color: #fff;
+}
+.plugins-php #ag-custom-admin-update .notice,
+.plugins-php #ag-custom-admin-update .update-message{
+    margin-top: 14px;
+    background: rgba(255,255,255, 0.5);
+    border-left-color: #fff;
+    text-shadow: none;
+}
+.plugins-php #ag-custom-admin-update .notice p {
+    font-weight: bold;
+}
+.plugins-php #ag-custom-admin-update .notice p:before,
+.plugins-php #ag-custom-admin-update .update-message p:before {
+    color: #fff;
 }

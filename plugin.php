@@ -4,7 +4,7 @@ Plugin Name: Absolutely Glamorous Custom Admin
 Plugin URI: https://cusmin.com/agca
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar and much more.
 Author: Cusmin
-Version: 6.7.1
+Version: 6.7.2
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com
@@ -73,7 +73,7 @@ class AGCA{
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 
-        $this->agca_version = "6.7.1";
+        $this->agca_version = "6.7.2";
     }
 
     function load_plugin_textdomain() {
