@@ -362,6 +362,7 @@ class AGCA{
         register_setting( 'agca-options-group', 'agca_dashboard_text' );
         register_setting( 'agca-options-group', 'agca_dashboard_text_paragraph' );
         register_setting( 'agca-options-group', 'agca_dashboard_widget_welcome' );
+        register_setting( 'agca-options-group', 'agca_dashboard_widget_health_status' );
         register_setting( 'agca-options-group', 'agca_dashboard_widget_activity' );
         register_setting( 'agca-options-group', 'agca_dashboard_widget_il' );
         register_setting( 'agca-options-group', 'agca_dashboard_widget_plugins' );
@@ -496,6 +497,7 @@ class AGCA{
             'agca_dashboard_text',
             'agca_dashboard_text_paragraph',
             'agca_dashboard_widget_welcome',
+            'agca_dashboard_widget_health_status',
             'agca_dashboard_widget_activity',
             'agca_dashboard_widget_il',
             'agca_dashboard_widget_plugins',
@@ -752,17 +754,19 @@ class AGCA{
         }
 
         if(get_option('agca_admin_bar_frontend_hide')==true){
-            add_filter( 'show_admin_bar', '__return_false' );
-            ?>
-            <style type="text/css">
-                #wpadminbar{
-                    display: none;
-                }
-            </style>
-            <script type="text/javascript">
-                window.setTimeout(function(){document.getElementsByTagName('html')[0].setAttribute('style',"margin-top:0px !important");},50);
-            </script>
-            <?php
+            if(!((get_option('agca_role_allbutadmin')==true) and (current_user_can($this->admin_capability())))) {
+                add_filter( 'show_admin_bar', '__return_false' );
+                ?>
+                <style type="text/css">
+                    #wpadminbar{
+                        display: none;
+                    }
+                </style>
+                <script type="text/javascript">
+                    window.setTimeout(function(){document.getElementsByTagName('html')[0].setAttribute('style',"margin-top:0px !important");},50);
+                </script>
+                <?php
+            }
         }
         if(get_option('agca_admin_bar_frontend')!=true && is_user_logged_in()){
 
@@ -1586,6 +1590,9 @@ class AGCA{
                         }else{
                             ?>jQuery("#welcome-panel").css("display","block");<?php
                         }
+                        if(get_option('agca_dashboard_widget_health_status')==true){
+                            $this->remove_dashboard_widget('dashboard_site_health','normal');
+                        }
                         if(get_option('agca_dashboard_widget_il')==true){
                             $this->remove_dashboard_widget('dashboard_incoming_links','normal');
                         }else{
@@ -2352,6 +2359,13 @@ class AGCA{
                             'title'=>__('Hides <b>Welcome WordPress</b> widget', 'ag-custom-admin'),
                             'name'=>'agca_dashboard_widget_welcome',
                             'label'=>__('Hide <b>Welcome</b> widget', 'ag-custom-admin')
+                        ));
+
+                        $this->print_checkbox(array(
+                            'hide'=>true,
+                            'title'=>__('Hides <b>Health Status</b> dashboard widget', 'ag-custom-admin'),
+                            'name'=>'agca_dashboard_widget_health_status',
+                            'label'=>__('Hide <b>Health Status</b> widget', 'ag-custom-admin')
                         ));
 
                         $this->print_checkbox(array(

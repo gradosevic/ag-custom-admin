@@ -41,8 +41,9 @@
 		delete_option(  'agca_dashboard_icon' );
 		delete_option(  'agca_dashboard_text' );
 		delete_option(  'agca_dashboard_text_paragraph' );
-        delete_option(  'agca_dashboard_widget_welcome' );			
-		delete_option(  'agca_dashboard_widget_il' );	
+        delete_option(  'agca_dashboard_widget_welcome' );
+        delete_option(  'agca_dashboard_widget_health_status' );
+		delete_option(  'agca_dashboard_widget_il' );
 		delete_option(  'agca_dashboard_widget_plugins' );	
 		delete_option(  'agca_dashboard_widget_qp' );	
 		delete_option(  'agca_dashboard_widget_rn' );	
