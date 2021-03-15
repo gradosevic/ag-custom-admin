@@ -43,7 +43,6 @@ class GeneralSettingsCest
             ->seeMenu('Admin Menu')
             ->seeMenu('Colorizer')
             ->seeMenu('Advanced')
-            ->seeMenu('Themes')
             ->seeMenu('Upgrade');
     }
 
@@ -71,7 +70,6 @@ class GeneralSettingsCest
 
         $I->see('Idea for improvement');
         $I->see('Report an issue');
-        $I->see('Idea for admin theme');
         $I->see('Add a Review on WordPress.org');
         $I->see('Visit our support site');
         $I->see('Donate');

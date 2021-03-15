@@ -60,7 +60,6 @@
 		delete_option( 'agca_admin_bar_new_content_user' );
 		delete_option( 'agca_admin_bar_new_content_media' );
 		delete_option( 'agca_admin_bar_update_notifications' );
-		delete_option( 'agca_admin_bar_admin_themes' );
 		delete_option( 'agca_remove_top_bar_dropdowns' );
 
 		/*Admin menu*/
@@ -84,8 +83,6 @@
         delete_option( 'agca_custom_js' );
         delete_option( 'agca_custom_css' );
 				
-		delete_option( 'agca_selected_template' );
-        delete_option( 'agca_templates' );
 		delete_option( 'agca_disablewarning' );
 		delete_option( 'agca_disable_postver' );
         delete_option( 'agca_menu_remove_client_profile' );

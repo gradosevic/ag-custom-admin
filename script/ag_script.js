@@ -223,14 +223,6 @@ function showHideSection(text) {
             jQuery('#section_ag_colorizer_settings').show();
             jQuery('#section_ag_colorizer_settings .section_title').trigger('focus');
             break;
-        case agca_string.menu_themes:
-            if(!jQuery('#section_templates').hasClass("loaded")){
-                jQuery('#section_templates').addClass('loaded');
-                agca_client_init();
-            }
-            jQuery('#section_templates').show();
-            jQuery('#section_templates .section_title').trigger('focus');
-            break;
         case agca_string.menu_advanced:
             jQuery('#section_advanced').show();
             jQuery('#section_advanced .section_title').trigger('focus');
@@ -467,7 +459,7 @@ jQuery(document).ready(function(){
 
     if(typeof isCusminActive !== 'undefined' && isCusminActive){
         hideAllSections();
-        jQuery('#section_templates, #section-cusmin').show();
+        jQuery('#section-cusmin').show();
         if(typeof agca_client_init === 'function'){
             agca_client_init();
         }

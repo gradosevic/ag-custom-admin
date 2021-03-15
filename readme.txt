@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cus
 Tags: admin, customize, hide, change admin, admin bar, login page, admin menu, colors
 Requires at least: 3.0
 Tested up to: 5.7
-Stable tag: 6.7
+Stable tag: 6.7.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
@@ -144,6 +144,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 11. Login style example
 
 == Change Log ==
+
+= 6.7.1 =
+* Removed support for AGCA themes
 
 = 6.7 =
 * WP 5.7 compatibility
@@ -583,6 +586,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 6.7.1 =
+* Removed support for AGCA themes. If you're using old AGCA themes, please don't upgrade AGCA.
 
 = 6.7 =
 * WP 5.7 compatibility

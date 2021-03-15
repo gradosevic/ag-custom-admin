@@ -4,7 +4,7 @@ Plugin Name: Absolutely Glamorous Custom Admin
 Plugin URI: https://cusmin.com/agca
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar and much more.
 Author: Cusmin
-Version: 6.7
+Version: 6.7.1
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com
@@ -34,8 +34,6 @@ class AGCA{
     private $admin_capabilities;
     private $context = "";
     private $saveAfterImport = false;
-    private $templateCustomizations = "";
-    private $templates_ep = "";
 
     public function __construct()
     {
@@ -75,7 +73,7 @@ class AGCA{
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
 
-        $this->agca_version = "6.7";
+        $this->agca_version = "6.7.1";
     }
 
     function load_plugin_textdomain() {
@@ -89,7 +87,6 @@ class AGCA{
         {
             if(!is_network_admin()){
                 $links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php#general-settings">' . __('Settings', 'ag-custom-admin') . '</a>';
-                //$links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php#ag-templates">' . __('Admin Themes', 'ag-custom-admin') . '</a>';
             }
             $links[] = '<a target="_blank" href="https://wordpress.org/support/plugin/ag-custom-admin">' . __('Support', 'ag-custom-admin') . '</a>';
             $links[] = '<a target="_blank" href="https://cusmin.com/upgrade-to-cusmin?ref=plugins">' . __('Upgrade', 'ag-custom-admin') . '</a>';
@@ -139,11 +136,6 @@ class AGCA{
 
     function checkGET(){
         if(isset($_GET['agca_action'])){
-            if($_GET['agca_action'] =="remove_templates"){
-                $this->delete_template_images_all();
-                update_option('agca_templates', "");
-                update_option('agca_selected_template', "");
-            }
         }
         if(isset($_GET['agca_debug'])){
             if($_GET['agca_debug'] =="true"){
@@ -155,112 +147,6 @@ class AGCA{
     }
 
     function checkPOST(){
-        if(isset($_POST['_agca_save_template'])){
-            $this->verifyPostRequest();
-            //print_r($_POST);
-            $data = $_POST['templates_data'];
-            $parts = explode("|||",$data);
-
-            $common_data = $parts [0];
-            $admin_js = $parts [1];
-            $admin_css = $parts [2];
-            $login_js = $parts [3];
-            $login_css = $parts [4];
-            $settings = $parts [5];
-            $images = $parts [6];
-
-            $template_name = $_POST['templates_name'];
-
-            update_option('agca_selected_template', $template_name);
-
-            $templates = get_option( 'agca_templates' );
-            if($templates == ""){
-                $templates = array();
-            }
-
-            $templates[$template_name] = array(
-                'common'=>$common_data,
-                'admin'=>"",
-                'adminjs'=>$admin_js,
-                'admincss'=>$admin_css,
-                'login'=>"",
-                'loginjs'=>$login_js,
-                'logincss'=>$login_css,
-                'images'=>$images,
-                'settings'=>$settings
-            );
-            update_option('agca_templates', $templates);
-
-            $_POST = array();
-
-        }else if(isset($_POST['_agca_templates_session'])){
-            $this->verifyPostRequest();
-            $this->agcaAdminSession();
-            if($_POST['template'] !="")
-                $_SESSION["AGCA"]["Templates"][$_POST['template']] = array("license"=>$_POST['license']);
-
-            //print_r($_SESSION);
-            echo "_agca_templates_session:OK";
-            exit;
-        }else if(isset($_POST['_agca_templates_session_remove_license'])){
-            $this->verifyPostRequest();
-            $this->agcaAdminSession();
-            if($_POST['template'] !="")
-                $_SESSION["AGCA"]["Templates"][$_POST['template']] = null;
-            print_r($_SESSION);
-            echo "_agca_templates_session_remove_license:OK";
-            exit;
-        }else if(isset($_POST['_agca_get_templates'])){
-            $this->verifyPostRequest();
-            $templates = get_option( 'agca_templates' );
-            if($templates == "") $templates = array();
-            $results = array();
-            foreach($templates as $key=>$val){
-                $results[]=$key;
-            }
-            echo json_encode($results);
-            exit;
-        }else if(isset($_POST['_agca_activate_template'])){
-            $this->verifyPostRequest();
-            update_option('agca_selected_template', $_POST['_agca_activate_template']);
-            $_POST = array();
-            //unset($_POST);
-            exit;
-        }else if(isset($_POST['_agca_template_settings'])){
-            $this->verifyPostRequest();
-            $settings = $_POST['_agca_template_settings'];
-
-            $templates = get_option( 'agca_templates' );
-            if($templates == ""){
-                $templates = array();
-            }
-            $template_name = $_POST["_agca_current_template"];
-
-            $templates[$template_name]["settings"] = $settings;
-            update_option('agca_templates', $templates);
-
-            $_POST = array();
-            //print_r($templates);
-            exit;
-        }else if(isset($_POST['_agca_upload_image'])){
-            $this->verifyPostRequest();
-            function my_sideload_image() {
-                $remoteurl = $_POST['_agca_upload_image'];
-                $file = media_sideload_image( $remoteurl, 0 ,__("Absolutely Glamorous Custom Admin theme image (do not delete)", 'ag-custom-admin'));
-                try{
-                    $fileparts = explode("src='", $file);
-                    $url=explode("'",$fileparts[1]);
-                    echo $url[0];
-                }catch (\Exception $e){}
-                exit;
-            }
-            add_action( 'admin_init', 'my_sideload_image' );
-
-        }else if(isset($_POST['_agca_remove_template_images'])){
-            $this->verifyPostRequest();
-            $this->delete_template_images($_POST['_agca_remove_template_images']);
-            exit;
-        }
     }
 
     function verifyPostRequest(){
@@ -317,65 +203,8 @@ class AGCA{
 
     function admin_bar_changes(){
         if( current_user_can( 'manage_options' )){
-            global $wp_admin_bar;
-            if(!is_network_admin()){
-                $wp_admin_bar->add_menu( array(
-                    'id'    => 'agca-admin-themes',
-                    'title' => '<span class="ab-icon"></span>'.__( 'Admin Themes', 'ag-custom-admin' ),
-                    'href'  => 'tools.php?page=ag-custom-admin/plugin.php#ag-templates'
-                ));
-            }
-        }
-    }
 
-    function delete_template_images_all(){
-        $templates = get_option('agca_templates');
-        if($templates != null && $templates != ""){
-            foreach($templates as $template){
-                if($template != null && $template['images'] != null && $template['images'] != ""){
-                    //print_r($template['images']);
-                    $imgs = explode(',',$template['images']);
-                    foreach($imgs as $imageSrc){
-                        $this->delete_attachment_by_src($imageSrc);
-                    }
-                    //print_r($imgs);
-                }
-            }
         }
-        //print_r($templates);
-    }
-
-    function delete_template_images($template_name){
-        $templates = get_option('agca_templates');
-        if($templates != null && $templates != ""){
-            $template = $templates[$template_name];
-            if($template != null && $template['images'] != null && $template['images'] != ""){
-                //print_r($template['images']); exit;
-                $imgs = explode(',',$template['images']);
-                foreach($imgs as $imageSrc){
-                    $this->delete_attachment_by_src($imageSrc);
-                }
-                //print_r($imgs);
-            }
-        }
-        //print_r($templates);
-    }
-
-    function delete_attachment_by_src ($image_src) {
-        global $wpdb;
-        $query = "SELECT ID FROM {$wpdb->posts} WHERE guid='$image_src'";
-        $id = $wpdb->get_var($query);
-        wp_delete_attachment( $id, $true );
-    }
-
-    function get_installed_agca_templates(){
-        $templates = get_option( 'agca_templates' );
-        if($templates == "")return '[]';
-        $results = array();
-        foreach($templates as $key=>$val){
-            $results[]=$key;
-        }
-        return json_encode($results);
     }
 
     function isGuest(){
@@ -408,9 +237,9 @@ class AGCA{
             ?>
         </script>
         <link rel="stylesheet" type="text/css" href="<?php echo $this->pluginUrl(); ?>style/ag_style.css?ver=<?php echo $this->agca_version; ?>" />
-        <link rel="stylesheet" type="text/css" href="<?php echo $this->pluginUrl(); ?>require/dynamic.php?type=css&context=<?php echo $this->context; ?>&ver=<?php echo "changed_theme"; ?>" />
+        <link rel="stylesheet" type="text/css" href="<?php echo $this->pluginUrl(); ?>require/dynamic.php?type=css&context=<?php echo $this->context; ?>&ver=<?php echo $this->agca_version; ?>" />
         <script type="text/javascript" src="<?php echo $this->pluginUrl(); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>
-        <script type="text/javascript" src="<?php echo $this->pluginUrl(); ?>require/dynamic.php?type=js&context=<?php echo $this->context; ?>&ver=<?php echo "changed_theme"; ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->pluginUrl(); ?>require/dynamic.php?type=js&context=<?php echo $this->context; ?>&ver=<?php echo $this->agca_version; ?>"></script>
 
         <?php
         if($this->context == "login"){
@@ -424,8 +253,6 @@ class AGCA{
         }
         ?>
         <?php
-        echo $this->templateCustomizations;
-
         if(!((get_option('agca_role_allbutadmin')==true) and  (current_user_can($this->admin_capability())))){
             ?>
             <style type="text/css">
@@ -553,7 +380,6 @@ class AGCA{
         register_setting( 'agca-options-group', 'agca_admin_bar_new_content_user' );
         register_setting( 'agca-options-group', 'agca_admin_bar_new_content_media' );
         register_setting( 'agca-options-group', 'agca_admin_bar_update_notifications' );
-        register_setting( 'agca-options-group', 'agca_admin_bar_admin_themes' );
         register_setting( 'agca-options-group', 'agca_remove_top_bar_dropdowns' );
         register_setting( 'agca-options-group', 'agca_admin_bar_frontend' );
         register_setting( 'agca-options-group', 'agca_admin_bar_frontend_hide' );
@@ -562,10 +388,6 @@ class AGCA{
         register_setting( 'agca-options-group', 'agca_login_lostpassword_remove' );
         register_setting( 'agca-options-group', 'agca_admin_capability' );
         register_setting( 'agca-options-group', 'agca_disablewarning' );
-        register_setting( 'agca-template-group', 'agca_selected_template' );
-        register_setting( 'agca-template-group', 'agca_templates' );
-        //delete_option( 'agca_templates' );
-
 
         /*Admin menu*/
         register_setting( 'agca-options-group', 'agca_admin_menu_turnonoff' );
@@ -690,7 +512,6 @@ class AGCA{
             'agca_admin_bar_new_content_user',
             'agca_admin_bar_new_content_media',
             'agca_admin_bar_update_notifications',
-            'agca_admin_bar_admin_themes',
             'agca_remove_top_bar_dropdowns',
             'agca_admin_menu_turnonoff',
             'agca_admin_menu_agca_button_only',
@@ -715,8 +536,6 @@ class AGCA{
             'agca_disable_postver',
             'agca_menu_remove_client_profile',
             'agca_menu_remove_customize_button',
-            'agca_selected_template',
-            'agca_templates',
         );
     }
 
@@ -1048,11 +867,6 @@ class AGCA{
         <?php if(get_option('agca_admin_bar_update_notifications')!=""){  ?>
             jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-updates").css("display","none");
         <?php } ?>
-        <?php if(get_option('agca_admin_bar_admin_themes')!=""){  ?>
-            jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-agca-admin-themes").css("display","none");
-        <?php } ?>
-
-
 
         <?php if(get_option('agca_header_logo')==true){ ?>
             jQuery("#wphead #header-logo").css("display","none");
@@ -1230,39 +1044,6 @@ class AGCA{
         return $selectedValue;
     }
 
-    function JSPrintAGCATemplateSettingsVar($settings){
-        echo "\n<script type=\"text/javascript\">\n";
-        echo "var agca_template_settings = ".preg_replace('#<script(.*?)>(.*?)</script>#is', '', $settings).";\n";  //TODO: think about this
-        echo "</script>";
-    }
-
-    function appendSettingsToAGCATemplateCustomizations($customizations, $settings){
-        $template_settings = json_decode($settings);
-        //print_r($template_settings);
-        foreach($template_settings as $sett){
-            $key = $sett->code;
-
-            //use default value if user's value is not set
-            $value="";
-            if($sett->value != ""){
-                $value = $sett->value;
-            }else{
-                $value = $sett->default_value;
-            }
-
-            //Prepare settings
-            if($sett->type == 6){
-                if($value !== null && (strtolower($value) == "on" || $value == "1")){
-                    $value = "true";
-                }else{
-                    $value = "false";
-                }
-            }
-            $customizations = str_replace("%".$key."%",$value, $customizations);
-        }
-        return $customizations;
-    }
-
     function enableSpecificWPVersionCustomizations($customizations){
         /*enable special CSS for this WP version*/
         $ver = $this->get_wp_version();
@@ -1276,40 +1057,7 @@ class AGCA{
         return $customizations;
     }
 
-    function prepareAGCAAdminTemplates(){
-        if(get_option( 'agca_templates' ) != ""){
-            //print_r(get_option( 'agca_templates' ));
-            $themes = get_option( 'agca_templates' );
-            $selectedTheme = get_option('agca_selected_template');
-            if(isset($themes[$selectedTheme])){
-                $theme = $themes[$selectedTheme];
-                add_filter('get_user_option_admin_color', array(&$this,'change_admin_color'));
-
-                echo (stripslashes($theme['common']));
-                echo "<!--AGCAIMAGES: ".$theme['images']."-->";
-
-                //KEEP THIS FOR MIGRATION PURPOSE FOR SOME TIME
-                if(!((get_option('agca_role_allbutadmin')==true) and  (current_user_can($this->admin_capability())))){
-                    if($theme['settings'] == "" || $theme['settings'] == " ") $theme['settings'] = "{}";
-                    //print_r($templdata);
-
-                    $this->JSPrintAGCATemplateSettingsVar($theme['settings']);
-
-                    $admindata = $this->appendSettingsToAGCATemplateCustomizations(stripslashes($theme['admin']), $theme['settings']);
-                    $admindata = $this->enableSpecificWPVersionCustomizations($admindata);
-                    $admindata = $this->removeCSSComments($admindata);
-
-                    //echo $admindata;
-                    //REPLACE TAGS WITH CUSTOM TEMPLATE SETTINGS
-                    $this->templateCustomizations = $admindata;
-                }
-                //KEEP THIS FOR MIGRATION PURPOSE FOR SOME TIME
-            }
-        }
-    }
-
     function agcaAdminSession(){
-        $agcaTemplatesSession = array();
 
         //session_destroy();
         //session_unset();
@@ -1320,52 +1068,17 @@ class AGCA{
 
         if(!isset($_SESSION["AGCA"])){
             $_SESSION["AGCA"] = array();
-            $_SESSION["AGCA"]["Templates"] = array();
         }
         //print_r($_SESSION);
 
         if(isset($_SESSION["AGCA"])){
-            if(isset($_SESSION["AGCA"]["Templates"])){
-                //print_r($_SESSION["AGCA"]["Templates"]);
-                $agcaTemplatesSession = json_encode($_SESSION["AGCA"]["Templates"]);
-            }
+
         }
-
-
-        if($agcaTemplatesSession == '""' || $agcaTemplatesSession == '"[]"'){
-            $agcaTemplatesSession = array();
-        }
-
-
-        return $agcaTemplatesSession;
-
     }
 
     function getAGCAColor($name){
         if(isset($this->colorizer[$name])){
             echo htmlspecialchars($this->colorizer[$name]);
-        }
-    }
-
-    function prepareAGCALoginTemplates(){
-        if(get_option( 'agca_templates' ) != ""){
-            //print_r(get_option( 'agca_templates' ));
-            $templates = get_option( 'agca_templates' );
-            foreach($templates as $templname=>$templdata){
-                if($templname == get_option('agca_selected_template')){
-                    echo (stripslashes($templdata['common']));
-
-                    if($templdata['settings'] == "" || $templdata['settings'] == " ") $templdata['settings'] = "{}";
-                    $this->JSPrintAGCATemplateSettingsVar($templdata['settings']);
-
-                    $logindata = $this->appendSettingsToAGCATemplateCustomizations(stripslashes($templdata['login']), $templdata['settings']);
-                    $logindata = $this->enableSpecificWPVersionCustomizations($logindata);
-                    $logindata = $this->removeCSSComments($logindata);
-
-                    echo($logindata);
-                    break;
-                }
-            }
         }
     }
 
@@ -1649,7 +1362,6 @@ class AGCA{
     }
     function print_admin_css()
     {
-        $agcaTemplateSession = $this->agcaAdminSession();
         $wpversion = $this->get_wp_version();
         $this->context = "admin";
         $this->error_check();
@@ -1659,13 +1371,11 @@ class AGCA{
             var wpversion = "<?php echo $wpversion; ?>";
             var agca_debug = <?php echo ($this->agca_debug)?"true":"false"; ?>;
             var agca_version = "<?php echo $this->agca_version; ?>";
-            var agcaTemplatesSession = <?php echo ($agcaTemplateSession==null)?"[]":$agcaTemplateSession; ?>;
             var errors = false;
             var isSettingsImport = false;
             var isCusminActive = <?php echo $this->isCusminActive()?'true':'false'; ?>;
             var agca_context = "admin";
             var roundedSidberSize = 0;
-            var agca_installed_templates = <?php echo $this->get_installed_agca_templates(); ?>;
             var agca_admin_menu = <?php echo json_encode($this->get_menu_customizations()) ?>;
             var agca_string = {
                 file_imp_not_sel: '<?php _e('File for import is not selected!', 'ag-custom-admin'); ?>',
@@ -1676,7 +1386,6 @@ class AGCA{
                 menu_login: '<?php _e('Login Page', 'ag-custom-admin'); ?>',
                 menu_admin_menu: '<?php _e('Admin Menu', 'ag-custom-admin'); ?>',
                 menu_colorizer: '<?php _e('Colorizer', 'ag-custom-admin'); ?>',
-                menu_themes: '<?php _e('Themes', 'ag-custom-admin'); ?>',
                 menu_upgrade: '<?php _e('Upgrade', 'ag-custom-admin'); ?>',
                 menu_advanced: '<?php _e('Advanced', 'ag-custom-admin'); ?>',
                 remove: '<?php _e('Remove', 'ag-custom-admin'); ?>',
@@ -1691,7 +1400,6 @@ class AGCA{
             };
         </script>
         <?php
-        $this->prepareAGCAAdminTemplates();
         $this->agca_get_includes();
         $this->admin_capabilities();
         wp_get_current_user() ;
@@ -2053,7 +1761,6 @@ class AGCA{
             var agca_context = "login";
         </script>
         <?php
-        $this->prepareAGCALoginTemplates();
         $this->agca_get_includes();
 
         ?>
@@ -2189,12 +1896,7 @@ class AGCA{
 
         <link rel="stylesheet" type="text/css" href="<?php echo $this->pluginUrl(); ?>style/agca_farbtastic.css?ver=<?php echo $wpversion; ?>" />
         <script type="text/javascript" src="<?php echo $this->pluginUrl(); ?>script/agca_farbtastic.js?ver=<?php echo $wpversion; ?>"></script>
-        <script type="text/javascript" src="<?php echo $this->pluginUrl(); ?>script/xd.js?ver=<?php echo $wpversion; ?>"></script>
-        <script type="text/javascript">
-            var templates_ep = "<?php echo $this->templates_ep; ?>";
-            var template_selected = '<?php echo get_option('agca_selected_template'); ?>';
-        </script>
-        <script type="text/javascript" src="<?php echo $this->pluginUrl(); ?>script/agca_tmpl.js?ver=<?php echo $wpversion; ?>"></script>
+
         <?php //includes ?>
         <div class="wrap">
             <h1 id="agca-title"><img src="<?php echo plugins_url( 'images/agca-logo.svg', __FILE__ ) ?>" /><span class="title">absolutely glamorous custom admin</span> <span class="version">(v<?php echo $this->agca_version; ?>)</span></h1>
@@ -2228,9 +1930,6 @@ class AGCA{
                     <li class="normal" ><a href="#admin-menu-settings" class="dashicons-before dashicons-editor-justify" title="<?php _e('Settings for main admin menu', 'ag-custom-admin')?>"><?php _e('Admin Menu', 'ag-custom-admin')?></a></li>
                     <li class="normal"><a href="#ag-colorizer-settings" class="dashicons-before dashicons-admin-appearance agca-invert-icon" title="<?php _e('Colorizer settings', 'ag-custom-admin')?>"><?php _e('Colorizer', 'ag-custom-admin')?></a></li>
                     <li class="normal"><a href="#ag-advanced" class="dashicons-before dashicons-welcome-learn-more" title="<?php _e('My custom scripts', 'ag-custom-admin')?>"><?php _e('Advanced', 'ag-custom-admin')?></a></li>
-                    <?php if(defined('AGCA_THEMES')){ ?>
-                    <li class="normal" style=""><a href="#ag-templates" title="<?php _e('AGCA Themes', 'ag-custom-admin')?>"><?php _e('Themes', 'ag-custom-admin')?></a></li>
-                    <?php } ?>
                     <li class="normal upgrade"><a href="https://cusmin.com/upgrade-to-cusmin?ref=menu" target="_blank" title="<?php _e('Upgrade to Cusmin </br>to unlock all premium features', 'ag-custom-admin')?>"><img src="<?php echo plugins_url( 'images/cusmin-logo.svg', __FILE__ ) ?>" /><?php _e('Upgrade', 'ag-custom-admin')?></a></li>
 
                     <li style="background:none;border:none;padding:0;"><a id="agca_donate_button" target="_blank" style="margin-left:8px" title="<?php _e('Enjoying AGCA? Help us further develop it and support it!', 'ag-custom-admin')?> " href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&item_name=Support+for+AGCA+Development"><img alt="<?php _e('Donate', 'ag-custom-admin')?>" src="<?php echo $this->pluginUrl(); ?>images/donate-btn.png" /></a>
@@ -2326,17 +2025,9 @@ class AGCA{
                                     <ul>
                                         <li><a href="https://wordpress.org/support/plugin/ag-custom-admin" target="_blank"><span class="dashicons dashicons-megaphone"></span>&nbsp;&nbsp;<?php _e('Report an issue', 'ag-custom-admin'); ?></a> - <?php _e('If plugin does not work as expected', 'ag-custom-admin'); ?> </li>
                                     </ul>
-                                    <?php /*<ul>
-                                        <li><a href="" target="_blank"><span class="dashicons dashicons-art"></span>&nbsp;&nbsp;<?php _e('Idea for admin theme', 'ag-custom-admin'); ?></a> - <?php _e('submit your idea for admin theme', 'ag-custom-admin'); ?> </li>
-                                    </ul>*/
-                                    ?>
                                     <ul>
                                         <li><a href="https://wordpress.org/support/view/plugin-reviews/ag-custom-admin" target="_blank"><span class="dashicons dashicons-awards"></span>&nbsp;&nbsp;<?php _e('Add a review on WordPress.org', 'ag-custom-admin'); ?></a> - <?php _e('add your review and rate us on WordPress.org', 'ag-custom-admin'); ?> </li>
                                     </ul>
-                                    <?php /*<ul>
-                                        <li><a href="" target="_blank"><span class="dashicons dashicons-shield-alt"></span>&nbsp;&nbsp;<?php _e('Visit our support site', 'ag-custom-admin'); ?></a> - <?php _e('for any other questions, feel free to contact us', 'ag-custom-admin'); ?> </li>
-                                    </ul>*/
-                                    ?>
                                     <ul>
                                         <li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&item_name=Support+for+AGCA+Development" target="_blank"><span class="dashicons dashicons-palmtree"></span>&nbsp;&nbsp;<?php _e('Donate', 'ag-custom-admin'); ?></a> - <?php _e('if you find this plugin helpful for your needs', 'ag-custom-admin'); ?> </li>
                                     </ul>
@@ -2522,13 +2213,6 @@ class AGCA{
                             'name'=>'agca_admin_bar_new_content_media',
                             'label'=>'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.__('Hide <b>+ New > Media</b> sub-menu', 'ag-custom-admin')
                         ));
-
-                     /*   $this->print_checkbox(array(
-                            'hide'=>true,
-                            'title'=>__('Hides "Admin themes" from admin bar', 'ag-custom-admin'),
-                            'name'=>'agca_admin_bar_admin_themes',
-                            'label'=>__('"Admin themes"', 'ag-custom-admin')
-                        ));*/
 
                         $this->print_input(array(
                             'title'=>__('Adds custom text in admin top bar.', 'ag-custom-admin'),
@@ -3021,31 +2705,6 @@ class AGCA{
                     <input type="hidden" size="47" id="ag_colorizer_json" name="ag_colorizer_json" value="<?php echo htmlspecialchars(get_option('ag_colorizer_json')); ?>" />
                     <div id="picker"></div>
                 </div>
-                <?php if(defined('AGCA_THEMES')){ ?>
-                <div id="section_templates" style="display:none" class="ag_section">
-                    <h2 class="section_title"><span style="float:left"><?php _e('Admin Themes', 'ag-custom-admin'); ?></span></h2>
-                    <table class="form-table" width="500px">
-                        <tr valign="center">
-                            <td>
-                                <p style="color: red; font-size:15px;font-weight:bold;margin-bottom:20px;">Note: AGCA Themes will be discontinued soon!</p>
-                                <div id="agca_templates"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div id="advanced_template_options" style="display:none">
-                                    <div class="agca-feedback-and-support">
-                                        <ul>
-                                           <?php /* <li><a href="" title="<?php _e('If you have any ideas for theme improvements, or you have new themes requests, please feel free to send us a message', 'ag-custom-admin'); ?>" target="_blank"><span class="dashicons dashicons-art"></span>&nbsp;&nbsp;<?php _e('Submit your admin themes ideas', 'ag-custom-admin'); ?></a></li>*/ ?>
-                                            <li><a style="background: #f08080;color:#fff;" href="javascript:agca_removeAllTemplates();" title="<?php _e('WARNING: All installed themes will be removed. To activate them again, you would need to install theme and activate using valid license keys. Free themes can be installed again.', 'ag-custom-admin'); ?>"><span style="color:#fff" class="dashicons dashicons-trash"></span>&nbsp;&nbsp;<?php _e('Uninstall all installed themes', 'ag-custom-admin'); ?></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <?php } ?>
                 <div id="section_advanced" style="display:none" class="ag_section">
                     <h2 class="section_title"><?php _e('Advanced', 'ag-custom-admin'); ?></h2>
                     <?php $this->show_save_button_upper(); ?>
@@ -3093,12 +2752,6 @@ class AGCA{
                     </table>
                 </div>
                 <?php $this->show_save_button(); ?>
-            </form>
-            <form id="agca_templates_form" name="agca_templates_form" action="<?php echo htmlentities(get_site_url().$_SERVER['PHP_SELF']);?>?page=ag-custom-admin/plugin.php" method="post">
-                <?php wp_nonce_field('agca_form','_agca_token'); ?>
-                <input type="hidden" name="_agca_save_template" value="true" />
-                <input type="hidden" id="templates_data" name="templates_data" value="" />
-                <input type="hidden" id="templates_name" name="templates_name" value="" />
             </form>
         </div>
         <?php

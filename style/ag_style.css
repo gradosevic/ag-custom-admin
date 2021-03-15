@@ -483,17 +483,6 @@ td.ag_admin_menu_parent:hover {
     text-shadow: none;
 }
 
-#agca_form #templates_head_buttons input[type=button] {
-    background: #23395B;
-    color: white;
-    font-weight: bold;
-}
-
-#agca_form #templates_head_buttons input[type=button]:hover {
-    background: white;
-    color: var(--agca-color-gray);
-}
-
 .ag-custom-button {
 
     /* margin-bottom:-4px !important;*/
@@ -705,38 +694,6 @@ td.ag_admin_menu_parent:hover {
     width: 600px;
 }
 
-/*templates*/
-#agca_templates .error {
-    padding: 8px;
-    font-size: 14px;
-}
-
-.agca_template {
-    display: block;
-    float: left;
-    border: 3px solid #aaa;
-    margin: 10px;
-    margin-top: 15px;
-    cursor: pointer;
-}
-
-.agca_template:hover {
-    border: 3px solid green;
-}
-
-.agca_template h3 {
-    text-align: center;
-    color: green;
-}
-
-.agca_template h3 span {
-    color: #555;
-    font-size: 16px;
-}
-
-.agca_template img {
-    width: 250px;
-}
 
 .agca_logout_button {
     background: none repeat scroll 0 0 #dddddd;
@@ -901,22 +858,6 @@ td.ag_admin_menu_parent:hover {
 
 #agca_form .agca-radiobox[value=off]:before {
     color: #ccc;
-}
-
-#agca_form #section_templates {
-    background: transparent;
-}
-
-#wp-admin-bar-agca-admin-themes a {
-    color: #def7c3 !important;
-}
-
-#wp-admin-bar-agca-admin-themes .ab-icon:before {
-    font-family: "dashicons";
-    content: "\f100";
-    margin-top: 2px;
-    display: block;
-    color: #eef9d5 !important;
 }
 
 .agca-feedback-and-support a {
@@ -1086,19 +1027,6 @@ td.ag_admin_menu_parent:hover {
 
 .tools_page_ag-custom-admin-plugin #agca_form *:focus {
     outline: none !important;
-    box-shadow: none !important;
-}
-
-.agca_template_block h3,
-.agca_template_block span.price,
-.agca_template_block a{
-    color: inherit !important;
-}
-#agca_template_popup .agca_content{
-    background: #bbb !important;
-}
-
-.agca_template_block .template img{
     box-shadow: none !important;
 }
 
