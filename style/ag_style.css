@@ -1068,3 +1068,79 @@ td.ag_admin_menu_parent:hover {
 #agca_form #import_file_area .agca_button{
     margin-bottom: 5px;
 }
+
+.plugins-php .wp-list-table.plugins tr[data-slug=ag-custom-admin].active{
+    background: radial-gradient(circle, #899492 20%, #23395B 75%);
+    background-size: 200%;
+    box-shadow: 14px 1px 10px black inset;
+    transition: all .3s ease-in-out;
+}
+.plugins-php .wp-list-table.plugins tr[data-slug=ag-custom-admin].active:hover{
+    box-shadow: 14px 1px 2px black inset;
+}
+
+.plugins-php .wp-list-table.plugins tr[data-slug=ag-custom-admin].active td{
+    background: transparent;
+    transition: transform .3s ease-out;
+    text-shadow: 2px 4px 2px #223859;
+    color: #fdfeff;
+}
+.plugins-php .wp-list-table.plugins tr[data-slug=ag-custom-admin].active:hover td{
+    text-shadow: 1px 2px 2px #223859;
+}
+
+.plugins-php .wp-list-table.plugins tr[data-slug=ag-custom-admin].active td a{
+    color: #fdfeff;
+    font-weight: bold;
+    transition: all .3s ease-in;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 0;
+    display: inline-block;
+}
+
+.plugins-php .wp-list-table.plugins tr[data-slug=ag-custom-admin].active td a:hover{
+    transform: scale(1.3);
+}
+
+.plugins-php .wp-list-table.plugins tr[data-slug=ag-custom-admin].active td.column-description a:hover{
+    transform: scaleY(1.1) scaleX(1);
+    letter-spacing: 0.1em;
+    border-bottom: 3px solid;
+    padding-bottom: 3px;
+}
+
+.plugins-php .wp-list-table.plugins tr[data-slug=ag-custom-admin].active th.check-column {
+    border-left-color: #fdfeff;
+    background-color: #23395B;
+}
+
+.plugins-php .wp-list-table.plugins tr[data-slug=ag-custom-admin].active td.desc p{
+    color: #fdfeff;
+}
+
+.plugins-php .wp-list-table.plugins tr[data-slug=ag-custom-admin].active td.plugin-title:before{
+    display: block;
+    content: "";
+    background: url(../images/agca-logo.svg) no-repeat;
+    width: 100%;
+    max-width: 140px;
+    height: 53px;
+    background-size: contain;
+    filter: brightness(100) drop-shadow(0px 0px 2px #fff) ;
+    transition: transform .3s ease-in-out;
+}
+.plugins-php .wp-list-table.plugins tr[data-slug=ag-custom-admin].active:hover td.plugin-title:before{
+    transform: scale(1.1);
+}
+.plugins-php .wp-list-table.plugins tr[data-slug=ag-custom-admin].active .plugin-version-author-uri a:last-child:after {
+    content: "♥";
+    opacity: 0;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    padding-left: 3px;
+    transition: all .3s ease-in;
+}
+.plugins-php .wp-list-table.plugins tr[data-slug=ag-custom-admin].active .plugin-version-author-uri a:last-child:hover:after {
+    opacity: 1;
+}
