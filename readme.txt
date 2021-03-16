@@ -1,10 +1,10 @@
 === Absolutely Glamorous Custom Admin ===
 Contributors: cusmin
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&item_name=Support+for+AGCA+Development
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&amount=10&item_name=Support+for+AGCA+Development
 Tags: admin, customize, hide, change admin, admin bar, login page, admin menu, colors
 Requires at least: 3.0
 Tested up to: 5.7
-Stable tag: 6.7.2
+Stable tag: 6.7.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
@@ -144,6 +144,10 @@ If you have the latest WordPress and plugin versions and you still experience so
 11. Login style example
 
 == Change Log ==
+
+= 6.7.3 =
+* Fixed issue with Meow gallery plugin menu item showing in AGCA menu editor
+* Using clean menu names in AGCA menu editor for plugin authors who use custom admin menu styles
 
 = 6.7.2 =
 * Fixed AGCA styling on plugins page
@@ -592,6 +596,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 6.7.3 =
+* Fixed issue with Meow menu item showing in AGCA menu editor
 
 = 6.7.2 =
 * Removed support for AGCA themes. If you're using old AGCA themes, please don't upgrade AGCA.

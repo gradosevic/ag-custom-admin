@@ -860,17 +860,26 @@ td.ag_admin_menu_parent:hover {
     color: #ccc;
 }
 
+.agca-feedback-and-support {
+    font-weight: bold;
+}
+
 .agca-feedback-and-support a {
     border: medium none;
     border-radius: 4px;
     color: #FFFFFF !important;
     padding: 6px 20px;
-    min-width: 258px;
+    padding-top: 10px;
+    min-width: 280px;
     background: #23395B;
     display: inline-block;
     font-weight: normal !important;
     text-decoration: none;
     transition: all .3s;
+}
+
+.agca-feedback-and-support a span {
+    transform: translate(0, -2px);
 }
 
 .agca-feedback-and-support .upgrade a{

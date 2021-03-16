@@ -256,7 +256,7 @@ function createTargetCombo(target,clas){
     if(target === "_self"){
         combo+= " selected ";
     }
-    combo+= ">same tab</option>";
+    combo+= ">the same tab</option>";
     combo+= "<option value=\"_blank\"";
     if(target === "_blank"){
         combo+= " selected ";
