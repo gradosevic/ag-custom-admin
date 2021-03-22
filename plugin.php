@@ -665,10 +665,8 @@ class AGCA{
         return (substr($haystack, 0, $length) === $needle);
     }
 
-
-
     function agca_create_menu() {
-        add_management_page('AGCA', '• AGCA •', 'administrator', __FILE__, array(&$this,'agca_admin_page') );
+        add_management_page('AGCA', 'AGCA', 'administrator', __FILE__, array(&$this,'agca_admin_page') );
     }
 
     function agca_create_admin_button($name,$arr) {
