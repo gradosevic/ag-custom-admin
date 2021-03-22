@@ -4,7 +4,7 @@ Plugin Name: Absolutely Glamorous Custom Admin
 Plugin URI: https://cusmin.com/agca
 Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar and much more.
 Author: Cusmin
-Version: 6.7.3
+Version: 6.8
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com
@@ -28,7 +28,7 @@ Author URI: https://cusmin.com
 $agca = new AGCA();
 
 class AGCA{
-    private $agca_version = "6.7.3";
+    private $agca_version = "6.8";
     private $colorizer="";
     private $agca_debug = false;
     private $admin_capabilities;
@@ -72,6 +72,14 @@ class AGCA{
 
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
+    }
+
+    function isAGCASettingsPage() {
+        $cs = get_current_screen();
+        if($cs) {
+            return $cs->id === 'tools_page_ag-custom-admin/plugin';
+        }
+        return false;
     }
 
     function load_plugin_textdomain() {
@@ -234,9 +242,13 @@ class AGCA{
                 echo "var agca_global_plugin_url = '".$this->pluginUrl()."';";
             ?>
         </script>
-        <link rel="stylesheet" type="text/css" href="<?php echo $this->pluginUrl(); ?>style/ag_style.css?ver=<?php echo $this->agca_version; ?>" />
-        <link rel="stylesheet" type="text/css" href="<?php echo $this->pluginUrl(); ?>require/dynamic.php?type=css&context=<?php echo $this->context; ?>&ver=<?php echo $this->agca_version; ?>" />
+        <?php if( get_option('agca_no_style') == true ) { ?>
+            <link rel="stylesheet" type="text/css" href="<?php echo $this->pluginUrl(); ?>style/ag_style_simple.css?ver=<?php echo $this->agca_version; ?>" />
+        <?php } else { ?>
+            <link rel="stylesheet" type="text/css" href="<?php echo $this->pluginUrl(); ?>style/ag_style.css?ver=<?php echo $this->agca_version; ?>" />
+        <?php } ?>
         <script type="text/javascript" src="<?php echo $this->pluginUrl(); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>
+        <link rel="stylesheet" type="text/css" href="<?php echo $this->pluginUrl(); ?>require/dynamic.php?type=css&context=<?php echo $this->context; ?>&ver=<?php echo $this->agca_version; ?>" />
         <script type="text/javascript" src="<?php echo $this->pluginUrl(); ?>require/dynamic.php?type=js&context=<?php echo $this->context; ?>&ver=<?php echo $this->agca_version; ?>"></script>
 
         <?php
@@ -319,6 +331,7 @@ class AGCA{
 
     function agca_register_settings() {
         register_setting( 'agca-options-group', 'agca_role_allbutadmin' );
+        register_setting( 'agca-options-group', 'agca_no_style' );
         register_setting( 'agca-options-group', 'agca_screen_options_menu' );
         register_setting( 'agca-options-group', 'agca_help_menu' );
         register_setting( 'agca-options-group', 'agca_logout' );
@@ -453,6 +466,7 @@ class AGCA{
     function getOptions(){
         return Array(
             'agca_role_allbutadmin',
+            'agca_no_style',
             'agca_admin_bar_frontend',
             'agca_admin_bar_frontend_hide',
             'agca_login_register_remove',
@@ -696,7 +710,7 @@ class AGCA{
             $elements = json_decode($arr[0],true);
             if($elements !=""){
                 foreach($elements as $k => $v){
-                    $array.='<tr><td colspan="2"><button target="'.$v['target'].'" title="'.$v['value'].'" type="button">'.$k.'</button>&nbsp;<a style="cursor:pointer;" title="Edit" class="button_edit"><span class="dashicons dashicons-edit"></span></a>&nbsp;<a style="cursor:pointer" title="Delete" class="button_remove"><span class="dashicons dashicons-no"></span></a></td><td></td></tr>';
+                    $array.='<tr><td colspan="2"><button target="'.$v['target'].'" title="'.$v['value'].'" class="button-secondary" type="button">'.$k.'</button>&nbsp;<a style="cursor:pointer;" title="Edit" class="button_edit"><span class="dashicons dashicons-edit"></span></a>&nbsp;<a style="cursor:pointer" title="Delete" class="button_remove"><span class="dashicons dashicons-no"></span></a></td><td></td></tr>';
                 }
             }
         }else{
@@ -1109,30 +1123,6 @@ class AGCA{
         </script>
         <?php
     }
-    function error_check(){
-        ?>
-        <script type="text/javascript">
-            function AGCAErrorOtherPages(msg, url, line){
-                var agca_error_details = "___________________________________________________\n";
-                agca_error_details += '\n' + msg +'\nsource:' + url + '\nline:' + line + '\n';
-
-                document.getElementsByTagName('html')[0].style.visibility = "visible";
-
-                if(typeof window.console === "object"){
-                    console.log("___________________________________________________");
-                    console.log("<?php _e('AGCA plugin caught a JavaScript on your site', 'ag-custom-admin'); ?>:");
-                    console.log(agca_error_details);
-                }
-            }
-            window.onerror = function(msg, url, line) {
-                window.onload = function() {
-                    AGCAErrorOtherPages(msg, url, line);
-                }
-                return true;
-            };
-        </script>
-        <?php
-    }
 
     function menu_item_cleartext($name){
         if(strpos($name,' <span') !== false){
@@ -1368,7 +1358,6 @@ class AGCA{
     {
         $wpversion = $this->get_wp_version();
         $this->context = "admin";
-        $this->error_check();
         $currentScreen = get_current_screen();
         ?>
         <script type="text/javascript">
@@ -1754,7 +1743,6 @@ class AGCA{
         }
 
         $this->context = "login";
-        $this->error_check();
         //$wpversion = $this->get_wp_version();
 
         ?>
@@ -2539,7 +2527,7 @@ class AGCA{
                         ?>
                         <tr>
                             <td colspan="2">
-                                <input type="button" class="agca_button"  id="ag_edit_adminmenu_reset_button" title="<?php _e('Reset menu settings to default values', 'ag-custom-admin'); ?>" name="ag_edit_adminmenu_reset_button" value="<?php _e('Reset to default settings', 'ag-custom-admin'); ?>" /><br />
+                                <input type="button" class="agca_button button-secondary"  id="ag_edit_adminmenu_reset_button" title="<?php _e('Reset menu settings to default values', 'ag-custom-admin'); ?>" name="ag_edit_adminmenu_reset_button" value="<?php _e('Reset to default settings', 'ag-custom-admin'); ?>" /><br />
                                 <p tabindex="0"><em>(<?php _e('click on the top menu item to show its sub-menus', 'ag-custom-admin'); ?>)</em></p>
                                 <table id="ag_edit_adminmenu">
                                     <tr style="background-color:#816c64;">
@@ -2586,7 +2574,7 @@ class AGCA{
                                                 <option value="_self" selected><?php _e('the same tab', 'ag-custom-admin'); ?></option>
                                                 <option value="_blank" ><?php _e('a new tab', 'ag-custom-admin'); ?></option>
                                             </select>
-                                            <input type="button" id="ag_add_adminmenu_button" class="agca_button" title="<?php _e('Add new item button" name="ag_add_adminmenu_button', 'ag-custom-admin'); ?>" value="<?php _e('Add new item', 'ag-custom-admin'); ?>" />
+                                            <input type="button" id="ag_add_adminmenu_button" class="agca_button button-secondary" title="<?php _e('Add new item button" name="ag_add_adminmenu_button', 'ag-custom-admin'); ?>" value="<?php _e('Add new item', 'ag-custom-admin'); ?>" />
                                         </td><td></td>
                                     </tr>
                                 </table>
@@ -2744,6 +2732,15 @@ class AGCA{
                                 <textarea style="width:100%;height:200px" title="<?php _e('Add additional custom JavaScript', 'ag-custom-admin'); ?>" rows="5" name="agca_custom_js"  id="agca_custom_js" cols="40"><?php echo htmlspecialchars(get_option('agca_custom_js')); ?></textarea>
                             </td>
                         </tr>
+
+                        <?php
+                        $this->print_checkbox(array(
+                            'title'=>__('For users who prefer to see the default WordPress styling on the AGCA page', 'ag-custom-admin'),
+                            'name'=>'agca_no_style',
+                            'label'=>__('Remove styles on the AGCA settings page', 'ag-custom-admin'),
+                        ));
+                        ?>
+
                         <?php
                         $this->print_checkbox(array(
                             'title'=>__('Temporary enable this option if you are experiencing any problems with saving AGCA options. Please turn it off after you are done with your customizations.', 'ag-custom-admin'),
@@ -2756,11 +2753,11 @@ class AGCA{
                                 <label title="<?php _e('Export / import settings', 'ag-custom-admin'); ?>" for="agca_export_import"><?php _e('Export / import settings', 'ag-custom-admin'); ?></label>
                             </th>
                             <td id="import_file_area">
-                                <input class="agca_button"  type="button" name="agca_export_settings" value="<?php _e('Export Settings', 'ag-custom-admin'); ?>" onclick="exportSettings();"/></br>
-                                <input type="file" id="settings_import_file" name="settings_import_file" style="display: none"/>
+                                <input class="agca_button button-secondary"  type="button" name="agca_export_settings" value="<?php _e('Export Settings', 'ag-custom-admin'); ?>" onclick="exportSettings();"/></br>
+                                <input type="file" class="button-secondary" id="settings_import_file" name="settings_import_file" style="display: none"/>
                                 <input type="hidden" id="_agca_import_settings" name="_agca_import_settings" value="false" />
                                 <input type="hidden" id="_agca_export_settings" name="_agca_export_settings" value="false" />
-                                <input class="agca_button" type="button" name="agca_import_settings" value="<?php _e('Import Settings', 'ag-custom-admin'); ?>" onclick="importSettings();"/>
+                                <input class="agca_button button-secondary" type="button" name="agca_import_settings" value="<?php _e('Import Settings', 'ag-custom-admin'); ?>" onclick="importSettings();"/>
                             </td>
                         </tr>
                     </table>

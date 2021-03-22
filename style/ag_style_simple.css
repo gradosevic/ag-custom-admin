@@ -1,0 +1,191 @@
+#agca-title {
+    margin-top: -20px;
+}
+#agca-title img {
+    transform: translateY(17px);
+    margin-right: 21px;
+    max-width: 120px;
+}
+#agca-social {
+    display: none;
+}
+#agca-your-feedback {
+    display: none;
+}
+#ag_main_menu {
+    display: flex;
+}
+#ag_main_menu > li {
+    margin-right: 20px;
+    font-size: 18px;
+}
+#ag_main_menu > li.upgrade img {
+    display: none;
+}
+#ag_main_menu li.selected a{
+    color: #1d3c6b;
+    text-decoration: underline;
+}
+#ag_main_menu .dashicons-before:before {
+    display: none !important;
+}
+#ag_main_menu #agca_donate_button img {
+    transform: translateY(-8px);
+    max-width: 100px;
+}
+#ag_main_menu a:link,
+#ag_main_menu a:visited,
+#ag_main_menu a:focus {
+    text-decoration: none;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+#ag_main_menu a:hover {
+    text-decoration: underline;
+}
+
+#agca_advertising {
+    display: none !important;
+}
+
+#agca_form {
+    margin-top: -30px;
+}
+
+#agca_form a:link,
+#agca_form a:visited,
+#agca_form a:focus {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+#agca_form input {
+    display: inline-block !important;
+}
+
+.agca-feedback-and-support .cusmin-spinner {
+    max-width: 15px;
+    display: inline-block;
+    margin-left: 2px;
+    transform: translate(1px, 1px) scale(1.1);
+}
+
+.agca-feedback-and-support a {
+    text-decoration: none;
+}
+
+.agca-feedback-and-support a:hover {
+    color: #1d3c6b;
+}
+
+#agca_form .form-table .dashicons-no-alt,
+#agca_form .form-table .dashicons-art {
+    cursor: pointer;
+    padding-top: 5px;
+    display: inline-block;
+}
+
+#agca_form .form-table td {
+    padding-left: 0;
+}
+
+#agca_form #settings_import_file {
+    margin-top: 22px;
+}
+
+#agca_form .noclass {
+    display: none;
+}
+
+div#AGToolTipDiv {
+    position: absolute;
+    top: 100px;
+    left: 200px;
+    height: auto;
+    border: none !important;
+    box-shadow: 0px 8px 14px rgba(35, 57, 91, 0.5);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    background: rgba(197, 206, 204, 0.8) !important;
+    color: #23395B !important;
+    display: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.agcaMenuEditorPlusMinus .plus {
+    padding-right: 4px;
+    display: inline;
+}
+
+.agcaMenuEditorPlusMinus .minus {
+    padding-right: 4px;
+    display: none;
+}
+
+.agcaMenuEditorPlusMinus .dashicons:before {
+    font-size: 15px;
+    line-height: 22px;
+    display: inline-block;
+    transform: translateY(-2px);
+}
+
+.agcaMenuEditorPlusMinus {
+    float: left;
+    margin-right: 18px;
+    cursor: default;
+    width: 10px;
+    color: var(--agca-color-dark);
+    margin-top: -19px;
+    padding-top: 9px;
+    pointer-events: none;
+}
+
+.ag_admin_menu_parent > a,
+.ag_admin_menu_parent > div {
+    transform: translateY(-10px);
+    display: inline-block;
+}
+
+
+#save_plugin_settings {
+    padding: 0 10px !important;
+}
+
+#agca_header_show_logout_content {
+    display: table-row !important;
+}
+
+#agca_form #ag_edit_adminmenu a {
+    text-decoration: none;
+}
+
+#agca_form #ag_edit_adminmenu td {
+    padding: 0;
+}
+
+#ag_edit_adminmenu tr {
+    background: transparent !important;
+}
+
+.ag_admin_menu_child {
+    padding-left: 50px !important;
+}
+
+#ag_add_adminmenu .dashicons {
+    display: inline-block;
+    padding-top: 5px;
+}
+#agca_form #settings_import_file {
+    margin-top: 22px;
+    padding: 0;
+    padding-left: 3px;
+}
+input[name="agca_import_settings"] {
+    margin-top: 22px !important;
+}

@@ -71,6 +71,9 @@ function isLocalStorageNameSupported()
 function hideShowSubmenus(index){
     var finish = false;
     var	found = false;
+
+    //TODO: Accordion toggle others false when one is selected
+    //jQuery('#ag_edit_adminmenu .noclass').removeClass('noclass');
     jQuery('#ag_edit_adminmenu td').each(function(){
         if(jQuery('#ag_edit_adminmenu td').index(jQuery(this)) >= index && (finish == false)){
             //  jQuery(this).find('.agcaMenuEditorPlusMinus').show();
@@ -313,12 +316,12 @@ jQuery(document).ready(function(){
             var target = jQuery(this).parent().find('button').attr('target');
             //console.log(target);
             editingButtonNow = name;
-            jQuery(this).parent().append('<div id="temporary_button_edit">name:<input type="text" size="47" value="'+name+'" id="ag_add_adminmenu_name_edit" name="ag_add_adminmenu_name_edit" />url:<input type="text" size="47" value="'+url+'" id="ag_add_adminmenu_url_edit" name="ag_add_adminmenu_url_edit" />' + createTargetCombo(target,"edit")+ '<input type="button" id="ag_add_adminmenu_button_edit" name="ag_add_adminmenu_button_edit" value="'+agca_string.save_changes+'" /></div>');
+            jQuery(this).parent().append('<div id="temporary_button_edit">name:<input type="text" size="47" value="'+name+'" id="ag_add_adminmenu_name_edit" name="ag_add_adminmenu_name_edit" />url:<input type="text" size="47" value="'+url+'" id="ag_add_adminmenu_url_edit" name="ag_add_adminmenu_url_edit" />' + createTargetCombo(target,"edit")+ '<input type="button" id="ag_add_adminmenu_button_edit" name="ag_add_adminmenu_button_edit" value="'+agca_string.save_changes+'" class="button-secondary" /></div>');
             reloadRemoveButtonEvents();
         }
     });/*Save editing changes*/
     jQuery('#ag_add_adminmenu').on("click", '#ag_add_adminmenu_button_edit', function(){
-        //alert(jQuery(this).parent().html());			
+        //alert(jQuery(this).parent().html());
         var name = jQuery('#ag_add_adminmenu_name_edit').val();
         var url = jQuery('#ag_add_adminmenu_url_edit').val();
         var target = jQuery('select.editTarget').val();
@@ -329,7 +332,7 @@ jQuery(document).ready(function(){
 
         var element = 0;
         jQuery('#ag_add_adminmenu :button').each(function(){
-            //dont use first button for adding new buttons				
+            //dont use first button for adding new buttons
             if(element > 0){
                 if(jQuery(this).html() == editingButtonNow){
                     jQuery(this).attr('title',url);
@@ -437,7 +440,7 @@ jQuery(document).ready(function(){
         jQuery('#ag_add_adminmenu_name').val("");
         jQuery('#ag_add_adminmenu_url').val("");
         jQuery('#ag_add_adminmenu_target').val("_self");
-        jQuery('#ag_add_adminmenu').append('<tr><td colspan="2"><button target="'+target+'" title="'+url+'" type="button">'+name+'</button>&nbsp;<a style="cursor:pointer;" title="Edit" class="button_edit"><span class="dashicons dashicons-edit"></span></a>&nbsp;<a style="cursor:pointer" title="'+agca_string.delete+'" class="button_remove"><span class="dashicons dashicons-no"></span></a></td><td></td></tr>');
+        jQuery('#ag_add_adminmenu').append('<tr><td colspan="2"><button target="'+target+'" title="'+url+'" type="button" class="button-secondary">'+name+'</button>&nbsp;<a style="cursor:pointer;" title="Edit" class="button_edit"><span class="dashicons dashicons-edit"></span></a>&nbsp;<a style="cursor:pointer" title="'+agca_string.delete+'" class="button_remove"><span class="dashicons dashicons-no"></span></a></td><td></td></tr>');
         reloadRemoveButtonEvents();
     });
 
@@ -552,6 +555,8 @@ function processData(){
             array += "\"" + jQuery(this).html() + "\" : {";
             array += " \"value\" : ";
             array += "\"" + jQuery(this).attr('title') + "\"";
+            array += ", \"class\" : ";
+            array += "\"" + jQuery(this).attr('class') + "\"";
             array += ", \"target\" : ";
             array += "\"" + jQuery(this).attr('target') + "\"}";
         }
@@ -562,8 +567,6 @@ function processData(){
         array="";
     }
     jQuery('#ag_add_adminmenu_json').val(array);
-
-
 
     /*Serialize colors*/
     var array = "{";
@@ -756,33 +759,6 @@ function updateColor(id,color){
 /*First load apply colours from fields*/
 
 /*C O L O R I Z E R  E N D*/
-
-/*A J A X*/
-jQuery(document).ready(function(){
-
-    //Ams
-    if(typeof isAGCAPage !== 'undefined'){
-        if(isAGCAPage == true){
-            return false;
-            //alert('admin page');
-            var url="";
-            jQuery.getJSON(
-                url,{
-                    wp_ver: wpversion,
-                    agca_ver: agca_version,
-                    format: "json"
-                },
-                function(json){
-                    jQuery.each(json,function(i,post){
-                        jQuery('#agca_advertising ul').append('<li><a target="_blank" href="https://cusmin.com/?id=' + post.id + '" ><img height=\"100px\" src=\"'+post.src+'\"  title=\"'+post.title+'\" /></a></li>');
-                    });
-                    jQuery('#agca_advertising').show();
-
-                });
-        }
-    }
-});
-/*A J A X*/
 
 /*AGCA CHECKBOX RADIOBOX*/
 function agcaCheckBoxOnClick(obj){

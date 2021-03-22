@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cus
 Tags: admin, customize, hide, change admin, admin bar, login page, admin menu, colors
 Requires at least: 3.0
 Tested up to: 5.7
-Stable tag: 6.7.3
+Stable tag: 6.8
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
@@ -22,11 +22,11 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 = Recommended =
 > <strong>CUSMIN</strong><br>
 > Cusmin is the premium version of the Absolutely Glamorous Custom Admin with the advanced features for customization and branding. It's perfect for professionals, but can be used on personal sites as well.<br><br>
-> For more info about Cusmin, please go to [Cusmin](https://cusmin.com?ref=agca) site.<br><br>
+> For more info about Cusmin, please go to [Cusmin](https://cusmin.com?ref=wporg) site.<br><br>
 
 = General Settings =
-* Hide "Screen Options" menu
-* Hide "Help" menu
+* Hide **Screen Options** menu
+* Hide **Help** menu
 * Hide Color scheme on Profile page
 
 = Admin Bar Settings =
@@ -96,16 +96,16 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 = Advanced =
 * Add custom CSS
 * Add custom JavaScript
-* Export/import customization settings
+* Export/import customizations settings
 
 = Contact =
 If you are unable to login or you have any other problems, please check our [FAQ](http://wordpress.org/extend/plugins/ag-custom-admin/faq/) and [SUPPORT](http://wordpress.org/support/plugin/ag-custom-admin) page.
 
 == Installation ==
 
-1. Upload `ag-custom-admin` directory to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Navigate to plugin's settings page: 'Tools => AGCA'
+1. Upload **`ag-custom-admin`** directory to the **`/wp-content/plugins/`** directory
+2. Activate the plugin through the **Plugins** menu in WordPress
+3. Navigate to plugin's settings page: **Tools => AGCA**
 
 == Frequently Asked Questions ==
 
@@ -117,14 +117,16 @@ Please follow these steps:
 <br>* Try updating WordPress core and plugins
 <br>* If problem still persists, please contact the support
 
-= Plugin does not work after upgrading to new version. What should I do? =
+= The plugin does not work after upgrading. What should I do? =
 Make sure to have latest WordPress version installed. If nothing of these solutions help, please contact support.
 
 = I use older version of WordPress, can I still use this plugin? =
-Yes, just make sure to install older version of AGCA that works for you.
+It's highly recommended to update WordPress to the latest, since attackers target especially older versions of WP,
+but yes, you can still use AGCA, if the latest version doesn't work for you, you can install an older version of AGCA.
+You can check the **Development** tab on WordPress.org AGCA's page to see which AGCA version supports your version of WordPress.
 
-= Admin Menu buttons are misaligned =
-Please use 'Reset Settings' button on Admin Menu page to reset menu configuration to defaults. Make sure to use latest plugin version with latest patches.
+= Admin Menu buttons are not correctly set =
+Please use **Reset Settings** button on Admin Menu page to reset menu configuration to defaults. Make sure to use latest plugin version with latest patches.
 
 = Some options are not working =
 If you have the latest WordPress and plugin versions and you still experience some issues, please contact us and report the issue.
@@ -144,6 +146,11 @@ If you have the latest WordPress and plugin versions and you still experience so
 11. Login style example
 
 == Change Log ==
+
+= 6.8 =
+* Removed AGCA styling on the plugins page
+* Added option to use the default WP styles on AGCA settings page
+* Code cleanup
 
 = 6.7.3 =
 * Fixed issue with Meow gallery plugin menu item showing in AGCA menu editor
@@ -596,6 +603,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 6.8 =
+* AGCA cleanup. Using the default WordPress styles
 
 = 6.7.3 =
 * Fixed issue with Meow menu item showing in AGCA menu editor
