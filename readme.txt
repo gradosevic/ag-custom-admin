@@ -1,14 +1,14 @@
 === Absolutely Glamorous Custom Admin ===
 Contributors: cusmin
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&amount=10&item_name=Support+for+AGCA+Development
-Tags: admin, customize, hide, change admin, admin bar, login page, admin menu, colors
+Tags: admin, dashboard, customize, hide, admin bar, login page, admin menu, colors, branding, dashboard widgets
 Requires at least: 3.0
-Tested up to: 5.7
-Stable tag: 6.8
+Tested up to: 5.8
+Stable tag: 6.8.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
-All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar, add custom scripts and more.
+All-in-one plugin for WordPress dashboard customization. Change almost everything: admin menu, dashboard, login page, admin bar and much more.
 
 == Description ==
 With this plugin you can easily customize WordPress **admin panel**, **login page**, **admin menu**, **admin bar** etc. in tiny details.
@@ -20,9 +20,9 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 * **ADMIN PANEL OPTIONS**: There are dozens of other admin panel options used to improve WordPress UX on admin and login pages items like Dashboard widgets, Help and Screen options, WordPress logos, links, menus etc. See the full list down below.
 
 = Recommended =
-> <strong>CUSMIN</strong><br>
+> <strong>[CUSMIN](https://cusmin.com/?ref=wporg)</strong><br>
 > Cusmin is the premium version of the Absolutely Glamorous Custom Admin with the advanced features for customization and branding. It's perfect for professionals, but can be used on personal sites as well.<br><br>
-> For more info about Cusmin, please go to [Cusmin](https://cusmin.com?ref=wporg) site.<br><br>
+> For more info about Cusmin, please check how this pro plugin can help you completely [customize your WordPress dashboard](https://cusmin.com/blog/customize-wordpress-admin-dashboard-with-cusmin?ref=wporg).<br><br>
 
 = General Settings =
 * Hide **Screen Options** menu
@@ -98,8 +98,11 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 * Add custom JavaScript
 * Export/import customizations settings
 
+> <strong>[PRO FEATURES](https://cusmin.com/?ref=wporg-bottom)</strong><br>
+> If you are a more advanced user or agency please check our [pro WordPress customizing plugin](https://cusmin.com/blog/customize-wordpress-admin-dashboard-with-cusmin?ref=wporg-bottom).<br><br>
+
 = Contact =
-If you are unable to login or you have any other problems, please check our [FAQ](http://wordpress.org/extend/plugins/ag-custom-admin/faq/) and [SUPPORT](http://wordpress.org/support/plugin/ag-custom-admin) page.
+For any additiona help, please check our [FAQ](http://wordpress.org/extend/plugins/ag-custom-admin/faq/) and [SUPPORT](http://wordpress.org/support/plugin/ag-custom-admin) page.
 
 == Installation ==
 
@@ -146,6 +149,10 @@ If you have the latest WordPress and plugin versions and you still experience so
 11. Login style example
 
 == Change Log ==
+
+= 6.8.1 =
+* WordPress 5.8 ready
+* Fixed low security issue reported
 
 = 6.8 =
 * Removed AGCA styling on the plugins page

@@ -1292,5 +1292,5 @@ msgid "WAP"
 msgstr "WAP"
 
 #. Author URI of the plugin/theme
-msgid "https://cusmin.com"
-msgstr "https://cusmin.com"
+msgid "https://cusmin.com/"
+msgstr "https://cusmin.com/"

@@ -2,12 +2,12 @@
 /*
 Plugin Name: Absolutely Glamorous Custom Admin
 Plugin URI: https://cusmin.com/agca
-Description: All-in-one tool for admin panel customization. Change almost everything: admin menu, dashboard, login page, admin bar and much more.
+Description: All-in-one plugin for WordPress dashboard customization. Change almost everything: admin menu, dashboard, login page, admin bar and much more.
 Author: Cusmin
 Version: 6.8
 Text Domain: ag-custom-admin
 Domain Path: /languages
-Author URI: https://cusmin.com
+Author URI: https://cusmin.com/
 
     Copyright 2021. Cusmin (email : info@cusmin.com)
 
