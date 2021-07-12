@@ -22,6 +22,16 @@ agca-gray-secondary: #C5CECC;
     --agca-color-secondary: #C5CECC;
     --agca-color-green: #45cc45;
 }
+
+.tools_page_ag-custom-admin-plugin #agca-header {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tools_page_ag-custom-admin-plugin #agca-social {
+    align-self: flex-end;
+}
+
 .agca-clear {
     clear: both;
 }
@@ -30,6 +40,10 @@ agca-gray-secondary: #C5CECC;
     padding-left: 20px;
 }
 
+.tools_page_ag-custom-admin-plugin .wrap {
+    display: flex;
+    flex-direction: column;
+}
 
 /* WebKit and Opera browsers */
 @-webkit-keyframes cusmin-spinner {
@@ -75,7 +89,8 @@ h1#agca-title {
     color: #23395B;
     font-weight: bold;
     font-size: 30px;
-
+    flex: 1;
+    min-width: 80%;
 }
 h1#agca-title .title{
     float:left;
@@ -1087,4 +1102,16 @@ td.ag_admin_menu_parent:hover {
     background: transparent;
     padding-left: 3px;
     margin-top: -2px;
+}
+
+@media (max-width: 600px) {
+    .tools_page_ag-custom-admin-plugin #agca-header {
+        margin-top: 50px;
+    }
+    #agca_form input[type=text] {
+        width: 100%;
+    }
+    .ag_table_heading h3 {
+        margin-left: 0;
+    }
 }

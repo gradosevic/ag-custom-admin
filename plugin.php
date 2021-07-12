@@ -4,7 +4,7 @@ Plugin Name: Absolutely Glamorous Custom Admin
 Plugin URI: https://cusmin.com/agca
 Description: All-in-one plugin for WordPress dashboard customization. Change almost everything: admin menu, dashboard, login page, admin bar and much more.
 Author: Cusmin
-Version: 6.8
+Version: 6.8.1
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com/
@@ -28,7 +28,7 @@ Author URI: https://cusmin.com/
 $agca = new AGCA();
 
 class AGCA{
-    private $agca_version = "6.8";
+    private $agca_version = "6.8.1";
     private $colorizer="";
     private $agca_debug = false;
     private $admin_capabilities;
@@ -1892,10 +1892,12 @@ class AGCA{
 
         <?php //includes ?>
         <div class="wrap">
-            <h1 id="agca-title"><img src="<?php echo plugins_url( 'images/agca-logo.svg', __FILE__ ) ?>" /><span class="title">absolutely glamorous custom admin</span> <span class="version">(v<?php echo $this->agca_version; ?>)</span></h1>
-            <div id="agca-social" style="float:right; margin-top: -23px;">
-                <div class="fb-like" data-href="https://www.facebook.com/AG-Custom-Admin-892218404232342/timeline" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>
-                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&amount=10&item_name=Support+for+AGCA+Development" target="_blank" class="agca-donate-btn" title="Please help us ensure future updates for AGCA. <br/><br/>We can't make them without your support.">Donate Now <span class="heart">❤</span></a>
+            <div id="agca-header">
+                <h1 id="agca-title"><img src="<?php echo plugins_url( 'images/agca-logo.svg', __FILE__ ) ?>" /><span class="title">absolutely glamorous custom admin</span> <span class="version">(v<?php echo $this->agca_version; ?>)</span></h1>
+                <div id="agca-social">
+                    <div class="fb-like" data-href="https://www.facebook.com/AG-Custom-Admin-892218404232342/timeline" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>
+                    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&amount=10&item_name=Support+for+AGCA+Development" target="_blank" class="agca-donate-btn" title="Please help us ensure future updates for AGCA. <br/><br/>We can't make them without your support.">Donate Now <span class="heart">❤</span></a>
+                </div>
             </div>
             <div id="agca_error_placeholder"></div>
             <div id="agca_news">&nbsp;</div><br />

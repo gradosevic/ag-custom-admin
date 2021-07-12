@@ -102,7 +102,7 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 > If you are a more advanced user or agency please check our [pro WordPress customizing plugin](https://cusmin.com/blog/customize-wordpress-admin-dashboard-with-cusmin?ref=wporg-bottom).<br><br>
 
 = Contact =
-For any additiona help, please check our [FAQ](http://wordpress.org/extend/plugins/ag-custom-admin/faq/) and [SUPPORT](http://wordpress.org/support/plugin/ag-custom-admin) page.
+For any additional help, please check our [FAQ](http://wordpress.org/extend/plugins/ag-custom-admin/faq/) and [SUPPORT](http://wordpress.org/support/plugin/ag-custom-admin) page.
 
 == Installation ==
 
@@ -152,6 +152,7 @@ If you have the latest WordPress and plugin versions and you still experience so
 
 = 6.8.1 =
 * WordPress 5.8 ready
+* Fixing responsive issues
 * Fixed low security issue reported
 
 = 6.8 =
@@ -610,6 +611,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 6.8.1 =
+* WordPress 5.8 ready, responsive improvements and bug fixing
 
 = 6.8 =
 * AGCA cleanup. Using the default WordPress styles
