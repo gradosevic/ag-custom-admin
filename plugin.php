@@ -4,7 +4,7 @@ Plugin Name: Absolutely Glamorous Custom Admin
 Plugin URI: https://cusmin.com/agca
 Description: All-in-one plugin for WordPress dashboard customization. Change almost everything: admin menu, dashboard, login page, admin bar and much more.
 Author: Cusmin
-Version: 6.8.1
+Version: 6.9
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com/
@@ -28,7 +28,7 @@ Author URI: https://cusmin.com/
 $agca = new AGCA();
 
 class AGCA{
-    private $agca_version = "6.8.1";
+    private $agca_version = "6.9";
     private $colorizer="";
     private $agca_debug = false;
     private $admin_capabilities;
@@ -63,6 +63,7 @@ class AGCA{
         add_action( 'customize_controls_enqueue_scripts',  array(&$this,'agca_customizer_php') );
 
         add_action( 'admin_bar_menu', array(&$this,'wp_admin_bar_my_custom_account_menu'), 11 );
+        add_action( 'updated_option', array(&$this,'after_update_option'), 10, 3);
 
         /* wp_localize_script(
              'agca-script',//use agca enqueued script
@@ -72,6 +73,7 @@ class AGCA{
 
         /*Initialize properties*/
         $this->colorizer = $this->jsonMenuArray(get_option('ag_colorizer_json'),'colorizer');
+
     }
 
     function isAGCASettingsPage() {
@@ -111,6 +113,20 @@ class AGCA{
 
     function change_admin_color(){
         return 'default';
+    }
+
+    //Prevent non-admin users to update sensitive options
+    //Revert option value to previous
+    function after_update_option( $option, $old_value, $new_value ){
+        if(!current_user_can('administrator')) {
+            if($option === 'agca_dashboard_text_paragraph' ||
+                $option === 'agca_custom_css' ||
+                $option === 'agca_custom_js' ) {
+                remove_action( 'updated_option', array(&$this,'after_update_option'));
+                update_option($option, $old_value);
+                add_action( 'updated_option', array(&$this,'after_update_option'), 10, 3);
+            }
+        }
     }
 
     function agca_customizer_php(){
@@ -153,6 +169,10 @@ class AGCA{
     }
 
     function checkPOST(){
+    }
+
+    function printFieldSecurityProtected(){
+        ?><p style="color: red">(&nbsp;For security reasons, this field is available for editing only to WordPress <b>Administrators</b> group&nbsp;)</p><?php
     }
 
     function verifyPostRequest(){
@@ -229,9 +249,9 @@ class AGCA{
             $customTitle = get_option('agca_custom_title');
             $customTitle = str_replace('%BLOG%',$blog,$customTitle);
             $customTitle = str_replace('%PAGE%',$page,$customTitle);
-            return $customTitle;
+            return htmlentities($customTitle);
         }else{
-            return $admin_title;
+            return htmlentities($admin_title);
         }
     }
     function agca_get_includes() {
@@ -266,9 +286,7 @@ class AGCA{
         if(!((get_option('agca_role_allbutadmin')==true) and  (current_user_can($this->admin_capability())))){
             ?>
             <style type="text/css">
-                <?php
-                   echo get_option('agca_custom_css');
-                ?>
+                <?php echo get_option('agca_custom_css'); ?>
             </style>
             <script type="text/javascript">
                 try{
@@ -889,7 +907,7 @@ class AGCA{
         <?php } ?>
         <?php if(get_option('agca_header_logo_custom')!=""){ ?>
 
-            var img_url = '<?php echo addslashes(get_option('agca_header_logo_custom')); ?>';
+            var img_url = '<?php echo htmlentities(addslashes(get_option('agca_header_logo_custom'))); ?>';
 
             advanced_url = img_url;
             image = jQuery("<img id=\"admin-top-branding-logo\" style='max-width:98%;position:relative;'/>").attr("src",advanced_url);
@@ -900,7 +918,7 @@ class AGCA{
         <?php } ?>
         <?php if(get_option('agca_wp_logo_custom')!=""){ ?>
             jQuery("li#wp-admin-bar-wp-logo a.ab-item span.ab-icon")
-            .html("<img style=\"height:32px;margin-top:0\" src=\"<?php echo get_option('agca_wp_logo_custom'); ?>\" />")
+            .html("<img style=\"height:32px;margin-top:0\" src=\"<?php echo htmlentities(get_option('agca_wp_logo_custom')); ?>\" />")
             .css('background-image','none')
             .css('width','auto');
             jQuery("li#wp-admin-bar-wp-logo > a.ab-item")
@@ -915,7 +933,7 @@ class AGCA{
 
         <?php } ?>
         <?php if(get_option('agca_wp_logo_custom_link')!=""){ ?>
-            var href = "<?php echo get_option('agca_wp_logo_custom_link'); ?>";
+            var href = "<?php echo htmlentities(get_option('agca_wp_logo_custom_link')); ?>";
             href = href.replace("%BLOG%", "<?php echo get_bloginfo('wpurl'); ?>");
             if(href == "%SWITCH%"){
             href = "<?php echo get_bloginfo('wpurl'); ?>";
@@ -931,8 +949,8 @@ class AGCA{
             jQuery("#wphead #site-heading").css("display","none");
         <?php } ?>
         <?php if(get_option('agca_custom_site_heading')!=""){ ?>
-            jQuery("#wphead #site-heading").after('<h1><?php echo addslashes(get_option('agca_custom_site_heading')); ?></h1>');
-            jQuery("#wp-admin-bar-site-name a:first").html('<?php echo addslashes(get_option('agca_custom_site_heading')); ?>');
+            jQuery("#wphead #site-heading").after('<h1><?php echo htmlentities(addslashes(get_option('agca_custom_site_heading'))); ?></h1>');
+            jQuery("#wp-admin-bar-site-name a:first").html('<?php echo htmlentities(addslashes(get_option('agca_custom_site_heading'))); ?>');
 
         <?php } ?>
         <?php if(get_option('agca_header')==true && $this->context =='admin'){
@@ -947,7 +965,7 @@ class AGCA{
             <?php
             $agca_logout_text = ((get_option('agca_logout')=="")?__("Log Out", 'ag-custom-admin'):get_option('agca_logout'));
             ?>
-            jQuery("#wpbody-content").prepend('<a href="<?php echo wp_logout_url(); ?>" tabindex="10" style="float:right;margin-right:20px" class="ab-item agca_logout_button"><?php echo $agca_logout_text; ?></a>');
+            jQuery("#wpbody-content").prepend('<a href="<?php echo wp_logout_url(); ?>" tabindex="10" style="float:right;margin-right:20px" class="ab-item agca_logout_button"><?php echo htmlentities($agca_logout_text); ?></a>');
 
 
         <?php } ?>
@@ -958,7 +976,7 @@ class AGCA{
         }
         ?>
         <?php if(get_option('agca_logout')!=""){ ?>
-            jQuery("ul#wp-admin-bar-user-actions li#wp-admin-bar-logout a").text("<?php echo get_option('agca_logout'); ?>");
+            jQuery("ul#wp-admin-bar-user-actions li#wp-admin-bar-logout a").text("<?php echo htmlentities(get_option('agca_logout')); ?>");
         <?php } ?>
         <?php if(get_option('agca_remove_your_profile')==true){ ?>
             jQuery("ul#wp-admin-bar-user-actions li#wp-admin-bar-edit-profile").css("visibility","hidden");
@@ -989,7 +1007,7 @@ class AGCA{
             if ( 0 != $user_id ) {
                 /* Add the "My Account" menu */
                 $avatar = get_avatar( $user_id, 28 );
-                $howdy = sprintf( __(get_option('agca_howdy').', %1$s'), $current_user->display_name );
+                $howdy = htmlspecialchars(sprintf( __(get_option('agca_howdy').', %1$s'), $current_user->display_name ), ENT_QUOTES, 'UTF-8');
                 $class = empty( $avatar ) ? '' : 'with-avatar';
 
                 $wp_admin_bar->add_menu( array(
@@ -1047,7 +1065,7 @@ class AGCA{
             $capabilitySelector .="<option value=\"$k\" $selected >".ucwords(str_replace('_', ' ', $k))."</option>\n";
         }
 
-        $this->admin_capabilities  = "<select class=\"agca-selectbox\" id=\"agca_admin_capability\"  name=\"agca_admin_capability\" val=\"upload_files\">".$capabilitySelector."</select>";
+        $this->admin_capabilities  = "<select class=\"agca-selectbox\" id=\"agca_admin_capability\"  name=\"agca_admin_capability\" val=\"upload_files\" onchange='agca_show_affected_groups()'>".$capabilitySelector."</select>";
     }
 
     function admin_capability(){
@@ -1155,12 +1173,13 @@ class AGCA{
         $m = array();
         foreach($menu as $top){
             $name = $top[0];
-            $url = $top[2];
+            $url = htmlentities($top[2]);
             $cls = isset($top[5])?$top[5]:"";
             $remove = false;
             if($name == '') continue;
             $pc = null;
-            $name = $this->menu_item_cleartext($name);
+            $name = htmlentities($this->menu_item_cleartext($name));
+
 
             //apply previous submenu customizations
             if($customizationsSet && isset($previousCustomizations[$url])){
@@ -1173,9 +1192,9 @@ class AGCA{
                 $sitems = $submenu[$url];
                 foreach($sitems as $key=>$sub){
                     $nameSub = $sub[0];
-                    $urlSub = $sub[2];
+                    $urlSub = htmlentities($sub[2]);
                     $removeSub = false;
-                    $nameSub = $this->menu_item_cleartext($nameSub);
+                    $nameSub = htmlentities($this->menu_item_cleartext($nameSub));
                     $s[$key]=array(
                         'name'=>$nameSub,
                         'new'=>'',
@@ -1184,7 +1203,7 @@ class AGCA{
                     );
 
                     if(isset($pc['submenus'][$key])){
-                        $s[$key]['new'] = $pc['submenus'][$key]['new'];
+                        $s[$key]['new'] = htmlentities($pc['submenus'][$key]['new']);
                         $s[$key]['remove'] = $pc['submenus'][$key]['remove'];
 
                         if($s[$key]['new'] == null){
@@ -1211,7 +1230,7 @@ class AGCA{
                 $pc = $previousCustomizations[$url];
                 if(isset($pc)){
                     $m[$url]['remove'] = $pc['remove'];
-                    $m[$url]['new'] = $pc['new'];
+                    $m[$url]['new'] = htmlentities($pc['new']);
                 }
             }
         }
@@ -1354,6 +1373,7 @@ class AGCA{
     }
     function print_admin_css()
     {
+        global $wp_roles;
         $wpversion = $this->get_wp_version();
         $this->context = "admin";
         $currentScreen = get_current_screen();
@@ -1362,12 +1382,14 @@ class AGCA{
             var wpversion = "<?php echo $wpversion; ?>";
             var agca_debug = <?php echo ($this->agca_debug)?"true":"false"; ?>;
             var agca_version = "<?php echo $this->agca_version; ?>";
+            var agca_wp_groups = <?php echo json_encode($wp_roles->roles); ?>;
+            var agca_selected_capability = "<?php echo $this->admin_capability(); ?>";
             var errors = false;
             var isSettingsImport = false;
             var isCusminActive = <?php echo $this->isCusminActive()?'true':'false'; ?>;
             var agca_context = "admin";
             var roundedSidberSize = 0;
-            var agca_admin_menu = <?php echo json_encode($this->get_menu_customizations()) ?>;
+            var agca_admin_menu = <?php echo json_encode($this->get_menu_customizations()); ?>;
             var agca_string = {
                 file_imp_not_sel: '<?php _e('File for import is not selected!', 'ag-custom-admin'); ?>',
                 menu_general: '<?php _e('General', 'ag-custom-admin'); ?>',
@@ -1476,11 +1498,11 @@ class AGCA{
                     <?php } else{ ?>
                     <?php if(get_option('agca_admin_menu_brand')!=""){ ?>
                     additionalStyles = ' style="margin-bottom:-4px" ';
-                    jQuery("#adminmenu").before('<div '+additionalStyles+' id="sidebar_adminmenu_logo"><img width="160" src="<?php echo get_option('agca_admin_menu_brand'); ?>" /></div>');
+                    jQuery("#adminmenu").before('<div '+additionalStyles+' id="sidebar_adminmenu_logo"><img width="160" src="<?php echo htmlentities(get_option('agca_admin_menu_brand')); ?>" /></div>');
                     <?php } ?>
                     <?php if(get_option('agca_admin_menu_brand_link')!=""){ ?>
 
-                    var href = "<?php echo get_option('agca_admin_menu_brand_link'); ?>";
+                    var href = "<?php echo htmlentities(get_option('agca_admin_menu_brand_link')); ?>";
                     href = href.replace("%BLOG%", "<?php echo get_bloginfo('wpurl'); ?>");
 
                     jQuery("#sidebar_adminmenu_logo").attr('onclick','window.open(\"'+ href+ '\");');
@@ -1493,10 +1515,10 @@ class AGCA{
                     <?php } ?>
 
                     <?php if(get_option('agca_admin_menu_submenu_round')==true){ ?>
-                    jQuery("#adminmenu .wp-submenu").css("border-radius","<?php echo get_option('agca_admin_menu_submenu_round_size'); ?>px");
+                    jQuery("#adminmenu .wp-submenu").css("border-radius","<?php echo intval(htmlentities(get_option('agca_admin_menu_submenu_round_size'))); ?>px");
                     jQuery("#adminmenu .wp-menu-open .wp-submenu").css('border-radius','');
-                    <?php $roundedSidebarSize = get_option('agca_admin_menu_submenu_round_size'); ?>
-                    roundedSidberSize = <?php echo ($roundedSidebarSize == "")?"0":$roundedSidebarSize; ?>;
+                    <?php $roundedSidebarSize = htmlentities(get_option('agca_admin_menu_submenu_round_size')); ?>
+                    roundedSidberSize = <?php echo intval(($roundedSidebarSize == "") ? "0" : $roundedSidebarSize); ?>;
 
 
                     <?php } ?>
@@ -1537,13 +1559,13 @@ class AGCA{
                     <?php } ?>
 
                     <?php if(get_option('agca_footer_left')!=""){ ?>
-                    jQuery("#footer-left").html('<?php echo addslashes(get_option('agca_footer_left')); ?>');
+                    jQuery("#footer-left").html('<?php echo htmlentities(addslashes(get_option('agca_footer_left'))); ?>');
                     <?php } ?>
                     <?php if(get_option('agca_footer_left_hide')==true){ ?>
                     jQuery("#footer-left").css("display","none");
                     <?php } ?>
                     <?php if(get_option('agca_footer_right')!=""){ ?>
-                    jQuery("#footer-upgrade").html('<?php echo addslashes(get_option('agca_footer_right')); ?>');
+                    jQuery("#footer-upgrade").html('<?php echo htmlentities(addslashes(get_option('agca_footer_right'))); ?>');
                     <?php } ?>
                     <?php if(get_option('agca_footer_right_hide')==true){ ?>
                     jQuery("#footer-upgrade").css("display","none");
@@ -1559,7 +1581,7 @@ class AGCA{
                     }
                     <?php } ?>
                     <?php if(get_option('agca_dashboard_text')!=""){ ?>
-                    jQuery("#dashboard-widgets-wrap").parent().find("h1").html("<?php echo addslashes(get_option('agca_dashboard_text')); ?>");
+                    jQuery("#dashboard-widgets-wrap").parent().find("h1").html("<?php echo htmlentities(addslashes(get_option('agca_dashboard_text'))); ?>");
                     <?php } ?>
                     <?php if(get_option('agca_dashboard_text_paragraph')!=""){
                                                         require_once($this->filePath('wp-includes/formatting.php'));
@@ -1765,22 +1787,22 @@ class AGCA{
             jQuery(document).ready(function() {
                 try{
                     <?php if(get_option('agca_login_round_box')==true){ ?>
-                    jQuery("form#loginform").css("border-radius","<?php echo get_option('agca_login_round_box_size'); ?>px");
+                    jQuery("form#loginform").css("border-radius","<?php echo intval(htmlentities(get_option('agca_login_round_box_size'))); ?>px");
                         <?php if(!get_option('agca_login_round_box_skip_logo')){ ?>
-                        jQuery("#login h1 a").css("border-radius","<?php echo get_option('agca_login_round_box_size'); ?>px");
+                        jQuery("#login h1 a").css("border-radius","<?php echo intval(htmlentities(get_option('agca_login_round_box_size'))); ?>px");
                         jQuery("#login h1 a").css("margin-bottom",'10px');
                         jQuery("#login h1 a").css("padding-bottom",'0');
                         <?php } ?>
-                    jQuery("form#lostpasswordform").css("border-radius","<?php echo get_option('agca_login_round_box_size'); ?>px");
+                    jQuery("form#lostpasswordform").css("border-radius","<?php echo intval(htmlentities(get_option('agca_login_round_box_size'))); ?>px");
                     <?php } ?>
                     <?php if(get_option('agca_login_banner')==true){ ?>
                     jQuery("#backtoblog").css("display","none");
                     <?php } ?>
                     <?php if(get_option('agca_login_banner_text')==true){ ?>
-                    jQuery("#backtoblog a").html('<?php echo "← " . addslashes(get_option('agca_login_banner_text')); ?>');
+                    jQuery("#backtoblog a").html('<?php echo "← " . htmlentities(addslashes(get_option('agca_login_banner_text'))); ?>');
                     <?php } ?>
                     <?php if(get_option('agca_login_photo_url')==true && get_option('agca_login_photo_remove')!=true){ ?>
-                    advanced_url = "<?php echo get_option('agca_login_photo_url'); ?>";
+                    advanced_url = "<?php echo htmlentities(get_option('agca_login_photo_url')); ?>";
                     var $url = "url(" + advanced_url + ")";
                     jQuery("#login h1 a").css("background",$url+' no-repeat');
                     jQuery("#login h1 a").hide();
@@ -1806,7 +1828,7 @@ class AGCA{
                     });
                     <?php } ?>
                     <?php if(get_option('agca_login_photo_href')==true){ ?>
-                    var $href = "<?php echo get_option('agca_login_photo_href'); ?>";
+                    var $href = "<?php echo htmlentities(get_option('agca_login_photo_href')); ?>";
                     $href = $href.replace("%BLOG%", "<?php echo get_bloginfo('wpurl'); ?>");
 
                     jQuery("#login h1 a").attr("href",$href);
@@ -1831,7 +1853,7 @@ class AGCA{
                     <?php if(get_option('agca_login_register_href')!=""){ ?>
                     jQuery('p#nav a').each(function(){
                         if(jQuery(this).attr('href').indexOf('register') != -1){
-                            jQuery(this).attr('href','<?php echo get_option('agca_login_register_href'); ?>');
+                            jQuery(this).attr('href','<?php echo htmlentities(get_option('agca_login_register_href')); ?>');
                         }
                     });
 
@@ -1999,6 +2021,14 @@ class AGCA{
                                 <p style="margin-left:5px;"><i><?php _e('Find more information about', 'ag-custom-admin'); ?> <a href="https://wordpress.org/support/article/roles-and-capabilities/" target="_blank"><?php _e('WordPress capabilities', 'ag-custom-admin'); ?></a></i></p>
                             </td>
                             <td>
+                            </td>
+                        </tr>
+                        <tr valign="center">
+                            <td>
+                                <p>These groups are AGCA administrators:</p>
+                            </td>
+                            <td>
+                                <div id="agca-affected-roles">Loading...</div>
                             </td>
                         </tr>
                         <tr>
@@ -2325,7 +2355,10 @@ class AGCA{
                         ?>
                         <tr valign="center">
                             <th scope="row">
-                                <label title="<?php _e('Adds custom text (or HTML) between heading and widgets area on Dashboard page', 'ag-custom-admin'); ?>" for="agca_dashboard_text_paragraph"><?php _e('Add custom Dashboard content<br> <em>(text or HTML content)', 'ag-custom-admin'); ?></em></label>
+                                <label title="<?php _e('Adds custom text (or HTML) between heading and widgets area on Dashboard page', 'ag-custom-admin'); ?>" for="agca_dashboard_text_paragraph">
+                                    <?php _e('Add custom Dashboard content<br> <em>(&nbsp;text or HTML content&nbsp;)', 'ag-custom-admin'); ?></em>
+                                    <?php $this->printFieldSecurityProtected(); ?>
+                                </label>
                             </th>
                             <td class="agca_editor">
                                 <?php $this->getTextEditor('agca_dashboard_text_paragraph'); ?>
@@ -2719,6 +2752,7 @@ class AGCA{
                         <tr valign="center">
                             <th scope="row">
                                 <label title="<?php _e('Add custom CSS script to override existing styles', 'ag-custom-admin'); ?>" for="agca_script_css"><?php _e('Custom CSS script', 'ag-custom-admin'); ?></em></label>
+                                <?php $this->printFieldSecurityProtected(); ?>
                             </th>
                             <td>
                                 <textarea style="width:100%;height:200px" title="<?php _e('Add custom CSS script to override existing styles', 'ag-custom-admin'); ?>" rows="5" id="agca_custom_css"  name="agca_custom_css" cols="40"><?php echo htmlspecialchars(get_option('agca_custom_css')); ?></textarea>
@@ -2727,6 +2761,7 @@ class AGCA{
                         <tr valign="center">
                             <th scope="row">
                                 <label title="<?php _e('Add additional custom JavaScript', 'ag-custom-admin'); ?>" for="agca_custom_js"><?php _e('Custom JavaScript', 'ag-custom-admin'); ?></label>
+                                <?php $this->printFieldSecurityProtected(); ?>
                             </th>
                             <td>
                                 <textarea style="width:100%;height:200px" title="<?php _e('Add additional custom JavaScript', 'ag-custom-admin'); ?>" rows="5" name="agca_custom_js"  id="agca_custom_js" cols="40"><?php echo htmlspecialchars(get_option('agca_custom_js')); ?></textarea>
@@ -2853,7 +2888,7 @@ class AGCA{
                 <label title="<?php echo $data['title'] ?>" for="<?php echo $data['name'] ?>"><?php echo $data['label'] ?></label>
             </th>
             <td>
-                <input id="<?php echo $data['name'] ?>" title="<?php echo $data['title'] ?>" type="text" size="47" name="<?php echo $data['name'] ?>" value="<?php echo get_option($data['name']); ?>" />
+                <input id="<?php echo $data['name'] ?>" title="<?php echo $data['title'] ?>" type="text" size="47" name="<?php echo $data['name'] ?>" value="<?php echo htmlentities(get_option($data['name'])); ?>" />
                 <a title="<?php _e('Clear', 'ag-custom-admin'); ?>" class="agca_button clear" onClick="jQuery('#<?php echo $data['name'] ?>').val('');"><span class="dashicons clear dashicons-no-alt"></span></a><?php echo $suffix ?>
                 <?php echo $strHint ?>
             </td>

@@ -335,9 +335,9 @@ jQuery(document).ready(function(){
             //dont use first button for adding new buttons
             if(element > 0){
                 if(jQuery(this).html() == editingButtonNow){
-                    jQuery(this).attr('title',url);
+                    jQuery(this).attr('title',agca_encode_html_string(url));
                     jQuery(this).attr('target',target);
-                    jQuery(this).html(name);
+                    jQuery(this).html(agca_encode_html_string(name));
                 }
             }
             element++;
@@ -440,7 +440,7 @@ jQuery(document).ready(function(){
         jQuery('#ag_add_adminmenu_name').val("");
         jQuery('#ag_add_adminmenu_url').val("");
         jQuery('#ag_add_adminmenu_target').val("_self");
-        jQuery('#ag_add_adminmenu').append('<tr><td colspan="2"><button target="'+target+'" title="'+url+'" type="button" class="button-secondary">'+name+'</button>&nbsp;<a style="cursor:pointer;" title="Edit" class="button_edit"><span class="dashicons dashicons-edit"></span></a>&nbsp;<a style="cursor:pointer" title="'+agca_string.delete+'" class="button_remove"><span class="dashicons dashicons-no"></span></a></td><td></td></tr>');
+        jQuery('#ag_add_adminmenu').append('<tr><td colspan="2"><button target="'+target+'" title="'+agca_encode_html_string(url)+'" type="button" class="button-secondary">'+agca_encode_html_string(name)+'</button>&nbsp;<a style="cursor:pointer;" title="Edit" class="button_edit"><span class="dashicons dashicons-edit"></span></a>&nbsp;<a style="cursor:pointer" title="'+agca_string.delete+'" class="button_remove"><span class="dashicons dashicons-no"></span></a></td><td></td></tr>');
         reloadRemoveButtonEvents();
     });
 
@@ -597,6 +597,12 @@ function agca_escapeHTMLChars(str){
 function agca_escapeChars(str){
     return str.replace(/[\/\\\"\']/g, "\\$&");
     //return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
+function agca_encode_html_string(rawStr) {
+    return rawStr.replace(/[\u00A0-\u9999<>\&]/g, function(i) {
+        return '&#'+i.charCodeAt(0)+';';
+    });
 }
 
 /*C O L O R I Z E R*/
@@ -914,3 +920,29 @@ jQuery(document).ready(function() {
     }
 
 })(jQuery);
+
+window.agca_show_affected_groups = function() {
+    var selCapability = document.getElementById('agca_admin_capability').value;
+    if(!selCapability) {
+        selCapability = window.agca_selected_capability;
+    }
+    var groups = [];
+    var error = '';
+    for(var slug in window.agca_wp_groups) {
+        var g = window.agca_wp_groups[slug];
+        if(g['capabilities'][selCapability]) {
+            groups.push(g.name);
+            if(slug === 'subscriber' || slug === 'contributor' || slug === 'author') {
+                error = '<p style="color: red; filter: none;max-width: 600px;">You have selected a capability that include low level user groups. Please remember that these user groups can make additional changes to AGCA.</p>';
+            }
+        }
+    }
+    document.getElementById('agca-affected-roles').innerHTML = '<b>' + groups.join(', ') + '</b>' + error;
+}
+
+window.agcaGroupsLoaded = window.setInterval(function(){
+    if(document.getElementById('agca_admin_capability')) {
+        clearInterval(window.agcaGroupsLoaded);
+        window.agca_show_affected_groups();
+    }
+}, 100);

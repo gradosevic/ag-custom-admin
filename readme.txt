@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cus
 Tags: admin, dashboard, customize, hide, admin bar, login page, admin menu, colors, branding, dashboard widgets
 Requires at least: 3.0
 Tested up to: 5.8
-Stable tag: 6.8.1
+Stable tag: 6.9
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
@@ -21,8 +21,8 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 
 = Recommended =
 > <strong>[CUSMIN](https://cusmin.com/?ref=wporg)</strong><br>
-> Cusmin is the premium version of the Absolutely Glamorous Custom Admin with the advanced features for customization and branding. It's perfect for professionals, but can be used on personal sites as well.<br><br>
-> For more info about Cusmin, please check how this pro plugin can help you completely [customize your WordPress dashboard](https://cusmin.com/blog/customize-wordpress-admin-dashboard-with-cusmin?ref=wporg).<br><br>
+> Cusmin is the premium version of the Absolutely Glamorous Custom Admin with the advanced features for customization and branding. It's perfect for professionals, but can be also used on personal sites as well.<br><br>
+> Please check how this pro plugin can help you to completely [customize your WordPress dashboard](https://cusmin.com/blog/customize-wordpress-admin-dashboard-with-cusmin?ref=wporg).<br><br>
 
 = General Settings =
 * Hide **Screen Options** menu
@@ -99,7 +99,7 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 * Export/import customizations settings
 
 > <strong>[PRO FEATURES](https://cusmin.com/?ref=wporg-bottom)</strong><br>
-> If you are a more advanced user or agency please check our [pro WordPress customizing plugin](https://cusmin.com/blog/customize-wordpress-admin-dashboard-with-cusmin?ref=wporg-bottom).<br><br>
+> If you need even more advanced customization options, please check our [PRO WordPress customizing plugin](https://cusmin.com/blog/customize-wordpress-admin-dashboard-with-cusmin?ref=wporg-bottom).<br><br>
 
 = Contact =
 For any additional help, please check our [FAQ](http://wordpress.org/extend/plugins/ag-custom-admin/faq/) and [SUPPORT](http://wordpress.org/support/plugin/ag-custom-admin) page.
@@ -114,14 +114,14 @@ For any additional help, please check our [FAQ](http://wordpress.org/extend/plug
 
 = I see errors on my page. What can I do? =
 Please follow these steps:
-<br>* Open browser's console and try to find JavaScript errors.
-<br>* Check if you can locate the plugin that throws the error, if so, try disabling that plugin and contacting their support.
+<br>* Open the browser's console and try to find JavaScript errors.
+<br>* Check if you can locate the plugin that throws errors, if so, try disabling that plugin and contacting their support.
 <br>* Try disabling plugins one-by-one to see when this problem occurs. If you can't access login page, please temporary disable JavaScript in your browser and refresh the page.
 <br>* Try updating WordPress core and plugins
 <br>* If problem still persists, please contact the support
 
 = The plugin does not work after upgrading. What should I do? =
-Make sure to have latest WordPress version installed. If nothing of these solutions help, please contact support.
+Make sure you have the latest WordPress version installed. If nothing of these solutions help, please contact support.
 
 = I use older version of WordPress, can I still use this plugin? =
 It's highly recommended to update WordPress to the latest, since attackers target especially older versions of WP,
@@ -136,7 +136,7 @@ If you have the latest WordPress and plugin versions and you still experience so
 
 == Screenshots ==
 
-1. Absolutely Glamorous Custom Admin provides many options for admin panel customization, and it's quite easy to use it.
+1. Absolutely Glamorous Custom Admin provides many options for admin panel customization, and it's quite easy to use.
 2. Login page can be customized and styled with custom branding logo or image, rounded borders, background colors.
 3. Colorizer options for branding with custom colors.
 4. Custom Admin menu items.
@@ -149,6 +149,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 11. Login style example
 
 == Change Log ==
+
+= 6.9 =
+* Important security updates
 
 = 6.8.1 =
 * WordPress 5.8 ready
@@ -611,6 +614,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 6.9 =
+* Important security updates
 
 = 6.8.1 =
 * WordPress 5.8 ready, responsive improvements and bug fixing
