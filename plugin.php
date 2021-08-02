@@ -4,7 +4,7 @@ Plugin Name: Absolutely Glamorous Custom Admin
 Plugin URI: https://cusmin.com/agca
 Description: All-in-one plugin for WordPress dashboard customization. Change almost everything: admin menu, dashboard, login page, admin bar and much more.
 Author: Cusmin
-Version: 6.9
+Version: 6.9.1
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com/
@@ -28,7 +28,7 @@ Author URI: https://cusmin.com/
 $agca = new AGCA();
 
 class AGCA{
-    private $agca_version = "6.9";
+    private $agca_version = "6.9.1";
     private $colorizer="";
     private $agca_debug = false;
     private $admin_capabilities;
@@ -97,7 +97,7 @@ class AGCA{
                 $links[] = '<a href="tools.php?page=ag-custom-admin/plugin.php#general-settings">' . __('Settings', 'ag-custom-admin') . '</a>';
             }
             $links[] = '<a target="_blank" href="https://wordpress.org/support/plugin/ag-custom-admin">' . __('Support', 'ag-custom-admin') . '</a>';
-            $links[] = '<a target="_blank" href="https://cusmin.com/upgrade-to-cusmin?ref=plugins">' . __('Upgrade', 'ag-custom-admin') . '</a>';
+            $links[] = '<a target="_blank" href="https://cusmin.com/upgrade-to-cusmin/?ref=agca-plugins-page">' . __('Upgrade', 'ag-custom-admin') . '</a>';
             $links[] = '<a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&amount=10&item_name=Support+for+AGCA+Development">' . __('Donate', 'ag-custom-admin') . '</a>';
         }
         return $links;
@@ -1918,7 +1918,7 @@ class AGCA{
                 <h1 id="agca-title"><img src="<?php echo plugins_url( 'images/agca-logo.svg', __FILE__ ) ?>" /><span class="title">absolutely glamorous custom admin</span> <span class="version">(v<?php echo $this->agca_version; ?>)</span></h1>
                 <div id="agca-social">
                     <div class="fb-like" data-href="https://www.facebook.com/AG-Custom-Admin-892218404232342/timeline" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>
-                    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&amount=10&item_name=Support+for+AGCA+Development" target="_blank" class="agca-donate-btn" title="Please help us ensure future updates for AGCA. <br/><br/>We can't make them without your support.">Donate Now <span class="heart">❤</span></a>
+                    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&amount=10&item_name=Support+for+AGCA+Development" target="_blank" class="agca-donate-btn" title="Please help us ensure future updates for AGCA. <br/><br/>We can't make them without your support.">Donate <span class="heart">❤</span></a>
                 </div>
             </div>
             <div id="agca_error_placeholder"></div>
@@ -1947,13 +1947,13 @@ class AGCA{
                     <li class="normal" ><a href="#admin-menu-settings" class="dashicons-before dashicons-editor-justify" title="<?php _e('Settings for main admin menu', 'ag-custom-admin')?>"><?php _e('Admin Menu', 'ag-custom-admin')?></a></li>
                     <li class="normal"><a href="#ag-colorizer-settings" class="dashicons-before dashicons-admin-appearance agca-invert-icon" title="<?php _e('Colorizer settings', 'ag-custom-admin')?>"><?php _e('Colorizer', 'ag-custom-admin')?></a></li>
                     <li class="normal"><a href="#ag-advanced" class="dashicons-before dashicons-welcome-learn-more" title="<?php _e('My custom scripts', 'ag-custom-admin')?>"><?php _e('Advanced', 'ag-custom-admin')?></a></li>
-                    <li class="normal upgrade"><a href="https://cusmin.com/upgrade-to-cusmin?ref=menu" target="_blank" title="<?php _e('Upgrade to Cusmin </br>to unlock all premium features', 'ag-custom-admin')?>"><img src="<?php echo plugins_url( 'images/cusmin-logo.svg', __FILE__ ) ?>" /><?php _e('Upgrade', 'ag-custom-admin')?></a></li>
+                    <li class="normal upgrade"><a href="https://cusmin.com/upgrade-to-cusmin/?ref=agca-main-menu" target="_blank" title="<?php _e('Upgrade to Cusmin </br>to unlock all premium features', 'ag-custom-admin')?>"><img src="<?php echo plugins_url( 'images/cusmin-logo.svg', __FILE__ ) ?>" /><?php _e('Upgrade', 'ag-custom-admin')?></a></li>
 
                     <li style="background:none;border:none;padding:0;"><a id="agca_donate_button" target="_blank" style="margin-left:8px" title="<?php _e('Enjoying AGCA? Help us further develop it and support it!', 'ag-custom-admin')?> " href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&amount=10&item_name=Support+for+AGCA+Development"><img alt="<?php _e('Donate', 'ag-custom-admin')?>" src="<?php echo $this->pluginUrl(); ?>images/donate-btn.png" /></a>
                     </li>
                     <li style="background:none;border:none;padding:0;padding-left:10px;margin-top:-7px"></li>
                 </ul>
-                <a id="agca_advertising" href="https://cusmin.com/upgrade-to-cusmin?ref=agca-ad" target="_blank">
+                <a id="agca_advertising" href="https://cusmin.com/upgrade-to-cusmin/?ref=agca-ad" target="_blank">
                     <img class="cusmin-logo" src="<?php echo plugins_url( 'images/cusmin-logo.svg', __FILE__ ) ?>" alt="Cusmin" />
                     <ul>
                         <li>Multiple sets of users</li>
@@ -2033,7 +2033,7 @@ class AGCA{
                         </tr>
                         <tr>
                             <td>
-                                <p>Need to apply multiple configurations to multiple user groups/roles? <a href="https://cusmin.com/docs/general/configuration-management?ref=agca" target="_blank">Upgrade to Cusmin</a></p>
+                                <p>Need to apply multiple configurations to multiple user groups/roles? <a href="https://cusmin.com/upgrade-to-cusmin/?ref=agca-configs#group-customizations" target="_blank">Upgrade to Cusmin</a></p>
                             </td>
                         </tr>
                         <?php
@@ -2057,7 +2057,7 @@ class AGCA{
                                         <li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&amount=10&item_name=Support+for+AGCA+Development" target="_blank"><span class="dashicons dashicons-heart"></span>&nbsp;&nbsp;<?php _e('Donate $10', 'ag-custom-admin'); ?></a> - <?php _e('to give your thanks for our hard work', 'ag-custom-admin'); ?> </li>
                                     </ul>
                                     <ul class="upgrade">
-                                        <li><a href="https://cusmin.com/upgrade-to-cusmin?ref=page" target="_blank">
+                                        <li><a href="https://cusmin.com/upgrade-to-cusmin/?ref=agca-general" target="_blank">
                                                 <img class="cusmin-spinner" src="<?php echo plugins_url( 'images/cusmin-logo.svg', __FILE__ ) ?>" />
                                                 &nbsp;&nbsp;<span><?php _e('Upgrade to Cusmin', 'ag-custom-admin'); ?></span></a><span><?php _e('&nbsp;- unlock the ultimate branding experience', 'ag-custom-admin'); ?></span></li>
                                     </ul>
@@ -2283,7 +2283,7 @@ class AGCA{
 
                         <tr>
                             <td>
-                                <p>Try the Cusmin admin bar editor instead: <a href="https://cusmin.com/docs/admin-bar/admin-bar-editor?ref=admin-bar" target="_blank"><br>Upgrade to Cusmin</a></p>
+                                <p>Try the Cusmin admin bar editor instead: <a href="https://cusmin.com/upgrade-to-cusmin/?ref=agca-admin-bar#group-admin-bar" target="_blank"><br>Upgrade to Cusmin</a></p>
                             </td>
                         </tr>
                     </table>
@@ -2427,7 +2427,7 @@ class AGCA{
                         ?>
                         <tr>
                             <td>
-                                <p>Create custom Dashboard Widgets<br><a href="https://cusmin.com/docs/dashboard/my-dashboard-widgets?ref=agca" target="_blank">Upgrade to Cusmin</a></p>
+                                <p>Create custom Dashboard Widgets<br><a href="https://cusmin.com/upgrade-to-cusmin/?ref=agca-widgets#group-dashboard-page" target="_blank">Upgrade to Cusmin</a></p>
                             </td>
                         </tr>
                     </table>
@@ -2535,7 +2535,7 @@ class AGCA{
                         ?>
                         <tr>
                             <td>
-                                <p>Add a custom login background image and apply more login page options: <a href="https://cusmin.com/docs/login-page?ref=login-page" target="_blank">Upgrade to Cusmin</a></p>
+                                <p>Add a custom login background image and apply more login page options: <a href="https://cusmin.com/upgrade-to-cusmin/?ref=agca-login#group-login-page" target="_blank">Upgrade to Cusmin</a></p>
                             </td>
                         </tr>
                     </table>
@@ -2589,7 +2589,7 @@ class AGCA{
                         ?>
                         <tr>
                             <td>
-                                <p>Try the Cusmin admin menu editor instead: <a href="https://cusmin.com/docs/admin-menu/admin-menu-editor?ref=admin-menu-editor" target="_blank"><br>Upgrade to Cusmin</a></p>
+                                <p>Try the Cusmin admin menu editor instead: <a href="https://cusmin.com/upgrade-to-cusmin/?ref=agca-menu#group-admin-menu" target="_blank"><br>Upgrade to Cusmin</a></p>
                             </td>
                         </tr>
 
@@ -2736,7 +2736,7 @@ class AGCA{
                         ?>
 
                     </table>
-                    <p>Need more Colorizer options? <a href="https://cusmin.com/docs/colorizer?ref=agca" target="_blank">Upgrade to Cusmin</a></p>
+                    <p>Need more Colorizer options? <a href="https://cusmin.com/upgrade-to-cusmin/?ref=agca-colorizer#group-custom-colors" target="_blank">Upgrade to Cusmin</a></p>
                     <input type="hidden" size="47" id="ag_colorizer_json" name="ag_colorizer_json" value="<?php echo htmlspecialchars(get_option('ag_colorizer_json')); ?>" />
                     <div id="picker"></div>
                 </div>
