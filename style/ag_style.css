@@ -593,6 +593,11 @@ td.ag_admin_menu_parent:hover {
     display: inline-block;
 }
 
+#agca_form input[type=text].disabled {
+    opacity: 0.5;
+    pointer-events:none;
+}
+
 #agca_form input[type=text]:hover{
     transform: scale(1.01);
 }
@@ -631,6 +636,10 @@ td.ag_admin_menu_parent:hover {
     font-weight: bold;
     padding: 5px;
     transition: all .3s;
+}
+#agca_form textarea.disabled{
+    opacity: 0.5;
+    pointer-events:none;
 }
 #agca_form textarea.one-line{
     height: 35px;
@@ -715,6 +724,10 @@ td.ag_admin_menu_parent:hover {
     width: 600px;
 }
 
+.agca_editor.disabled {
+    opacity: 0.5;
+    pointer-events:none;
+}
 
 .agca_logout_button {
     background: none repeat scroll 0 0 #dddddd;

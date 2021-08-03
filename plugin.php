@@ -4,7 +4,7 @@ Plugin Name: Absolutely Glamorous Custom Admin
 Plugin URI: https://cusmin.com/agca
 Description: All-in-one plugin for WordPress dashboard customization. Change almost everything: admin menu, dashboard, login page, admin bar and much more.
 Author: Cusmin
-Version: 6.9.1
+Version: 6.9.2
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com/
@@ -28,8 +28,8 @@ Author URI: https://cusmin.com/
 $agca = new AGCA();
 
 class AGCA{
-    private $agca_version = "6.9.1";
-    private $colorizer="";
+    private $agca_version = "6.9.2";
+    private $colorizer = "";
     private $agca_debug = false;
     private $admin_capabilities;
     private $context = "";
@@ -118,15 +118,27 @@ class AGCA{
     //Prevent non-admin users to update sensitive options
     //Revert option value to previous
     function after_update_option( $option, $old_value, $new_value ){
-        if(!current_user_can('administrator')) {
-            if($option === 'agca_dashboard_text_paragraph' ||
-                $option === 'agca_custom_css' ||
-                $option === 'agca_custom_js' ) {
-                remove_action( 'updated_option', array(&$this,'after_update_option'));
-                update_option($option, $old_value);
-                add_action( 'updated_option', array(&$this,'after_update_option'), 10, 3);
-            }
+        if(!current_user_can('administrator') &&
+            in_array($option, [
+                'agca_dashboard_text_paragraph',
+                'agca_dashboard_text',
+                'agca_custom_css',
+                'agca_footer_left',
+                'agca_footer_right',
+                'agca_custom_title',
+                'agca_custom_site_heading',
+                'agca_howdy',
+                'agca_logout',
+                'agca_custom_js',
+            ])) {
+            remove_action( 'updated_option', array(&$this,'after_update_option'));
+            update_option($option, $old_value);
+            add_action( 'updated_option', array(&$this,'after_update_option'), 10, 3);
         }
+    }
+
+    function is_wp_admin(){
+        return current_user_can('administrator');
     }
 
     function agca_customizer_php(){
@@ -171,8 +183,11 @@ class AGCA{
     function checkPOST(){
     }
 
-    function printFieldSecurityProtected(){
-        ?><p style="color: red">(&nbsp;For security reasons, this field is available for editing only to WordPress <b>Administrators</b> group&nbsp;)</p><?php
+    function getFieldSecurityProtected(){
+        if($this->is_wp_admin()){
+            return '';
+        }
+        return '<p style="color: red">(&nbsp;For security reasons, this field is available for editing only to WordPress <b>Administrators</b> group&nbsp;)</p>';
     }
 
     function verifyPostRequest(){
@@ -249,9 +264,9 @@ class AGCA{
             $customTitle = get_option('agca_custom_title');
             $customTitle = str_replace('%BLOG%',$blog,$customTitle);
             $customTitle = str_replace('%PAGE%',$page,$customTitle);
-            return htmlentities($customTitle);
+            return $customTitle;
         }else{
-            return htmlentities($admin_title);
+            return $admin_title;
         }
     }
     function agca_get_includes() {
@@ -949,8 +964,8 @@ class AGCA{
             jQuery("#wphead #site-heading").css("display","none");
         <?php } ?>
         <?php if(get_option('agca_custom_site_heading')!=""){ ?>
-            jQuery("#wphead #site-heading").after('<h1><?php echo htmlentities(addslashes(get_option('agca_custom_site_heading'))); ?></h1>');
-            jQuery("#wp-admin-bar-site-name a:first").html('<?php echo htmlentities(addslashes(get_option('agca_custom_site_heading'))); ?>');
+            jQuery("#wphead #site-heading").after(('<h1><?php echo (addslashes(get_option('agca_custom_site_heading'))); ?></h1>'));
+            jQuery("#wp-admin-bar-site-name a:first").html(('<?php echo (addslashes(get_option('agca_custom_site_heading'))); ?>'));
 
         <?php } ?>
         <?php if(get_option('agca_header')==true && $this->context =='admin'){
@@ -965,18 +980,12 @@ class AGCA{
             <?php
             $agca_logout_text = ((get_option('agca_logout')=="")?__("Log Out", 'ag-custom-admin'):get_option('agca_logout'));
             ?>
-            jQuery("#wpbody-content").prepend('<a href="<?php echo wp_logout_url(); ?>" tabindex="10" style="float:right;margin-right:20px" class="ab-item agca_logout_button"><?php echo htmlentities($agca_logout_text); ?></a>');
+            jQuery("#wpbody-content").prepend('<a href="<?php echo wp_logout_url(); ?>" tabindex="10" style="float:right;margin-right:20px" class="ab-item agca_logout_button"><?php echo ($agca_logout_text); ?></a>');
 
 
         <?php } ?>
-        <?php
-        if(get_option('agca_custom_title')!=""){
-            //add_filter('admin_title', '$this->change_title', 10, 2);
-
-        }
-        ?>
         <?php if(get_option('agca_logout')!=""){ ?>
-            jQuery("ul#wp-admin-bar-user-actions li#wp-admin-bar-logout a").text("<?php echo htmlentities(get_option('agca_logout')); ?>");
+            jQuery("ul#wp-admin-bar-user-actions li#wp-admin-bar-logout a").html("<?php echo htmlentities(get_option('agca_logout')); ?>");
         <?php } ?>
         <?php if(get_option('agca_remove_your_profile')==true){ ?>
             jQuery("ul#wp-admin-bar-user-actions li#wp-admin-bar-edit-profile").css("visibility","hidden");
@@ -1007,7 +1016,7 @@ class AGCA{
             if ( 0 != $user_id ) {
                 /* Add the "My Account" menu */
                 $avatar = get_avatar( $user_id, 28 );
-                $howdy = htmlspecialchars(sprintf( __(get_option('agca_howdy').', %1$s'), $current_user->display_name ), ENT_QUOTES, 'UTF-8');
+                $howdy = sprintf( __(get_option('agca_howdy').', %1$s'), $current_user->display_name );
                 $class = empty( $avatar ) ? '' : 'with-avatar';
 
                 $wp_admin_bar->add_menu( array(
@@ -1559,13 +1568,13 @@ class AGCA{
                     <?php } ?>
 
                     <?php if(get_option('agca_footer_left')!=""){ ?>
-                    jQuery("#footer-left").html('<?php echo htmlentities(addslashes(get_option('agca_footer_left'))); ?>');
+                    jQuery("#footer-left").html('<?php echo (addslashes(get_option('agca_footer_left'))); ?>');
                     <?php } ?>
                     <?php if(get_option('agca_footer_left_hide')==true){ ?>
                     jQuery("#footer-left").css("display","none");
                     <?php } ?>
                     <?php if(get_option('agca_footer_right')!=""){ ?>
-                    jQuery("#footer-upgrade").html('<?php echo htmlentities(addslashes(get_option('agca_footer_right'))); ?>');
+                    jQuery("#footer-upgrade").html('<?php echo (addslashes(get_option('agca_footer_right'))); ?>');
                     <?php } ?>
                     <?php if(get_option('agca_footer_right_hide')==true){ ?>
                     jQuery("#footer-upgrade").css("display","none");
@@ -1581,7 +1590,7 @@ class AGCA{
                     }
                     <?php } ?>
                     <?php if(get_option('agca_dashboard_text')!=""){ ?>
-                    jQuery("#dashboard-widgets-wrap").parent().find("h1").html("<?php echo htmlentities(addslashes(get_option('agca_dashboard_text'))); ?>");
+                    jQuery("#dashboard-widgets-wrap").parent().find("h1").html("<?php echo (addslashes(get_option('agca_dashboard_text'))); ?>");
                     <?php } ?>
                     <?php if(get_option('agca_dashboard_text_paragraph')!=""){
                                                         require_once($this->filePath('wp-includes/formatting.php'));
@@ -2130,7 +2139,8 @@ class AGCA{
                         $this->print_input(array(
                             'title'=>__('Customize WordPress title using custom title template.</br></br>Examples', 'ag-custom-admin').':</br><strong>%BLOG% -- %PAGE%</strong>  '.'('.__('will be', 'ag-custom-admin').')'.' <i>My Blog -- Add New Post</i></br><strong>%BLOG%</strong> ('.__('will be', 'ag-custom-admin').') <i>My Blog</i></br><strong>My Company > %BLOG% > %PAGE%</strong> ('.__('will be', 'ag-custom-admin').') <i>My Company > My Blog > Tools</i>',
                             'name'=>'agca_custom_title',
-                            'label'=>__('Page title template', 'ag-custom-admin'),
+                            'disabled' => !$this->is_wp_admin(),
+                            'label'=>__('Page title template', 'ag-custom-admin') . $this->getFieldSecurityProtected(),
                             'hint' =>__('Please use', 'ag-custom-admin').' <strong>%BLOG%</strong> '.__('and', 'ag-custom-admin'). ' <strong>%PAGE%</strong> '.__('in your title template.', 'ag-custom-admin')
                         ));
 
@@ -2242,7 +2252,8 @@ class AGCA{
                         $this->print_input(array(
                             'title'=>__('Adds custom text in admin top bar.', 'ag-custom-admin'),
                             'name'=>'agca_custom_site_heading',
-                            'label'=>__('Custom blog heading', 'ag-custom-admin'),
+                            'disabled' => !$this->is_wp_admin(),
+                            'label'=>__('Custom blog heading', 'ag-custom-admin')  . $this->getFieldSecurityProtected(),
                             'hint'=>__('<strong>Tip: </strong>You can use HTML tags like', 'ag-custom-admin')." &lt;h1&gt; ".__('or', 'ag-custom-admin')." &lt;a&gt;"
                         ));
 
@@ -2258,13 +2269,16 @@ class AGCA{
 
                         $this->print_input(array(
                             'name'=>'agca_howdy',
-                            'label'=>__('Change Howdy text', 'ag-custom-admin'),
+                            'title' => '',
+                            'disabled' => !$this->is_wp_admin(),
+                            'label'=>__('Change Howdy text', 'ag-custom-admin') . $this->getFieldSecurityProtected(),
                         ));
 
                         $this->print_input(array(
                             'title'=>__('Put \'Exit\', for example', 'ag-custom-admin'),
                             'name'=>'agca_logout',
-                            'label'=>__('Change Log out text', 'ag-custom-admin'),
+                            'disabled' => !$this->is_wp_admin(),
+                            'label'=>__('Change Log out text', 'ag-custom-admin') . $this->getFieldSecurityProtected(),
                         ));
 
                         $this->print_checkbox(array(
@@ -2316,8 +2330,9 @@ class AGCA{
                         $this->print_textarea(array(
                             'title'=>__('Replaces text \'Thank you for creating with WordPress\' with custom text', 'ag-custom-admin'),
                             'name'=>'agca_footer_left',
+                            'disabled' => !$this->is_wp_admin(),
                             'class' => 'one-line',
-                            'label'=>__('Change footer text', 'ag-custom-admin')
+                            'label'=>__('Change footer text', 'ag-custom-admin') . $this->getFieldSecurityProtected()
                         ));
 
                         $this->print_checkbox(array(
@@ -2330,8 +2345,9 @@ class AGCA{
                         $this->print_textarea(array(
                             'title'=>__('Replaces text \'Get Version ...\' with custom text', 'ag-custom-admin'),
                             'name'=>'agca_footer_right',
+                            'disabled' => !$this->is_wp_admin(),
                             'class' => 'one-line',
-                            'label'=>__('Change version text', 'ag-custom-admin')
+                            'label'=>__('Change version text', 'ag-custom-admin') . $this->getFieldSecurityProtected()
                         ));
 
                         ?>
@@ -2349,7 +2365,8 @@ class AGCA{
                         $this->print_input(array(
                             'title'=>__('Main heading (\'Dashboard\') on Dashboard page', 'ag-custom-admin'),
                             'name'=>'agca_dashboard_text',
-                            'label'=>__('Change Dashboard heading text', 'ag-custom-admin'),
+                            'disabled' => !$this->is_wp_admin(),
+                            'label'=>__('Change Dashboard heading text', 'ag-custom-admin') . $this->getFieldSecurityProtected(),
                         ));
 
                         ?>
@@ -2357,10 +2374,10 @@ class AGCA{
                             <th scope="row">
                                 <label title="<?php _e('Adds custom text (or HTML) between heading and widgets area on Dashboard page', 'ag-custom-admin'); ?>" for="agca_dashboard_text_paragraph">
                                     <?php _e('Add custom Dashboard content<br> <em>(&nbsp;text or HTML content&nbsp;)', 'ag-custom-admin'); ?></em>
-                                    <?php $this->printFieldSecurityProtected(); ?>
+                                    <?php echo $this->getFieldSecurityProtected(); ?>
                                 </label>
                             </th>
-                            <td class="agca_editor">
+                            <td class="agca_editor<?php echo !$this->is_wp_admin() ? ' disabled' : ''; ?>">
                                 <?php $this->getTextEditor('agca_dashboard_text_paragraph'); ?>
                             </td>
                         </tr>
@@ -2523,7 +2540,7 @@ class AGCA{
                             'title'=>__('Change register link on login page to point to your custom registration page.', 'ag-custom-admin'),
                             'name'=>'agca_login_register_href',
                             'label'=>__('Change register link', 'ag-custom-admin'),
-                            'hint'=>__('Link to new registration page', 'ag-custom-admin')
+                            'hint'=>__('Link to a new registration page', 'ag-custom-admin')
                         ));
 
                         $this->print_checkbox(array(
@@ -2752,19 +2769,35 @@ class AGCA{
                         <tr valign="center">
                             <th scope="row">
                                 <label title="<?php _e('Add custom CSS script to override existing styles', 'ag-custom-admin'); ?>" for="agca_script_css"><?php _e('Custom CSS script', 'ag-custom-admin'); ?></em></label>
-                                <?php $this->printFieldSecurityProtected(); ?>
+                                <?php echo $this->getFieldSecurityProtected(); ?>
                             </th>
                             <td>
-                                <textarea style="width:100%;height:200px" title="<?php _e('Add custom CSS script to override existing styles', 'ag-custom-admin'); ?>" rows="5" id="agca_custom_css"  name="agca_custom_css" cols="40"><?php echo htmlspecialchars(get_option('agca_custom_css')); ?></textarea>
+                                <textarea
+                                        class="<?php echo !$this->is_wp_admin() ? 'disabled' : ''; ?>"
+                                        style="width:100%;height:200px"
+                                        title="<?php _e('Add custom CSS script to override existing styles', 'ag-custom-admin'); ?>"
+                                        rows="5"
+                                        <?php echo !$this->is_wp_admin() ? 'disabled="disabled"' : ''; ?>
+                                        id="agca_custom_css"
+                                        name="agca_custom_css"
+                                        cols="40"><?php echo htmlspecialchars(get_option('agca_custom_css')); ?></textarea>
                             </td>
                         </tr>
                         <tr valign="center">
                             <th scope="row">
                                 <label title="<?php _e('Add additional custom JavaScript', 'ag-custom-admin'); ?>" for="agca_custom_js"><?php _e('Custom JavaScript', 'ag-custom-admin'); ?></label>
-                                <?php $this->printFieldSecurityProtected(); ?>
+                                <?php echo $this->getFieldSecurityProtected(); ?>
                             </th>
                             <td>
-                                <textarea style="width:100%;height:200px" title="<?php _e('Add additional custom JavaScript', 'ag-custom-admin'); ?>" rows="5" name="agca_custom_js"  id="agca_custom_js" cols="40"><?php echo htmlspecialchars(get_option('agca_custom_js')); ?></textarea>
+                                <textarea
+                                        class="<?php echo !$this->is_wp_admin() ? 'disabled' : ''; ?>"
+                                        style="width:100%;height:200px"
+                                        title="<?php _e('Add additional custom JavaScript', 'ag-custom-admin'); ?>"
+                                        rows="5"
+                                        <?php echo !$this->is_wp_admin() ? 'disabled="disabled"' : ''; ?>
+                                        name="agca_custom_js"
+                                        id="agca_custom_js"
+                                        cols="40"><?php echo htmlspecialchars(get_option('agca_custom_js')); ?></textarea>
                             </td>
                         </tr>
 
@@ -2874,6 +2907,9 @@ class AGCA{
         if(!isset($data['title'])){
             $data['title'] = $data['label'];
         }
+        if(!isset($data['disabled'])){
+            $data['disabled'] = false;
+        }
         if(isset($data['suffix'])){
             $suffix = $data['suffix'];
         }
@@ -2888,8 +2924,11 @@ class AGCA{
                 <label title="<?php echo $data['title'] ?>" for="<?php echo $data['name'] ?>"><?php echo $data['label'] ?></label>
             </th>
             <td>
-                <input id="<?php echo $data['name'] ?>" title="<?php echo $data['title'] ?>" type="text" size="47" name="<?php echo $data['name'] ?>" value="<?php echo htmlentities(get_option($data['name'])); ?>" />
-                <a title="<?php _e('Clear', 'ag-custom-admin'); ?>" class="agca_button clear" onClick="jQuery('#<?php echo $data['name'] ?>').val('');"><span class="dashicons clear dashicons-no-alt"></span></a><?php echo $suffix ?>
+                <input id="<?php echo $data['name'] ?>" title="<?php echo $data['title'] ?>" type="text" size="47" class="<?php echo $data['disabled'] ? 'disabled' : ''; ?>" name="<?php echo $data['name'] ?>" value="<?php echo htmlentities(get_option($data['name'])); ?>" <?php echo $data['disabled'] ? 'disabled="disabled"':''; ?> />
+                <?php if(!$data['disabled']) { ?>
+                <a title="<?php _e('Clear', 'ag-custom-admin'); ?>" class="agca_button clear" onClick="jQuery('#<?php echo $data['name'] ?>').val('');"><span class="dashicons clear dashicons-no-alt"></span></a>
+                <?php } ?>
+                <?php echo $suffix ?>
                 <?php echo $strHint ?>
             </td>
         </tr>
@@ -2907,13 +2946,19 @@ class AGCA{
         if(isset($data['class'])){
             $strClass = $data['class'];
         }
+        if(!isset($data['disabled'])){
+            $data['disabled'] = false;
+        }
+        if($data['disabled']){
+            $strClass .= ' disabled';
+        }
         ?>
         <tr valign="center">
             <th scope="row">
                 <label title="<?php echo $data['title'] ?>" for="<?php echo $data['name'] ?>"><?php echo $data['label'] ?></label>
             </th>
             <td>
-                <textarea <?php echo !empty($strClass)?'class="'.$strClass.'"':''; ?> title="<?php echo $data['title'] ?>" rows="5" name="<?php echo $data['name'] ?>" cols="40"><?php echo htmlspecialchars(get_option($data['name'])); ?></textarea>
+                <textarea <?php echo !empty($strClass)?'class="'.$strClass.'"':''; ?> title="<?php echo $data['title'] ?>" rows="5" name="<?php echo $data['name'] ?>" cols="40" <?php echo $data['disabled'] ? 'disabled="disabled"':''; ?> ><?php echo htmlspecialchars(get_option($data['name'])); ?></textarea>
                 <?php echo $strHint ?>
             </td>
         </tr>

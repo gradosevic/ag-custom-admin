@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cus
 Tags: admin, dashboard, customize, hide, admin bar, login page, admin menu, colors, branding, dashboard widgets
 Requires at least: 3.0
 Tested up to: 5.8
-Stable tag: 6.9.1
+Stable tag: 6.9.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
@@ -152,6 +152,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 14. Custom login page example
 
 == Change Log ==
+
+= 6.9.2 =
+* Fixed HTML escaping on multiple fields in AGCA, added non-admin restrictions instead
 
 = 6.9.1 =
 * Minor updates in text, links and Readme
@@ -620,6 +623,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 6.9.2 =
+* Fixed HTML escaping on multiple fields in AGCA, added non-admin restrictions instead
 
 = 6.9.1 =
 * Minor updates in text, links and Readme
