@@ -1007,7 +1007,7 @@ class AGCA{
     }
 
     function wp_admin_bar_my_custom_account_menu( $wp_admin_bar ) {
-        if(get_option('agca_howdy')!=""){
+        if(get_option('agca_howdy')!="" && !$this->isCusminActive()){
             $user_id = get_current_user_id();
             $current_user = wp_get_current_user();
             $profile_url = get_edit_profile_url( $user_id );
@@ -1367,8 +1367,26 @@ class AGCA{
         update_option('ag_edit_adminmenu_json','');//remove previous admin menu configuration
         update_option('ag_edit_adminmenu_json_new',json_encode($customizations));
     }
+
+    //Checks for Cusmin active status on back-end and front-end
     function isCusminActive(){
-        return $this->isPluginActive('cusmin/cusmin.php');
+        //return $this->isPluginActive('cusmin/cusmin.php');
+        try {
+            if(!is_admin()) {
+                //if cusmin option don't exist in DB, it's not active
+                if(empty(get_option('cusmin'))) {
+                    return false;
+                }else { //if cusmin options exist, then include script to check if cusmin is active or not
+                    include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+                }
+            }
+            if(!function_exists('is_plugin_active')) {
+                return false;
+            }
+            return is_plugin_active('cusmin/cusmin.php');
+        }catch (\Exception $e){
+            return false;
+        }
     }
     function isPluginActive($plugin){
         if(!is_admin()){
