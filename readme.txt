@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cus
 Tags: admin, dashboard, customize, hide, admin bar, login page, admin menu, colors, branding, dashboard widgets
 Requires at least: 3.0
 Tested up to: 5.8
-Stable tag: 6.9.2
+Stable tag: 6.9.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
@@ -22,7 +22,7 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 = Recommended =
 > <strong>[CUSMIN](https://cusmin.com/upgrade-to-cusmin/?ref=wporg-recommended)</strong><br>
 > Cusmin is the premium version of the Absolutely Glamorous Custom Admin with the advanced features for customization and branding. It's perfect for professionals, but can be also used on personal sites as well.<br><br>
-> Please check how this pro plugin can help you to completely [customize your WordPress dashboard](https://cusmin.com/blog/customize-wordpress-admin-dashboard-with-cusmin-plugin/?ref=wporg-recommended).<br><br>
+> Please check how this pro plugin can help you to completely [customize your WordPress dashboard](https://cusmin.com/blog/customize-wordpress-dashboard/?ref=wporg-recommended).<br><br>
 
 = General Settings =
 * Hide **Screen Options** menu
@@ -99,7 +99,7 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 * Export/import customizations settings
 
 > <strong>[PRO FEATURES](https://cusmin.com/upgrade-to-cusmin/?ref=wporg-pro)</strong><br>
-> If you need even more advanced customization options, please check our [PRO WordPress customizing plugin](https://cusmin.com/blog/customize-wordpress-admin-dashboard-with-cusmin-plugin/?ref=wporg-pro).<br><br>
+> If you need even more advanced customization options, please check our [PRO WordPress customizing plugin](https://cusmin.com/blog/customize-wordpress-dashboard/?ref=wporg-pro).<br><br>
 
 = Contact =
 For any additional help, please check our [FAQ](http://wordpress.org/extend/plugins/ag-custom-admin/faq/) and [SUPPORT](http://wordpress.org/support/plugin/ag-custom-admin) page.
@@ -128,11 +128,17 @@ It's highly recommended to update WordPress to the latest, since attackers targe
 but yes, you can still use AGCA, if the latest version doesn't work for you, you can install an older version of AGCA.
 You can check the **Development** tab on WordPress.org AGCA's page to see which AGCA version supports your version of WordPress.
 
+= I don't see customizations on login page =
+jQuery is probably not loaded on the login page, or you have some JavaScript error on this page. Please open the browser's console and see what are the errors.
+
+= Customizations are not applying =
+If you're an administrator, please make sure that 'Exclude AGCA admin' is not checked on AGCA > General tab. Please also check that you don't have any JavaScript errors in the browser's console.
+
 = Admin Menu buttons are not correctly set =
 Please use **Reset Settings** button on Admin Menu page to reset menu configuration to defaults. Make sure to use latest plugin version with latest patches.
 
 = Some options are not working =
-If you have the latest WordPress and plugin versions and you still experience some issues, please contact us and report the issue.
+If you have the latest WordPress and plugin versions, and you still experience some issues, please contact us and report the issue.
 
 == Screenshots ==
 
@@ -152,6 +158,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 14. Custom login page example
 
 == Change Log ==
+
+= 6.9.3 =
+* Fixed blank login page, when jQuery is not defined
 
 = 6.9.2 =
 * Fixed HTML escaping on multiple fields in AGCA, added non-admin restrictions instead
@@ -623,6 +632,9 @@ If you have the latest WordPress and plugin versions and you still experience so
 * Initial version
 
 == Upgrade Notice ==
+
+= 6.9.3 =
+* Fixed blank login page, when jQuery is not defined
 
 = 6.9.2 =
 * Fixed HTML escaping on multiple fields in AGCA, added non-admin restrictions instead

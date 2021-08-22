@@ -4,7 +4,7 @@ Plugin Name: Absolutely Glamorous Custom Admin
 Plugin URI: https://cusmin.com/agca
 Description: All-in-one plugin for WordPress dashboard customization. Change almost everything: admin menu, dashboard, login page, admin bar and much more.
 Author: Cusmin
-Version: 6.9.2
+Version: 6.9.3
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com/
@@ -28,7 +28,7 @@ Author URI: https://cusmin.com/
 $agca = new AGCA();
 
 class AGCA{
-    private $agca_version = "6.9.2";
+    private $agca_version = "6.9.3";
     private $colorizer = "";
     private $agca_debug = false;
     private $admin_capabilities;
@@ -283,8 +283,7 @@ class AGCA{
             <link rel="stylesheet" type="text/css" href="<?php echo $this->pluginUrl(); ?>style/ag_style.css?ver=<?php echo $this->agca_version; ?>" />
         <?php } ?>
         <script type="text/javascript" src="<?php echo $this->pluginUrl(); ?>script/ag_script.js?ver=<?php echo $this->agca_version; ?>"></script>
-        <link rel="stylesheet" type="text/css" href="<?php echo $this->pluginUrl(); ?>require/dynamic.php?type=css&context=<?php echo $this->context; ?>&ver=<?php echo $this->agca_version; ?>" />
-        <script type="text/javascript" src="<?php echo $this->pluginUrl(); ?>require/dynamic.php?type=js&context=<?php echo $this->context; ?>&ver=<?php echo $this->agca_version; ?>"></script>
+
 
         <?php
         if($this->context == "login"){
@@ -1791,8 +1790,10 @@ class AGCA{
 
         <script type="text/javascript">
 
-
             /* <![CDATA[ */
+            window.onerror = function(msg, url, line) {
+                document.getElementsByTagName('html')[0].style.visibility = "visible";
+            };
             jQuery(document).ready(function() {
                 try{
                     <?php if(get_option('agca_login_round_box')==true){ ?>
