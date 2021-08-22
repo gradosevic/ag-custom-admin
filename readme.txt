@@ -20,7 +20,7 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 * **ADMIN PANEL OPTIONS**: There are dozens of other admin panel options used to improve WordPress UX on admin and login pages items like Dashboard widgets, Help and Screen options, WordPress logos, links, menus etc. See the full list down below.
 
 = Recommended =
-> <strong>[CUSMIN](https://cusmin.com/?ref=wporg-recommended)</strong><br>
+> <strong>[CUSMIN](https://cusmin.com/upgrade-to-cusmin/?ref=wporg-recommended)</strong><br>
 > Cusmin is the premium version of the Absolutely Glamorous Custom Admin with the advanced features for customization and branding. It's perfect for professionals, but can be also used on personal sites as well.<br><br>
 > Please check how this pro plugin can help you to completely [customize your WordPress dashboard](https://cusmin.com/blog/customize-wordpress-admin-dashboard-with-cusmin-plugin/?ref=wporg-recommended).<br><br>
 
@@ -98,7 +98,7 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 * Add custom JavaScript
 * Export/import customizations settings
 
-> <strong>[PRO FEATURES](https://cusmin.com/?ref=wporg-pro)</strong><br>
+> <strong>[PRO FEATURES](https://cusmin.com/upgrade-to-cusmin/?ref=wporg-pro)</strong><br>
 > If you need even more advanced customization options, please check our [PRO WordPress customizing plugin](https://cusmin.com/blog/customize-wordpress-admin-dashboard-with-cusmin-plugin/?ref=wporg-pro).<br><br>
 
 = Contact =
