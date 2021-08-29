@@ -163,6 +163,8 @@ If you have the latest WordPress and plugin versions, and you still experience s
 
 = 6.9.4 =
 * Fixed: "Cannot hide Woocommerce Analytics button in the admin menu" issue
+* Small text improvements
+* Fixed an issue with Cusmin compatibility
 
 = 6.9.3 =
 * Fixed blank login page, when jQuery is not defined
