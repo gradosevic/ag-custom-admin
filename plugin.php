@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: Absolutely Glamorous Custom Admin
+Plugin Name: Custom Dashboard & Login Page - AGCA
 Plugin URI: https://cusmin.com/agca
-Description: All-in-one plugin for WordPress dashboard customization. Change almost everything: admin menu, dashboard, login page, admin bar and much more.
+Description: CHANGE: admin menu, login page, admin bar, dashboard widgets, custom colors, custom CSS & JS, logo & images
 Author: Cusmin
 Version: 6.9.4
 Text Domain: ag-custom-admin

@@ -1,7 +1,7 @@
-=== Absolutely Glamorous Custom Admin ===
+=== Custom Dashboard & Login Page - AGCA ===
 Contributors: cusmin
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&amount=10&item_name=Support+for+AGCA+Development
-Tags: customize dashboard, customize admin bar, customize admin menu, customize login page, hide widgets, admin menu, dashboard, admin menu, admin bar, login page, widgets, customize admin
+Tags: customize dashboard, hide admin bar, customize admin menu, customize login page, hide widgets, admin menu, dashboard, admin menu editor, admin bar, login page, widgets, customize admin
 Requires at least: 3.0
 Tested up to: 5.8
 Stable tag: 6.9.4
@@ -163,6 +163,14 @@ If you have the latest WordPress and plugin versions, and you still experience s
 * Fixed: "Cannot hide Woocommerce Analytics button in the admin menu" issue
 * Small text improvements
 * Fixed an issue with Cusmin compatibility
+
+= 6.9.3 =
+* Fixed blank login page, when jQuery is not defined
+
+= 6.9.2 =
+* Fixed HTML escaping on multiple fields in AGCA, added non-admin restrictions instead
+
+[SEE ALL](https://plugins.svn.wordpress.org/ag-custom-admin/trunk/changelog.txt)
 
 == Upgrade Notice ==
 
