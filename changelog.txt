@@ -1,0 +1,478 @@
+== Change Log ==
+
+= 6.9.4 =
+* Fixed: "Cannot hide Woocommerce Analytics button in the admin menu" issue
+* Small text improvements
+* Fixed an issue with Cusmin compatibility
+
+= 6.9.3 =
+* Fixed blank login page, when jQuery is not defined
+
+= 6.9.2 =
+* Fixed HTML escaping on multiple fields in AGCA, added non-admin restrictions instead
+
+= 6.9.1 =
+* Minor updates in text, links and Readme
+
+= 6.9 =
+* Important security updates
+
+= 6.8.1 =
+* WordPress 5.8 ready
+* Fixing responsive issues
+* Fixed low security issue reported
+
+= 6.8 =
+* Removed AGCA styling on the plugins page
+* Added option to use the default WP styles on AGCA settings page
+* Code cleanup
+
+= 6.7.3 =
+* Fixed issue with Meow gallery plugin menu item showing in AGCA menu editor
+* Using clean menu names in AGCA menu editor for plugin authors who use custom admin menu styles
+
+= 6.7.2 =
+* Fixed AGCA styling on plugins page
+
+= 6.7.1 =
+* Removed support for AGCA themes
+* Added option to remove **Site Health** dashboard widget
+* Fixed issue not excluding AGCA admin when hiding admin bar on site pages
+* Styled AGCA on plugins page
+
+= 6.7 =
+* WP 5.7 compatibility
+* New AGCA brand
+* Improved admin UX
+
+= 6.6.3 =
+* WP 5.6.1 compatibility
+* Round options improvements
+* Added option to skip rounding of the login page logo image
+
+= 6.6.2 =
+* WP 5.5.1 compatibility
+
+= 6.6.1 =
+* Updating text labels
+
+= 6.6 =
+* Fix for the loopback check by Site Health
+
+= 6.5.5 =
+* Improved security
+* Small updates
+* Updated dynamic.php script
+
+= 6.5.4 =
+* Compatibility w/ 5.3.2
+
+= 6.5.3 =
+* Compatibility w/ 5.2.3
+
+= 6.5.2 =
+* Compatibility w/ 5.1.1
+
+= 6.5.1 =
+* Compatibility w/ 5.1
+
+= 6.5 =
+* French translation
+
+= 6.4.1 =
+* Fixed fatal error
+
+= 6.4 =
+* Fixed custom Howdy issue
+
+= 6.3 =
+* Fixed custom Howdy for Netherland's WP
+
+= 6.2 =
+* Fixed 500 error in Multisite
+
+= 6.1 =
+* Fixed Log Out button issue
+
+= 6.0.1 =
+* Bug fixes.
+
+= 6.0 =
+* AGCA Re-branding
+* Added support for shortcodes in custom dashboard content
+
+= 5.7.4 =
+* Updated plugin links to secure links
+
+= 5.7.3 =
+* Fix for ABSPATH value
+* Added option to hide profile color scheme
+
+= 5.7.1 =
+* Added General Options tests
+
+= 5.7 =
+* Added Save button on top
+* Resolved blank page issue on first time install
+* Few other small improvements
+* Ready for WP 4.7
+* Resolved issue: QuotaExceededError due to LocalStorage when Private Browsing in Safari
+* Added acceptance test suite
+
+= 5.6.5 =
+* Resolved Colorizer background color issue in WP 4.6
+* Removed AGCA script from admin bar front end when user is not logged in
+* Removed WP version from AGCA front end script
+* Login page compatibility with WP Cerber plugin
+
+= 5.6.4 =
+* Added option to remove Customize button from admin bar on front end
+* Re-organized admin hooks
+* Changed icons for removing Profile and Customize buttons from "plus" to "eye" icon
+
+= 5.6.3 =
+* Compatibility with WordPress 4.6
+* Resolved styling issue for AGCA admin menu button, when default menu is hidden
+* Improved styling of admin bar logo
+* A couple of visual improvements on input fields and text
+* Removed dashboard empty box placeholders
+
+= 5.6.2 =
+* Updated readme.txt
+
+= 5.6.1 =
+* Added branding images for AGCA
+* Protocol agnostic jQuery script url on login page
+* Updated upgrade options
+
+= 5.6 =
+* Internationalization, ready for translation
+* Added option for removing Profile menu item from user's menu
+* Added patch for network admin dashboard notices
+* Code refactoring
+* Resolved save issues in multi-site environment (POST validation failing)
+* Added patch for WPS Hide Login compatibility in multi-site environment
+* Added max width for custom admin header image
+* Removed "sub-menu" text from sub menu items in admin menu editor
+
+= 5.5 =
+* Resolved JavaScript error on AGCA page in WP 4.5 version
+* Added compatibility support with Cusmin plugin
+* Added compatibility support with WPS Hide Login plugin
+* Changed plugin versioning
+
+= 1.5.4.3 =
+* Patched security issues.
+
+= 1.5.4.2 =
+* Fixed new post blank page issue
+
+= 1.5.4 =
+* Patched security issues
+* Added support for custom CSS on public pages
+* Fixed appearance issus for custom admin bar icon and log out button on mobile devices and smaller screens
+* Fixed missing link issue with Back to blog link when custom name is used
+* Added AGCA social buttons
+* Fixed broken links in admin bar and plugins page on multisite network site
+* Removed php short tags that are not supported in older PHP versions
+* Updated license to GPLv3
+
+= 1.5.2 =
+* Small UX improvements on options
+
+= 1.5.1 =
+* Added support for older PHP versions, starting from 5.2
+
+= 1.5 =
+* Improved UX with new icons and styles
+* Fixed admin menu issues when menu is updated outside of AGCA
+* Code reorganizing
+* Using dashboard icons instead of images
+* Updated option names
+
+= 1.4.9 =
+* Issues fixed
+
+= 1.4.8.2 =
+* Added check for non existing 'pagenow' GLOBAL variable
+* Using default WordPress theme when AGCA theme is activated
+* Fixed unknown font theme issue
+* Option to remove AGCA themes from admin bar
+
+= 1.4.8.1 =
+* Small bug fix
+
+= 1.4.8 =
+* Style improvements
+* Tab navigation remembers previously used tab
+
+= 1.4.7 =
+* Removed AG Custom Admin menu top item
+* Better error handling
+
+= 1.4.6 =
+* Removed obsolete Colorizer's border options
+* Removed obsolete code
+* Changed some options labels/descriptions
+* Handling user's errors caused by mistake in Custom JS
+* Removed first and second menu item separator options, replaced with remove all separators option
+
+= 1.4.5 =
+* Fixed issues
+
+= 1.4.4 =
+* Admin themes, caching support
+
+= 1.4.3 =
+* Fixes admin bar compatibility issue with BuddyPress on public pages
+* Dashboard -> Updates submenu item can be hidden now
+* Added address bar option for debugging
+
+= 1.4.2 =
+* Internal links changes, support for the new support site domain
+
+= 1.4.1 =
+* Support up to WordPress 4.1
+* Improved branding
+* Better error handling
+
+= 1.4 =
+* Fixed issue with Colorizer. Updated plugin colors.
+
+= 1.3.9 =
+* Fixed issue on Dashboard widgets page: Disabled third-party widget cannot be re-enabled
+
+= 1.3.8 =
+* Central alignment for smaller login images, and for different form widths
+* Option to remove "WordPress News" dashboard widget
+* Better "Error Caught" message with more useful information
+
+= 1.3.7 =
+* Fixed issues with custom dashboard content
+
+= 1.3.6 =
+* Fixed issues with special characters in admin menu editor
+
+= 1.3.5 =
+* Prepared for WordPress 3.9
+* Fixed style for custom Howdy name
+
+= 1.3.4 =
+* Fixed add_filter undefined function error
+* Better exception handling
+
+= 1.3.3 =
+* Fixed compatibility issues with MailPoet plugin
+
+= 1.3.2 =
+* Bug fixes
+
+= 1.3.1 =
+* First production version with AGCA Themes
+
+= 1.3 =
+* Introducing AG Custom Admin Themes
+
+= 1.2.8 =
+* Fixed PHP errors in DEBUG mode
+
+= 1.2.7.9 =
+* Fixed remove admin submenu arrow option in WordPress 3.8
+
+= 1.2.7.8 =
+* Fixed admin menu bug
+
+= 1.2.7.7 =
+* Updated options labels
+* Better checkbox and radio box styles
+* Some additional style improvements
+* Updated option for auto folding admin menu on mobile devices
+* Fixed AGCA error popup on reset password page
+
+= 1.2.7.6 =
+* Better style for close button
+* Fixed bugs when adding new admin menu buttons
+
+= 1.2.7.5 =
+* Better style for close button
+* Removed deprecated jQuery live function
+* Including jQuery migrate plugin on Advanced tab
+
+= 1.2.7.4 =
+* Removing submenu box on mouseover, if all submenu items are hidden (Fixed empty box issue)
+* Added WYSIWYG editor for Dashboard page
+
+= 1.2.7.3 =
+* Fixed single quote character escaping on several settings
+* Added option for removing AGCA JS warning message
+* Fixed "Illegal string offset" server error
+
+= 1.2.7.2 =
+* Escaping characters (like single quote) in footer text
+* Fixed AGCA alert message issue
+* Prepared for 3.6. WordPress release
+* Other bug fixes.
+
+= 1.2.7.1 =
+* Removed AGCA script on site pages automatically, if user is not logged in
+* Custom WordPress admin title. Using custom title templates
+* Added option for removing blog title from top bar
+* Fixed misaligned menu when using custom content types plugins
+* Fixed bug "Save button does not work" caused by unescaped characters in footer text and custom button names
+* Updated AGCA buttons styles
+
+= 1.2.7 =
+* WordPress 3.5 compatible
+* Added login page background color
+* Resolving jQuery script
+* Added feedback buttons (positive/negative)
+* Better user's experience (updated form buttons and textbooks)
+* Fixed problem with Howdy renaming
+
+= 1.2.6.5 =
+* using capabilities instead of user levels
+* define who is admin with choosing capability (Advanced tab)
+* added option to hide admin bar on front end only
+* added option to remove all AGCA customizations on front end
+* added option to remove register button on login page
+* added option to change hyperlink on register button on login page
+* added option to remove "Lost Password" link on login page
+* added support for collapse button on customized admin menu
+* option to show/hide collapse button on admin menu
+* added styles for collapsed menu
+* added WP filter to remove admin bar on front page
+* applying admin bar colors on front page
+* fixed blank space in admin panel when admin bar is removed
+* fixed some bugs in Colorizer, better updating of input box colors, triggering colors on input box change, improved realtime color updating
+* adding jQuery script on login page only if it is not already loaded
+* fixed background-size issue on login page image in chrome and some other browsers
+* updated important message on admin menu tab
+
+= 1.2.6.4 =
+* Removing plugin options on plugin uninstall instead of on plugin deactivation
+* Refreshed some button styles
+* "But show logout button" option auto-hiding
+* Fixed repeat login image bug
+* Fixed bug on loading news
+
+= 1.2.6.3 =
+* Included Colorizer ON/OFF option to exported settings
+* Automatically saving settings after importing
+* Fixed issue with admin bar on site pages
+* Added option for switching between admin and site pages(on WP logo, top left corner on admin bar)
+* Fixed custom Howdy text for other languages than English.
+
+= 1.2.6.2 =
+* Added custom brand logo url
+* Added %BLOG% variables for custom urls
+* Option for removing custom admin menu settings in export
+
+= 1.2.6.1 =
+* Bug fixes
+* Added +/- indicators to admin menu editor
+* Custom top bar logo can be of any width. Height is expanded to 28px
+* Saving custom scripts to database instead of saving to files
+* Fixed error message on WordPress thick-box window
+* Removed About WordPress message on top bar logo(on mouseover)
+* Using %BLOG% variable as hyperlink on login page image
+* Few other fixes on WordPress top bar
+* Fixed color bug on admin menu hover()
+
+= 1.2.6 =
+* Fixed hiding top bar issue for site pages
+* Fixed issues with custom content on Dashboard page. Any custom HTML can be used now.
+* Custom CSS script support
+* Custom JAvaScript support
+* Exporting / importing AG Custom Admin customizations
+* Added custom branding field above the admin menu for adding custom brand images
+* Rounding admin menu popups and login page
+* Option for removing Welcome dashboard widget
+* New Colorizer options for admin menu, top bar
+* New AGCA info area
+* Fixed caching issues on updates
+
+= 1.2.5.4 =
+* Fixed fatal error from version 1.2.5.3
+
+= 1.2.5.3 =
+* Fixed issues related to WP 3.3.1 version
+* Fixed bug: Hiding/changing top admin bar WP icon
+* Advanced customization of admin top bar
+* Added options for hiding admin top bar elements
+* Login page background same as admin background
+* Added target options for custom admin buttons
+
+= 1.2.5.2 =
+* Fixed several issues with WP 3.3
+* Added options for hiding "comments" and "new" from admin bar
+* Support for custom admin bar images
+* Support for custom Log Out text
+* Hide everything except Log Out button works now
+* Removed few obsolete options
+* Removing "Edit My Profile"
+* Fixed bug when trying to edit custom buttons in admin menu
+
+= 1.2.5.1 =
+* Plugin tested up to 3.3
+* Fixed major issues with WP 3.3. version
+* Fixed bug when trying to edit custom buttons in admin menu
+
+= 1.2.5 =
+* Plugin tested up to 3.2.1
+* Fixed some compatibility issues with other plugins
+* Tested compatibility with Ozh' Admin Drop Down Menu v3.6.1
+* Tested compatibility with SexyBookmarks (by Shareaholic) v4.0.5.6
+* Fixed blank screen of death if an error from outside of plugin is thrown
+* Improved error handling and showing
+* Improved versioning
+
+= 1.2.4 =
+* Plugin is now fully compatible with WordPress version 3.2
+* Fixed update notification bar for lower WP versions
+* Login image can be now of any size.
+* Improved error management
+* Added options in 3.2 for changing background behind admin menu
+* Added option in 3.2 for removing "Your profile" from admin bar
+* Added invalid characters escaping when adding new custom buttons
+* Fixed few minor issues
+
+= 1.2.3 =
+* Added Colorizer options for changing widgets colors.
+* Added option for changing logo image in admin bar with custom image.
+* Fixed bug on add new post page: After clicking on buttons Add new image, Add new media pop-up window is blank.
+* Added info bar for displaying news and information about plugin.
+* Fixed few issues.
+
+= 1.2.2 =
+* Added Colorizer for changing colors in admin and login panel
+* Added option for excluding admin from settings.
+* Fixed bug for slow computers: Default settings are visible few moments before applying custom settings.
+* Added option for removing icons from admin menu buttons
+
+= 1.2.1 =
+* Improved accessibility
+* Optimization for screen readers
+* Added sub-page titles
+* Updated styles in edit admin menu table
+
+= 1.2 =
+* All elements are grouped into small pages for better navigation.
+* Added color styles and improved user experience.
+* Added settings page for fully control of main admin menu.
+* Added support for hiding items from admin menu.
+* Added support for changing items in admin menu.
+* Added support for adding new custom items in admin menu.
+* Added tool tips on option labels for better explanation of option.
+* Deprecated 'Hide Dashboard button from main menu' in 'Dashboard settings'. This option can be used now in 'Admin menu settings'.
+* Added settings for hiding/showing Dashboard widgets:"Recent Comments", "Incoming Links", "Plugins", "Quick Press", "Right Now", "Recent Drafts", primary widget area, secondary widget area.
+* Added option "(but show 'Log Out' button)" for displaying 'Log Out' button if admin top bar is completely removed.
+* Added option "Hide footer text".
+* Added support for hiding new WordPress release notification.
+
+= 1.0.1 =
+* Changed text in Settings page to be more clearer.
+* Updated list of options on plugin page
+* Removed blank characters in text areas
+
+= 1.0 =
+* Initial version
