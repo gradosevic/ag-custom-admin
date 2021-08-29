@@ -1,14 +1,14 @@
 === Custom Dashboard & Login Page - AGCA ===
 Contributors: cusmin
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&amount=10&item_name=Support+for+AGCA+Development
-Tags: customize dashboard, hide admin bar, customize admin menu, customize login page, hide widgets, admin menu, dashboard, admin menu editor, admin bar, login page, widgets, customize admin
+Tags: customize dashboard, hide admin bar, customize admin menu, customize login page, hide widgets, admin menu, dashboard, edit admin menu, admin bar, login page, widgets, customize admin
 Requires at least: 3.0
 Tested up to: 5.8
 Stable tag: 6.9.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
-All-in-one plugin for WordPress dashboard customization. Change almost everything: admin menu, dashboard, login page, admin bar and much more.
+CHANGE: admin menu, login page, admin bar, dashboard widgets, custom colors, custom CSS & JS, logo & images
 
 == Description ==
 With this plugin you can easily customize WordPress **admin panel**, **login page**, **admin menu**, **admin bar** etc. in tiny details.
@@ -170,7 +170,7 @@ If you have the latest WordPress and plugin versions, and you still experience s
 = 6.9.2 =
 * Fixed HTML escaping on multiple fields in AGCA, added non-admin restrictions instead
 
-[SEE ALL](https://plugins.svn.wordpress.org/ag-custom-admin/trunk/changelog.txt)
+[SEE ALL LOGS](https://plugins.svn.wordpress.org/ag-custom-admin/trunk/changelog.txt)
 
 == Upgrade Notice ==
 
