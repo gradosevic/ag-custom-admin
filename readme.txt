@@ -19,7 +19,7 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 * **BRANDING**: Brand your admin panel pages with custom content, colors, images and text.
 * **ADMIN PANEL OPTIONS**: There are dozens of other admin panel options used to improve WordPress UX on admin and login pages items like Dashboard widgets, Help and Screen options, WordPress logos, links, menus etc. See the full list down below.
 
-<img src="https://ps.w.org/ag-custom-admin/assets/agca-preview.png?rev=2563095" alt="AGCA Preview" />
+[https://ps.w.org/ag-custom-admin/assets/agca-preview.png?rev=2563095  AGCA Preview]
 
 = Recommended =
 > <strong>[CUSMIN](https://cusmin.com/upgrade-to-cusmin/?ref=wporg-recommended)</strong><br>
