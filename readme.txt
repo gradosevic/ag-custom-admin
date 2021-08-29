@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cus
 Tags: admin, dashboard, customize, hide, admin bar, login page, admin menu, colors, branding, dashboard widgets
 Requires at least: 3.0
 Tested up to: 5.8
-Stable tag: 6.9.3
+Stable tag: 6.9.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
@@ -18,6 +18,8 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 * **COLORIZER**: This tool is integrated with Absolutely Glamorous Custom Admin panel and can be used to change default WordPress admin panel colors, admin bar, admin menu, login page, backgrounds and text.
 * **BRANDING**: Brand your admin panel pages with custom content, colors, images and text.
 * **ADMIN PANEL OPTIONS**: There are dozens of other admin panel options used to improve WordPress UX on admin and login pages items like Dashboard widgets, Help and Screen options, WordPress logos, links, menus etc. See the full list down below.
+
+<img src="https://ps.w.org/ag-custom-admin/assets/agca-preview.png?rev=2563095" alt="AGCA Preview" />
 
 = Recommended =
 > <strong>[CUSMIN](https://cusmin.com/upgrade-to-cusmin/?ref=wporg-recommended)</strong><br>
@@ -158,6 +160,9 @@ If you have the latest WordPress and plugin versions, and you still experience s
 14. Custom login page example
 
 == Change Log ==
+
+= 6.9.4 =
+* Fixed: "Cannot hide Woocommerce Analytics button in the admin menu" issue
 
 = 6.9.3 =
 * Fixed blank login page, when jQuery is not defined
@@ -632,6 +637,9 @@ If you have the latest WordPress and plugin versions, and you still experience s
 * Initial version
 
 == Upgrade Notice ==
+
+= 6.9.4 =
+* Fixed compatibility issue with Woocommerce in the admin menu
 
 = 6.9.3 =
 * Fixed blank login page, when jQuery is not defined

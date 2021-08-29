@@ -4,7 +4,7 @@ Plugin Name: Absolutely Glamorous Custom Admin
 Plugin URI: https://cusmin.com/agca
 Description: All-in-one plugin for WordPress dashboard customization. Change almost everything: admin menu, dashboard, login page, admin bar and much more.
 Author: Cusmin
-Version: 6.9.3
+Version: 6.9.4
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com/
@@ -28,7 +28,7 @@ Author URI: https://cusmin.com/
 $agca = new AGCA();
 
 class AGCA{
-    private $agca_version = "6.9.3";
+    private $agca_version = "6.9.4";
     private $colorizer = "";
     private $agca_debug = false;
     private $admin_capabilities;
@@ -1181,13 +1181,12 @@ class AGCA{
         $m = array();
         foreach($menu as $top){
             $name = $top[0];
-            $url = htmlentities($top[2]);
+            $url = $top[2];
             $cls = isset($top[5])?$top[5]:"";
             $remove = false;
             if($name == '') continue;
             $pc = null;
             $name = htmlentities($this->menu_item_cleartext($name));
-
 
             //apply previous submenu customizations
             if($customizationsSet && isset($previousCustomizations[$url])){
@@ -1207,7 +1206,7 @@ class AGCA{
                         'name'=>$nameSub,
                         'new'=>'',
                         'remove'=>$removeSub,
-                        'url'=>$urlSub
+                        'url'=>htmlentities($urlSub)
                     );
 
                     if(isset($pc['submenus'][$key])){
@@ -1228,7 +1227,7 @@ class AGCA{
                 'name'=>$name,
                 'remove'=>$remove,
                 'new'=>'',
-                'url'=>$url,
+                'url'=>htmlentities($url),
                 'cls'=>$cls,
                 'submenus'=>$s
             );
@@ -1250,13 +1249,14 @@ class AGCA{
      */
     function customized_menu(){
         $customizations = $this->get_menu_customizations();
+
         global $menu;
         global $submenu;
 
-        //print_r($submenu);die;
         //apply customizations to original admin menu
         foreach($menu as $key=>$top){
             $url = $top[2];
+
             if(isset($customizations[$url])){
                 $topCustomized = $customizations[$url];
                 if($topCustomized['new']) {
@@ -1267,6 +1267,7 @@ class AGCA{
                 }
             }
         }
+
         foreach($submenu as $topkey=>$subs){
             foreach($subs as $subkey=>$sub){
                 if(isset($customizations[$topkey]['submenus'][$subkey])){
@@ -2614,7 +2615,7 @@ class AGCA{
                             'title'=>__('Removes Profile menu item for non-admin users.', 'ag-custom-admin'),
                             'hide'=>true,
                             'name'=>'agca_menu_remove_client_profile',
-                            'label'=>__('Remove Profile button from user menu', 'ag-custom-admin'),
+                            'label'=>__('Remove Profile button from the user menu', 'ag-custom-admin'),
                         ));
                         $this->print_checkbox(array(
                             'title'=>__('Removes Customize button on front end for authenticated users.', 'ag-custom-admin'),
@@ -2625,7 +2626,7 @@ class AGCA{
                         ?>
                         <tr>
                             <td>
-                                <p>Try the Cusmin admin menu editor instead: <a href="https://cusmin.com/upgrade-to-cusmin/?ref=agca-menu#group-admin-menu" target="_blank"><br>Upgrade to Cusmin</a></p>
+                                <p>Try Cusmin admin menu editor instead: <a href="https://cusmin.com/upgrade-to-cusmin/?ref=agca-menu#group-admin-menu" target="_blank"><br>Upgrade to Cusmin</a></p>
                             </td>
                         </tr>
 
