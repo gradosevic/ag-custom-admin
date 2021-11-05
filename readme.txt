@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cus
 Tags: customize dashboard, hide admin bar, customize admin menu, customize login page, hide widgets, admin menu, dashboard, edit admin menu, admin bar, login page, widgets, customize admin
 Requires at least: 3.0
 Tested up to: 5.8
-Stable tag: 6.9.4
+Stable tag: 6.9.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
@@ -159,6 +159,9 @@ If you have the latest WordPress and plugin versions, and you still experience s
 
 == Change Log ==
 
+= 6.9.5 =
+* Improved security
+
 = 6.9.4 =
 * Fixed: "Cannot hide Woocommerce Analytics button in the admin menu" issue
 * Small text improvements
@@ -173,6 +176,9 @@ If you have the latest WordPress and plugin versions, and you still experience s
 [SEE ALL LOGS](https://plugins.svn.wordpress.org/ag-custom-admin/trunk/changelog.txt)
 
 == Upgrade Notice ==
+
+= 6.9.5 =
+* Improved security
 
 = 6.9.4 =
 * Fixed compatibility issue with Woocommerce in the admin menu

@@ -4,7 +4,7 @@ Plugin Name: Custom Dashboard & Login Page - AGCA
 Plugin URI: https://cusmin.com/agca
 Description: CHANGE: admin menu, login page, admin bar, dashboard widgets, custom colors, custom CSS & JS, logo & images
 Author: Cusmin
-Version: 6.9.4
+Version: 6.9.5
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com/
@@ -28,7 +28,7 @@ Author URI: https://cusmin.com/
 $agca = new AGCA();
 
 class AGCA{
-    private $agca_version = "6.9.4";
+    private $agca_version = "6.9.5";
     private $colorizer = "";
     private $agca_debug = false;
     private $admin_capabilities;
@@ -118,7 +118,10 @@ class AGCA{
     //Prevent non-admin users to update sensitive options
     //Revert option value to previous
     function after_update_option( $option, $old_value, $new_value ){
-        if(!current_user_can('administrator') &&
+        if((
+                !current_user_can('administrator') ||
+                !current_user_can('unfiltered_html')
+            ) &&
             in_array($option, [
                 'agca_dashboard_text_paragraph',
                 'agca_dashboard_text',
@@ -139,6 +142,10 @@ class AGCA{
 
     function is_wp_admin(){
         return current_user_can('administrator');
+    }
+
+    function can_save_unfiltered_html(){
+        return current_user_can('unfiltered_html');
     }
 
     function agca_customizer_php(){
@@ -184,10 +191,10 @@ class AGCA{
     }
 
     function getFieldSecurityProtected(){
-        if($this->is_wp_admin()){
+        if($this->is_wp_admin() && $this->can_save_unfiltered_html()){
             return '';
         }
-        return '<p style="color: red">(&nbsp;For security reasons, this field is available for editing only to WordPress <b>Administrators</b> group&nbsp;)</p>';
+        return '<p style="color: red">(&nbsp;For security reasons, this field is available for editing only to WordPress <b>Administrators</b> with the allowed capability to save unfiltered HTML&nbsp;)</p>';
     }
 
     function verifyPostRequest(){
