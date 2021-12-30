@@ -1117,6 +1117,10 @@ td.ag_admin_menu_parent:hover {
     margin-top: -2px;
 }
 
+#agca_form .agca-field-secured-notice {
+    color: red;
+}
+
 @media (max-width: 600px) {
     .tools_page_ag-custom-admin-plugin #agca-header {
         margin-top: 50px;

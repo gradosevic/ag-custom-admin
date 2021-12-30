@@ -1,6 +1,5 @@
 var afterFormClickCreateJson = true;
 var editingButtonNow = false;
-var agca_ajax_url = agca_global_plugin_url + "ajax.php";
 function booleanToChecked(bool){
     if(bool == 'true'){
         return 'checked="checked"';
@@ -932,9 +931,6 @@ window.agca_show_affected_groups = function() {
         var g = window.agca_wp_groups[slug];
         if(g['capabilities'][selCapability]) {
             groups.push(g.name);
-            if(slug === 'subscriber' || slug === 'contributor' || slug === 'author') {
-                error = '<p style="color: red; filter: none;max-width: 600px;">You have selected a capability that include low level user groups. Please remember that these user groups can make additional changes to AGCA.</p>';
-            }
         }
     }
     document.getElementById('agca-affected-roles').innerHTML = '<b>' + groups.join(', ') + '</b>' + error;
