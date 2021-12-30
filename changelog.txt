@@ -1,5 +1,15 @@
 == Change Log ==
 
+= 7.0 =
+* Improved security
+* Code cleanup
+* Removed farbtastic scripts
+* Properly using enqueue for scripts and dependencies
+* Small changes on General fields, better naming AGCA administrators > AGCA safe users
+
+= 6.9.5 =
+* Improved security
+
 = 6.9.4 =
 * Fixed: "Cannot hide Woocommerce Analytics button in the admin menu" issue
 * Small text improvements

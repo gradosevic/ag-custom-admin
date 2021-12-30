@@ -680,7 +680,7 @@ class AGCA{
         header("Content-Disposition: attachment; filename=$filename");
         header("Content-Type: text/plain; ");
         header("Content-Transfer-Encoding: binary");
-        echo $str;
+        echo wp_kses_post($str);
         die();
     }
 

@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cus
 Tags: customize dashboard, hide admin bar, customize admin menu, customize login page, hide widgets, admin menu, dashboard, edit admin menu, admin bar, login page, widgets, customize admin
 Requires at least: 3.0
 Tested up to: 5.8
-Stable tag: 6.9.5
+Stable tag: 7.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
@@ -159,6 +159,13 @@ If you have the latest WordPress and plugin versions, and you still experience s
 
 == Change Log ==
 
+= 7.0 =
+* Improved security
+* Code cleanup
+* Removed farbtastic scripts
+* Properly using enqueue for scripts and dependencies
+* Small changes on General fields, better naming AGCA administrators > AGCA safe users
+
 = 6.9.5 =
 * Improved security
 
@@ -167,15 +174,12 @@ If you have the latest WordPress and plugin versions, and you still experience s
 * Small text improvements
 * Fixed an issue with Cusmin compatibility
 
-= 6.9.3 =
-* Fixed blank login page, when jQuery is not defined
-
-= 6.9.2 =
-* Fixed HTML escaping on multiple fields in AGCA, added non-admin restrictions instead
-
 [SEE ALL LOGS](https://plugins.svn.wordpress.org/ag-custom-admin/trunk/changelog.txt)
 
 == Upgrade Notice ==
+
+= 7.0 =
+* Important security update. Security enforcement.
 
 = 6.9.5 =
 * Improved security
