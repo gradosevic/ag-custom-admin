@@ -4,12 +4,12 @@ Plugin Name: Custom Dashboard & Login Page - AGCA
 Plugin URI: https://cusmin.com/agca
 Description: CHANGE: admin menu, login page, admin bar, dashboard widgets, custom colors, custom CSS & JS, logo & images
 Author: Cusmin
-Version: 7.0
+Version: 7.0.1
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com/
 
-    Copyright 2021. Cusmin (email : info@cusmin.com)
+    Copyright 2022. Cusmin (email : info@cusmin.com)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ Author URI: https://cusmin.com/
 $agca = new AGCA();
 
 class AGCA{
-    private $agca_version = "7.0";
+    private $agca_version = "7.0.1";
     private $colorizer = "";
     private $agca_debug = false;
     private $admin_capabilities;
@@ -70,6 +70,17 @@ class AGCA{
             add_action( 'admin_notices', array(&$this, 'agca_check_js_notice') );
         }
 
+        //admin bar on front end
+        if(!is_admin() && is_admin_bar_showing()){
+            ?>
+            <style type="text/css">
+                #wpadminbar{
+                    display: none;
+                }
+            </style>
+            <?php
+            $this->agca_enqueue_js();
+        }
     }
 
     function agca_check_js_notice(){
@@ -193,10 +204,15 @@ class AGCA{
             $agcaStyleFileName = get_option('agca_no_style') == true ? 'ag_style_simple' : 'ag_style';
             wp_register_style('agca-style', $this->pluginUrl() . 'style/' . $agcaStyleFileName . '.css', array('farbtastic'), $this->agca_version);
             wp_enqueue_style( 'agca-style' );
-
-            wp_register_script ( 'agca-script', $this->pluginUrl() . 'script/ag_script.js', array('jquery'), $this->agca_version );
-            wp_enqueue_script ( 'agca-script', array('jquery') );
+            $this->agca_enqueue_js();
         }
+    }
+
+    function agca_enqueue_js(){
+        wp_register_script ( 'agca-script', $this->pluginUrl() . 'script/ag_script.js', array('jquery'), $this->agca_version );
+        add_action('wp_print_scripts', function () {
+            wp_enqueue_script ( 'agca-script', array('jquery') );
+        }, 2);
     }
 
     function agca_init_session(){
@@ -959,7 +975,7 @@ class AGCA{
             jQuery("#wphead #site-heading").css("display","none");
         <?php } ?>
         <?php if(get_option('agca_custom_site_heading')!=""){ ?>
-            jQuery("#wp-admin-bar-site-name a:first").text('<?php echo ($this->sanitize_html(strip_tags(get_option('agca_custom_site_heading')))); ?>');
+            jQuery("#wp-admin-bar-site-name a:first").text('<?php echo ($this->sanitize(strip_tags(get_option('agca_custom_site_heading')))); ?>');
 
         <?php } ?>
         <?php if(get_option('agca_header')==true && $this->context =='admin'){

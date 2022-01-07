@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cus
 Tags: customize dashboard, hide admin bar, customize admin menu, customize login page, hide widgets, admin menu, dashboard, edit admin menu, admin bar, login page, widgets, customize admin
 Requires at least: 3.0
 Tested up to: 5.8
-Stable tag: 7.0
+Stable tag: 7.0.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
@@ -158,6 +158,12 @@ If you have the latest WordPress and plugin versions, and you still experience s
 14. Custom login page example
 
 == Change Log ==
+
+= 7.0 =
+* Tested up to PHP 8.1
+* Fixed HTML escaping issue for site title in admin bar
+* Fixed issue of not displaying admin bar customizations on front-end
+* Added compatibility support for Ninja Tables plugin
 
 = 7.0 =
 * Improved security
