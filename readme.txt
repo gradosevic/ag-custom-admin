@@ -159,7 +159,7 @@ If you have the latest WordPress and plugin versions, and you still experience s
 
 == Change Log ==
 
-= 7.0 =
+= 7.0.1 =
 * Tested up to PHP 8.1
 * Fixed HTML escaping issue for site title in admin bar
 * Fixed issue of not displaying admin bar customizations on front-end
@@ -183,6 +183,9 @@ If you have the latest WordPress and plugin versions, and you still experience s
 [SEE ALL LOGS](https://plugins.svn.wordpress.org/ag-custom-admin/trunk/changelog.txt)
 
 == Upgrade Notice ==
+
+= 7.0.1 =
+* Fixed bugs and added compatibility with Ninja Tables plugin
 
 = 7.0 =
 * Important security update. Security enforcement.
