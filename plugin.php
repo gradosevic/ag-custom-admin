@@ -4,7 +4,7 @@ Plugin Name: Custom Dashboard & Login Page - AGCA
 Plugin URI: https://cusmin.com/agca
 Description: CHANGE: admin menu, login page, admin bar, dashboard widgets, custom colors, custom CSS & JS, logo & images
 Author: Cusmin
-Version: 7.0.1
+Version: 7.0.2
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com/
@@ -28,7 +28,7 @@ Author URI: https://cusmin.com/
 $agca = new AGCA();
 
 class AGCA{
-    private $agca_version = "7.0.1";
+    private $agca_version = "7.0.2";
     private $colorizer = "";
     private $agca_debug = false;
     private $admin_capabilities;
@@ -72,15 +72,19 @@ class AGCA{
 
         //admin bar on front end
         if(!is_admin() && is_admin_bar_showing()){
-            ?>
-            <style type="text/css">
-                #wpadminbar{
-                    display: none;
-                }
-            </style>
-            <?php
+            add_action('wp_head', array(&$this, 'hide_admin_bar_css'));
             $this->agca_enqueue_js();
         }
+    }
+
+    function hide_admin_bar_css(){
+        ?>
+        <style type="text/css">
+            #wpadminbar{
+                display: none;
+            }
+        </style>
+        <?php
     }
 
     function agca_check_js_notice(){
@@ -211,7 +215,7 @@ class AGCA{
     function agca_enqueue_js(){
         wp_register_script ( 'agca-script', $this->pluginUrl() . 'script/ag_script.js', array('jquery'), $this->agca_version );
         add_action('wp_print_scripts', function () {
-            wp_enqueue_script ( 'agca-script', array('jquery') );
+            wp_enqueue_script ( 'agca-script' );
         }, 2);
     }
 
