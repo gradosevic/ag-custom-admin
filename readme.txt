@@ -3,8 +3,8 @@ Contributors: cusmin
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&amount=10&item_name=Support+for+AGCA+Development
 Tags: customize dashboard, hide admin bar, customize admin menu, customize login page, hide widgets, admin menu, dashboard, edit admin menu, admin bar, login page, widgets, customize admin
 Requires at least: 3.0
-Tested up to: 5.8
-Stable tag: 7.0.2
+Tested up to: 6.0
+Stable tag: 7.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
@@ -159,6 +159,11 @@ If you have the latest WordPress and plugin versions, and you still experience s
 
 == Change Log ==
 
+= 7.1 =
+* WordPress 6.0 compatibility
+* Fixed issue with New menu item in admin bar
+* Fixed issues with dependable fields
+
 = 7.0.2 =
 * Fixed compatibility issues with page builders
 * Fixed warnings for AGCA script inclusion
@@ -179,6 +184,9 @@ If you have the latest WordPress and plugin versions, and you still experience s
 [SEE ALL LOGS](https://plugins.svn.wordpress.org/ag-custom-admin/trunk/changelog.txt)
 
 == Upgrade Notice ==
+
+= 7.1 =
+* WordPress 6.0 compatibility
 
 = 7.0.2 =
 * Fixed compatibility issues with page builders. Fixed warning messages.

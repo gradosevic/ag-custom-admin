@@ -4,7 +4,7 @@ Plugin Name: Custom Dashboard & Login Page - AGCA
 Plugin URI: https://cusmin.com/agca
 Description: CHANGE: admin menu, login page, admin bar, dashboard widgets, custom colors, custom CSS & JS, logo & images
 Author: Cusmin
-Version: 7.0.2
+Version: 7.1
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com/
@@ -28,7 +28,7 @@ Author URI: https://cusmin.com/
 $agca = new AGCA();
 
 class AGCA{
-    private $agca_version = "7.0.2";
+    private $agca_version = "7.1";
     private $colorizer = "";
     private $agca_debug = false;
     private $admin_capabilities;
@@ -1929,7 +1929,7 @@ class AGCA{
     }
 
     function pluginUrl(){
-        return trailingslashit(plugins_url(basename(dirname(__FILE__))));
+        return trailingslashit(plugin_dir_url( __FILE__ ));
     }
 
     function agca_admin_page() {
@@ -2109,7 +2109,7 @@ class AGCA{
                             'title'=>__('Hides the admin bar completely from the admin panel', 'ag-custom-admin'),
                             'name'=>'agca_header',
                             'label'=>__('<strong>Hide Admin bar</strong>', 'ag-custom-admin'),
-                            'input-attributes'=>'data-dependant="#agca_header_show_logout_content"',
+                            'input-attributes'=>'data-dependant=\'#agca_header_show_logout_content\'',
                             'input-class'=>'has-dependant',
                         ));
 
@@ -2213,7 +2213,7 @@ class AGCA{
                             'title'=>__('Hides <b>+ New</b> block and its context menu from admin bar', 'ag-custom-admin'),
                             'name'=>'agca_admin_bar_new_content',
                             'label'=>__('Hide <b>+ New</b> block', 'ag-custom-admin'),
-                            'input-attributes'=>'data-dependant=".new_content_header_submenu"',
+                            'input-attributes'=>'data-dependant=\'.new_content_header_submenu\'',
                             'input-class'=>'has-dependant dependant-opposite'
                         ));
 
@@ -2510,7 +2510,7 @@ class AGCA{
                             'name'=>'agca_login_round_box',
                             'label'=>'Round box corners',
                             'input-class'=>'has-dependant',
-                            'input-attributes'=>'data-dependant="#agca_login_round_box_size_block, #agca_login_round_box_skip_logo"'
+                            'input-attributes'=>'data-dependant=\'#agca_login_round_box_size_block, #agca_login_round_box_skip_logo\''
                         ));
 
                         $this->print_input(array(
@@ -2543,7 +2543,7 @@ class AGCA{
                             'name'=>'agca_login_register_remove',
                             'label'=>__('Hide "Register" link', 'ag-custom-admin'),
                             'input-class'=>'has-dependant dependant-opposite',
-                            'input-attributes'=>'data-dependant="#agca_login_register_href_block"'
+                            'input-attributes'=>'data-dependant=\'#agca_login_register_href_block\''
                         ));
 
                         $this->print_input(array(
@@ -2696,7 +2696,7 @@ class AGCA{
                             'title'=>__('Rounds submenu pop-up box', 'ag-custom-admin'),
                             'name'=>'agca_admin_menu_submenu_round',
                             'label'=>__('Round sub-menu pop-up box', 'ag-custom-admin'),
-                            'input-attributes'=>'data-dependant="#agca_admin_menu_submenu_round_size"',
+                            'input-attributes'=>'data-dependant=\'#agca_admin_menu_submenu_round_size\'',
                             'input-class'=>'has-dependant',
                         ));
 
