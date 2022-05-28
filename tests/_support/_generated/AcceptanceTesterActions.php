@@ -93,7 +93,7 @@ trait AcceptanceTesterActions
      * @param int $height
      * @see \Codeception\Module\WebDriver::resizeWindow()
      */
-    public function resizeWindow($width, $height) {
+    public function resizeWindow(int $width, int $height) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('resizeWindow', func_get_args()));
     }
 
@@ -111,12 +111,12 @@ trait AcceptanceTesterActions
      * ```
      *
      * @param $cookie
-     * @param array $params
+     * @param array|null $params
      * @return mixed
      * Conditional Assertion: Test won't be stopped on fail
      * @see \Codeception\Module\WebDriver::seeCookie()
      */
-    public function canSeeCookie($cookie, $params = null) {
+    public function canSeeCookie($cookie, array $params = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeCookie', func_get_args()));
     }
     /**
@@ -132,11 +132,11 @@ trait AcceptanceTesterActions
      * ```
      *
      * @param $cookie
-     * @param array $params
+     * @param array|null $params
      * @return mixed
      * @see \Codeception\Module\WebDriver::seeCookie()
      */
-    public function seeCookie($cookie, $params = null) {
+    public function seeCookie($cookie, array $params = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeCookie', func_get_args()));
     }
 
@@ -149,12 +149,12 @@ trait AcceptanceTesterActions
      *
      * @param $cookie
      *
-     * @param array $params
+     * @param array|null $params
      * @return mixed
      * Conditional Assertion: Test won't be stopped on fail
      * @see \Codeception\Module\WebDriver::dontSeeCookie()
      */
-    public function cantSeeCookie($cookie, $params = null) {
+    public function cantSeeCookie($cookie, array $params = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCookie', func_get_args()));
     }
     /**
@@ -165,11 +165,11 @@ trait AcceptanceTesterActions
      *
      * @param $cookie
      *
-     * @param array $params
+     * @param array|null $params
      * @return mixed
      * @see \Codeception\Module\WebDriver::dontSeeCookie()
      */
-    public function dontSeeCookie($cookie, $params = null) {
+    public function dontSeeCookie($cookie, array $params = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeCookie', func_get_args()));
     }
 
@@ -188,12 +188,12 @@ trait AcceptanceTesterActions
      *
      * @param $name
      * @param $val
-     * @param array $params
+     * @param array|null $params
      *
      * @return mixed
      * @see \Codeception\Module\WebDriver::setCookie()
      */
-    public function setCookie($cookie, $value, $params = null) {
+    public function setCookie($cookie, $value, array $params = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('setCookie', func_get_args()));
     }
 
@@ -206,11 +206,11 @@ trait AcceptanceTesterActions
      *
      * @param $cookie
      *
-     * @param array $params
+     * @param array|null $params
      * @return mixed
      * @see \Codeception\Module\WebDriver::resetCookie()
      */
-    public function resetCookie($cookie, $params = null) {
+    public function resetCookie($cookie, array $params = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('resetCookie', func_get_args()));
     }
 
@@ -223,11 +223,11 @@ trait AcceptanceTesterActions
      *
      * @param $cookie
      *
-     * @param array $params
+     * @param array|null $params
      * @return mixed
      * @see \Codeception\Module\WebDriver::grabCookie()
      */
-    public function grabCookie($cookie, $params = null) {
+    public function grabCookie($cookie, array $params = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('grabCookie', func_get_args()));
     }
 
@@ -1623,12 +1623,12 @@ trait AcceptanceTesterActions
      * ```
      *
      * @param $selector
-     * @param array $attributes
+     * @param array|null $attributes
      * @return
      * Conditional Assertion: Test won't be stopped on fail
      * @see \Codeception\Module\WebDriver::seeElement()
      */
-    public function canSeeElement($selector, $attributes = null) {
+    public function canSeeElement($selector, array $attributes = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeElement', func_get_args()));
     }
     /**
@@ -1650,11 +1650,11 @@ trait AcceptanceTesterActions
      * ```
      *
      * @param $selector
-     * @param array $attributes
+     * @param array|null $attributes
      * @return
      * @see \Codeception\Module\WebDriver::seeElement()
      */
-    public function seeElement($selector, $attributes = null) {
+    public function seeElement($selector, array $attributes = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeElement', func_get_args()));
     }
 
@@ -1675,11 +1675,11 @@ trait AcceptanceTesterActions
      * ```
      *
      * @param $selector
-     * @param array $attributes
+     * @param array|null $attributes
      * Conditional Assertion: Test won't be stopped on fail
      * @see \Codeception\Module\WebDriver::dontSeeElement()
      */
-    public function cantSeeElement($selector, $attributes = null) {
+    public function cantSeeElement($selector, array $attributes = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeElement', func_get_args()));
     }
     /**
@@ -1698,10 +1698,10 @@ trait AcceptanceTesterActions
      * ```
      *
      * @param $selector
-     * @param array $attributes
+     * @param array|null $attributes
      * @see \Codeception\Module\WebDriver::dontSeeElement()
      */
-    public function dontSeeElement($selector, $attributes = null) {
+    public function dontSeeElement($selector, array $attributes = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeElement', func_get_args()));
     }
 
@@ -2269,12 +2269,12 @@ trait AcceptanceTesterActions
      * ```
      *
      * @param $element
-     * @param \Closure $callback
-     * @param int $timeout seconds
+     * @param Closure $callback
+     * @param int|null $timeout seconds
      * @throws \Codeception\Exception\ElementNotFound
      * @see \Codeception\Module\WebDriver::waitForElementChange()
      */
-    public function waitForElementChange($element, $callback, $timeout = null) {
+    public function waitForElementChange($element, Closure $callback, int $timeout = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForElementChange', func_get_args()));
     }
 
@@ -2293,11 +2293,11 @@ trait AcceptanceTesterActions
      * ```
      *
      * @param $element
-     * @param int $timeout seconds
+     * @param int|null $timeout seconds
      * @throws \Exception
      * @see \Codeception\Module\WebDriver::waitForElement()
      */
-    public function waitForElement($element, $timeout = null) {
+    public function waitForElement($element, int $timeout = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForElement', func_get_args()));
     }
 
@@ -2316,11 +2316,11 @@ trait AcceptanceTesterActions
      * ```
      *
      * @param $element
-     * @param int $timeout seconds
+     * @param int|null $timeout seconds
      * @throws \Exception
      * @see \Codeception\Module\WebDriver::waitForElementVisible()
      */
-    public function waitForElementVisible($element, $timeout = null) {
+    public function waitForElementVisible($element, int $timeout = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForElementVisible', func_get_args()));
     }
 
@@ -2338,11 +2338,11 @@ trait AcceptanceTesterActions
      * ```
      *
      * @param $element
-     * @param int $timeout seconds
+     * @param int|null $timeout seconds
      * @throws \Exception
      * @see \Codeception\Module\WebDriver::waitForElementNotVisible()
      */
-    public function waitForElementNotVisible($element, $timeout = null) {
+    public function waitForElementNotVisible($element, int $timeout = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForElementNotVisible', func_get_args()));
     }
 
@@ -2362,12 +2362,12 @@ trait AcceptanceTesterActions
      * ```
      *
      * @param string $text
-     * @param int $timeout seconds
+     * @param int|null $timeout seconds
      * @param null $selector
      * @throws \Exception
      * @see \Codeception\Module\WebDriver::waitForText()
      */
-    public function waitForText($text, $timeout = null, $selector = null) {
+    public function waitForText(string $text, int $timeout = null, $selector = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForText', func_get_args()));
     }
 
@@ -2406,7 +2406,7 @@ trait AcceptanceTesterActions
      * @param callable $function
      * @see \Codeception\Module\WebDriver::executeInSelenium()
      */
-    public function executeInSelenium($function) {
+    public function executeInSelenium(callable $function) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('executeInSelenium', func_get_args()));
     }
 
@@ -2448,7 +2448,7 @@ trait AcceptanceTesterActions
      * @param string|null $name
      * @see \Codeception\Module\WebDriver::switchToWindow()
      */
-    public function switchToWindow($name = null) {
+    public function switchToWindow(string $name = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('switchToWindow', func_get_args()));
     }
 
@@ -2476,7 +2476,7 @@ trait AcceptanceTesterActions
      * @param string|null $name
      * @see \Codeception\Module\WebDriver::switchToIFrame()
      */
-    public function switchToIFrame($name = null) {
+    public function switchToIFrame(string $name = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('switchToIFrame', func_get_args()));
     }
 
@@ -2495,10 +2495,10 @@ trait AcceptanceTesterActions
      * ```
      *
      * @param string $script
-     * @param int $timeout seconds
+     * @param int|null $timeout seconds
      * @see \Codeception\Module\WebDriver::waitForJS()
      */
-    public function waitForJS($script, $timeout = null) {
+    public function waitForJS(string $script, int $timeout = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForJS', func_get_args()));
     }
 
@@ -2551,7 +2551,7 @@ trait AcceptanceTesterActions
      * @param string $target (CSS ID or XPath)
      * @see \Codeception\Module\WebDriver::dragAndDrop()
      */
-    public function dragAndDrop($source, $target) {
+    public function dragAndDrop(string $source, string $target) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('dragAndDrop', func_get_args()));
     }
 
@@ -2571,13 +2571,13 @@ trait AcceptanceTesterActions
      * ```
      *
      * @param string $cssOrXPath css or xpath of the web element
-     * @param int $offsetX
-     * @param int $offsetY
+     * @param int|null $offsetX
+     * @param int|null $offsetY
      *
      * @throws \Codeception\Exception\ElementNotFound
      * @see \Codeception\Module\WebDriver::moveMouseOver()
      */
-    public function moveMouseOver($cssOrXPath, $offsetX = null, $offsetY = null) {
+    public function moveMouseOver(string $cssOrXPath, int $offsetX = null, int $offsetY = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('moveMouseOver', func_get_args()));
     }
 
@@ -2672,7 +2672,7 @@ trait AcceptanceTesterActions
      * @throws \Codeception\Exception\ElementNotFound
      * @see \Codeception\Module\WebDriver::appendField()
      */
-    public function appendField($field, $value) {
+    public function appendField(string $field, string $value) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('appendField', func_get_args()));
     }
 
@@ -2683,7 +2683,7 @@ trait AcceptanceTesterActions
      * @param string $name
      * @see \Codeception\Module\WebDriver::saveSessionSnapshot()
      */
-    public function saveSessionSnapshot($name) {
+    public function saveSessionSnapshot(string $name) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('saveSessionSnapshot', func_get_args()));
     }
 
@@ -2695,7 +2695,7 @@ trait AcceptanceTesterActions
      * @return bool
      * @see \Codeception\Module\WebDriver::loadSessionSnapshot()
      */
-    public function loadSessionSnapshot($name) {
+    public function loadSessionSnapshot(string $name) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('loadSessionSnapshot', func_get_args()));
     }
 
@@ -2714,11 +2714,11 @@ trait AcceptanceTesterActions
      * ```
      *
      * @param $selector
-     * @param int $offsetX
-     * @param int $offsetY
+     * @param int|null $offsetX
+     * @param int|null $offsetY
      * @see \Codeception\Module\WebDriver::scrollTo()
      */
-    public function scrollTo($selector, $offsetX = null, $offsetY = null) {
+    public function scrollTo($selector, int $offsetX = null, int $offsetY = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('scrollTo', func_get_args()));
     }
 
@@ -2878,7 +2878,7 @@ trait AcceptanceTesterActions
      * Conditional Assertion: Test won't be stopped on fail
      * @see \Codeception\Module\Filesystem::seeNumberNewLines()
      */
-    public function canSeeNumberNewLines($number) {
+    public function canSeeNumberNewLines(int $number) {
         return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeNumberNewLines', func_get_args()));
     }
     /**
@@ -2898,7 +2898,7 @@ trait AcceptanceTesterActions
      * @param int $number New lines
      * @see \Codeception\Module\Filesystem::seeNumberNewLines()
      */
-    public function seeNumberNewLines($number) {
+    public function seeNumberNewLines(int $number) {
         return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeNumberNewLines', func_get_args()));
     }
 
@@ -3036,11 +3036,11 @@ trait AcceptanceTesterActions
      * ```
      *
      * @param $filename
-     * @param string $path
+     * @param string|null $path
      * Conditional Assertion: Test won't be stopped on fail
      * @see \Codeception\Module\Filesystem::seeFileFound()
      */
-    public function canSeeFileFound($filename, $path = null) {
+    public function canSeeFileFound($filename, string $path = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeFileFound', func_get_args()));
     }
     /**
@@ -3056,10 +3056,10 @@ trait AcceptanceTesterActions
      * ```
      *
      * @param $filename
-     * @param string $path
+     * @param string|null $path
      * @see \Codeception\Module\Filesystem::seeFileFound()
      */
-    public function seeFileFound($filename, $path = null) {
+    public function seeFileFound($filename, string $path = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeFileFound', func_get_args()));
     }
 
@@ -3070,11 +3070,11 @@ trait AcceptanceTesterActions
      * Checks if file does not exist in path
      *
      * @param $filename
-     * @param string $path
+     * @param string|null $path
      * Conditional Assertion: Test won't be stopped on fail
      * @see \Codeception\Module\Filesystem::dontSeeFileFound()
      */
-    public function cantSeeFileFound($filename, $path = null) {
+    public function cantSeeFileFound($filename, string $path = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeFileFound', func_get_args()));
     }
     /**
@@ -3083,10 +3083,10 @@ trait AcceptanceTesterActions
      * Checks if file does not exist in path
      *
      * @param $filename
-     * @param string $path
+     * @param string|null $path
      * @see \Codeception\Module\Filesystem::dontSeeFileFound()
      */
-    public function dontSeeFileFound($filename, $path = null) {
+    public function dontSeeFileFound($filename, string $path = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeFileFound', func_get_args()));
     }
 
@@ -3146,10 +3146,10 @@ trait AcceptanceTesterActions
      *
      * @param        $expected
      * @param        $actual
-     * @param string $message
+     * @param string|null $message
      * @see \Codeception\Module\Asserts::assertNotEquals()
      */
-    public function assertNotEquals($expected, $actual, $message = null) {
+    public function assertNotEquals($expected, $actual, string $message = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotEquals', func_get_args()));
     }
 
@@ -3161,11 +3161,11 @@ trait AcceptanceTesterActions
      *
      * @param        $expected
      * @param        $actual
-     * @param string $message
+     * @param string|null $message
      * @return mixed|void
      * @see \Codeception\Module\Asserts::assertSame()
      */
-    public function assertSame($expected, $actual, $message = null) {
+    public function assertSame($expected, $actual, string $message = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('assertSame', func_get_args()));
     }
 
@@ -3177,10 +3177,10 @@ trait AcceptanceTesterActions
      *
      * @param        $expected
      * @param        $actual
-     * @param string $message
+     * @param string|null $message
      * @see \Codeception\Module\Asserts::assertNotSame()
      */
-    public function assertNotSame($expected, $actual, $message = null) {
+    public function assertNotSame($expected, $actual, string $message = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotSame', func_get_args()));
     }
 
@@ -3192,10 +3192,10 @@ trait AcceptanceTesterActions
      *
      * @param        $expected
      * @param        $actual
-     * @param string $message
+     * @param string|null $message
      * @see \Codeception\Module\Asserts::assertGreaterThan()
      */
-    public function assertGreaterThan($expected, $actual, $message = null) {
+    public function assertGreaterThan($expected, $actual, string $message = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('assertGreaterThan', func_get_args()));
     }
 
@@ -3207,10 +3207,10 @@ trait AcceptanceTesterActions
      *
      * @param        $expected
      * @param        $actual
-     * @param string $message
+     * @param string|null $message
      * @see \Codeception\Module\Asserts::assertGreaterThanOrEqual()
      */
-    public function assertGreaterThanOrEqual($expected, $actual, $message = null) {
+    public function assertGreaterThanOrEqual($expected, $actual, string $message = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('assertGreaterThanOrEqual', func_get_args()));
     }
 
@@ -3222,10 +3222,10 @@ trait AcceptanceTesterActions
      *
      * @param        $expected
      * @param        $actual
-     * @param string $message
+     * @param string|null $message
      * @see \Codeception\Module\Asserts::assertLessThan()
      */
-    public function assertLessThan($expected, $actual, $message = null) {
+    public function assertLessThan($expected, $actual, string $message = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('assertLessThan', func_get_args()));
     }
 
@@ -3237,10 +3237,10 @@ trait AcceptanceTesterActions
      *
      * @param        $expected
      * @param        $actual
-     * @param string $message
+     * @param string|null $message
      * @see \Codeception\Module\Asserts::assertLessThanOrEqual()
      */
-    public function assertLessThanOrEqual($expected, $actual, $message = null) {
+    public function assertLessThanOrEqual($expected, $actual, string $message = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('assertLessThanOrEqual', func_get_args()));
     }
 
@@ -3252,10 +3252,10 @@ trait AcceptanceTesterActions
      *
      * @param        $needle
      * @param        $haystack
-     * @param string $message
+     * @param string|null $message
      * @see \Codeception\Module\Asserts::assertContains()
      */
-    public function assertContains($needle, $haystack, $message = null) {
+    public function assertContains($needle, $haystack, string $message = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('assertContains', func_get_args()));
     }
 
@@ -3267,10 +3267,10 @@ trait AcceptanceTesterActions
      *
      * @param        $needle
      * @param        $haystack
-     * @param string $message
+     * @param string|null $message
      * @see \Codeception\Module\Asserts::assertNotContains()
      */
-    public function assertNotContains($needle, $haystack, $message = null) {
+    public function assertNotContains($needle, $haystack, string $message = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotContains', func_get_args()));
     }
 
@@ -3282,10 +3282,10 @@ trait AcceptanceTesterActions
      *
      * @param string $pattern
      * @param string $string
-     * @param string $message
+     * @param string|null $message
      * @see \Codeception\Module\Asserts::assertRegExp()
      */
-    public function assertRegExp($pattern, $string, $message = null) {
+    public function assertRegExp(string $pattern, string $string, string $message = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('assertRegExp', func_get_args()));
     }
 
@@ -3297,10 +3297,10 @@ trait AcceptanceTesterActions
      *
      * @param string $pattern
      * @param string $string
-     * @param string $message
+     * @param string|null $message
      * @see \Codeception\Module\Asserts::assertNotRegExp()
      */
-    public function assertNotRegExp($pattern, $string, $message = null) {
+    public function assertNotRegExp(string $pattern, string $string, string $message = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotRegExp', func_get_args()));
     }
 
@@ -3311,10 +3311,10 @@ trait AcceptanceTesterActions
      * Checks that variable is empty.
      *
      * @param        $actual
-     * @param string $message
+     * @param string|null $message
      * @see \Codeception\Module\Asserts::assertEmpty()
      */
-    public function assertEmpty($actual, $message = null) {
+    public function assertEmpty($actual, string $message = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('assertEmpty', func_get_args()));
     }
 
@@ -3325,10 +3325,10 @@ trait AcceptanceTesterActions
      * Checks that variable is not empty.
      *
      * @param        $actual
-     * @param string $message
+     * @param string|null $message
      * @see \Codeception\Module\Asserts::assertNotEmpty()
      */
-    public function assertNotEmpty($actual, $message = null) {
+    public function assertNotEmpty($actual, string $message = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotEmpty', func_get_args()));
     }
 
@@ -3339,10 +3339,10 @@ trait AcceptanceTesterActions
      * Checks that variable is NULL
      *
      * @param        $actual
-     * @param string $message
+     * @param string|null $message
      * @see \Codeception\Module\Asserts::assertNull()
      */
-    public function assertNull($actual, $message = null) {
+    public function assertNull($actual, string $message = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNull', func_get_args()));
     }
 
@@ -3353,10 +3353,10 @@ trait AcceptanceTesterActions
      * Checks that variable is not NULL
      *
      * @param        $actual
-     * @param string $message
+     * @param string|null $message
      * @see \Codeception\Module\Asserts::assertNotNull()
      */
-    public function assertNotNull($actual, $message = null) {
+    public function assertNotNull($actual, string $message = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotNull', func_get_args()));
     }
 
@@ -3367,10 +3367,10 @@ trait AcceptanceTesterActions
      * Checks that condition is positive.
      *
      * @param        $condition
-     * @param string $message
+     * @param string|null $message
      * @see \Codeception\Module\Asserts::assertTrue()
      */
-    public function assertTrue($condition, $message = null) {
+    public function assertTrue($condition, string $message = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('assertTrue', func_get_args()));
     }
 
@@ -3381,10 +3381,10 @@ trait AcceptanceTesterActions
      * Checks that condition is negative.
      *
      * @param        $condition
-     * @param string $message
+     * @param string|null $message
      * @see \Codeception\Module\Asserts::assertFalse()
      */
-    public function assertFalse($condition, $message = null) {
+    public function assertFalse($condition, string $message = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('assertFalse', func_get_args()));
     }
 
@@ -3395,10 +3395,10 @@ trait AcceptanceTesterActions
      * Checks if file exists
      *
      * @param string $filename
-     * @param string $message
+     * @param string|null $message
      * @see \Codeception\Module\Asserts::assertFileExists()
      */
-    public function assertFileExists($filename, $message = null) {
+    public function assertFileExists(string $filename, string $message = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('assertFileExists', func_get_args()));
     }
 
@@ -3409,10 +3409,10 @@ trait AcceptanceTesterActions
      * Checks if file doesn't exist
      *
      * @param string $filename
-     * @param string $message
+     * @param string|null $message
      * @see \Codeception\Module\Asserts::assertFileNotExists()
      */
-    public function assertFileNotExists($filename, $message = null) {
+    public function assertFileNotExists(string $filename, string $message = null) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('assertFileNotExists', func_get_args()));
     }
 
@@ -3562,7 +3562,7 @@ trait AcceptanceTesterActions
      * @param $callback
      * @see \Codeception\Module\Asserts::expectException()
      */
-    public function expectException($exception, $callback) {
+    public function expectException(string $exception, $callback) {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('expectException', func_get_args()));
     }
 }
