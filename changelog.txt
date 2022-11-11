@@ -1,5 +1,8 @@
 == Change Log ==
 
+= 7.1 =
+* WordPress 6.0 compatibility
+
 = 7.0.2 =
 * Fixed compatibility issues with page builders
 * Fixed warnings for AGCA script inclusion
