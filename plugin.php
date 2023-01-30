@@ -4,7 +4,7 @@ Plugin Name: Custom Dashboard & Login Page - AGCA
 Plugin URI: https://cusmin.com/agca
 Description: CHANGE: admin menu, login page, admin bar, dashboard widgets, custom colors, custom CSS & JS, logo & images
 Author: Cusmin
-Version: 7.1.1
+Version: 7.1.2
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com/
@@ -28,7 +28,7 @@ Author URI: https://cusmin.com/
 $agca = new AGCA();
 
 class AGCA{
-    private $agca_version = "7.1.1";
+    private $agca_version = "7.1.2";
     private $colorizer = "";
     private $agca_debug = false;
     private $admin_capabilities;
@@ -305,9 +305,9 @@ class AGCA{
             $customTitle = get_option('agca_custom_title');
             $customTitle = str_replace('%BLOG%',$blog,$customTitle);
             $customTitle = str_replace('%PAGE%',$page,$customTitle);
-            return $this->sanitize_html(strip_tags($customTitle));
+            return htmlentities(strip_tags($customTitle));
         }else{
-            return $this->sanitize_html(strip_tags($admin_title));
+            return htmlentities(strip_tags($admin_title));
         }
     }
     function agca_get_includes() {
@@ -979,7 +979,7 @@ class AGCA{
             jQuery("#wphead #site-heading").css("display","none");
         <?php } ?>
         <?php if(get_option('agca_custom_site_heading')!=""){ ?>
-            jQuery("#wp-admin-bar-site-name a:first").text('<?php echo ($this->sanitize(strip_tags(get_option('agca_custom_site_heading')))); ?>');
+            jQuery("#wp-admin-bar-site-name a:first").html("<?php echo (htmlentities(get_option('agca_custom_site_heading'))); ?>");
 
         <?php } ?>
         <?php if(get_option('agca_header')==true && $this->context =='admin'){
@@ -1035,7 +1035,7 @@ class AGCA{
                 $wp_admin_bar->add_menu( array(
                     'id' => 'my-account',
                     'parent' => 'top-secondary',
-                    'title' => $this->sanitize_html(strip_tags($howdy)) . $avatar,
+                    'title' => htmlentities(strip_tags($howdy)) . $avatar,
                     'href' => $profile_url,
                     'meta' => array(
                         'class' => $class,
@@ -2938,7 +2938,15 @@ class AGCA{
                 <label title="<?php echo $this->sanitize_html($data['title']) ?>" for="<?php echo $this->sanitize_html($data['name']) ?>"><?php echo wp_kses_post($data['label']) ?></label>
             </th>
             <td>
-                <input id="<?php echo $this->sanitize_html($data['name']) ?>" title="<?php echo $this->sanitize_html($data['title']) ?>" type="text" size="47" class="<?php echo $data['disabled'] ? 'disabled' : ''; ?>" name="<?php echo $this->sanitize_html($data['name']) ?>" value="<?php echo $this->sanitize_html(get_option($data['name'])); ?>" <?php echo $data['disabled'] ? 'disabled="disabled"':''; ?> />
+                <input id="<?php
+                echo $this->sanitize_html($data['name']) ?>"
+                       title="<?php echo $this->sanitize_html($data['title']) ?>"
+                       type="text"
+                       size="47"
+                       class="<?php echo $data['disabled'] ? 'disabled' : ''; ?>"
+                       name="<?php echo $this->sanitize_html($data['name']) ?>"
+                       value="<?php echo htmlentities(get_option($data['name'])); ?>"
+                    <?php echo $data['disabled'] ? 'disabled="disabled"':''; ?> />
                 <?php if(!$data['disabled']) { ?>
                 <a title="<?php _e('Clear', 'ag-custom-admin'); ?>" class="agca_button clear" onClick="jQuery('#<?php echo $this->sanitize_html($data['name']) ?>').val('');"><span class="dashicons clear dashicons-no-alt"></span></a>
                 <?php } ?>
