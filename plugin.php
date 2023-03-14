@@ -4,12 +4,12 @@ Plugin Name: Custom Dashboard & Login Page - AGCA
 Plugin URI: https://cusmin.com/agca
 Description: CHANGE: admin menu, login page, admin bar, dashboard widgets, custom colors, custom CSS & JS, logo & images
 Author: Cusmin
-Version: 7.1.3
+Version: 7.1.5
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com/
 
-    Copyright 2022. Cusmin (email : info@cusmin.com)
+    Copyright 2023. Cusmin (email : info@cusmin.com)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ Author URI: https://cusmin.com/
 $agca = new AGCA();
 
 class AGCA{
-    private $agca_version = "7.1.3";
+    private $agca_version = "7.1.5";
     private $colorizer = "";
     private $agca_debug = false;
     private $admin_capabilities;
@@ -1986,7 +1986,7 @@ class AGCA{
                     </li>
                     <li style="background:none;border:none;padding:0;padding-left:10px;margin-top:-7px"></li>
                 </ul>
-                <a id="agca_advertising" href="https://cusmin.com/upgrade-to-cusmin/?ref=agca-ad" target="_blank">
+                <a class="agca_advertising" href="https://cusmin.com/upgrade-to-cusmin/?ref=agca-ad" target="_blank">
                     <img class="cusmin-logo" src="<?php echo plugins_url( 'images/cusmin-logo.svg', __FILE__ ) ?>" alt="Cusmin" />
                     <ul>
                         <li>Multiple sets of users</li>
@@ -1997,12 +1997,13 @@ class AGCA{
                         <li>Advanced admin bar manager</li>
                         <li>Custom admin menu icons</li>
                         <li>Custom dashboard widgets</li>
-                        <li>Hide PT and CPT meta boxes</li>
-                        <li>Hide plugins and table columns</li>
                         <li>Create custom admin pages</li>
-                        <li>Restrict admin page access</li>
                     </ul>
                     <span class="unlock-features">Unlock all features</span>
+                </a>
+                <a class="agca_advertising plugna" href="https://plugna.com?ref=agca" target="_blank">
+                    <img class="cusmin-logo" src="<?php echo plugins_url( 'images/plugna-logo.svg', __FILE__ ) ?>" alt="Plugna" style="width: 32px" />
+                    <p>NEW!! Plugna - Fun & easy plugin manager. Enjoy in plugin management productivity like never before, and it's FREE!</p>
                 </a>
                 <div class="agca-clear"></div>
                 <div id="section-cusmin" style="display:none;"><?php _e('All AGCA plugin\'s settings are disabled. Please use', 'ag-custom-admin')?> <a href="options-general.php?page=cusmin">Cusmin</a> <?php _e('plugin to manage these settings.', 'ag-custom-admin')?></div>
@@ -2480,7 +2481,7 @@ class AGCA{
                         $this->print_checkbox(array(
                             'hide'=>true,
                             'name'=>'agca_login_banner',
-                            'title'=>__('Hide back to blog block', 'ag-custom-admin'),
+                            'title'=>__('Hide "Back to blog" block', 'ag-custom-admin'),
                             'label'=>__('Hide "Back to blog" text', 'ag-custom-admin')
                         ));
 
@@ -2498,9 +2499,9 @@ class AGCA{
                         ));
 
                         $this->print_input(array(
-                            'title'=>__('Put here custom link to a web location, that will be triggered on image click', 'ag-custom-admin'),
+                            'title'=>__('Add here a custom link to a web location that will be triggered on image click', 'ag-custom-admin'),
                             'name'=>'agca_login_photo_href',
-                            'label'=>__('Change link on login image', 'ag-custom-admin'),
+                            'label'=>__('Change link on the login image', 'ag-custom-admin'),
                             'hint'=>__('For blog URL use', 'ag-custom-admin').' %BLOG%'
                         ));
 
@@ -2565,7 +2566,7 @@ class AGCA{
 
                         $this->print_checkbox(array(
                             'hide'=>true,
-                            'title'=>__('Hides lost password link on login page', 'ag-custom-admin'),
+                            'title'=>__('Hides lost password link on the login page', 'ag-custom-admin'),
                             'name'=>'agca_login_lostpassword_remove',
                             'label'=>__('Hide "Lost password" link', 'ag-custom-admin'),
                         ));

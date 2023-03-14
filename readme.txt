@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cus
 Tags: customize dashboard, hide admin bar, customize admin menu, customize login page, hide widgets, admin menu, dashboard, edit admin menu, admin bar, login page, widgets, customize admin
 Requires at least: 3.0
 Tested up to: 6.1.1
-Stable tag: 7.1.3
+Stable tag: 7.1.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
@@ -23,6 +23,9 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 > <strong>[CUSMIN](https://cusmin.com/upgrade-to-cusmin/?ref=wporg-recommended)</strong><br>
 > Cusmin is the premium version of the Absolutely Glamorous Custom Admin with the advanced features for customization and branding. It's perfect for professionals, but can be also used on personal sites as well.<br><br>
 > Please check how this pro plugin can help you to completely [customize your WordPress dashboard](https://cusmin.com/blog/customize-wordpress-dashboard/?ref=wporg-recommended).<br><br>
+
+> <strong>[PLUGNA](https://plugna.com?ref=wporg)</strong><br>
+> Plugna is a free plugin that can help you to manage WordPress plugins with ease, in a more productive and fun way.<br><br>
 
 = General Settings =
 * Hide **Screen Options** menu
@@ -159,6 +162,13 @@ If you have the latest WordPress and plugin versions, and you still experience s
 
 == Change Log ==
 
+= 7.1.5 =
+* Improved functionality of the admin menu editor (adding new items)
+* Text improvements
+
+= 7.1.4 =
+* Fixed issue for hiding admin bar for admin users
+
 = 7.1.3 =
 * Fixed compatibility issue with WP Forms
 
@@ -178,18 +188,11 @@ If you have the latest WordPress and plugin versions, and you still experience s
 
 == Upgrade Notice ==
 
+= 7.1.5 =
+* Admin menu editor and text improvements
+
+= 7.1.4 =
+* Fixed issue for hiding admin bar for admin users
+
 = 7.1.3 =
 * Fixed compatibility issue with WP Forms
-
-= 7.1.2 =
-* Compatibility with WordPress 6.1.1
-* Fixed input field sanitization issues
-
-= 7.1.1 =
-* Compatibility with WordPress 6.1
-
-= 7.1 =
-* WordPress 6.0 compatibility
-
-= 7.0.2 =
-* Fixed compatibility issues with page builders. Fixed warning messages.

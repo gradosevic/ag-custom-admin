@@ -310,9 +310,12 @@ jQuery(document).ready(function(){
     });
     jQuery('#ag_add_adminmenu').on('click', 'a.button_edit', function(){
         if(editingButtonNow == false){
-            var name = jQuery(this).parent().find('button').text();
-            var url = jQuery(this).parent().find('button').attr('title');
-            var target = jQuery(this).parent().find('button').attr('target');
+            var $this = jQuery(this);
+            var $parent = $this.parent();
+            var name = $parent.find('button').text();
+            var url = $parent.find('button').attr('title');
+            var target = $parent.find('button').attr('target');
+            $parent.addClass('editing');
             //console.log(target);
             editingButtonNow = name;
             jQuery(this).parent().append('<div id="temporary_button_edit">name:<input type="text" size="47" value="'+name+'" id="ag_add_adminmenu_name_edit" name="ag_add_adminmenu_name_edit" />url:<input type="text" size="47" value="'+url+'" id="ag_add_adminmenu_url_edit" name="ag_add_adminmenu_url_edit" />' + createTargetCombo(target,"edit")+ '<input type="button" id="ag_add_adminmenu_button_edit" name="ag_add_adminmenu_button_edit" value="'+agca_string.save_changes+'" class="button-secondary" /></div>');
@@ -321,6 +324,8 @@ jQuery(document).ready(function(){
     });/*Save editing changes*/
     jQuery('#ag_add_adminmenu').on("click", '#ag_add_adminmenu_button_edit', function(){
         //alert(jQuery(this).parent().html());
+
+        jQuery(this).parent().parent().removeClass('editing');
         var name = jQuery('#ag_add_adminmenu_name_edit').val();
         var url = jQuery('#ag_add_adminmenu_url_edit').val();
         var target = jQuery('select.editTarget').val();
@@ -328,6 +333,8 @@ jQuery(document).ready(function(){
         name = name.replace(/["']{1}/gi,"");
         url = url.replace(/["']{1}/gi,"");
         jQuery('#temporary_button_edit').remove();
+
+
 
         var element = 0;
         jQuery('#ag_add_adminmenu :button').each(function(){
@@ -434,6 +441,11 @@ jQuery(document).ready(function(){
         var name = jQuery('#ag_add_adminmenu_name').val();
         var url = jQuery('#ag_add_adminmenu_url').val();
         var target = jQuery('#ag_add_adminmenu_target').val();
+
+        if(!name || !url){
+            return;
+        }
+
         name = name.replace(/["']{1}/gi,"");
         url = url.replace(/["']{1}/gi,"");
         jQuery('#ag_add_adminmenu_name').val("");

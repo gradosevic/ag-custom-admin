@@ -346,7 +346,7 @@ td.ag_admin_menu_parent:hover {
     color: #005B69;
 }
 
-#agca_advertising {
+.agca_advertising {
     display: flex;
     height: auto;
     padding: 15px;
@@ -357,56 +357,56 @@ td.ag_admin_menu_parent:hover {
     color: #BEC5D0;
     clear: both;
 }
-#agca_advertising,
-#agca_advertising:visited,
-#agca_advertising:focus {
+.agca_advertising,
+.agca_advertising:visited,
+.agca_advertising:focus {
     border-radius: 10px;
     box-shadow: 1px 1px 8px var(--agca-color-gray);
 }
 
-#agca_advertising .unlock-features {
+.agca_advertising .unlock-features {
     opacity: 0;
     align-self: center;
     justify-self: center;
     transition: all .3s;
 }
 
-#agca_advertising .unlock-features:before {
+.agca_advertising .unlock-features:before {
     content: "\f528";
     font-family: 'dashicons';
     transform: translateX(-4px);
     display: inline-block;
 }
 
-#agca_advertising .unlock-features:hover {
+.agca_advertising .unlock-features:hover {
     color: #45cc45;
 }
-#agca_advertising .unlock-features:hover:before {
+.agca_advertising .unlock-features:hover:before {
     content: "\f345";
 }
 
-#agca_advertising .unlock-features:hover:after {
+.agca_advertising .unlock-features:hover:after {
     content: "\f341";
     font-family: 'dashicons';
     transform: translate(4px, 2px);
     display: inline-block;
 }
 
-#agca_advertising:hover {
+.agca_advertising:hover {
     color: #23395B;
     box-shadow: 1px 1px 8px #a1a1a1;
 }
-#agca_advertising:hover .unlock-features {
+.agca_advertising:hover .unlock-features {
     opacity: 1;
 }
 
 
-#agca_advertising .cusmin-logo {
+.agca_advertising .cusmin-logo {
     width: 65px;
     padding-right: 30px;
 }
 
-#agca_advertising ul {
+.agca_advertising ul {
     padding: 0;
     margin: 0;
     display: grid;
@@ -417,20 +417,30 @@ td.ag_admin_menu_parent:hover {
     padding-right: 5px;
 }
 
-#agca_advertising > ul > li {
+.agca_advertising > ul > li {
     margin: 0;
     cursor: pointer;
     align-self: center;
 }
-#agca_advertising > ul > li:before {
+.agca_advertising > ul > li:before {
     content: "\f147";
     display: inline-block;
     font-family: dashicons;
     font-size: 22px;
     transform: translate(-4px, 6px);
 }
-#agca_advertising > ul > li:hover:before {
+.agca_advertising > ul > li:hover:before {
     color: var(--agca-color-green);
+}
+
+.agca_advertising.plugna {
+    padding: 0;
+    margin: 0;
+    padding-left: 13px;
+    margin-top: 10px;
+}
+.agca_advertising.plugna > p{
+    font-size: 15px;
 }
 #agca_form .section_title {
     font-weight: bold;
@@ -478,7 +488,6 @@ td.ag_admin_menu_parent:hover {
 #agca_form h2.section_title {
     font-weight: bold;
     font-size: 45px;
-    line-height: 1em;
 }
 
 #agca_form h2.section_title {
@@ -656,7 +665,10 @@ td.ag_admin_menu_parent:hover {
 #agca_form #ag_edit_adminmenu tr td{
     line-height: 0;
 }
-
+#agca_form #ag_add_adminmenu tr:first-of-type{
+    background: #eee;
+    display: block;
+}
 #agca_form #ag_add_adminmenu input[type=text] {
     width: 300px;
 }
@@ -671,6 +683,11 @@ td.ag_admin_menu_parent:hover {
     color: #23395B;
 }
 
+#agca_form #ag_add_adminmenu td.editing > button,
+#agca_form #ag_add_adminmenu td.editing > a{
+    display: none;
+}
+
 #agca_form #ag_add_adminmenu .button_edit:hover span {
     color: var(--agca-color-secondary);
 }
@@ -681,6 +698,10 @@ td.ag_admin_menu_parent:hover {
 
 #agca_form #temporary_button_edit {
     padding-top: 20px;
+}
+
+#agca_form td.editing #temporary_button_edit {
+    padding-top: 0;
 }
 
 #agca_form input#save_plugin_settings {
