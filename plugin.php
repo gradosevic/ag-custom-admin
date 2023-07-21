@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: Custom Dashboard & Login Page - AGCA
+Plugin Name: AGCA - Custom Dashboard & Login Page
 Plugin URI: https://cusmin.com/agca
 Description: CHANGE: admin menu, login page, admin bar, dashboard widgets, custom colors, custom CSS & JS, logo & images
 Author: Cusmin
-Version: 7.1.5
+Version: 7.2
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com/
@@ -28,7 +28,7 @@ Author URI: https://cusmin.com/
 $agca = new AGCA();
 
 class AGCA{
-    private $agca_version = "7.1.5";
+    private $agca_version = "7.2";
     private $colorizer = "";
     private $agca_debug = false;
     private $admin_capabilities;
@@ -946,7 +946,7 @@ class AGCA{
 
             advanced_url = img_url;
             image = jQuery("<img id=\"admin-top-branding-logo\" style='max-width:98%;position:relative;'/>").attr("src",advanced_url);
-            jQuery(image).load(function() {
+            jQuery(image).on('load', function() {
             jQuery("#wpbody-content").prepend(image);
             });
 
@@ -1845,7 +1845,7 @@ class AGCA{
                     jQuery("#login h1 a").css("background",$url+' no-repeat');
                     jQuery("#login h1 a").hide();
                     image = jQuery("<img />").attr("src",advanced_url);
-                    jQuery(image).load(function() {
+                    jQuery(image).on('load', function() {
                         var originalWidth = 326;
                         var widthDiff = this.width - originalWidth;
                         jQuery("#login h1 a").height(this.height);
@@ -2000,10 +2000,6 @@ class AGCA{
                         <li>Create custom admin pages</li>
                     </ul>
                     <span class="unlock-features">Unlock all features</span>
-                </a>
-                <a class="agca_advertising plugna" href="https://plugna.com?ref=agca" target="_blank">
-                    <img class="cusmin-logo" src="<?php echo plugins_url( 'images/plugna-logo.svg', __FILE__ ) ?>" alt="Plugna" style="width: 32px" />
-                    <p>NEW!! Plugna - Fun & easy plugin manager. Enjoy in plugin management productivity like never before, and it's FREE!</p>
                 </a>
                 <div class="agca-clear"></div>
                 <div id="section-cusmin" style="display:none;"><?php _e('All AGCA plugin\'s settings are disabled. Please use', 'ag-custom-admin')?> <a href="options-general.php?page=cusmin">Cusmin</a> <?php _e('plugin to manage these settings.', 'ag-custom-admin')?></div>

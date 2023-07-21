@@ -1,10 +1,10 @@
-=== Custom Dashboard & Login Page - AGCA ===
+=== AGCA - Custom Dashboard & Login Page ===
 Contributors: cusmin
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&amount=10&item_name=Support+for+AGCA+Development
 Tags: customize dashboard, hide admin bar, customize admin menu, customize login page, hide widgets, admin menu, dashboard, edit admin menu, admin bar, login page, widgets, customize admin
 Requires at least: 3.0
-Tested up to: 6.1.1
-Stable tag: 7.1.5
+Tested up to: 6.2.2
+Stable tag: 7.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
@@ -162,6 +162,9 @@ If you have the latest WordPress and plugin versions, and you still experience s
 
 == Change Log ==
 
+= 7.2 =
+* Fixed issue with the login image
+
 = 7.1.5 =
 * Improved functionality of the admin menu editor (adding new items)
 * Text improvements
@@ -169,30 +172,12 @@ If you have the latest WordPress and plugin versions, and you still experience s
 = 7.1.4 =
 * Fixed issue for hiding admin bar for admin users
 
-= 7.1.3 =
-* Fixed compatibility issue with WP Forms
-
-= 7.1.2 =
-* Compatibility with WordPress 6.1.1
-* Fixed input field sanitization issues
-
-= 7.1.1 =
-* Compatibility with WordPress 6.1
-
-= 7.1 =
-* WordPress 6.0 compatibility
-* Fixed issue with New menu item in admin bar
-* Fixed issues with dependable fields
-
 [SEE ALL LOGS](https://plugins.svn.wordpress.org/ag-custom-admin/trunk/changelog.txt)
 
 == Upgrade Notice ==
 
+= 7.2 =
+* Fixed issue with the login image
+
 = 7.1.5 =
 * Admin menu editor and text improvements
-
-= 7.1.4 =
-* Fixed issue for hiding admin bar for admin users
-
-= 7.1.3 =
-* Fixed compatibility issue with WP Forms
