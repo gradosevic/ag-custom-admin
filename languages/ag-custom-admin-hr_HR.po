@@ -201,7 +201,7 @@ msgstr "u"
 
 #: plugin.php:1615
 msgid "Save changes"
-msgstr "Spremi promjene"
+msgstr "Spremi promjenet"
 
 #: plugin.php:2132
 msgid "POSITIVE FEEDBACK: I like this plugin!"
@@ -1291,6 +1291,37 @@ msgstr "\"Sve u jednom\" dodatak za prilagodbu stranice za administraciju. Promj
 msgid "WAP"
 msgstr "WAP"
 
+
+msgid "Site pages: Do not apply Admin bar customizations"
+msgstr "SSSff"
+
 #. Author URI of the plugin/theme
 msgid "https://cusmin.com/"
 msgstr "https://cusmin.com/"
+
+msgid "Multiple sets of users"
+msgstr "Više skupova korisnika"
+
+msgid "Multiple sets of settings"
+msgstr "Više skupova postavki"
+
+msgid "Reuse settings on other sites"
+msgstr "Ponovno koristi postavke na drugim stranicama"
+
+msgid "Drag & drop to reorder"
+msgstr "Povuci i ispusti za preuređivanje"
+
+msgid "Advanced admin menu manager"
+msgstr "Napredni upravitelj admin izbornika"
+
+msgid "Advanced admin bar manager"
+msgstr "Napredni upravitelj admin trake"
+
+msgid "Custom admin menu icons"
+msgstr "Prilagođene ikone admin izbornika"
+
+msgid "Custom dashboard widgets"
+msgstr "Prilagođeni widgeti nadzorne ploče"
+
+msgid "Create custom admin pages"
+msgstr "Kreiraj prilagođene admin stranice"

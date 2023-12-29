@@ -4,7 +4,7 @@ Plugin Name: AGCA - Custom Dashboard & Login Page
 Plugin URI: https://cusmin.com/agca
 Description: CHANGE: admin menu, login page, admin bar, dashboard widgets, custom colors, custom CSS & JS, logo & images
 Author: Cusmin
-Version: 7.2
+Version: 7.2.1
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com/
@@ -28,7 +28,7 @@ Author URI: https://cusmin.com/
 $agca = new AGCA();
 
 class AGCA{
-    private $agca_version = "7.2";
+    private $agca_version = "7.2.1";
     private $colorizer = "";
     private $agca_debug = false;
     private $admin_capabilities;
@@ -37,6 +37,7 @@ class AGCA{
 
     public function __construct()
     {
+        add_action( 'plugins_loaded', array(&$this,'my_load_plugin_textdomain') );
         add_action('init', array(&$this,'init'));
     }
 
@@ -55,7 +56,8 @@ class AGCA{
         add_action('login_head', array(&$this,'print_login_head'));
         add_action('admin_menu', array(&$this,'agca_create_menu'));
         add_action('wp_head', array(&$this,'print_page'));
-        add_action( 'plugins_loaded', array(&$this,'load_plugin_textdomain') );
+
+
         register_deactivation_hook(__FILE__, array(&$this,'agca_deactivate'));
 
         add_action( 'customize_controls_enqueue_scripts',  array(&$this,'agca_customizer_php') );
@@ -111,8 +113,8 @@ class AGCA{
         return false;
     }
 
-    function load_plugin_textdomain() {
-        load_plugin_textdomain( 'ag-custom-admin', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
+    function my_load_plugin_textdomain() {
+        load_plugin_textdomain( 'ag-custom-admin');
     }
 
     // Add donate and support information
@@ -1972,7 +1974,7 @@ class AGCA{
                 </div>
                 <br />
                 <ul id="ag_main_menu" style="<?php echo $this->isCusminActive()?'display:none':''; ?>">
-                    <li class="selected" style="border-top-left-radius: 10px; "><a href="#general-settings" class="dashicons-before dashicons-admin-tools" title="<?php _e('General Settings', 'ag-custom-admin')?>" ><?php _e('General', 'ag-custom-admin')?></a></li>
+                    <li class="selected" style="border-top-left-radius: 10px; "><a href="#general-settings" class="dashicons-before dashicons-admin-tools" title="<?php _e('General Settings', 'ag-custom-admin')?>" ><?php echo _e('General', 'ag-custom-admin')?></a></li>
                     <li class="normal"><a href="#admin-bar-settings" class="dashicons-before dashicons-welcome-widgets-menus" title="<?php _e('Settings for admin bar', 'ag-custom-admin')?>" ><?php _e('Admin Bar', 'ag-custom-admin')?></a></li>
                     <li class="normal"><a href="#admin-footer-settings" class="dashicons-before dashicons-welcome-widgets-menus agca-invert-icon" title="<?php _e('Settings for admin footer', 'ag-custom-admin')?>" ><?php _e('Footer', 'ag-custom-admin')?></a></li>
                     <li class="normal"><a href="#dashboad-page-settings" class="dashicons-before dashicons-dashboard" title="<?php _e('Settings for Dashboard page', 'ag-custom-admin')?>"><?php _e('Dashboard', 'ag-custom-admin')?></a></li>
@@ -1989,15 +1991,14 @@ class AGCA{
                 <a class="agca_advertising" href="https://cusmin.com/upgrade-to-cusmin/?ref=agca-ad" target="_blank">
                     <img class="cusmin-logo" src="<?php echo plugins_url( 'images/cusmin-logo.svg', __FILE__ ) ?>" alt="Cusmin" />
                     <ul>
-                        <li>Multiple sets of users</li>
-                        <li>Multiple sets of settings</li>
-                        <li>Reuse settings on other sites</li>
-                        <li>Drag & drop to reorder</li>
-                        <li>Advanced admin menu manager</li>
-                        <li>Advanced admin bar manager</li>
-                        <li>Custom admin menu icons</li>
-                        <li>Custom dashboard widgets</li>
-                        <li>Create custom admin pages</li>
+                        <li><?php _e('Multiple sets of settings', 'ag-custom-admin') ?></li>
+                        <li><?php _e('Reuse settings on other sites', 'ag-custom-admin') ?></li>
+                        <li><?php _e('Drag & drop to reorder', 'ag-custom-admin') ?></li>
+                        <li><?php _e('Advanced admin menu manager', 'ag-custom-admin') ?></li>
+                        <li><?php _e('Advanced admin bar manager', 'ag-custom-admin') ?></li>
+                        <li><?php _e('Custom admin menu icons', 'ag-custom-admin') ?></li>
+                        <li><?php _e('Custom dashboard widgets', 'ag-custom-admin') ?></li>
+                        <li><?php _e('Create custom admin pages', 'ag-custom-admin') ?></li>
                     </ul>
                     <span class="unlock-features">Unlock all features</span>
                 </a>
