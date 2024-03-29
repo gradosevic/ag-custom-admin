@@ -181,6 +181,3 @@ If you have the latest WordPress and plugin versions, and you still experience s
 
 = 7.2 =
 * Fixed issue with the login image
-
-= 7.1.5 =
-* Admin menu editor and text improvements
