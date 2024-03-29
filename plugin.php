@@ -4,12 +4,12 @@ Plugin Name: AGCA - Custom Dashboard & Login Page
 Plugin URI: https://cusmin.com/agca
 Description: CHANGE: admin menu, login page, admin bar, dashboard widgets, custom colors, custom CSS & JS, logo & images
 Author: Cusmin
-Version: 7.2.1
+Version: 7.2.2
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com/
 
-    Copyright 2023. Cusmin (email : info@cusmin.com)
+    Copyright 2024. Cusmin (email : info@cusmin.com)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -28,12 +28,15 @@ Author URI: https://cusmin.com/
 $agca = new AGCA();
 
 class AGCA{
-    private $agca_version = "7.2.1";
+    private $agca_version = "7.2.2";
     private $colorizer = "";
     private $agca_debug = false;
     private $admin_capabilities;
     private $context = "";
     private $saveAfterImport = false;
+
+    const PLACEHOLDER_BLOG = '%BLOG%';
+    const PLACEHOLDER_PAGE = '%PAGE%';
 
     public function __construct()
     {
@@ -310,8 +313,8 @@ class AGCA{
             $blog = get_bloginfo('name');
             $page = $title;
             $customTitle = get_option('agca_custom_title');
-            $customTitle = str_replace('%BLOG%',$blog,$customTitle);
-            $customTitle = str_replace('%PAGE%',$page,$customTitle);
+            $customTitle = str_replace(self::PLACEHOLDER_BLOG,$blog,$customTitle);
+            $customTitle = str_replace(self::PLACEHOLDER_PAGE,$page,$customTitle);
             return htmlentities(strip_tags($customTitle));
         }else{
             return htmlentities(strip_tags($admin_title));
@@ -970,8 +973,12 @@ class AGCA{
 
         <?php } ?>
         <?php if(get_option('agca_wp_logo_custom_link')!=""){ ?>
-            var href = "<?php echo $this->sanitize_html(get_option('agca_wp_logo_custom_link')); ?>";
-            href = href.replace("%BLOG%", "<?php echo $this->sanitize_html(get_bloginfo('wpurl')); ?>");
+
+            <?php
+                $href = get_option('agca_wp_logo_custom_link');
+                $href = str_replace(self::PLACEHOLDER_BLOG, get_bloginfo('wpurl'), $href);
+            ?>
+            var href = "<?php echo esc_url($href); ?>";
             if(href == "%SWITCH%"){
             href = "<?php echo $this->sanitize_html(get_bloginfo('wpurl')); ?>";
             <?php if($this->context == "page"){
@@ -1539,9 +1546,11 @@ class AGCA{
                     jQuery("#adminmenu").before('<div '+additionalStyles+' id="sidebar_adminmenu_logo"><img width="160" src="<?php echo $this->sanitize_html(get_option('agca_admin_menu_brand')); ?>" /></div>');
                     <?php } ?>
                     <?php if(get_option('agca_admin_menu_brand_link')!=""){ ?>
-
-                    var href = "<?php echo $this->sanitize_html(get_option('agca_admin_menu_brand_link')); ?>";
-                    href = href.replace("%BLOG%", "<?php echo $this->sanitize_html(get_bloginfo('wpurl')); ?>");
+                    <?php
+                    $href = get_option('agca_admin_menu_brand_link');
+                    $href = str_replace(self::PLACEHOLDER_BLOG, get_bloginfo('wpurl'), $href);
+                    ?>
+                    var href = "<?php echo esc_url($href); ?>";
 
                     jQuery("#sidebar_adminmenu_logo").attr('onclick','window.open(\"'+ href+ '\");');
                     jQuery("#sidebar_adminmenu_logo").attr('title',href);
@@ -1869,7 +1878,7 @@ class AGCA{
                     <?php } ?>
                     <?php if(get_option('agca_login_photo_href')==true){ ?>
                     var $href = "<?php echo $this->sanitize_html(get_option('agca_login_photo_href')); ?>";
-                    $href = $href.replace("%BLOG%", "<?php echo $this->sanitize_html(get_bloginfo('wpurl')); ?>");
+                    $href = $href.replace("<?php echo self::PLACEHOLDER_BLOG ?>", "<?php echo $this->sanitize_html(get_bloginfo('wpurl')); ?>");
 
                     jQuery("#login h1 a").attr("href",$href);
                     <?php } ?>
@@ -2156,7 +2165,8 @@ class AGCA{
                             'title'=>__('Custom link on admin bar logo.', 'ag-custom-admin').'</br></br>Use:</br><strong>%BLOG%</strong> - '.__('for blog URL.', 'ag-custom-admin').'</br><strong>%SWITCH%</strong> - '.__('to switch betweent admin and site area', 'ag-custom-admin'),
                             'name'=>'agca_wp_logo_custom_link',
                             'label'=>__('Admin bar logo link', 'ag-custom-admin'),
-                            'hint' =>__('Link', 'ag-custom-admin')
+                            'hint' =>__('Link', 'ag-custom-admin'),
+                            'link' => true
                         ));
 
                         $this->print_input(array(
@@ -2727,7 +2737,8 @@ class AGCA{
                             'title'=>__('Change branding logo link</br></br>Use:', 'ag-custom-admin').'</br><strong>%BLOG%</strong> - '. __('for blog URL', 'ag-custom-admin'),
                             'name'=>'agca_admin_menu_brand_link',
                             'label'=>__('Branding logo link', 'ag-custom-admin'),
-                            'hint'=>__('Branding image URL', 'ag-custom-admin')
+                            'hint'=>__('Branding image URL', 'ag-custom-admin'),
+                            'link' => true
                         ));
                         ?>
                     </table>
@@ -2919,6 +2930,7 @@ class AGCA{
         $suffix ='';
         $strAttributes = '';
         $parentAttr = '';
+        $isLink = false;
         if(isset($data['hint'])){
             $strHint = '&nbsp;<p><i>'.$this->sanitize($data['hint']).'</i></p>';
         }
@@ -2930,6 +2942,9 @@ class AGCA{
         }
         if(isset($data['suffix'])){
             $suffix = $data['suffix'];
+        }
+        if(isset($data['link']) && $data['link']){
+            $isLink = true;
         }
         if(isset($data['attributes'])){
             foreach($data['attributes'] as $key=>$val){
@@ -2943,13 +2958,22 @@ class AGCA{
             </th>
             <td>
                 <input id="<?php
+                $value = get_option($data['name']);
+                $value = $isLink ?
+                    (
+                            (
+                                $value === self::PLACEHOLDER_BLOG ||
+                                $value === self::PLACEHOLDER_PAGE
+                            ) ? $value : esc_url($value)
+                    ) :
+                    htmlentities($value);
                 echo $this->sanitize_html($data['name']) ?>"
                        title="<?php echo $this->sanitize_html($data['title']) ?>"
                        type="text"
                        size="47"
                        class="<?php echo $data['disabled'] ? 'disabled' : ''; ?>"
                        name="<?php echo $this->sanitize_html($data['name']) ?>"
-                       value="<?php echo htmlentities(get_option($data['name'])); ?>"
+                       value="<?php echo $value; ?>"
                     <?php echo $data['disabled'] ? 'disabled="disabled"':''; ?> />
                 <?php if(!$data['disabled']) { ?>
                 <a title="<?php _e('Clear', 'ag-custom-admin'); ?>" class="agca_button clear" onClick="jQuery('#<?php echo $this->sanitize_html($data['name']) ?>').val('');"><span class="dashicons clear dashicons-no-alt"></span></a>

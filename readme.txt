@@ -3,8 +3,8 @@ Contributors: cusmin
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&amount=10&item_name=Support+for+AGCA+Development
 Tags: customize dashboard, hide admin bar, customize admin menu, customize login page, hide widgets, admin menu, dashboard, edit admin menu, admin bar, login page, widgets, customize admin
 Requires at least: 3.0
-Tested up to: 6.4.2
-Stable tag: 7.2.1
+Tested up to: 6.4.3
+Stable tag: 7.2.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
@@ -23,9 +23,6 @@ With this plugin you can easily customize WordPress **admin panel**, **login pag
 > <strong>[CUSMIN](https://cusmin.com/upgrade-to-cusmin/?ref=wporg-recommended)</strong><br>
 > Cusmin is the premium version of the Absolutely Glamorous Custom Admin with the advanced features for customization and branding. It's perfect for professionals, but can be also used on personal sites as well.<br><br>
 > Please check how this pro plugin can help you to completely [customize your WordPress dashboard](https://cusmin.com/blog/customize-wordpress-dashboard/?ref=wporg-recommended).<br><br>
-
-> <strong>[PLUGNA](https://plugna.com?ref=wporg)</strong><br>
-> Plugna is a free plugin that can help you to manage WordPress plugins with ease, in a more productive and fun way.<br><br>
 
 = General Settings =
 * Hide **Screen Options** menu
@@ -161,6 +158,9 @@ If you have the latest WordPress and plugin versions, and you still experience s
 14. Custom login page example
 
 == Change Log ==
+
+= 7.2.2 =
+* Maintenance release
 
 = 7.2.1 =
 * WordPress compatibility
