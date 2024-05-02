@@ -4,7 +4,7 @@ Plugin Name: AGCA - Custom Dashboard & Login Page
 Plugin URI: https://cusmin.com/agca
 Description: CHANGE: admin menu, login page, admin bar, dashboard widgets, custom colors, custom CSS & JS, logo & images
 Author: Cusmin
-Version: 7.2.3
+Version: 7.2.4
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com/
@@ -28,7 +28,7 @@ Author URI: https://cusmin.com/
 $agca = new AGCA();
 
 class AGCA{
-    private $agca_version = "7.2.3";
+    private $agca_version = "7.2.4";
     private $colorizer = "";
     private $agca_debug = false;
     private $admin_capabilities;
@@ -316,9 +316,8 @@ class AGCA{
             $customTitle = str_replace(self::PLACEHOLDER_BLOG,$blog,$customTitle);
             $customTitle = str_replace(self::PLACEHOLDER_PAGE,$page,$customTitle);
             return htmlentities(strip_tags($customTitle));
-        }else{
-            return htmlentities(strip_tags($admin_title));
         }
+        return strip_tags($admin_title);
     }
     function agca_get_includes() {
         if(!((get_option('agca_role_allbutadmin')==true) and (current_user_can($this->admin_capability())))){
@@ -902,6 +901,17 @@ class AGCA{
 
     }
 
+    function is_safe_remote_image($url){
+        $imgCheck = wp_safe_remote_get($this->sanitize_html($url));
+        if(!is_wp_error($imgCheck)) {
+            $cid = $imgCheck['headers'];
+            if (strpos($cid->offsetGet('content-type'), 'image/') === 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     function print_admin_bar_scripts(){
         ?>
         <?php if(get_option('agca_remove_top_bar_dropdowns')==true){ ?>
@@ -945,7 +955,7 @@ class AGCA{
             jQuery("ul#wp-admin-bar-root-default li#wp-admin-bar-wp-logo").css("display","none");
 
         <?php } ?>
-        <?php if(get_option('agca_header_logo_custom')!=""){ ?>
+        <?php if(get_option('agca_header_logo_custom')!="" && $this->is_safe_remote_image(get_option('agca_header_logo_custom'))){ ?>
 
             var img_url = '<?php echo $this->sanitize_html($this->sanitize_html(get_option('agca_header_logo_custom'))); ?>';
 
@@ -956,7 +966,7 @@ class AGCA{
             });
 
         <?php } ?>
-        <?php if(get_option('agca_wp_logo_custom')!=""){ ?>
+        <?php if(get_option('agca_wp_logo_custom')!="" && $this->is_safe_remote_image(get_option('agca_wp_logo_custom'))){ ?>
             jQuery("li#wp-admin-bar-wp-logo a.ab-item span.ab-icon")
             .html("<img alt=\"Logo\" style=\"height:32px;margin-top:0\" src=\"<?php echo $this->sanitize_html(get_option('agca_wp_logo_custom')); ?>\" />")
             .css('background-image','none')
@@ -1541,7 +1551,7 @@ class AGCA{
                     if((get_option('agca_role_allbutadmin')==true) and current_user_can($this->admin_capability()) or $this->isCusminActive()){
                     ?>
                     <?php } else{ ?>
-                    <?php if(get_option('agca_admin_menu_brand')!=""){ ?>
+                    <?php if(get_option('agca_admin_menu_brand')!="" && $this->is_safe_remote_image(get_option('agca_admin_menu_brand'))){ ?>
                     additionalStyles = ' style="margin-bottom:-4px" ';
                     jQuery("#adminmenu").before('<div '+additionalStyles+' id="sidebar_adminmenu_logo"><img width="160" src="<?php echo $this->sanitize_html(get_option('agca_admin_menu_brand')); ?>" /></div>');
                     <?php } ?>
@@ -1856,7 +1866,11 @@ class AGCA{
                     <?php if(get_option('agca_login_banner_text')==true){ ?>
                     jQuery("#backtoblog a").html('<?php echo "← " . $this->sanitize_html(strip_tags(get_option('agca_login_banner_text'))); ?>');
                     <?php } ?>
-                    <?php if(get_option('agca_login_photo_url')==true && get_option('agca_login_photo_remove')!=true){ ?>
+                    <?php if(
+                            get_option('agca_login_photo_url')==true &&
+                            get_option('agca_login_photo_remove')!=true &&
+                            $this->is_safe_remote_image(get_option('agca_login_photo_url'))
+                    ){ ?>
                     advanced_url = "<?php echo $this->sanitize_html(get_option('agca_login_photo_url')); ?>";
                     var $url = "url(" + advanced_url + ")";
                     var $a = jQuery("#login h1 a");
