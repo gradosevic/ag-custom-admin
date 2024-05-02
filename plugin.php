@@ -4,7 +4,7 @@ Plugin Name: AGCA - Custom Dashboard & Login Page
 Plugin URI: https://cusmin.com/agca
 Description: CHANGE: admin menu, login page, admin bar, dashboard widgets, custom colors, custom CSS & JS, logo & images
 Author: Cusmin
-Version: 7.2.2
+Version: 7.2.3
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com/
@@ -28,7 +28,7 @@ Author URI: https://cusmin.com/
 $agca = new AGCA();
 
 class AGCA{
-    private $agca_version = "7.2.2";
+    private $agca_version = "7.2.3";
     private $colorizer = "";
     private $agca_debug = false;
     private $admin_capabilities;
@@ -1640,11 +1640,17 @@ class AGCA{
 
                     <?php /*Remove Dashboard widgets*/ ?>
                     <?php
-
+                        ?>
+                        jQuery('.welcome-panel-close').click(function(){
+                          setTimeout(function(){
+                            jQuery("#welcome-panel").removeAttr('style')
+                          }, 0)
+                        });
+                        <?php
                         if(get_option('agca_dashboard_widget_welcome')==true){
                             ?>jQuery("#welcome-panel").css("display","none");<?php
                         }else{
-                            ?>jQuery("#welcome-panel").css("display","block");<?php
+                            ?> jQuery("#welcome-panel:not(.hidden)").css("display","block");<?php
                         }
                         if(get_option('agca_dashboard_widget_health_status')==true){
                             $this->remove_dashboard_widget('dashboard_site_health','normal');
@@ -1853,27 +1859,31 @@ class AGCA{
                     <?php if(get_option('agca_login_photo_url')==true && get_option('agca_login_photo_remove')!=true){ ?>
                     advanced_url = "<?php echo $this->sanitize_html(get_option('agca_login_photo_url')); ?>";
                     var $url = "url(" + advanced_url + ")";
-                    jQuery("#login h1 a").css("background",$url+' no-repeat');
-                    jQuery("#login h1 a").hide();
+                    var $a = jQuery("#login h1 a");
+                    $a.css("background",$url+' no-repeat');
+                    $a.hide();
                     image = jQuery("<img />").attr("src",advanced_url);
                     jQuery(image).on('load', function() {
                         var originalWidth = 326;
                         var widthDiff = this.width - originalWidth;
-                        jQuery("#login h1 a").height(this.height);
-                        jQuery("#login h1 a").width(this.width);
-                        jQuery("#login h1 a").css("background-size",this.width+"px "+this.height+"px");
+                        $a.height(this.height)
+                          .width(this.width)
+                          .css("background-size",this.width+"px "+this.height+"px")
+                          .css("text-indent", "-9999px")
+                          .css("font-size", 0);
+
 
                         var loginWidth = jQuery('#login').width();
                         var originalLoginWidth = 320;
                         var photoWidth = this.width;
 
                         if(loginWidth > photoWidth){
-                            jQuery("#login h1 a").css('margin','auto');
+                            $a.css('margin','auto');
                         }else{
-                            jQuery("#login h1 a").css('margin-left',-(widthDiff/2)+((loginWidth-originalLoginWidth)/2)+"px");
+                            $a.css('margin-left',-(widthDiff/2)+((loginWidth-originalLoginWidth)/2)+"px");
                         }
 
-                        jQuery("#login h1 a").show();
+                        $a.show();
                     });
                     <?php } ?>
                     <?php if(get_option('agca_login_photo_href')==true){ ?>

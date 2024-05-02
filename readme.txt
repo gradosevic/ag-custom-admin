@@ -1,10 +1,10 @@
 === AGCA - Custom Dashboard & Login Page ===
 Contributors: cusmin
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cusmin.com&amount=10&item_name=Support+for+AGCA+Development
-Tags: customize dashboard, hide admin bar, customize admin menu, customize login page, hide widgets, admin menu, dashboard, edit admin menu, admin bar, login page, widgets, customize admin
+Tags: custom dashboard, custom menu, custom admin, custom login, white label
 Requires at least: 3.0
-Tested up to: 6.4.3
-Stable tag: 7.2.2
+Tested up to: 6.5.2
+Stable tag: 7.2.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
@@ -159,22 +159,19 @@ If you have the latest WordPress and plugin versions, and you still experience s
 
 == Change Log ==
 
-= 7.2.2 =
-* Maintenance release
-
-= 7.2.1 =
-* WordPress compatibility
-
-= 7.2 =
-* Fixed issue with the login image
-
-= 7.1.5 =
-* Improved functionality of the admin menu editor (adding new items)
-* Text improvements
+= 7.2.3 =
+* Fixed bug with Welcome box not dismissing
+* Fixed bug with Welcome to WordPress showing on login page over logo
 
 [SEE ALL LOGS](https://plugins.svn.wordpress.org/ag-custom-admin/trunk/changelog.txt)
 
 == Upgrade Notice ==
+
+= 7.2.3 =
+* Bug fixes
+
+= 7.2.2 =
+* Maintenance release
 
 = 7.2.1 =
 * WordPress compatibility

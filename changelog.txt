@@ -1,5 +1,9 @@
 == Change Log ==
 
+= 7.2.3 =
+* Fixed bug with Welcome box not dismissing
+* Fixed bug with Welcome to WordPress showing on login page over logo
+
 = 7.2.2 =
 * Maintenance release
 
