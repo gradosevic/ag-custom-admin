@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=agca@cus
 Tags: custom dashboard, custom menu, custom admin, custom login, white label
 Requires at least: 3.0
 Tested up to: 6.5.2
-Stable tag: 7.2.4
+Stable tag: 7.2.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.txt
 
@@ -159,6 +159,9 @@ If you have the latest WordPress and plugin versions, and you still experience s
 
 == Change Log ==
 
+= 7.2.5 =
+* Removed outdated session-related code
+
 = 7.2.4 =
 * Fixed issue with wrong character in title by default
 * Security improvement
@@ -170,6 +173,9 @@ If you have the latest WordPress and plugin versions, and you still experience s
 [SEE ALL LOGS](https://plugins.svn.wordpress.org/ag-custom-admin/trunk/changelog.txt)
 
 == Upgrade Notice ==
+
+= 7.2.5 =
+* Removed outdated session-related code
 
 = 7.2.4 =
 * Improvements

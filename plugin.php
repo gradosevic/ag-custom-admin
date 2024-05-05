@@ -4,7 +4,7 @@ Plugin Name: AGCA - Custom Dashboard & Login Page
 Plugin URI: https://cusmin.com/agca
 Description: CHANGE: admin menu, login page, admin bar, dashboard widgets, custom colors, custom CSS & JS, logo & images
 Author: Cusmin
-Version: 7.2.4
+Version: 7.2.5
 Text Domain: ag-custom-admin
 Domain Path: /languages
 Author URI: https://cusmin.com/
@@ -28,7 +28,7 @@ Author URI: https://cusmin.com/
 $agca = new AGCA();
 
 class AGCA{
-    private $agca_version = "7.2.4";
+    private $agca_version = "7.2.5";
     private $colorizer = "";
     private $agca_debug = false;
     private $admin_capabilities;
@@ -184,7 +184,6 @@ class AGCA{
     function admin_init(){
 
         $this->agca_register_settings();
-        $this->agca_init_session();
         $isAdminUser = current_user_can($this->admin_capability());
         if(!$isAdminUser || ($isAdminUser && !get_option('agca_role_allbutadmin'))){
             if(get_option('agca_profile_color_scheme')){
@@ -227,14 +226,6 @@ class AGCA{
         add_action('wp_print_scripts', function () {
             wp_enqueue_script ( 'agca-script' );
         }, 2);
-    }
-
-    function agca_init_session(){
-        if (!session_id()){
-            session_start([
-                'read_and_close' => true,
-            ]);
-        }
     }
 
     function checkGET(){
@@ -1132,12 +1123,6 @@ class AGCA{
     function removeCSSComments($customizations){
         $customizations = preg_replace('#/\*.*?\*/#si','',$customizations);
         return $customizations;
-    }
-
-    function agcaAdminSession(){
-        if(!isset($_SESSION["AGCA"])){
-            $_SESSION["AGCA"] = array();
-        }
     }
 
     function getAGCAColor($name){
